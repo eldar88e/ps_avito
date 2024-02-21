@@ -12,6 +12,7 @@ RUN apk --update add \
     redis \
     imagemagick \
     imagemagick-dev \
+    curl \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /app
