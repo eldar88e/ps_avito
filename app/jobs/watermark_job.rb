@@ -7,6 +7,7 @@ class WatermarkJob < ApplicationJob
       next if game.image.attached?
 
       sony_id    = game.sony_id
+      binding.pry
       in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=#{args[:size]}&h=#{args[:size]}"
       sleep rand(1..5)
 
