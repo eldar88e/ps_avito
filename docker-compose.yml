@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+
+  pg:
+    image: postgres:16.1
+    container_name: pg-ps
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      TZ: Europe/Moscow
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - web-net
+
+  web:
+    image: web
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: web-ps
+    environment:
+      DB_USER: admin
+      DB_PASSWORD: admin
+      REDIS_URL: redis://redis:6379/1
+      RAILS_ENV: production
+      TZ: Europe/Moscow
+      SECRET_KEY_BASE: 948b55112005daf9de77df810ed1d73563f13a41303ee158d75dca9399cf128a572e91c588325fd81dd4e5746881007eb11bcca186cbd9800977244e78137b33
+    depends_on:
+      - pg
+      - redis
+    ports:
+      - "3000:3000"
+    volumes:
+      - gems:/usr/local/bundle/
+      - node_modules:/app/node_modules
+    networks:
+      - web-net
+    restart: "unless-stopped"
+
+  redis:
+    image: redis:latest
+    container_name: redis-ps
+    command: redis-server
+    restart: always
+    networks:
+      - web-net
+    volumes:
+      - redis:/data
+
+volumes:
+  gems:
+  node_modules:
+  db_data:
+  redis:
+
+networks:
+  web-net:
