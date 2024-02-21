@@ -1,4 +1,4 @@
-class  < ApplicationJob
+class PopulateGoogleSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
