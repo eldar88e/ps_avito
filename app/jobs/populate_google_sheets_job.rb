@@ -1,4 +1,4 @@
-class PopulateGoogleSheetsJob < ApplicationJob
+class  < ApplicationJob
   queue_as :default
 
   def perform(*args)
@@ -8,7 +8,8 @@ class PopulateGoogleSheetsJob < ApplicationJob
     spreadsheet = session.file_by_id(ENV["FILE_ID"])
     worksheet   = spreadsheet.worksheets.first
 
-    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: 3000 }
+    #ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: 3000 }
+    ActiveStorage::Current.url_options = { protocol: 'http', host: 'server.open-ps.ru' }
 
     games.each_with_index do |game, idx|
       worksheet[idx + 2, 12] = game.name
