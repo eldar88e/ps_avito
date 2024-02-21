@@ -11,7 +11,8 @@ class WatermarkJob < ApplicationJob
       in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=#{args[:size]}&h=#{args[:size]}"
       sleep rand(1..5)
 
-      image = Magick::Image.read(in_img_url).first
+      image_data = open(in_img_url).read
+      image      = Magick::Image.read(image_data).first
 
       frame = Magick::Image.read('app/assets/images/digit_game.png').first
       frame.resize_to_fit!(image.columns, image.rows)
