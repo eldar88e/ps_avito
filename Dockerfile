@@ -13,6 +13,7 @@ RUN apk --update add \
     imagemagick \
     imagemagick-dev \
     curl \
+    libjpeg-turbo \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /app

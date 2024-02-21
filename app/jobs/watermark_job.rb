@@ -11,7 +11,7 @@ class WatermarkJob < ApplicationJob
       sleep rand(1..5)
       binding.pry
       image_data = open(in_img_url).read
-      image      = Magick::Image.read(image_data).first
+      image      = Magick::Image.read(in_img_url).first
 
       frame = Magick::Image.read('app/assets/images/digit_game.png').first
       frame.resize_to_fit!(image.columns, image.rows)
