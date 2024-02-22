@@ -19,7 +19,6 @@ gem "bootsnap", require: false
 gem 'rmagick'
 gem 'google_drive'
 gem 'dotenv', '~> 3.0'
-gem 'open-uri'
 
 # gem "image_processing", "~> 1.2"
 

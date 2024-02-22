@@ -4383,7 +4383,6 @@
     #morphElements(currentElement, newElement, morphStyle = "outerHTML") {
       this.isMorphingTurboFrame = this.#isFrameReloadedWithMorph(currentElement);
       Idiomorph.morph(currentElement, newElement, {
-        ignoreActiveValue: true,
         morphStyle,
         callbacks: {
           beforeNodeAdded: this.#shouldAddElement,
@@ -4710,8 +4709,7 @@
     refresh(url, requestId) {
       const isRecentRequest = requestId && this.recentRequests.has(requestId);
       if (!isRecentRequest) {
-        this.cache.exemptPageFromPreview();
-        this.visit(url, { action: "replace" });
+        this.visit(url, { action: "replace", shouldCacheSnapshot: false });
       }
     }
     connectStreamSource(source) {
@@ -8311,7 +8309,7 @@
 
 @hotwired/turbo/dist/turbo.es2017-esm.js:
   (*!
-  Turbo 8.0.2
+  Turbo 8.0.3
   Copyright © 2024 37signals LLC
    *)
 */

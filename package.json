@@ -24,5 +24,6 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "repository": "git@gitlab.com:eldar8394139/ps_avito.git"
 }
