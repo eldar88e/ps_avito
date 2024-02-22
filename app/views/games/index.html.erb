@@ -4,11 +4,13 @@
   <ul role="list" class="divide-y divide-gray-100">
     <% @sony_games.each do |game| %>
       <li class="flex justify-between gap-x-6 py-5">
-        <div style="display: inline-block;">
-          <a href='<%= url_for(game.image) %>'>
-            <%= image_tag url_for(game.image), style: 'width: 100px;' if game.image.attached? %>
-          </a>
-        </div>
+        <% if game.image.attached? %>
+          <div style="display: inline-block;">
+            <a href='<%= url_for(game.image) %>'>
+              <%= image_tag url_for(game.image), style: 'width: 100px;' if game.image.attached? %>
+            </a>
+          </div>
+        <% end %>
         <div style="display: inline-block;">
           <div><%= game.sony_id %></div>
           <h4><%= "#{game.top}. #{game.name}" %></h4>

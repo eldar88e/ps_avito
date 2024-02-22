@@ -50,6 +50,7 @@ class TopGamesJob < ActiveJob::Base
     end
 
     Game.where.not(touched_run_id: run_id).destroy_all
+    Run.finish
   end
 
   private

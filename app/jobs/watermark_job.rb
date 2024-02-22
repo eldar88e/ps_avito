@@ -19,8 +19,8 @@ class WatermarkJob < ApplicationJob
         exit 0
       end
 
-      add_frame(game)
-      add_platform_logo(game, image)
+      add_frame(image)
+      add_platform_logo(image, game)
       add_flag_logo(image) if game.rus_screen || game.rus_voice
 
       temp_file = Tempfile.new(['image', '.jpg'])
@@ -49,7 +49,7 @@ class WatermarkJob < ApplicationJob
     image.composite!(frame, 0, 0, Magick::OverCompositeOp)
   end
 
-  def add_platform_logo(game, image)
+  def add_platform_logo(image, game)
     platform_logo =
       if game.platform == 'PS5, PS4'
         'ps5_ps4'
