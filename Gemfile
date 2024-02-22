@@ -6,7 +6,7 @@ gem "rails", "~> 7.1.3"
 gem "sprockets-rails"
 gem "pg", "~> 1.5"
 gem "good_job", "~> 3.24"
-gem 'mysql2'
+gem 'mysql2', "~> 0.5.6"
 gem "puma", ">= 5.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
