@@ -37,6 +37,7 @@ services:
     image: good_job
     build: .
     container_name: good_job-ps
+    entrypoint: []
     command: bundle exec good_job start
     volumes:
       - gems:/usr/local/bundle/
