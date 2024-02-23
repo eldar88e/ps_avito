@@ -10,7 +10,7 @@ Rails.application.configure do
     storage_maintenance: {
       # each recurring job must have a unique key
       cron: "22 14 * * *", # Every day at 00:00 (Bangkok time) cron-style scheduling format by fugit gem
-      class: "PopulateGoogleSheetsJob", # reference the Job class with a string
+      class: "TopGamesJob", # reference the Job class with a string
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
       description: "Populate the Google Sheet for the Avito." # optional description that appears in Dashboard
     }

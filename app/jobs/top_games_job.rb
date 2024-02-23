@@ -51,6 +51,8 @@ class TopGamesJob < ActiveJob::Base
 
     Game.where.not(touched_run_id: run_id).destroy_all
     Run.finish
+
+    PopulateGoogleSheetsJob.perform_now
   end
 
   private
