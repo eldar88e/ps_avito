@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   root "games#index"
 
   mount GoodJob::Engine => '/good_job'
+
+  get '/images/:filename', to: 'images#show', as: 'image'
 end

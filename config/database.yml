@@ -15,7 +15,7 @@ test:
 
 production:
   <<: *default
-  host: <%= ENV["DB_HOST"] %>
+  host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
   database: ps_avito_production
   username: <%= ENV["DB_USER"] %>
   password: <%= ENV["DB_PASSWORD"] %>

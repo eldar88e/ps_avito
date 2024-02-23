@@ -446,7 +446,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   dotenv (~> 3.0)
-  good_job (~> 3.24)
+  good_job (~> 3)
   google_drive
   jbuilder
   jsbundling-rails
