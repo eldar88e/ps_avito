@@ -7,7 +7,7 @@
         <% if game.image.attached? %>
           <div style="display: inline-block;">
             <a href='#'>
-              <%= image_tag game.image.url, style: 'width: 100px;' %>
+              <%= image_tag url_for(game.image), style: 'width: 100px;' %>
             </a>
           </div>
         <% end %>
