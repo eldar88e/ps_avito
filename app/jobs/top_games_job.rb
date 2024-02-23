@@ -55,6 +55,9 @@ class TopGamesJob < ActiveJob::Base
     PopulateGoogleSheetsJob.perform_now
 
     TelegramNotifier.new.report('👌Google sheets updated!')
+  rescue => e
+    Rails.logger.error "Error executing TopGamesJob || #{e}"
+    TelegramNotifier.new.report("Error updating Google sheets\n#{e}")
   end
 
   private

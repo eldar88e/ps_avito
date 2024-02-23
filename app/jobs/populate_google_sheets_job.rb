@@ -11,13 +11,15 @@ class PopulateGoogleSheetsJob < ApplicationJob
     #ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: 3000 }
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'server.open-ps.ru' }
 
-    games.each_with_index do |game, idx|
-      worksheet[idx + 2, 12] = game.name
-      worksheet[idx + 2, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
-      worksheet[idx + 2, 14] = game.price
-      #worksheet[idx + 2, 15] = game.image.url
+    games.each_slice(100) do |games_slice |
+      games_slice.each_with_index do |game, idx|
+        worksheet[idx + 2, 12] = game.name
+        worksheet[idx + 2, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
+        worksheet[idx + 2, 14] = game.price
+        #worksheet[idx + 2, 15] = game.image.url
+      end
+      worksheet.save
     end
-    worksheet.save
   end
 
   private

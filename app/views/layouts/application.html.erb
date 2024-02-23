@@ -11,7 +11,25 @@
 
   <body>
     <header>
-
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <% if user_signed_in? %>
+        <div class="user">Hello <span style="font-weight: bold;"><%= current_user.email %></span>!</div>
+        <div style="display: flex">
+          <div style="margin-right: 5px;">
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
+          </div>
+          <div>
+            <!---
+            <%= link_to "Edit", edit_user_registration_path, class: 'btn btn-primary' %>
+            --->
+          </div>
+        </div>
+      <% else %>
+        <!---
+        <%= button_to "Sign in", new_user_session_path, class: 'btn btn-primary' %>
+        --->
+      <% end %>
     </header>
     <main>
       <%= yield %>
