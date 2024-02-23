@@ -6,7 +6,6 @@ gem "rails", "~> 7.1.3"
 gem "sprockets-rails"
 gem "pg", "~> 1.5"
 gem "good_job", "~> 3"
-gem 'mysql2', "~> 0.5.6"
 gem "puma", ">= 5.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
@@ -16,9 +15,10 @@ gem "jbuilder"
 gem "redis", ">= 4.0.1"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
+gem 'dotenv'
 gem 'rmagick'
 gem 'google_drive'
-gem 'dotenv', '~> 3.0'
+gem 'mysql2'
 
 # gem "image_processing", "~> 1.2"
 
