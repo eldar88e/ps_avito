@@ -53,6 +53,8 @@ class TopGamesJob < ActiveJob::Base
     Run.finish
 
     PopulateGoogleSheetsJob.perform_now
+    tg_notifier = TelegramNotifier.new
+    tg_notifier.report('Job the PopulateGoogleSheetsJob is done!')
   end
 
   private
