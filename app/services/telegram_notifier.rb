@@ -1,3 +1,5 @@
+require 'telegram/bot'
+
 class TelegramNotifier
   def report(message)
     unless message.present?
