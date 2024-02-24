@@ -16,7 +16,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
         worksheet[idx + 2, 12] = game.name
         worksheet[idx + 2, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
         worksheet[idx + 2, 14] = game.price
-        #worksheet[idx + 2, 15] = game.image.url
+        worksheet[idx + 2, 15] = game.image.url
       end
       worksheet.save
     end

@@ -58,6 +58,7 @@ class TopGamesJob < ActiveJob::Base
   rescue => e
     Rails.logger.error "Error executing TopGamesJob || #{e}"
     TelegramNotifier.new.report("Error updating Google sheets\n#{e}")
+    raise
   end
 
   private
