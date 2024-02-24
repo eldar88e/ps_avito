@@ -8,7 +8,7 @@ Rails.application.configure do
   # Cron jobs
   config.good_job.cron = {
     storage_maintenance: {
-      cron: "0 10,15 * * *",
+      cron: "30 7,14 * * *",
       class: "TopGamesJob",
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
       description: "Populate the Google Sheet for the Avito." # optional description that appears in Dashboard
