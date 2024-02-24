@@ -25,7 +25,7 @@ services:
       - pg
       - redis
     ports:
-      - "80:3000"
+      - "3000:3000"
     volumes:
       - gems:/usr/local/bundle/
       - node_modules:/app/node_modules
@@ -58,6 +58,16 @@ services:
       - web-net
     volumes:
       - redis:/data
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-ps
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
 
 volumes:
   gems:
