@@ -10,7 +10,7 @@ class WatermarkJob < ApplicationJob
 
       sony_id    = game.sony_id
       in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{args[:size]}&h=#{args[:size]}"
-      sleep rand(2..7)
+      sleep rand(1..5)
 
       begin
         image = Magick::Image.read(in_img_url).first
@@ -56,7 +56,7 @@ class WatermarkJob < ApplicationJob
         'ps5_ps4'
       elsif game.platform == 'PS5'
         'ps5'
-      elsif game.platform == 'PS4'
+      elsif game.platform.match?(/PS4/)
         'ps4'
       end
     logo = Magick::Image.read("app/assets/images/#{platform_logo}.png").first
