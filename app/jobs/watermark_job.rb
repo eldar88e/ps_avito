@@ -1,4 +1,4 @@
-#WatermarkJob.perform_now   # (size: 1080)
+# WatermarkJob.perform_now(size: 1080)
 
 class WatermarkJob < ApplicationJob
   queue_as :default
@@ -9,8 +9,7 @@ class WatermarkJob < ApplicationJob
       next if game.image.attached?
 
       sony_id    = game.sony_id
-      size       = [1080, 1440, 1200, 1980].sample
-      in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{size}&h=#{size}"
+      in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{args[:size]}&h=#{args[:size]}"
       sleep rand(2..7)
 
       begin

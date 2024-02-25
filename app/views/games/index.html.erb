@@ -1,8 +1,8 @@
 <div class="container">
   <h1>Игры PlayStation</h1>
-  <div>Всего <%= @sony_games.length %> игр.</div>
+  <div>Всего <%= @games.length %> игр.</div>
   <ul role="list" class="divide-y divide-gray-100">
-    <% @sony_games.each do |game| %>
+    <% @games.each do |game| %>
       <li class="flex justify-between gap-x-6 py-5">
         <% if game.image.attached? %>
           <div style="display: inline-block;">
