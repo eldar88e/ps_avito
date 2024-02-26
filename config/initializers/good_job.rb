@@ -9,7 +9,7 @@ Rails.application.configure do
   config.good_job.cron = {
     storage_maintenance: {
       cron: "30 10,19 * * *",
-      class: "TopGamesJob",
+      class: "MainPopulateJob",
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
       description: "Populate the Google Sheet for the Avito."
     }
