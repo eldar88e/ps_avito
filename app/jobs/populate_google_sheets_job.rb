@@ -23,7 +23,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
       worksheet.save
     end
   rescue => e
-    TelegramService.report("Error #{self.class} || #{e.message}")
+    TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
   end
 

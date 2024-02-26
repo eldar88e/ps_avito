@@ -6,6 +6,6 @@ class MainPopulateJob < ApplicationJob
     WatermarkJob.perform_now(size: 1080)
     PopulateGoogleSheetsJob.perform_now
 
-    TelegramNotifier.report('👌Google sheets updated!')
+    TelegramService.new('👌Google sheets updated!').report
   end
 end

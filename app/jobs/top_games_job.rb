@@ -24,7 +24,7 @@ class TopGamesJob < ActiveJob::Base
     Game.where.not(touched_run_id: run_id).destroy_all
     Run.finish
   rescue => e
-    TelegramService.report("Error #{self.class} || #{e.message}")
+    TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
   end
 
