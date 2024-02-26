@@ -13,6 +13,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
     idx = 2
     games.each_slice(100) do |games_slice |
       games_slice.each do |game|
+        worksheet[idx, 7]  = game.sony_id
         worksheet[idx, 12] = game.name
         worksheet[idx, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
         worksheet[idx, 14] = game.price
@@ -21,6 +22,9 @@ class PopulateGoogleSheetsJob < ApplicationJob
       end
       worksheet.save
     end
+  rescue => e
+    TelegramService.report("Error #{self.class} || #{e.message}")
+    raise
   end
 
   private

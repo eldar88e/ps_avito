@@ -40,6 +40,9 @@ class WatermarkJob < ApplicationJob
       temp_file.close
       temp_file.unlink
     end
+  rescue => e
+    TelegramService.report("Error #{self.class} || #{e.message}")
+    raise
   end
 
   private

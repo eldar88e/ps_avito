@@ -1,7 +1,7 @@
 require 'telegram/bot'
 
-class TelegramNotifier
-  def report(message)
+class TelegramService
+  def self.report(message)
     unless message.present?
       log 'An empty message has been sent to Telegram!', :red
       return
@@ -12,7 +12,7 @@ class TelegramNotifier
 
   private
 
-  def tg_send(message)
+  def self.tg_send(message)
     [TELEGRAM_CHAT_ID.to_s.split(',')].flatten.each do |user_id|
       message_limit = 4000
       message_count = message.size / message_limit + 1
@@ -29,7 +29,7 @@ class TelegramNotifier
     nil
   end
 
-  def escape(text)
+  def self.escape(text)
     text.gsub(/\[.*?m/, '').gsub(/([-_*\[\]()~`>#+=|{}.!])/, '\\\\\1')
   end
 end
