@@ -1,0 +1,22 @@
+<div class="container">
+  <% if user_signed_in? %>
+    <h1>Игра <%= @game.name %></h1>
+    <ul role="list" class="divide-y divide-gray-100">
+      <li class="flex justify-between gap-x-6 py-5">
+        <% if @game.image.attached? %>
+          <div style="display: inline-block;">
+            <a href='#'>
+              <%= image_tag url_for(@game.image) %>
+            </a>
+          </div>
+        <% end %>
+        <div style="display: inline-block;">
+          <div><%= @game.sony_id %></div>
+          <h4><%= "#{@game.top}. #{@game.name}" %></h4>
+        </div>
+      </li>
+    </ul>
+  <% else %>
+    <h3>Увы вы не автризованы(</h3>
+  <% end %>
+</div>

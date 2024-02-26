@@ -1,4 +1,4 @@
-#WatermarkJob.perform_now(size: 1080)
+# WatermarkJob.perform_now(size: 1080)
 
 class WatermarkJob < ApplicationJob
   queue_as :default
@@ -9,14 +9,15 @@ class WatermarkJob < ApplicationJob
       next if game.image.attached?
 
       sony_id    = game.sony_id
-      in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=#{args[:size]}&h=#{args[:size]}"
-      sleep rand(2..7)
+      in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{args[:size]}&h=#{args[:size]}"
+      sleep rand(1..3)
 
       begin
         image = Magick::Image.read(in_img_url).first
       rescue => e
         Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-        exit 0
+        TelegramService.new("Bad sony_id #{sony_id} skipped!").report
+        next
       end
 
       add_frame(image)
@@ -39,6 +40,9 @@ class WatermarkJob < ApplicationJob
       temp_file.close
       temp_file.unlink
     end
+  rescue => e
+    TelegramService.new("Error #{self.class} || #{e.message}").report
+    raise
   end
 
   private
@@ -55,7 +59,7 @@ class WatermarkJob < ApplicationJob
         'ps5_ps4'
       elsif game.platform == 'PS5'
         'ps5'
-      elsif game.platform == 'PS4'
+      elsif game.platform.match?(/PS4/)
         'ps4'
       end
     logo = Magick::Image.read("app/assets/images/#{platform_logo}.png").first
