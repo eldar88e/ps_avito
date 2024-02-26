@@ -16,7 +16,7 @@ class WatermarkJob < ApplicationJob
         image = Magick::Image.read(in_img_url).first
       rescue => e
         Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-        TelegramNotifier.new.report("Bad sony_id #{sony_id} skipped!")
+        TelegramService.new.report("Bad sony_id #{sony_id} skipped!")
         next
       end
 
