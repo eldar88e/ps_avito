@@ -26,7 +26,7 @@ class GameImageDownloaderJob < ApplicationJob
     if response.status == 200 || response.headers['content-type'].match?(/image/)
       response.body
     else
-      Rails.logger.error "Class: #{self.class} || Error message: Sony image is not available! URL: #{url}}"
+      Rails.logger.error "Class: #{self.class} || Error message: Sony image is not available! URL: #{url}"
       TelegramService.new("Sony image is not available\n#{url}").report
       nil
     end
