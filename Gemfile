@@ -21,6 +21,7 @@ gem 'google_drive'
 gem 'mysql2'
 gem 'telegram-bot-ruby', "~> 0.19"
 gem 'devise'
+gem 'kaminari'
 
 # gem "image_processing", "~> 1.2"
 

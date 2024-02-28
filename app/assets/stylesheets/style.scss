@@ -1,0 +1,15 @@
+nav.pagination {
+  margin: 1em 0;
+}
+
+ul.pagination {
+  li.page-item.page.current {
+    position: relative;
+    display: block;
+    padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: var(--bs-pagination-active-bg);
+    border-color: var(--bs-pagination-active-border-color);
+  }
+}

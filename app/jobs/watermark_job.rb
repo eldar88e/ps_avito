@@ -1,5 +1,3 @@
-# WatermarkJob.perform_now(size: 1080)
-
 class WatermarkJob < ApplicationJob
   queue_as :default
 

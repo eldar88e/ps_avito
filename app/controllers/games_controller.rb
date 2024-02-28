@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   def index
-    @games = Game.all.order(:top).limit(36)
+    @games = Game.order(:top).page(params[:page]).per(36)
   end
 
   def show
