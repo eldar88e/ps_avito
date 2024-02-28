@@ -17,7 +17,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
         worksheet[idx, 12] = game.name
         worksheet[idx, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
         worksheet[idx, 14] = game.price
-        worksheet[idx, 15] = rails_blob_url(game.image, host: 'server.open-ps.ru')
+        worksheet[idx, 15] = game.image.attached? ? rails_blob_url(game.image, host: 'server.open-ps.ru') : nil
         idx += 1
       end
       worksheet.save
