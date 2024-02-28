@@ -3,6 +3,7 @@ class MainPopulateJob < ApplicationJob
 
   def perform(*args)
     TopGamesJob.perform_now
+    GameImageDownloaderJob.perform_now
     WatermarkJob.perform_now
     PopulateGoogleSheetsJob.perform_now
 
