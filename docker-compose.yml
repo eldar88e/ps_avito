@@ -27,8 +27,9 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      - ./game_images:/app/game_images
       - ./storage:/app/storage
-      - gems:/usr/local/bundle/
+      - gems:/usr/local/bundle
       - node_modules:/app/node_modules
     networks:
       - web-net
@@ -42,7 +43,7 @@ services:
     entrypoint: []
     command: bundle exec good_job start
     volumes:
-      - gems:/usr/local/bundle/
+      - gems:/usr/local/bundle
       - node_modules:/app/node_modules
     depends_on:
       - pg
