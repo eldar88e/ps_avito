@@ -17,6 +17,7 @@ class GameImageDownloaderJob < ApplicationJob
       File.open(img_path, 'wb') { |local_file| local_file.write(img) }
       sleep rand(1..3)
     end
+    nil
   end
 
   private
