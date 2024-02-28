@@ -1,0 +1,21 @@
+<li class="list-group-item list-group-item-action" id="setting_<%= setting.id %>">
+  <%= form_with(model: setting, url: setting_path(setting.id), method: :patch, format: :turbo_stream) do |form| %>
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <%= setting.var %>
+      </div>
+
+      <div class="col-12 col-md-3">
+        <%= form.text_field :value, value: setting.value, class: 'form-label', style: 'width: 100%' %>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <%= form.text_field :description, value: setting.description, class: 'form-label', style: 'width: 100%; padding: 2px;' %>
+      </div>
+
+      <div class="col-12 col-md-1">
+        <%= form.submit 'Edite', class: 'btn btn-secondary', style: 'width: 100%; padding: 2px;' %>
+      </div>
+    </div>
+  <% end %>
+</li>

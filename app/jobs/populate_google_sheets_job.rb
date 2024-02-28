@@ -1,15 +1,15 @@
 class PopulateGoogleSheetsJob < ApplicationJob
+  include Rails.application.routes.url_helpers
   queue_as :default
 
   def perform(*args)
+    file_id     = Setting.all.pluck(:var, :value).to_h['google_table_id']
     games       = Game.all.order(:top)
 
     session     = GoogleDrive::Session.from_service_account_key('key.json')
-    spreadsheet = session.file_by_id(ENV["FILE_ID"])
+    spreadsheet = session.file_by_id(file_id)
     worksheet   = spreadsheet.worksheets.first
 
-    #ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: 3000 }
-    ActiveStorage::Current.url_options = { protocol: 'http', host: 'server.open-ps.ru' }
     idx = 2
     games.each_slice(100) do |games_slice |
       games_slice.each do |game|
@@ -17,11 +17,12 @@ class PopulateGoogleSheetsJob < ApplicationJob
         worksheet[idx, 12] = game.name
         worksheet[idx, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
         worksheet[idx, 14] = game.price
-        worksheet[idx, 15] = game.image.url
+        worksheet[idx, 15] = rails_blob_url(game.image, host: 'server.open-ps.ru')
         idx += 1
       end
       worksheet.save
     end
+    nil
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
