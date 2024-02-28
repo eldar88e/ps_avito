@@ -37,3 +37,4 @@
 /node_modules
 /key.json
 /game_images/*
+/.DS_Store

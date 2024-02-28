@@ -8,8 +8,8 @@ class WatermarkJob < ApplicationJob
       next if game.image.attached?
 
       sony_id    = game.sony_id
-      in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{size}&h=#{size}"
-      sleep rand(1..3)
+      #in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{size}&h=#{size}"
+      #sleep rand(1..3)
 
       begin
         image = Magick::Image.read(in_img_url).first
