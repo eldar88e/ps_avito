@@ -10,12 +10,14 @@ class WatermarkJob < ApplicationJob
       sony_id    = game.sony_id
       #in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{size}&h=#{size}"
       #sleep rand(1..3)
+      img_name   = "#{sony_id}_#{size}"
+      in_img_url = "./game_images/#{img_name}.jpg"
 
       begin
         image = Magick::Image.read(in_img_url).first
       rescue => e
         Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-        TelegramService.new("Bad sony_id #{sony_id} skipped!").report
+        TelegramService.new("The picture #{img_name} is missing!").report
         next
       end
 

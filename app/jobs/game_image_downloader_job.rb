@@ -14,9 +14,6 @@ class GameImageDownloaderJob < ApplicationJob
       img        = URI.open(in_img_url)
       File.open(img_path, 'wb') { |local_file| local_file.write(img.read) }
       sleep rand(1..3)
-
-      ###
-      puts "Saved!"
     end
   end
 end
