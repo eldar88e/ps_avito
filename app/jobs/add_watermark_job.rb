@@ -6,7 +6,7 @@ class AddWatermarkJob < ApplicationJob
     site  = args[:site]
     games = Game.order(:top)
     games.each do |game|
-      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site } && args[:rewrite].nil?
+      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site } && args[:rewrite] == false
 
       if args[:rewrite] && game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
         game.images.each { |image| image.purge if image.blob.metadata[:site] == site }
