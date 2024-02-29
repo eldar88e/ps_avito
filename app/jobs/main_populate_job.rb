@@ -6,7 +6,7 @@ class MainPopulateJob < ApplicationJob
 
     GameImageDownloaderJob.perform_now
 
-    WatermarksSheetsJob
+    WatermarksSheetsJob.perform_now
 
     TelegramService.new('👌Google sheets updated!').report
   end
