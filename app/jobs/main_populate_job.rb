@@ -1,7 +1,7 @@
 class MainPopulateJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(**args)
     TopGamesJob.perform_now
 
     GameImageDownloaderJob.perform_now

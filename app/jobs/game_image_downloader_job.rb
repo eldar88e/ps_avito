@@ -1,7 +1,7 @@
 class GameImageDownloaderJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(**args)
     size  = Setting.pluck(:var, :value).to_h['game_img_size']
     games = Game.order(:top)
     games.each do |game|

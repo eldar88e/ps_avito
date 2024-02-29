@@ -2,7 +2,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(*args)
+  def perform(**args)
     file_id     = Setting.pluck(:var, :value).to_h["tid_#{args[:site]}"]
     games       = Game.order(:top)
 
