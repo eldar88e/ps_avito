@@ -22,12 +22,13 @@ gem 'mysql2'
 gem 'telegram-bot-ruby', "~> 0.19"
 gem 'devise'
 gem 'kaminari'
+gem 'pry'
 
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
-  gem 'pry'
+  #gem 'pry'
 end
 
 group :development do

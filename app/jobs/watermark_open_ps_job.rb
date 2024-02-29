@@ -1,11 +1,17 @@
-class WatermarkJob < ApplicationJob
+class WatermarkOpenPsJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
     size  = Setting.all.pluck(:var, :value).to_h['game_img_size']
     games = Game.order(:top)
     games.each do |game|
-      next if game.image.attached?
+      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == 'open-ps' }
+
+      if args[:rewrite].nil? && game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
+        game.images.each do |image|
+          image.purge if image.blob.metadata[:site] == site
+        end
+      end
 
       sony_id    = game.sony_id
       img_name   = "#{sony_id}_#{size}"
@@ -28,7 +34,7 @@ class WatermarkJob < ApplicationJob
       temp_file.flush
 
       name_path = "#{sony_id}_#{size}.jpg"
-      game.image.attach(io: File.open(temp_file.path), filename: name_path, content_type: 'image/jpeg')
+      game.images.attach(io: File.open(temp_file.path), filename: name_path, content_type: 'image/jpeg', metadata: { site: 'open-ps' })
 
       save_game(game)
 

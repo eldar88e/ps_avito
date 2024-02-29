@@ -3,7 +3,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    file_id     = Setting.all.pluck(:var, :value).to_h['google_table_id']
+    file_id     = Setting.all.pluck(:var, :value).to_h["tid_#{args[:site]}"]
     games       = Game.all.order(:top)
 
     session     = GoogleDrive::Session.from_service_account_key('key.json')
@@ -15,9 +15,9 @@ class PopulateGoogleSheetsJob < ApplicationJob
       games_slice.each do |game|
         worksheet[idx, 7]  = game.sony_id
         worksheet[idx, 12] = game.name
-        worksheet[idx, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
+        worksheet[idx, 13] = description(game)
         worksheet[idx, 14] = game.price
-        worksheet[idx, 15] = game.image.attached? ? rails_blob_url(game.image, host: 'server.open-ps.ru') : nil
+        worksheet[idx, 15] = make_image(game, args[:site])
         idx += 1
       end
       worksheet.save
@@ -30,17 +30,26 @@ class PopulateGoogleSheetsJob < ApplicationJob
 
   private
 
-  def description(name, rus_voice, rus_screen, platform)
+  def make_image(game, site)
+    if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
+      image = game.images.find { |i| i.blob.metadata[:site] == site }
+      rails_blob_url(image, host: 'server.open-ps.ru')
+    else
+      nil
+    end
+  end
+
+  def description(game)
     <<~DESCR
-      Игра #{name}
+      Игра #{game.name}
   
-      Русская озвучка: #{rus_voice ? 'Есть' : 'Нет'}
-      Русская субтитры: #{rus_screen ? 'Есть' : 'Нет'}
+      Русская озвучка: #{game.rus_voice ? 'Есть' : 'Нет'}
+      Русская субтитры: #{game.rus_screen ? 'Есть' : 'Нет'}
       
-      Платформа: #{platform}
+      Платформа: #{game.platform}
   
       Цена указана с учетом февральской акции! Предложение актуально до 29 февраля!
-      Наша команда «OPEN PS STORE»занимается оформлением игр и подписок более 3-х лет.
+      Наша команда «OPEN PS STORE» занимается оформлением игр и подписок более 3-х лет.
       Работаем каждый день с 09:00 до 23:30 по Московскому времени.
 
       ⭐️ Быстрое оформление, от 3 минут
