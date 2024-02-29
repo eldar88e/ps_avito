@@ -3,6 +3,7 @@ require 'telegram/bot'
 class TelegramService
   def initialize(message)
     @message = message
+    @chat_id = Setting.all.pluck(:var, :value).to_h['telegram_chat_id']
   end
   def report
     unless @message.present?
@@ -16,7 +17,7 @@ class TelegramService
   private
 
   def tg_send
-    [TELEGRAM_CHAT_ID.to_s.split(',')].flatten.each do |user_id|
+    [@chat_id.to_s.split(',')].flatten.each do |user_id|
       message_limit = 4000
       message_count = @message.size / message_limit + 1
       Telegram::Bot::Client.run(TELEGRAM_BOT_TOKEN) do |bot|

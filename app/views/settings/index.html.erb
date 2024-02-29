@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Settings</h1>
+
+  <ul class="list-group">
+    <%= render @settings %>
+    <%= render '/settings/new' %>
+  </ul>
+
+  <%= turbo_frame_tag :settings, class: "list-group" do %>
+  <% end %>
+</div>

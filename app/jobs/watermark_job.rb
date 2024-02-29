@@ -1,22 +1,21 @@
-# WatermarkJob.perform_now(size: 1080)
-
 class WatermarkJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
+    size  = Setting.all.pluck(:var, :value).to_h['game_img_size']
     games = Game.order(:top)
     games.each do |game|
       next if game.image.attached?
 
       sony_id    = game.sony_id
-      in_img_url = "https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{sony_id}/0/image?w=#{args[:size]}&h=#{args[:size]}"
-      sleep rand(1..3)
+      img_name   = "#{sony_id}_#{size}"
+      in_img_url = "./game_images/#{img_name}.jpg"
 
       begin
         image = Magick::Image.read(in_img_url).first
       rescue => e
         Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-        TelegramService.new("Bad sony_id #{sony_id} skipped!").report
+        TelegramService.new("The picture #{img_name} is missing!").report
         next
       end
 
@@ -24,28 +23,33 @@ class WatermarkJob < ApplicationJob
       add_platform_logo(image, game)
       add_flag_logo(image) if game.rus_screen || game.rus_voice
 
-      temp_file = Tempfile.new(['image', '.jpg'])
+      temp_file = Tempfile.new(%w[image .jpg])
       image.write(temp_file.path)
       temp_file.flush
 
-      name_path = "#{sony_id}_#{args[:size]}.jpg"
+      name_path = "#{sony_id}_#{size}.jpg"
       game.image.attach(io: File.open(temp_file.path), filename: name_path, content_type: 'image/jpeg')
 
-      if game.save
-        # success!
-      else
-        Rails.logger.error "Error save attach image for game id: #{game.id}"
-      end
+      save_game(game)
 
       temp_file.close
       temp_file.unlink
     end
+    nil
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
   end
 
   private
+
+  def save_game(game)
+    if game.save
+      # success!
+    else
+      Rails.logger.error "Error save attach image for game id: #{game.id}"
+    end
+  end
 
   def add_frame(image)
     frame = Magick::Image.read('app/assets/images/digit_game.png').first

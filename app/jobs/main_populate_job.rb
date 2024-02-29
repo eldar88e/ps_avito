@@ -3,7 +3,8 @@ class MainPopulateJob < ApplicationJob
 
   def perform(*args)
     TopGamesJob.perform_now
-    WatermarkJob.perform_now(size: 1080)
+    GameImageDownloaderJob.perform_now
+    WatermarkJob.perform_now
     PopulateGoogleSheetsJob.perform_now
 
     TelegramService.new('👌Google sheets updated!').report
