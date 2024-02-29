@@ -2,16 +2,14 @@ class AddWatermarkJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    size  = Setting.all.pluck(:var, :value).to_h['game_img_size']
+    size  = Setting.pluck(:var, :value).to_h['game_img_size']
     site  = args[:site]
     games = Game.order(:top)
     games.each do |game|
       next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site } && args[:rewrite].nil?
 
-      if args[:rewrite].nil? && game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
-        game.images.each do |image|
-          image.purge if image.blob.metadata[:site] == site
-        end
+      if args[:rewrite] && game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
+        game.images.each { |image| image.purge if image.blob.metadata[:site] == site }
       end
 
       sony_id    = game.sony_id
@@ -47,7 +45,6 @@ class AddWatermarkJob < ApplicationJob
 
       temp_file.close
       temp_file.unlink
-      binding.pry
     end
     nil
   rescue => e
@@ -83,7 +80,7 @@ class AddWatermarkJob < ApplicationJob
 
   def add_flag_logo(image, site)
     logo = Magick::Image.read("app/assets/images/#{site}_ru.png").first
-    logo.resize_to_fit!(image.columns / 23, image.rows / 23)
+    logo.resize_to_fit!(image.columns / 24, image.rows / 24)
     logo_position_x = image.columns - logo.columns - 300
     logo_position_y = image.rows - image.rows + 715
     image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)

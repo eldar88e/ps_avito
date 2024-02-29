@@ -3,8 +3,8 @@ class PopulateGoogleSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    file_id     = Setting.all.pluck(:var, :value).to_h["tid_#{args[:site]}"]
-    games       = Game.all.order(:top)
+    file_id     = Setting.pluck(:var, :value).to_h["tid_#{args[:site]}"]
+    games       = Game.order(:top)
 
     session     = GoogleDrive::Session.from_service_account_key('key.json')
     spreadsheet = session.file_by_id(file_id)

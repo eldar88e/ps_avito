@@ -2,7 +2,7 @@ class WatermarkOpenPsJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    size  = Setting.all.pluck(:var, :value).to_h['game_img_size']
+    size  = Setting.pluck(:var, :value).to_h['game_img_size']
     games = Game.order(:top)
     games.each do |game|
       next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == 'open-ps' }
