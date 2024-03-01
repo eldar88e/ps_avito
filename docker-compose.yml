@@ -24,8 +24,6 @@ services:
     depends_on:
       - pg
       - redis
-    ports:
-      - "3000:3000"
     volumes:
       - ./game_images:/app/game_images
       - ./storage:/app/storage
