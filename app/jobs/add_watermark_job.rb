@@ -6,11 +6,7 @@ class AddWatermarkJob < ApplicationJob
     site  = args[:site]
     games = Game.order(:top)
     games.each do |game|
-      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site } && args[:rewrite] == false
-
-      if args[:rewrite] && game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
-        game.images.each { |image| image.purge if image.blob.metadata[:site] == site }
-      end
+      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
 
       sony_id    = game.sony_id
       img_name   = "#{sony_id}_#{size}"
@@ -25,21 +21,25 @@ class AddWatermarkJob < ApplicationJob
       end
 
       add_frame(image, site)
-      if site == 'open_ps'
-        add_platform_logo_one(image, game, site)
-        add_flag_logo_one(image, site) if game.rus_screen || game.rus_voice
-      else
-        add_platform_logo(image, game, site)
-        add_flag_logo(image, site) if game.rus_screen || game.rus_voice
-      end
+      flag          = Magick::Image.read("app/assets/images/#{site}_ru.png").first
+      platform      = make_platform(game)
+      platform_icon = Magick::Image.read("app/assets/images/#{site}_#{platform}.png").first
 
+      if site == 'open_ps'
+        add_platform_logo_one(image, game, platform_icon)
+        add_flag_logo_one(image, flag) if game.rus_screen || game.rus_voice
+      else
+        add_platform_logo(image, game, platform_icon)
+        add_flag_logo(image, flag) if game.rus_screen || game.rus_voice
+      end
 
       temp_file = Tempfile.new(%w[image .jpg])
       image.write(temp_file.path)
       temp_file.flush
 
       name_path = "#{sony_id}_#{size}.jpg"
-      game.images.attach(io: File.open(temp_file.path), filename: name_path, content_type: 'image/jpeg', metadata: { site: site })
+      game.images.attach(io: File.open(temp_file.path), filename: name_path,
+                         content_type: 'image/jpeg', metadata: { site: site })
 
       save_game(game)
 
@@ -68,18 +68,15 @@ class AddWatermarkJob < ApplicationJob
     image.composite!(frame, 0, 0, Magick::OverCompositeOp)
   end
 
-  def add_platform_logo(image, game, site)
-    platform = make_platform(game)
-    logo     = Magick::Image.read("app/assets/images/#{site}_#{platform}.png").first
-    size     = game.platform == 'PS5, PS4' ? 6 : 10
+  def add_platform_logo(image, game, logo)
+    size = game.platform == 'PS5, PS4' ? 6 : 10
     logo.resize_to_fit!(image.columns / size, image.rows / size)
     logo_position_x = image.columns - image.columns + 300
     logo_position_y = image.rows - image.rows + 720
     image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)
   end
 
-  def add_flag_logo(image, site)
-    logo = Magick::Image.read("app/assets/images/#{site}_ru.png").first
+  def add_flag_logo(image, logo)
     logo.resize_to_fit!(image.columns / 24, image.rows / 24)
     logo_position_x = image.columns - logo.columns - 300
     logo_position_y = image.rows - image.rows + 715
@@ -96,18 +93,15 @@ class AddWatermarkJob < ApplicationJob
     end
   end
 
-  def add_platform_logo_one(image, game, site)
-    platform = make_platform(game)
-    logo     = Magick::Image.read("app/assets/images/#{site}_#{platform}.png").first
-    size     = game.platform == 'PS5, PS4' ? 6 : 10
+  def add_platform_logo_one(image, game, logo)
+    size = game.platform == 'PS5, PS4' ? 6 : 10
     logo.resize_to_fit!(image.columns / size, image.rows / size)
     logo_position_x = image.columns - image.columns + 10
     logo_position_y = image.rows - image.rows + 10
     image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)
   end
 
-  def add_flag_logo_one(image, site)
-    logo = Magick::Image.read("app/assets/images/#{site}_ru.png").first
+  def add_flag_logo_one(image, logo)
     logo.resize_to_fit!(image.columns / 23, image.rows / 23)
     logo_position_x = image.columns - logo.columns - 20
     logo_position_y = image.rows - image.rows + 20

@@ -3,9 +3,10 @@ class WatermarksSheetsJob < ApplicationJob
 
   def perform(**args)
     sites   = %w[open_ps open_ps_store alexander]
-    rewrite = Setting.pluck(:var, :value).to_h['rewrite_image'] == 'false' ? false : true
+    #rewrite = Setting.pluck(:var, :value).to_h['rewrite_image'] == 'false' ? false : true
     sites.each do |site|
-      AddWatermarkJob.perform_now(site: site, rewrite: rewrite)
+      #ActiveJob.perform_all_later(AddWatermarkJob.new(site: site, rewrite: rewrite),  PopulateGoogleSheetsJob.new(site: site))
+      AddWatermarkJob.perform_now(site: site)
       PopulateGoogleSheetsJob.perform_now(site: site)
     end
   end
