@@ -8,6 +8,7 @@ class WatermarksSheetsJob < ApplicationJob
       #ActiveJob.perform_all_later(AddWatermarkJob.new(site: site, rewrite: rewrite),  PopulateGoogleSheetsJob.new(site: site))
       AddWatermarkJob.perform_now(site: site)
       PopulateGoogleSheetsJob.perform_now(site: site)
+      TelegramService.new("✅ Google sheet for #{site} is done!").report
     end
   end
 end
