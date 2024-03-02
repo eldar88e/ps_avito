@@ -7,7 +7,7 @@ Rails.application.configure do
 
   # Cron jobs
   config.good_job.cron = {
-    storage_maintenance: {
+    update_google_sheet: {
       cron: "30 10,19 * * *",
       class: "MainPopulateJob",
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`

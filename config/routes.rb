@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :settings, only: [:index, :create, :update]
   resources :games, only: [:index, :show]
   root "games#index"
-  get '/images/:filename', to: 'images#show', as: 'image'
+  get '/google_sheets', to: 'google_sheets#index'
 
   authenticate :user do
     mount GoodJob::Engine => '/good_job'
