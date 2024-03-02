@@ -1,12 +1,11 @@
 class GameImageDownloaderJob < ApplicationJob
   queue_as :default
 
-  def perform(**args)
+  def perform
     size  = Setting.pluck(:var, :value).to_h['game_img_size']
     games = Game.order(:top)
     games.each do |game|
-      img_name = "#{game.sony_id}_#{size}"
-      img_path = "./game_images/#{img_name}.jpg"
+      img_path = "./game_images/#{game.sony_id}_#{size}.jpg"
       next if File.exist?(img_path)
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
