@@ -1,16 +1,17 @@
 <div class="container">
   <% if user_signed_in? %>
-    <h1>Игра <%= @game.name %></h1>
+    <h1><%= @game.name %>(top: <%= @game.top %>)</h1>
 
-    <% if @game.image.attached? %>
-      <div style="display: inline-block;">
-        <%= image_tag url_for(@game.image), style: 'width: 100%' %>
-      </div>
+    <% if @game.images.attached? %>
+      <% @game.images.each do |image| %>
+        <div style="display: inline-block; margin-bottom: 1em;">
+          <%= image_tag url_for(image), style: 'width: 100%' %>
+        </div>
+      <% end %>
     <% end %>
 
     <div style="display: inline-block;">
       <div><%= @game.sony_id %></div>
-      <h4><%= "#{@game.top}. #{@game.name}" %></h4>
     </div>
   <% else %>
     <h3>Увы вы не автризованы(</h3>

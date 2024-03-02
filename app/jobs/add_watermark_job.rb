@@ -8,43 +8,13 @@ class AddWatermarkJob < ApplicationJob
     games.each do |game|
       next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
 
-      sony_id    = game.sony_id
-      img_name   = "#{sony_id}_#{size}"
-      in_img_url = "./game_images/#{img_name}.jpg"
+      w_service = WatermarkService.new(site: site, size: size, game: game)
+      next unless w_service.image
 
-      begin
-        image = Magick::Image.read(in_img_url).first
-      rescue => e
-        Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-        TelegramService.new("The picture #{img_name} is missing!").report
-        next
-      end
-
-      add_frame(image, site)
-      flag          = Magick::Image.read("app/assets/images/#{site}_ru.png").first
-      platform      = make_platform(game)
-      platform_icon = Magick::Image.read("app/assets/images/#{site}_#{platform}.png").first
-
-      if site == 'open_ps'
-        add_platform_logo_one(image, game, platform_icon)
-        add_flag_logo_one(image, flag) if game.rus_screen || game.rus_voice
-      else
-        add_platform_logo(image, game, platform_icon)
-        add_flag_logo(image, flag) if game.rus_screen || game.rus_voice
-      end
-
-      temp_file = Tempfile.new(%w[image .jpg])
-      image.write(temp_file.path)
-      temp_file.flush
-
-      name_path = "#{sony_id}_#{size}.jpg"
-      game.images.attach(io: File.open(temp_file.path), filename: name_path,
-                         content_type: 'image/jpeg', metadata: { site: site })
-
-      save_game(game)
-
-      temp_file.close
-      temp_file.unlink
+      image = w_service.add_watermarks
+      name  = "#{game.sony_id}_#{size}.jpg"
+      args  = { image: image, game: game, name: name, site: site }
+      save_image(**args)
     end
     nil
   rescue => e
@@ -54,57 +24,24 @@ class AddWatermarkJob < ApplicationJob
 
   private
 
+  def save_image(**args)
+    temp_img = Tempfile.new(%w[image .jpg])
+    args[:image].write(temp_img.path)
+    temp_img.flush
+
+    args[:game].images.attach(io: File.open(temp_img.path), filename: args[:name], content_type: 'image/jpeg',
+                              metadata: {site: args[:site]})
+    save_game(args[:game])
+
+    temp_img.close
+    temp_img.unlink
+  end
+
   def save_game(game)
     if game.save
       # success!
     else
       Rails.logger.error "Error save attach image for game id: #{game.id}"
     end
-  end
-
-  def add_frame(image, site)
-    frame = Magick::Image.read("app/assets/images/#{site}.png").first
-    frame.resize_to_fit!(image.columns, image.rows)
-    image.composite!(frame, 0, 0, Magick::OverCompositeOp)
-  end
-
-  def add_platform_logo(image, game, logo)
-    size = game.platform == 'PS5, PS4' ? 6 : 10
-    logo.resize_to_fit!(image.columns / size, image.rows / size)
-    logo_position_x = image.columns - image.columns + 300
-    logo_position_y = image.rows - image.rows + 720
-    image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)
-  end
-
-  def add_flag_logo(image, logo)
-    logo.resize_to_fit!(image.columns / 24, image.rows / 24)
-    logo_position_x = image.columns - logo.columns - 300
-    logo_position_y = image.rows - image.rows + 715
-    image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)
-  end
-
-  def make_platform(game)
-    if game.platform == 'PS5, PS4'
-      'ps5_ps4'
-    elsif game.platform == 'PS5'
-      'ps5'
-    elsif game.platform.match?(/PS4/)
-      'ps4'
-    end
-  end
-
-  def add_platform_logo_one(image, game, logo)
-    size = game.platform == 'PS5, PS4' ? 6 : 10
-    logo.resize_to_fit!(image.columns / size, image.rows / size)
-    logo_position_x = image.columns - image.columns + 10
-    logo_position_y = image.rows - image.rows + 10
-    image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)
-  end
-
-  def add_flag_logo_one(image, logo)
-    logo.resize_to_fit!(image.columns / 23, image.rows / 23)
-    logo_position_x = image.columns - logo.columns - 20
-    logo_position_y = image.rows - image.rows + 20
-    image.composite!(logo, logo_position_x, logo_position_y, Magick::OverCompositeOp)
   end
 end

@@ -17,8 +17,7 @@ class GameImageDownloaderJob < ApplicationJob
       File.open(img_path, 'wb') { |local_file| local_file.write(img) }
       sleep rand(1..2)
     end
-
-    nil
+    TelegramService.new('✅ All game image downloaded!').report
   end
 
   private
