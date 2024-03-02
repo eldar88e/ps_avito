@@ -1,28 +1,28 @@
-class PopulateGoogleSheetsJob < ApplicationJob
+require 'caxlsx'
+
+class PopulateExcelJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
   def perform(**args)
-    file_id     = Setting.pluck(:var, :value).to_h["tid_#{args[:site]}"]
-    games       = Game.order(:top)
+    games = Game.order(:top)
+    name  = "top_1000_#{args[:site]}.xlsx"
+    file  = Axlsx::Package.new
 
-    session     = GoogleDrive::Session.from_service_account_key('key.json')
-    spreadsheet = session.file_by_id(file_id)
-    worksheet   = spreadsheet.worksheets.first
+    file.workbook.add_worksheet(:name => "TOP_1000") do |sheet|
+      sheet.add_row ['Авито.Статус',	'Авито.ID',	'Авито.ДатаОкончания',	'Авито.М. Просмотры',	'Авито.М. Контакты',
+                     'Авито.М. Избранное',	'SYSTEM_ID',	'Дата и время начала размещения',	'Имя менеджера',
+                     'Телефон',	'Полный адрес объекта',	'Название объявления',	'Текст объявления',	'Цена в рублях',
+                     'Фотографии',	'Фото.Готовые']
 
-    idx = 2
-    games.each_slice(100) do |games_slice|
-      games_slice.each do |game|
-        worksheet[idx, 7]  = game.sony_id
-        worksheet[idx, 12] = make_name(game)
-        worksheet[idx, 13] = description(game, args[:site])
-        worksheet[idx, 14] = game.price
-        worksheet[idx, 15] = make_image(game, args[:site])
-        idx += 1
+      games.each do |game|
+        sheet.add_row [nil, nil, nil, nil, nil, nil, game.sony_id, nil, nil, nil, nil, make_name(game),
+                       description(game, args[:site]), game.price, make_image(game, args[:site])]
       end
-      worksheet.save
     end
-    nil
+    file.use_shared_strings = true
+    file.serialize(name)
+    FtpService.new(args[:site]).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
