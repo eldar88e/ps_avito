@@ -1,8 +1,8 @@
-require_relative 'pupulate_methods'
+require_relative 'pupulate_help'
 
 class PopulateExcelJob < ApplicationJob
   include Rails.application.routes.url_helpers
-  include PopulateMethods
+  include PopulateHelp
   queue_as :default
 
   def perform(**args)
