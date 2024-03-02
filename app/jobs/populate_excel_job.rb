@@ -33,7 +33,7 @@ class PopulateExcelJob < ApplicationJob
     platform  = game.platform
 
     if platform == 'PS5, PS4' || platform.match?(/PS4/) #ps4, ps5
-      prefix = '(PS5 and PS4)'
+      prefix = ' (PS5 and PS4)'
       if raw_name.downcase.match?(/ps4/)
         if raw_name.downcase.match?(/ps5/)
           raw_name
@@ -51,7 +51,7 @@ class PopulateExcelJob < ApplicationJob
       if raw_name.downcase.match?(/ps5/)
         raw_name
       else
-        raw_name + '(PS5)'
+        raw_name + ' (PS5)'
       end
     end
   end
