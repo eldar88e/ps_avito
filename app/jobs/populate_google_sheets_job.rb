@@ -1,3 +1,5 @@
+require_relative 'pupulate_methods'
+
 class PopulateGoogleSheetsJob < ApplicationJob
   include Rails.application.routes.url_helpers
   include PopulateMethods

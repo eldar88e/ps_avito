@@ -1,4 +1,4 @@
-require 'caxlsx'
+require_relative 'pupulate_methods'
 
 class PopulateExcelJob < ApplicationJob
   include Rails.application.routes.url_helpers
