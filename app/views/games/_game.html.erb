@@ -1,15 +1,19 @@
 <li class="list-group-item list-group-item-action">
-  <% if game.images.attached? %>
-    <% game.images.each do |image|  %>
-      <div style="display: inline-block;">
+  <div style="display: inline-block; vertical-align: top;">
+    <% if game.images.attached? %>
+      <% game.images.each do |image|  %>
         <a href='<%= url_for(image) %>'>
           <%= image_tag url_for(image), style: 'width: 100px;' %>
         </a>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
   <div style="display: inline-block;">
-    <h4><%= "#{game.top}. #{game.name}" %></h4>
+    <a href='<%= game_path(game.top) %>'>
+      <h4><%= "#{game.top}. #{game.name}" %></h4>
+    </a>
     <div><%= game.sony_id %></div>
+    <div>Platform: <%= game.platform %></div>
   </div>
 </li>
