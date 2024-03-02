@@ -1,4 +1,4 @@
-require_relative 'pupulate_help'
+require_relative './pupulate_help'
 
 class PopulateGoogleSheetsJob < ApplicationJob
   include Rails.application.routes.url_helpers
