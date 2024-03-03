@@ -3,13 +3,13 @@ class GameImageDownloaderJob < ApplicationJob
 
   def perform
     size  = Setting.pluck(:var, :value).to_h['game_img_size']
-    games = Game.order(:top)
-    games.each do |game|
-      img_path = "./game_images/#{game.sony_id}_#{size}.jpg"
+    sony_ids = Game.order(:top).pluck(:sony_id)
+    sony_ids.each do |id|
+      img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
-            "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
+            "#{id}/0/image?w=#{size}&h=#{size}"
       img = download_image(url)
       next if img.nil?
 

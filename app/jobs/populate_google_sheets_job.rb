@@ -4,7 +4,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
 
   def perform(**args)
     file_id     = Setting.pluck(:var, :value).to_h["tid_#{args[:site]}"]
-    games       = Game.order(:top)
+    games       = Game.order(:top).with_attached_images
 
     session     = GoogleDrive::Session.from_service_account_key('key.json')
     spreadsheet = session.file_by_id(file_id)
@@ -16,7 +16,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
         worksheet[idx, 7]  = game.sony_id
         worksheet[idx, 12] = make_name(game)
         worksheet[idx, 13] = description(game, args[:site])
-        worksheet[idx, 14] = game.price
+        worksheet[idx, 14] = make_price(game.price_tl)
         worksheet[idx, 15] = make_image(game, args[:site])
         idx += 1
       end
@@ -70,5 +70,35 @@ class PopulateGoogleSheetsJob < ApplicationJob
   def description(game, site)
     method_name = "desc_#{site}".to_sym
     DescriptionService.new(game).send(method_name)
+  end
+
+  def make_price(price)
+    exchange_rate = make_exchange_rate(price)
+    round_up_price(price * exchange_rate)
+  end
+
+  def round_up_price(price)
+    #(price / settings['round_price'].to_f).round * settings['round_price']
+    (price / 10.to_f).round * 10
+  end
+
+  def make_exchange_rate(price)
+    #от 1 до 300 лир курс - 5.5
+    # от 300 до 800 лир курс 5
+    # от 800 до 1200 курс 4.5
+    # от 1200 до 1700 курс 4.3
+    # от 1700 курс 4
+    if price >= 1 && price < 300
+      5.5
+    elsif price >= 300 && price < 800
+      5
+    elsif price >= 800 && price < 1200
+      # settings['exchange_rate'] - 0.5
+      4.5
+    elsif price >= 1200 && price < 1700
+      4.3
+    elsif price >= 1700
+      4
+    end
   end
 end

@@ -4,7 +4,7 @@ class AddWatermarkJob < ApplicationJob
   def perform(**args)
     size  = Setting.pluck(:var, :value).to_h['game_img_size']
     site  = args[:site]
-    games = Game.order(:top)
+    games = Game.order(:top).with_attached_images
     games.each do |game|
       next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
 

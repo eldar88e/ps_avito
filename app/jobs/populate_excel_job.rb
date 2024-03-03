@@ -3,19 +3,19 @@ class PopulateExcelJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    games = Game.order(:top)
+    games = Game.order(:top).with_attached_images
     name  = "top_1000_#{args[:site]}.xlsx"
     file  = Axlsx::Package.new
 
     file.workbook.add_worksheet(:name => "TOP_1000") do |sheet|
-      sheet.add_row ['Авито.Статус',	'Авито.ID',	'Авито.ДатаОкончания',	'Авито.М. Просмотры',	'Авито.М. Контакты',
-                     'Авито.М. Избранное',	'SYSTEM_ID',	'Дата и время начала размещения',	'Имя менеджера',
-                     'Телефон',	'Полный адрес объекта',	'Название объявления',	'Текст объявления',	'Цена в рублях',
-                     'Фотографии',	'Фото.Готовые']
+      sheet.add_row %w[Id	AvitoId	AdStatus	Category	GoodsType	AdType	Address	Title	Description Condition	Price
+                       DateBegin	DateEnd	AllowEmail	ManagerName	ContactPhone	ImageNames	ImageUrls]
 
       games.each do |game|
-        sheet.add_row [nil, nil, nil, nil, nil, nil, game.sony_id, nil, nil, nil, nil, make_name(game),
-                       description(game, args[:site]), game.price, make_image(game, args[:site])]
+        sheet.add_row [game.sony_id, nil, nil, 'Игры, приставки и программы', 'Игры для приставок',
+                       'Товар приобретен на продажу', 'Москва, ул. Большая Полянка, 58', make_name(game),
+                       description(game, args[:site]), 'Новое', make_price(game.price_tl), nil, nil, 'Нет',
+                       'ПС СТОР', 79921680015] + make_image(game, args[:site])
       end
     end
     file.use_shared_strings = true
@@ -59,14 +59,44 @@ class PopulateExcelJob < ApplicationJob
   def make_image(game, site)
     if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
       image = game.images.find { |i| i.blob.metadata[:site] == site }
-      rails_blob_url(image, host: 'server.open-ps.ru')
+      [image.blob.filename.to_s, rails_blob_url(image, host: 'server.open-ps.ru')]
     else
-      nil
+      [nil, nil]
     end
   end
 
   def description(game, site)
     method_name = "desc_#{site}".to_sym
     DescriptionService.new(game).send(method_name)
+  end
+
+  def make_price(price)
+    exchange_rate = make_exchange_rate(price)
+    round_up_price(price * exchange_rate)
+  end
+
+  def round_up_price(price)
+    #(price / settings['round_price'].to_f).round * settings['round_price']
+    (price / 10.to_f).round * 10
+  end
+
+  def make_exchange_rate(price)
+    #от 1 до 300 лир курс - 5.5
+    # от 300 до 800 лир курс 5
+    # от 800 до 1200 курс 4.5
+    # от 1200 до 1700 курс 4.3
+    # от 1700 курс 4
+    if price >= 1 && price < 300
+      5.5
+    elsif price >= 300 && price < 800
+      5
+    elsif price >= 800 && price < 1200
+      # settings['exchange_rate'] - 0.5
+      4.5
+    elsif price >= 1200 && price < 1700
+      4.3
+    elsif price >= 1700
+      4
+    end
   end
 end
