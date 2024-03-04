@@ -22,6 +22,8 @@ gem 'mysql2'
 gem 'telegram-bot-ruby', "~> 0.19"
 gem 'devise'
 gem 'kaminari'
+gem 'caxlsx'
+gem 'net-ftp'
 
 # gem "image_processing", "~> 1.2"
 

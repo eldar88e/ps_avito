@@ -1,13 +1,12 @@
 class TopGamesJob < ActiveJob::Base
   queue_as :default
 
-  def perform(*args)
-    client  = connect_db
-    results = client.query(query_db)
+  def perform
+    games = connect_db.query(query_db)
     run_id  = Run.last_id
 
-    results.each do |row|
-      keys = [:sony_id, :name, :rus_voice, :rus_screen, :price, :old_price, :discount_end_date, :platform]
+    games.each do |row|
+      keys = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
       filtered_row         = row.slice(*keys)
       row[:md5_hash]       = md5_hash(filtered_row)
       row[:touched_run_id] = run_id
@@ -49,6 +48,7 @@ class TopGamesJob < ActiveJob::Base
         game.menuindex AS top,
         additional.price,
         additional.old_price,
+        additional.price_tl,
         additional.discount_end_date,
         additional.rus_voice,
         additional.rus_screen,

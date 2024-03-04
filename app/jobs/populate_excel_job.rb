@@ -1,28 +1,26 @@
-class PopulateGoogleSheetsJob < ApplicationJob
+class PopulateExcelJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
   def perform(**args)
-    file_id     = Setting.pluck(:var, :value).to_h["tid_#{args[:site]}"]
-    games       = Game.order(:top).with_attached_images
+    games = Game.order(:top).with_attached_images
+    name  = "top_1000_#{args[:site]}.xlsx"
+    file  = Axlsx::Package.new
 
-    session     = GoogleDrive::Session.from_service_account_key('key.json')
-    spreadsheet = session.file_by_id(file_id)
-    worksheet   = spreadsheet.worksheets.first
+    file.workbook.add_worksheet(:name => "TOP_1000") do |sheet|
+      sheet.add_row %w[Id	AvitoId	AdStatus	Category	GoodsType	AdType	Address	Title	Description Condition	Price
+                       DateBegin	DateEnd	AllowEmail	ManagerName	ContactPhone	ImageNames	ImageUrls]
 
-    idx = 2
-    games.each_slice(100) do |games_slice|
-      games_slice.each do |game|
-        worksheet[idx, 7]  = game.sony_id
-        worksheet[idx, 12] = make_name(game)
-        worksheet[idx, 13] = description(game, args[:site])
-        worksheet[idx, 14] = make_price(game.price_tl)
-        worksheet[idx, 15] = make_image(game, args[:site])
-        idx += 1
+      games.each do |game|
+        sheet.add_row [game.sony_id, nil, nil, 'Игры, приставки и программы', 'Игры для приставок',
+                       'Товар приобретен на продажу', 'Москва, ул. Большая Полянка, 58', make_name(game),
+                       description(game, args[:site]), 'Новое', make_price(game.price_tl), nil, nil, 'Нет',
+                       'ПС СТОР', 79921680015] + make_image(game, args[:site])
       end
-      worksheet.save
     end
-    nil
+    file.use_shared_strings = true
+    file.serialize(name)
+    FtpService.new(args[:site]).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
@@ -61,9 +59,9 @@ class PopulateGoogleSheetsJob < ApplicationJob
   def make_image(game, site)
     if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
       image = game.images.find { |i| i.blob.metadata[:site] == site }
-      rails_blob_url(image, host: 'server.open-ps.ru')
+      [image.blob.filename.to_s, rails_blob_url(image, host: 'server.open-ps.ru')]
     else
-      nil
+      [nil, nil]
     end
   end
 
