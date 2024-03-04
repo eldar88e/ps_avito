@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Магазины:</h1>
+  <a href="<%= new_store_path %>" class="btn btn-success mb-3">Add</a>
+  <ul class="list-group">
+    <%= render @stores %>
+  </ul>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var elements = document.querySelectorAll("[data-confirm]");
+
+        elements.forEach(function(element) {
+            element.addEventListener("click", function(event) {
+                var message = this.getAttribute("data-confirm");
+                if (!confirm(message)) {
+                    event.preventDefault();
+                }
+            });
+        });
+    });
+</script>

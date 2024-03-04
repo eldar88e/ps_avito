@@ -1,0 +1,106 @@
+<div class="container">
+  <h1>Магазин <%= @store.manager_name %></h1>
+  <%= form_with(model: @store, url: store_path(@store.id), method: :patch) do |form| %>
+
+    <div class="mb-3">
+      <label for="manager_name" class="form-label">Manager name</label>
+      <%= form.text_field :manager_name, value: @store.manager_name,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Manager name' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="var" class="form-label">Variable</label>
+      <%= form.text_field :var, value: @store.var, class: 'form-control', style: 'width: 100%', placeholder: 'var' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="ad_status" class="form-label">Ad status</label>
+      <%= form.text_field :ad_status, value: @store.ad_status,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Ad status' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <%= form.text_field :category, value: @store.category,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Category' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="goods_type" class="form-label">Goods type</label>
+      <%= form.text_field :goods_type, value: @store.goods_type,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Goods type' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="ad_type" class="form-label">Ad type</label>
+      <%= form.text_field :ad_type, value: @store.ad_type,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Ad type' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">Адрес</label>
+      <%= form.text_field :address, value: @store.address,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Address' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Описание</label>
+      <%= form.text_area :description, value: @store.description,
+                         class: 'form-control', style: 'width: 100%', placeholder: 'Description' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="condition" class="form-label">Condition</label>
+      <%= form.text_field :condition, value: @store.condition,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Condition' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="allow_email" class="form-label">Allow email</label>
+      <%= form.text_field :allow_email, value: @store.allow_email,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Allow email' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="contact_phone" class="form-label">Телефон</label>
+      <%= form.text_field :contact_phone, value: @store.contact_phone,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Сontact phone' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="watermark_params" class="form-label">Параметры лого</label>
+      <%= form.text_field :watermark_params, value: @store.watermark_params,
+                          class: 'form-control', style: 'width: 100%',
+                          placeholder: "нужно указать ввиде json: { 'flag': { 'width': 200, 'height': 300 } }" %>
+    </div>
+
+    <div class="mb-3">
+      <label for="table_id" class="form-label">ID Google таблицы</label>
+      <%= form.text_field :table_id, value: @store.table_id,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Google sheet ID' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.submit 'Edite', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/7gzqxt1vmy9qnhluetgrxktuqvi8mswsppu50siokcvgdfak/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    });
+</script>

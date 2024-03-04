@@ -4,7 +4,7 @@ class PopulateExcelJob < ApplicationJob
 
   def perform(**args)
     games = Game.order(:top).with_attached_images
-    name  = "top_1000_#{args[:site]}.xlsx"
+    name  = "top_1000_#{args[:site].var}.xlsx"
     file  = Axlsx::Package.new
 
     file.workbook.add_worksheet(:name => "TOP_1000") do |sheet|
@@ -15,12 +15,12 @@ class PopulateExcelJob < ApplicationJob
         sheet.add_row [game.sony_id, nil, nil, 'Игры, приставки и программы', 'Игры для приставок',
                        'Товар приобретен на продажу', 'Москва, ул. Большая Полянка, 58', make_name(game),
                        description(game, args[:site]), 'Новое', make_price(game.price_tl), nil, nil, 'Нет',
-                       'ПС СТОР', 79921680015] + make_image(game, args[:site])
+                       'ПС СТОР', 79921680015] + make_image(game, args[:site].var)
       end
     end
     file.use_shared_strings = true
     file.serialize(name)
-    FtpService.new(args[:site]).send_file
+    FtpService.new(name).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
@@ -66,8 +66,12 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def description(game, site)
-    method_name = "desc_#{site}".to_sym
-    DescriptionService.new(game).send(method_name)
+    #method_name = "desc_#{site}".to_sym
+    #DescriptionService.new(game).send(method_name)
+    rus_voice = game.rus_voice ? 'Есть' : 'Нет'
+    rus_text  = game.rus_screen ? 'Есть' : 'Нет'
+    site.description.gsub('[name]', game.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', game.manager_name)
+        .gsub('[rus_text]', rus_text).gsub('[platform]', game.platform).squeeze(' ').chomp
   end
 
   def make_price(price)

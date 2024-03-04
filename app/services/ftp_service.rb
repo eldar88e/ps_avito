@@ -1,6 +1,6 @@
 class FtpService
-  def initialize(site)
-    @name = "top_1000_#{site}.xlsx"
+  def initialize(name)
+    @name = name
   end
 
   def send_file

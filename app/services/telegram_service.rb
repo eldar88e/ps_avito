@@ -3,7 +3,7 @@ require 'telegram/bot'
 class TelegramService
   def initialize(message)
     @message = message
-    @chat_id = Setting.all.pluck(:var, :value).to_h['telegram_chat_id']
+    @chat_id = Setting.pluck(:var, :value).to_h['telegram_chat_id']
   end
   def report
     unless @message.present?
