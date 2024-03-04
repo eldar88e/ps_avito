@@ -70,7 +70,7 @@ class PopulateExcelJob < ApplicationJob
     #DescriptionService.new(game).send(method_name)
     rus_voice = game.rus_voice ? 'Есть' : 'Нет'
     rus_text  = game.rus_screen ? 'Есть' : 'Нет'
-    site.description.gsub('[name]', game.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', game.manager_name)
+    site.description.gsub('[name]', game.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', site.manager_name)
         .gsub('[rus_text]', rus_text).gsub('[platform]', game.platform).squeeze(' ').chomp
   end
 
