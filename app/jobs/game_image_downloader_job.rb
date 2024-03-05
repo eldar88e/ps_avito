@@ -2,7 +2,7 @@ class GameImageDownloaderJob < ApplicationJob
   queue_as :default
 
   def perform
-    size  = Setting.pluck(:var, :value).to_h['game_img_size']
+    size     = Setting.pluck(:var, :value).to_h['game_img_size']
     sony_ids = Game.order(:top).pluck(:sony_id)
     sony_ids.each do |id|
       img_path = "./game_images/#{id}_#{size}.jpg"
@@ -27,7 +27,7 @@ class GameImageDownloaderJob < ApplicationJob
       response.body
     else
       Rails.logger.error "Class: #{self.class} || Error message: Sony image is not available! URL: #{url}"
-      TelegramService.new("Sony image is not available\n#{url}").report
+      #TelegramService.new("Sony image is not available\n#{url}").report
       nil
     end
   rescue => e

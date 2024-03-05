@@ -2,8 +2,9 @@ class TopGamesJob < ActiveJob::Base
   queue_as :default
 
   def perform
-    games = connect_db.query(query_db)
-    run_id  = Run.last_id
+    db     = connect_db
+    games  = db.query(query_db)
+    run_id = Run.last_id
 
     games.each do |row|
       keys = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
@@ -26,6 +27,8 @@ class TopGamesJob < ActiveJob::Base
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
+  ensure
+    db&.close
   end
 
   private
