@@ -13,8 +13,7 @@ class AddWatermarkJob < ApplicationJob
 
       image = w_service.add_watermarks
       name  = "#{game.sony_id}_#{size}.jpg"
-      args  = { image: image, game: game, name: name, site: site }
-      save_image(**args)
+      save_image(image: image, game: game, name: name, site: site)
     end
     nil
   rescue => e
