@@ -13,3 +13,12 @@ ul.pagination {
     border-color: var(--bs-pagination-active-border-color);
   }
 }
+
+.product-item {
+  display: flex !important;
+  align-items: center;
+
+  .buttons {
+    margin-left: auto;
+  }
+}

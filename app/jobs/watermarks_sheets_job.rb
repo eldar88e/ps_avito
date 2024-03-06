@@ -8,7 +8,6 @@ class WatermarksSheetsJob < ApplicationJob
       AddWatermarkJob.perform_now(site: store.var)
       #PopulateGoogleSheetsJob.perform_now(site: site)
       PopulateExcelJob.perform_now(store: store)
-      TelegramService.new("✅ Google sheet and Excel for #{store.manager_name} is done!").report
     end
 
     nil

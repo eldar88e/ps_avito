@@ -1,0 +1,90 @@
+<div class="container">
+  <h1>Править <%= @product.title %></h1>
+  <%= form_with(model: @product, url: product_path(@product.id), method: :patch) do |form| %>
+
+    <% if @product.errors.any? %>
+      <div id="error_explanation">
+        <h3>Возникли ошибки:</h3>
+        <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h5>Обязательные параметры</h5>
+
+    <div class="mb-3">
+      <%= form.label :title, 'Название объявления', class: 'form-label' %>
+      <%= form.text_field :title, value: @product.title, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'title' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :price, 'Цена', class: 'form-label' %>
+      <%= form.text_field :price, value: @product.price, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'price' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :image, 'Загрузить изображение', class: 'form-label' %>
+      <%= form.file_field :image, class: 'form-control' %>
+    </div>
+
+    <% if @product.image.attached? %>
+      <div class="mb-3">
+        <%= image_tag url_for(@product.image), class: 'img-fluid', style: 'height: 150px;' %>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :description, 'Описание', class: 'form-label' %>
+      <%= form.text_area :description, value: @product.description, class: 'form-control',
+                         style: 'width: 100%', size: '50x10', placeholder: 'Description' %>
+    </div>
+
+    <h5>Не обязательные параметры</h5>
+    <p>Если их не заполнить, то они будут братся из настроик магазина</p>
+
+    <div class="mb-3">
+      <label for="ad_status" class="form-label">Ad status</label>
+      <%= form.text_field :ad_status, value: @product.ad_status, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Ad status' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <%= form.text_field :category, value: @product.category, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Category' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="goods_type" class="form-label">Goods type</label>
+      <%= form.text_field :goods_type, value: @product.goods_type, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Goods type' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="ad_type" class="form-label">Ad type</label>
+      <%= form.text_field :ad_type, value: @product.ad_type, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Ad type' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="condition" class="form-label">Condition</label>
+      <%= form.text_field :condition, value: @product.condition, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Condition' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :allow_email, 'Allow email', class: 'form-label' %>
+      <%= form.text_field :allow_email, value: @product.allow_email,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Allow email' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

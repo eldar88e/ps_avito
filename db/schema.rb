@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_03_164519) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -143,6 +143,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_164519) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.integer "price", null: false
+    t.string "ad_status"
+    t.string "category"
+    t.string "goods_type"
+    t.string "ad_type"
+    t.string "condition"
+    t.string "allow_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "runs", force: :cascade do |t|
     t.string "status", default: "processing", null: false
     t.datetime "created_at", null: false
@@ -156,6 +170,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_164519) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["var"], name: "index_settings_on_var", unique: true
   end
 
   create_table "stores", force: :cascade do |t|

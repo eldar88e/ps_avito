@@ -3,25 +3,28 @@ class SettingsController < ApplicationController
 
   def index
     @settings = Setting.all.order(:id)
+    @setting = Setting.new
   end
 
   def update
-    setting = Setting.find(params[:id])
+    @setting = Setting.find(params[:id])
 
-    if setting.update(setting_params)
+    if @setting.update(setting_params)
       redirect_to settings_path, alert: 'Setting edited!'
     else
-      redirect_to settings_path, alert: 'Error editing setting!'
+      @settings = Setting.all.order(:id)
+      render :index, alert: 'Error editing setting!'
     end
   end
 
   def create
-    setting = Setting.new(setting_new_params)
+    @setting = Setting.new(setting_new_params)
 
-    if setting.save
+    if @setting.save
       redirect_to settings_path, alert: 'Setting saved!'
     else
-      redirect_to settings_path, alert: 'Error saving setting!'
+      @settings = Setting.all.order(:id)
+      render :index, alert: 'Error saving setting!'
     end
   end
 
