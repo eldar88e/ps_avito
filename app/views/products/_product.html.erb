@@ -2,7 +2,7 @@
 
   <% if product.image.attached? %>
     <%= link_to (image_tag url_for(product.image), style: 'max-height: 100px; max-width: 200px; margin-right: 10px;'),
-                edit_product_path(product) %>
+                url_for(product.image) %>
   <% end %>
   <%= link_to product.title, product_path(product) %>
 
