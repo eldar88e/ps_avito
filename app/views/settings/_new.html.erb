@@ -1,5 +1,5 @@
 <li class="list-group-item list-group-item-action">
-  <%= form_with(model: Setting, url: '/settings', method: :post) do |form| %>
+  <%= form_with(model: @setting, url: '/settings', method: :post) do |form| %>
     <div class="row">
       <div class="col-12 col-md-2">
         <%= form.text_field :var, placeholder: 'Ввведите имя переменной', class: 'form-label' %>

@@ -8,8 +8,9 @@ class FtpService
       ftp.chdir('/assets')
       ftp.putbinaryfile(@name)
     end
+    TelegramService.new("✅ File #{@name} is updated!").report
   rescue => e
     Rails.logger.error e.message
-    TelegramService.new("Excel file was not sent!\nError: #{e.message}").report
+    TelegramService.new("❌ File #{@name} was not sent!\nError: #{e.message}").report
   end
 end

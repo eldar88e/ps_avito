@@ -6,9 +6,12 @@ class PopulateExcelJob < ApplicationJob
     store = args[:store]
     games = Game.order(:top).with_attached_images
     name  = "top_1000_#{store.var}.xlsx"
+    name  = "#{Rails.env}_#{name}" if Rails.env == 'development'
     file  = Axlsx::Package.new
 
-    file.workbook.add_worksheet(:name => "TOP_1000") do |sheet|
+    products = Product.order(:id).with_attached_image
+
+    file.workbook.add_worksheet(name: store.var) do |sheet|
       sheet.add_row %w[Id	AdStatus	Category	GoodsType	AdType	Address	Title	Description Condition	Price
                        AllowEmail	ManagerName	ContactPhone	ImageNames	ImageUrls]
 
@@ -17,13 +20,20 @@ class PopulateExcelJob < ApplicationJob
                        make_title(game), description(game, store), store.condition, make_price(game.price_tl),
                        store.allow_email, store.manager_name, store.contact_phone] + make_image(game, store.var)
       end
+
+      products.each do |product|
+        sheet.add_row [product.id, product.ad_status || store.ad_status, product.category || store.category,
+                       product.goods_type || store.goods_type, product.ad_type || store.ad_type, store.address,
+                       product.title, product.description, product.condition || store.condition, product.price,
+                       product.allow_email || store.allow_email, store.manager_name, store.contact_phone] +
+                       make_image_product(product)
+      end
     end
     file.use_shared_strings = true
     file.serialize(name)
     FtpService.new(name).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
-    raise
   end
 
   private
@@ -59,7 +69,17 @@ class PopulateExcelJob < ApplicationJob
   def make_image(game, site)
     if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
       image = game.images.find { |i| i.blob.metadata[:site] == site }
-      [image.blob.filename.to_s, rails_blob_url(image, host: 'server.open-ps.ru')]
+      params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
+      [image.blob.filename.to_s, rails_blob_url(image, params)]
+    else
+      [nil, nil]
+    end
+  end
+
+  def make_image_product(product)
+    if product.image.attached?
+      params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
+      [product.image.blob.filename.to_s, rails_blob_url(product.image, params)]
     else
       [nil, nil]
     end

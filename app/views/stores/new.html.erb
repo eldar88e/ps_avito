@@ -2,6 +2,17 @@
   <h1>Создать новый Магазин.</h1>
   <%= form_with(model: @store, url: stores_path, method: :post) do |form| %>
 
+    <% if @store.errors.any? %>
+      <div id="error_explanation">
+        <h3>Возникли ошибки:</h3>
+        <ul>
+          <% @store.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="mb-3">
       <label for="manager_name" class="form-label">Manager name</label>
       <%= form.text_field :manager_name, class: 'form-control', style: 'width: 100%', placeholder: 'Manager name' %>

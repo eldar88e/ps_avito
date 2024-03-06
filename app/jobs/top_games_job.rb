@@ -2,9 +2,10 @@ class TopGamesJob < ActiveJob::Base
   queue_as :default
 
   def perform
-    db     = connect_db
-    games  = db.query(query_db)
-    run_id = Run.last_id
+    quantity = Setting.pluck(:var, :value).to_h['quantity_games']
+    db       = connect_db
+    games    = db.query(query_db(quantity))
+    run_id   = Run.last_id
 
     games.each do |row|
       keys = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
@@ -43,8 +44,8 @@ class TopGamesJob < ActiveJob::Base
     )
   end
 
-  def query_db
-    "
+  def query_db(quantity)
+    <<~SQL
       SELECT
         additional.janr AS sony_id,
         game.pagetitle AS name,
@@ -63,8 +64,8 @@ class TopGamesJob < ActiveJob::Base
         AND game.deleted = 0
         AND game.published = 1
       ORDER BY game.menuindex
-      LIMIT 1000
-    "
+      LIMIT #{quantity}
+    SQL
   end
 
   def md5_hash(hash)
