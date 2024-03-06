@@ -78,9 +78,8 @@ class PopulateExcelJob < ApplicationJob
 
   def make_image_product(product)
     if product.image.attached?
-      image  = product.image
       params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-      [product.blob.filename.to_s, rails_blob_url(image, params)]
+      [product.image.blob.filename.to_s, rails_blob_url(product.image, params)]
     else
       [nil, nil]
     end
