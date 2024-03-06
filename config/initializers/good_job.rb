@@ -16,8 +16,14 @@ Rails.application.configure do
     clean_images: {
       cron: "0 0 1 * *",
       class: "CleanUnattachedBlobsJob",
-      set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
+      set: { priority: 10 },
       description: "Clean up unattached blobs and images."
+    },
+    clean_tables: {
+      cron: "30 0 1 * *",
+      class: "CleanAttachBlobJob",
+      set: { priority: 10 },
+      description: "Clean up Attach and Blob tables with missing images"
     }
   }
 end
