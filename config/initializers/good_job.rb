@@ -18,12 +18,6 @@ Rails.application.configure do
       class: "CleanUnattachedBlobsJob",
       set: { priority: 10 },
       description: "Clean up unattached blobs and images."
-    },
-    clean_tables: {
-      cron: "30 0 1 * *",
-      class: "CleanAttachBlobJob",
-      set: { priority: 10 },
-      description: "Clean up Attach and Blob tables with missing images"
     }
   }
 end
