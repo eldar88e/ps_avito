@@ -13395,6 +13395,19 @@
   application.debug = false;
   window.Stimulus = application;
 
+  // app/javascript/controllers/confirm_controller.js
+  var confirm_controller_default = class extends Controller {
+    call(e) {
+      let message = this.element.getAttribute("data-confirm");
+      if (!confirm(message)) {
+        e.preventDefault();
+      }
+    }
+  };
+
+  // app/javascript/controllers/index.js
+  application.register("confirm", confirm_controller_default);
+
   // app/javascript/application.js
   var import_bootstrap = __toESM(require_bootstrap());
 })();

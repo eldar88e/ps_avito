@@ -3,3 +3,6 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+
+import ConfirmController from "./confirm_controller"
+application.register("confirm", ConfirmController)

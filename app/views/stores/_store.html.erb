@@ -6,6 +6,7 @@
   <div style="display: inline-block;">
     <%= button_to "Delete", store_path(store.id),
                   method: :delete, class: 'btn btn-danger',
-                  data: { confirm: "Are you sure you want to delete this store?" } %>
+                  data: { confirm: 'Are you sure you want to delete this store?',
+                          controller: 'confirm', action: 'click->confirm#call' } %>
   </div>
 </li>

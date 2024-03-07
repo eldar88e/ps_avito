@@ -5,18 +5,3 @@
     <%= render @stores %>
   </ul>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var elements = document.querySelectorAll("[data-confirm]");
-
-        elements.forEach(function(element) {
-            element.addEventListener("click", function(event) {
-                var message = this.getAttribute("data-confirm");
-                if (!confirm(message)) {
-                    event.preventDefault();
-                }
-            });
-        });
-    });
-</script>
