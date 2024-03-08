@@ -18,6 +18,12 @@ Rails.application.configure do
       class: "CleanUnattachedBlobsJob",
       set: { priority: 10 },
       description: "Clean up unattached blobs and images."
+    },
+    download_images: {
+      cron: "0 1 29 2 *",
+      class: "GameImageDownloaderJob.perform_now",
+      set: { priority: 10 },
+      description: "Download all game images."
     }
   }
 end
