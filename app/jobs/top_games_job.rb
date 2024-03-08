@@ -25,7 +25,7 @@ class TopGamesJob < ActiveJob::Base
 
     Game.where.not(touched_run_id: run_id).destroy_all
     Run.finish
-    TelegramService.new('✅ Game list updated!').report
+    TelegramService.new("✅ Game list updated. Add #{count} game(s).").report
     count
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
