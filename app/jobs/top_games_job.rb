@@ -6,6 +6,7 @@ class TopGamesJob < ActiveJob::Base
     db       = connect_db
     games    = db.query(query_db(quantity))
     run_id   = Run.last_id
+    count    = 0
 
     games.each do |row|
       keys = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
@@ -18,13 +19,14 @@ class TopGamesJob < ActiveJob::Base
         game.update(row)
       else
         row[:run_id] = run_id
-        Game.create!(row)
+        Game.create(row) && count += 1
       end
     end
 
     Game.where.not(touched_run_id: run_id).destroy_all
     Run.finish
     TelegramService.new('✅ Game list updated!').report
+    count
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise
