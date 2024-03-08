@@ -21,7 +21,7 @@ Rails.application.configure do
     },
     download_images: {
       cron: "0 1 29 2 *",
-      class: "GameImageDownloaderJob.perform_now",
+      class: "GameImageDownloaderJob",
       set: { priority: 10 },
       description: "Download all game images."
     }
