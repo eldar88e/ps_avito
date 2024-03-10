@@ -70,6 +70,7 @@ services:
       - web
     networks:
       - web-net
+      - proxy-net
 
 volumes:
   gems:
