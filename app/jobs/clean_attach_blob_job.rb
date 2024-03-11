@@ -2,7 +2,7 @@ class CleanAttachBlobJob < ApplicationJob
   queue_as :default
 
   def perform
-    games = Game.with_attached_images
+    games = Game.order(:top).with_attached_images
     count = 0
     games.each do |game|
       game.images.each do |image|
