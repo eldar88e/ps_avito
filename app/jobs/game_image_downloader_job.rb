@@ -4,19 +4,22 @@ class GameImageDownloaderJob < ApplicationJob
   def perform
     size     = Setting.pluck(:var, :value).to_h['game_img_size']
     sony_ids = Game.order(:top).pluck(:sony_id)
+    count = 0
     sony_ids.each do |id|
       img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
             "#{id}/0/image?w=#{size}&h=#{size}"
-      img = download_image(url)
-      next if img.nil?
+      #img = download_image(url)
+      #next if img.nil?
 
-      File.open(img_path, 'wb') { |local_file| local_file.write(img) }
-      sleep rand(1..2)
+      #File.open(img_path, 'wb') { |local_file| local_file.write(img) }
+      #sleep rand(1..2)
+      count += 1
     end
-    TelegramService.new('✅ All game image downloaded!').report
+    #TelegramService.new('✅ All game image downloaded!').report
+    TelegramService.new("✅ #{count} image not exist").report
   end
 
   private
