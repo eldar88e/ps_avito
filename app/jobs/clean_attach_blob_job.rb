@@ -10,7 +10,7 @@ class CleanAttachBlobJob < ApplicationJob
         raw_path = key.scan(/.{2}/)[0..1].join('/')
         img_path = "./storage/#{raw_path}/#{key}"
         unless File.exist?(img_path)
-          image.purge
+          #image.purge
           count += 1
         end
       end

@@ -24,6 +24,12 @@ Rails.application.configure do
       class: "GameImageDownloaderJob",
       set: { priority: 10 },
       description: "Download all game images."
+    },
+    clean_tables: {
+      cron: "30 1 29 2 *",
+      class: "CleanAttachBlobJob",
+      set: { priority: 10 },
+      description: "Clean up tables of deleted images on local disk."
     }
   }
 end
