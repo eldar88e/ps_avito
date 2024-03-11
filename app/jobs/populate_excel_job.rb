@@ -70,7 +70,8 @@ class PopulateExcelJob < ApplicationJob
     if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
       image = game.images.find { |i| i.blob.metadata[:site] == site }
       params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-      [image.blob.filename.to_s, rails_blob_url(image, params)]
+      #[image.blob.filename.to_s, rails_blob_url(image, params)]
+      [nil, rails_blob_url(image, params)]
     else
       [nil, nil]
     end
@@ -79,7 +80,8 @@ class PopulateExcelJob < ApplicationJob
   def make_image_product(product)
     if product.image.attached?
       params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-      [product.image.blob.filename.to_s, rails_blob_url(product.image, params)]
+      #[product.image.blob.filename.to_s, rails_blob_url(product.image, params)]
+      [nil, rails_blob_url(product.image, params)]
     else
       [nil, nil]
     end

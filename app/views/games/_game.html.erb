@@ -2,7 +2,7 @@
   <div style="display: inline-block; vertical-align: top;">
     <% if game.images.attached? %>
       <% game.images.each do |image|  %>
-        <a href='<%= url_for(image) %>'>
+        <a href='<%= url_for(image) %>' data-fancybox="gallery">
           <%= image_tag url_for(image), style: 'width: 100px;' %>
         </a>
       <% end %>
