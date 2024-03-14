@@ -1,8 +1,8 @@
-<li class="list-group-item list-group-item-action">
+<li class="list-group-item list-group-item-action game-item">
   <div style="display: inline-block; vertical-align: top;">
     <% if game.images.attached? %>
       <% game.images.each do |image|  %>
-        <a href="#" data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
+        <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
           <%= image_tag url_for(image), style: 'width: 100px;' %>
         </a>
       <% end %>
