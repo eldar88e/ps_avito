@@ -16777,6 +16777,11 @@
     }
   };
   Object.defineProperty(Ce, "version", { enumerable: true, configurable: true, writable: true, value: "5.0.33" }), Object.defineProperty(Ce, "defaults", { enumerable: true, configurable: true, writable: true, value: ot }), Object.defineProperty(Ce, "Plugins", { enumerable: true, configurable: true, writable: true, value: Qt }), Object.defineProperty(Ce, "openers", { enumerable: true, configurable: true, writable: true, value: /* @__PURE__ */ new Map() });
+
+  // app/javascript/application.js
+  document.addEventListener("DOMContentLoaded", function() {
+    Ce.bind("[data-fancybox]");
+  });
 })();
 /*! Bundled license information:
 
