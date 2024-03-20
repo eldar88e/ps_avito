@@ -3,11 +3,13 @@ class WatermarksSheetsJob < ApplicationJob
 
   def perform
     #sites  = %w[open_ps open_ps_store alexander]
-    stores = Store.all
+    stores = Store.includes(:addresses)
     stores.each do |store|
-      AddWatermarkJob.perform_now(site: store.var)
+      AddWatermarkJob.perform_now(store: store)
       #PopulateGoogleSheetsJob.perform_now(site: site)
-      PopulateExcelJob.perform_now(store: store)
+      # #######
+      # PopulateExcelJob.perform_now(store: store)
+      # ######
     end
 
     nil

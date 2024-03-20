@@ -1,20 +1,26 @@
 class AddWatermarkJob < ApplicationJob
   queue_as :default
+  include Rails.application.routes.url_helpers
 
   def perform(**args)
     size  = Setting.pluck(:var, :value).to_h['game_img_size']
-    site  = args[:site]
+    store = args[:store]
     games = Game.order(:top).with_attached_images
     games.each do |game|
-      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
+      store.addresses.each do |address|
+        #
+        # next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
+        #
 
-      w_service = WatermarkService.new(site: site, size: size, game: game)
-      next unless w_service.image
+        w_service = WatermarkService.new(store: store, address: address, size: size, game: game)
+        next unless w_service.image
 
-      image = w_service.add_watermarks
-      name  = "#{game.sony_id}_#{size}.jpg"
-      save_image(image: image, game: game, name: name, site: site)
+        image = w_service.add_watermarks
+        name  = "#{game.sony_id}_#{size}.jpg"
+        save_image(image: image, game: game, name: name, store_id: store.id, address_id: address.id)
+      end
     end
+
     nil
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
@@ -29,7 +35,7 @@ class AddWatermarkJob < ApplicationJob
     temp_img.flush
 
     args[:game].images.attach(io: File.open(temp_img.path), filename: args[:name], content_type: 'image/jpeg',
-                              metadata: {site: args[:site]})
+                              metadata: { store_id: args[:store_id], address_id: args[:address_id] })
     save_game(args[:game])
 
     temp_img.close
@@ -37,10 +43,6 @@ class AddWatermarkJob < ApplicationJob
   end
 
   def save_game(game)
-    if game.save
-      # success!
-    else
-      Rails.logger.error "Error save attach image for game id: #{game.id}"
-    end
+    game.save || Rails.logger.error("Error save attach image for game id: #{game.id}")
   end
 end

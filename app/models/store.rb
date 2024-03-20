@@ -9,4 +9,7 @@ class Store < ApplicationRecord
   validates :allow_email, presence: true
   validates :manager_name, presence: true
   validates :contact_phone, presence: true
+
+  has_many :image_layers, dependent: :destroy
+  has_many :addresses, dependent: :destroy
 end
