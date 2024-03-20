@@ -47,11 +47,6 @@
     </div>
 
     <div class="mb-3">
-      <label for="address" class="form-label">Адрес</label>
-      <%= form.text_field :address, class: 'form-control', style: 'width: 100%', placeholder: 'Address' %>
-    </div>
-
-    <div class="mb-3">
       <label for="description" class="form-label tinymce">Описание</label>
       <%= form.text_area :description, class: 'form-control', style: 'width: 100%', size: '50x10', placeholder: 'Description' %>
     </div>
@@ -72,15 +67,15 @@
     </div>
 
     <div class="mb-3">
-      <label for="watermark_params" class="form-label">Параметры лого</label>
-      <%= form.text_area :watermark_params, value: @store.watermark_params,
-                          class: 'form-control', style: 'width: 100%', size: '50x2',
+      <label for="game_img_params" class="form-label">Параметры лого</label>
+      <%= form.text_area :game_img_params, value: @store.game_img_params,
+                          class: 'form-control', style: 'width: 100%', size: '50x1',
                           placeholder: "нужно указать ввиде json: { 'flag': { 'width': 200, 'height': 300 } }" %>
     </div>
 
     <div class="mb-3">
-      <label for="table_id" class="form-label">ID Google таблицы</label>
-      <%= form.text_field :table_id, class: 'form-control', style: 'width: 100%', placeholder: 'Google sheet ID' %>
+      <%= form.check_box :active, class: 'form-check-input', id: 'active-checkbox' %>
+      <%= form.label :active, class: 'form-check-label', for: 'active-checkbox' %>
     </div>
 
     <div class="mb-3">

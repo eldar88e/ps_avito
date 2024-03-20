@@ -1,0 +1,38 @@
+<li class="list-group-item list-group-item-action">
+  <h3>Новый слой</h3>
+  <%= form_with(model: @layer, url: image_layers_path, method: :post) do |form| %>
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <%= form.label :title, 'title', class: 'form-label' %>
+        <%= form.text_field :title, class: 'form-control', style: 'width: 100%' %>
+      </div>
+
+      <div class="col-12 col-md-2">
+        <%= form.label :layer, 'Картинка или шрифт', class: 'form-label' %>
+        <%= form.file_field :layer, class: 'form-control' %>
+      </div>
+
+      <div class="col-12 col-md-2">
+        <%= form.label :layer_type, 'layer_type', class: 'form-label' %>
+        <%= form.select :layer_type, ImageLayer.layer_types.keys.map { |type| [type.humanize, type] }, {}, { class: 'form-select' } %>
+      </div>
+
+      <div class="col-12 col-md-1">
+        <%= form.label :menuindex, 'menuindex', class: 'form-label' %>
+        <%= form.text_field :menuindex, class: 'form-control', style: 'width: 100%' %>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <%= form.label :layer_params, 'layer_params', class: 'form-label' %>
+        <%= form.text_area :layer_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
+      </div>
+
+      <div class="col-12 col-md-1">
+        <%= form.check_box :active, class: 'form-check-input', id: 'active-checkbox' %>
+        <%= form.label :active, class: 'form-check-label', for: 'active-checkbox' %>
+
+        <%= form.submit 'Add', class: 'btn btn-primary', style: 'width: 100%; padding: 2px;' %>
+      </div>
+    </div>
+  <% end %>
+</li>

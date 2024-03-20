@@ -2,16 +2,21 @@ class ImageLayer < ApplicationRecord
   has_one_attached :layer, dependent: :destroy
   belongs_to :store
 
-  enum layer_type: [:img, :platform, :text]
+  enum layer_type: [:img, :platform, :text, :flag]
 
   before_save :set_default_menuindex
+  before_save :set_default_layer_params
 
   private
 
   def set_default_menuindex
-    return if menuindex
+    return if menuindex.present?
 
-    max_menuindex  = ImageLayer.max(:menuindex)
+    max_menuindex  = ImageLayer.maximum(:menuindex)
     self.menuindex = max_menuindex ? max_menuindex + 1 : 1
+  end
+
+  def set_default_layer_params
+    self.layer_params = self.layer_params.present? ? self.layer_params : nil
   end
 end

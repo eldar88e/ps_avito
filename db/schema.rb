@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_20_022841) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_20_233328) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_022841) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "slogan_params"
+    t.boolean "active", default: false, null: false
     t.index ["store_id"], name: "index_addresses_on_store_id"
   end
 
@@ -155,12 +156,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_022841) do
 
   create_table "image_layers", force: :cascade do |t|
     t.string "title"
-    t.json "params"
+    t.json "layer_params"
     t.integer "layer_type", default: 0
     t.bigint "store_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "menuindex", default: 0
+    t.boolean "active", default: false, null: false
     t.index ["store_id"], name: "index_image_layers_on_store_id"
   end
 
@@ -200,7 +202,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_022841) do
     t.string "category", null: false
     t.string "goods_type", null: false
     t.string "ad_type", null: false
-    t.string "address", null: false
+    t.string "address"
     t.text "description", null: false
     t.string "condition", null: false
     t.string "allow_email", null: false
@@ -211,6 +213,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_022841) do
     t.datetime "updated_at", null: false
     t.integer "menuindex", default: 0
     t.jsonb "game_img_params"
+    t.boolean "active", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|

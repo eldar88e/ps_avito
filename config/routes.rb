@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show]
   resources :stores
   resources :products
+  resources :image_layers
+
   root "games#index"
   get '/google_sheets', to: 'google_sheets#index'
 
