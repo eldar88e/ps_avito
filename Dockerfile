@@ -28,5 +28,5 @@ COPY package.json yarn.lock /app/
 RUN yarn install --check-files
 
 COPY . /app/
-
+RUN apk add font-noto
 ENTRYPOINT ["./docker-entrypoint.sh"]
