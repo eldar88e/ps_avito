@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :stores
   resources :products
   resources :image_layers
+  resources :addresses
 
   root "games#index"
   get '/google_sheets', to: 'google_sheets#index'

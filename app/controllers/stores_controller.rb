@@ -6,9 +6,11 @@ class StoresController < ApplicationController
   end
 
   def show
-    @store = Store.find(params[:id])
+    @store        = Store.find(params[:id])
     @image_layers = @store.image_layers.order(:menuindex)
-    @layer = ImageLayer.new
+    @layer        = ImageLayer.new
+    @addresses    = @store.addresses.order(:id)
+    @address      = Address.new
   end
 
   def new

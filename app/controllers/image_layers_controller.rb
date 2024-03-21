@@ -19,7 +19,6 @@ class ImageLayersController < ApplicationController
     if @layer.update(image_layer_params)
       redirect_to store_path(@store), alert: 'Layer edited!'
     else
-      @settings = Setting.all.order(:id)
       redirect_to store_path(@store), alert: 'Error editing layer!'
     end
   end

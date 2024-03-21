@@ -31,7 +31,10 @@ class PopulateExcelJob < ApplicationJob
     end
     file.use_shared_strings = true
     file.serialize(name)
-    FtpService.new(name).send_file
+
+    # #####
+    # FtpService.new(name).send_file
+    # #####
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
   end

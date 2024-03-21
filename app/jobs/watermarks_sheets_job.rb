@@ -7,9 +7,7 @@ class WatermarksSheetsJob < ApplicationJob
     stores.each do |store|
       AddWatermarkJob.perform_now(store: store)
       #PopulateGoogleSheetsJob.perform_now(site: site)
-      # #######
-      # PopulateExcelJob.perform_now(store: store)
-      # ######
+      PopulateExcelJob.perform_now(store: store)
     end
 
     nil

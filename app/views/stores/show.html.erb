@@ -8,10 +8,18 @@
       </li>
     <% end %>
   </ul>
+
   <a href="<%= edit_store_path(@store.id) %>" class='btn btn-primary'>Edite</a>
+
   <h2>Слои картинки</h2>
   <ul class="list-group">
     <%= render @image_layers %>
     <%= render '/image_layers/new' %>
+  </ul>
+
+  <h2>Адреса магазина</h2>
+  <ul class="list-group">
+    <%= render @addresses %>
+    <%= render '/addresses/new' %>
   </ul>
 </div>
