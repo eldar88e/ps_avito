@@ -43,12 +43,6 @@ class WatermarkService
       else
         add_img(layer, idx)
       end
-    rescue => e
-      puts '+' * 100
-      puts layer
-      puts e.message
-      puts '+' * 100
-      sleep 3
     end
 
     @new_image
@@ -85,6 +79,13 @@ class WatermarkService
     text_obj.stroke      = params['stroke'] || 'white'   # Цвет обводки текста
     text_obj.gravity     = Magick::LeftGravity  if params[:center]
     text_obj.annotate(@new_image, params['row'] || 0, params['column'] || 0, params['pos_x'] || 0, params['pos_y'] || 0, layer[:title])
+  rescue => e
+    puts '+' * 100
+    puts layer
+    puts e.message
+    puts '+' * 100
+    sleep 3
+    binding.pry
   end
 
   def make_platform

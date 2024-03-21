@@ -24,12 +24,12 @@ gem 'devise'
 gem 'kaminari'
 gem 'caxlsx'
 gem 'net-ftp'
+gem 'pry'
 
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
-  gem 'pry'
 end
 
 group :development do
