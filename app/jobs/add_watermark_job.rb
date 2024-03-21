@@ -8,12 +8,11 @@ class AddWatermarkJob < ApplicationJob
     games = Game.order(:top).with_attached_images
     games.each do |game|
       store.addresses.each do |address|
-        if game.images.attached?
+        if game.images.attached? && args[:clean]
           game.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
-          sleep 0.5
         end
 
-        # next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
+        next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
 
         w_service = WatermarkService.new(store: store, address: address, size: size, game: game)
         next unless w_service.image
