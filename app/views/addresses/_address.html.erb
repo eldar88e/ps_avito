@@ -8,8 +8,8 @@
 
       <% if address.image.attached? %>
         <div class="col-12 col-md-1" style="word-wrap: break-word;">
-          <% if address.layer.blob.content_type.match?(/font/) %>
-            <%= address.layer.blob.filename %>
+          <% if address.image.blob.content_type.match?(/font/) %>
+            <%= address.image.blob.filename %>
           <% else %>
             <%= image_tag url_for(address.image), class: 'img-fluid', style: 'max-height: 100px;' %>
           <% end %>
