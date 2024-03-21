@@ -73,10 +73,15 @@
     </div>
 
     <div class="mb-3">
-      <label for="game_img_params" class="form-label">Параметры лого</label>
+      <label for="game_img_params" class="form-label">Параметры картинки игры</label>
       <%= form.text_area :game_img_params, value: @store.game_img_params,
                           class: 'form-control', style: 'width: 100%', size: '50x1',
                           placeholder: "нужно указать ввиде json: { 'flag': { 'width': 200, 'height': 300 } }" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :menuindex, 'Расположение картинки в слоях изображения для авито', class: 'form-label' %>
+      <%= form.text_field :menuindex, class: 'form-control', style: 'width: 100%' %>
     </div>
 
     <div class="mb-3">

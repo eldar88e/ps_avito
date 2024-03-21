@@ -39,3 +39,4 @@
 /game_images/*
 .DS_Store
 /*.xlsx
+/public/game_lists/*

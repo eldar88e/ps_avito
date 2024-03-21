@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action">
+<li class="list-group-item <%= image_layer.active ? 'list-group-item-secondary' : 'list-group-item-danger' %>">
   <%= form_with(model: image_layer, url: image_layer_path(image_layer), method: :patch, format: :turbo_stream) do |form| %>
     <div class="row">
       <div class="col-12 mb-3">
@@ -37,8 +37,8 @@
       </div>
 
       <div class="col-12 col-md-1">
-        <%= form.check_box :active, class: 'form-check-input', id: 'active-checkbox' %>
-        <%= form.label :active, class: 'form-check-label', for: 'active-checkbox' %>
+        <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{image_layer.id}" %>
+        <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{image_layer.id}" %>
         <%= form.submit 'Edite', class: 'btn btn-warning', style: 'width: 100%; padding: 2px;' %>
       </div>
     </div>

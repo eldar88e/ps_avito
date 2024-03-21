@@ -26,6 +26,6 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:store_address, :slogan, :slogan_params, :active, :image)
+    params.require(:address).permit(:store_address, :slogan, :slogan_params, :active, :image, :description)
   end
 end

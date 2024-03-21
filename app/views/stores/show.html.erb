@@ -9,13 +9,19 @@
     <% end %>
   </ul>
 
+  <div class="mb-3"></div>
+
   <a href="<%= edit_store_path(@store.id) %>" class='btn btn-primary'>Edite</a>
+
+  <div class="mb-3 mb-md-5"></div>
 
   <h2>Слои картинки</h2>
   <ul class="list-group">
     <%= render @image_layers %>
     <%= render '/image_layers/new' %>
   </ul>
+
+  <div class="mb-3 mb-md-5"></div>
 
   <h2>Адреса магазина</h2>
   <ul class="list-group">

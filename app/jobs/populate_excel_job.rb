@@ -3,12 +3,11 @@ class PopulateExcelJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    store = args[:store]
-    games = Game.order(:top).with_attached_images
-    name  = "top_1000_#{store.var}.xlsx"
-    name  = "#{Rails.env}_#{name}" if Rails.env == 'development'
-    file  = Axlsx::Package.new
-
+    store    = args[:store]
+    games    = Game.order(:top).with_attached_images
+    name     = "top_1000_#{store.var}.xlsx"
+    name     = "#{Rails.env}_#{name}" if Rails.env == 'development'
+    file     = Axlsx::Package.new
     products = Product.order(:id).with_attached_image
 
     file.workbook.add_worksheet(name: store.var) do |sheet|
@@ -18,7 +17,7 @@ class PopulateExcelJob < ApplicationJob
       store.addresses.each do |address|
         games.each do |game|
           sheet.add_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category, store.goods_type, store.ad_type, address.store_address,
-                         make_title(game), description(game, store), store.condition, make_price(game.price_tl),
+                         make_title(game), make_description(game, store, address), store.condition, make_price(game.price_tl),
                          store.allow_email, store.manager_name, store.contact_phone] + make_image(game, store, address)
         end
       end
@@ -34,7 +33,11 @@ class PopulateExcelJob < ApplicationJob
     file.use_shared_strings = true
     file.serialize(name)
 
-    FtpService.new(name).send_file
+    source_path      = Rails.root.join(name)
+    destination_path = Rails.root.join('public', 'game_lists', name)
+    FileUtils.cp(source_path, destination_path)
+
+    #FtpService.new(name).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
   end
@@ -46,7 +49,7 @@ class PopulateExcelJob < ApplicationJob
     platform = game.platform
 
     if platform == 'PS5, PS4' || platform.match?(/PS4/) #ps4, ps5
-      prefix = ' (PS5 and PS4)'
+      prefix = ' PS5 и PS4'
       if raw_name.downcase.match?(/ps4/)
         if raw_name.downcase.match?(/ps5/)
           raw_name
@@ -64,7 +67,7 @@ class PopulateExcelJob < ApplicationJob
       if raw_name.downcase.match?(/ps5/)
         raw_name
       else
-        raw_name + ' (PS5)'
+        raw_name + ' PS5'
       end
     end
   end
@@ -90,13 +93,13 @@ class PopulateExcelJob < ApplicationJob
     end
   end
 
-  def description(game, store)
+  def make_description(game, store, address)
     #method_name = "desc_#{site}".to_sym
     #DescriptionService.new(game).send(method_name)
     rus_voice = game.rus_voice ? 'Есть' : 'Нет'
     rus_text  = game.rus_screen ? 'Есть' : 'Нет'
     store.description.gsub('[name]', game.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', store.manager_name)
-        .gsub('[rus_text]', rus_text).gsub('[platform]', game.platform).squeeze(' ').chomp
+        .gsub('[rus_text]', rus_text).gsub('[platform]', game.platform).gsub('[addr_desc]', address.description || '').squeeze(' ').chomp
   end
 
   def make_price(price)
