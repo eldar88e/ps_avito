@@ -43,12 +43,15 @@ class WatermarkService
       else
         add_img(layer, idx)
       end
+    rescue => e
+      puts '+' * 100
+      puts layer
+      puts e.message
+      puts '+' * 100
+      sleep 3
     end
 
     @new_image
-  rescue => e
-    puts e.message
-    binding.pry
   end
 
   private
@@ -76,7 +79,7 @@ class WatermarkService
 
     params               = layer[:params].is_a?(Hash) ? layer[:params] : eval(layer[:params]).transform_keys { |key| key.to_s }
     text_obj             = Magick::Draw.new
-    text_obj.font        = layer[:img] || params['font'] if layer[:img].present? || params['font'].present?
+    text_obj.font        = layer[:img] || params['font']  # if layer[:img].present? || params['font'].present?
     text_obj.pointsize   = params['pointsize'] || 42  # Размер шрифта
     text_obj.fill        = params['fill'] || 'white'
     text_obj.stroke      = params['stroke'] || 'white'   # Цвет обводки текста
