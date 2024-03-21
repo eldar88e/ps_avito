@@ -29,7 +29,13 @@ class WatermarkService
     end
 
     # можно в дальнейшем добавить логику что бы слоган грузился в виде картинки
-    @layers << { title: args[:address].slogan, params: args[:address].slogan_params || {}, layer_type: 'text', active: 1 }
+    if args[:address].image.attached?
+      key = i.layer.blob.key
+      raw_path = key.scan(/.{2}/)[0..1].join('/')
+      file_path = "./storage/#{raw_path}/#{key}"
+      @layers << { img: file_path, title: args[:address].slogan, params: args[:address].slogan_params || {}, layer_type: 'text', active: 1 }
+    end
+
 
     @new_image = nil
   end
@@ -73,19 +79,12 @@ class WatermarkService
 
     params               = layer[:params].is_a?(Hash) ? layer[:params] : eval(layer[:params]).transform_keys { |key| key.to_s }
     text_obj             = Magick::Draw.new
-    text_obj.font        = layer[:img] || params['font'] || 'Noto Sans'
+    text_obj.font        = layer[:img] || params['font']
     text_obj.pointsize   = params['pointsize'] || 42  # Размер шрифта
     text_obj.fill        = params['fill'] || 'white'
     text_obj.stroke      = params['stroke'] || 'white'   # Цвет обводки текста
     text_obj.gravity     = Magick::LeftGravity  if params[:center]
     text_obj.annotate(@new_image, params['row'] || 0, params['column'] || 0, params['pos_x'] || 0, params['pos_y'] || 0, layer[:title])
-  rescue => e
-    puts '+' * 100
-    puts layer
-    puts e.message
-    puts '+' * 100
-    sleep 3
-    binding.pry
   end
 
   def make_platform
