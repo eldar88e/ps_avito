@@ -30,7 +30,7 @@ class WatermarkService
 
     # можно в дальнейшем добавить логику что бы слоган грузился в виде картинки
     if args[:address].image.attached?
-      key = i.layer.blob.key
+      key = args[:address].image.blob.key
       raw_path = key.scan(/.{2}/)[0..1].join('/')
       file_path = "./storage/#{raw_path}/#{key}"
       @layers << { img: file_path, title: args[:address].slogan, params: args[:address].slogan_params || {}, layer_type: 'text', active: 1 }
