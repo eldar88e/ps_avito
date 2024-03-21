@@ -15,15 +15,17 @@ class PopulateExcelJob < ApplicationJob
       sheet.add_row %w[Id	AdStatus	Category	GoodsType	AdType	Address	Title	Description Condition	Price
                        AllowEmail	ManagerName	ContactPhone	ImageNames	ImageUrls]
 
-      games.each do |game|
-        sheet.add_row [game.sony_id, store.ad_status, store.category, store.goods_type, store.ad_type, store.address,
-                       make_title(game), description(game, store), store.condition, make_price(game.price_tl),
-                       store.allow_email, store.manager_name, store.contact_phone] + make_image(game, store.var)
+      store.addresses.each do |address|
+        games.each do |game|
+          sheet.add_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category, store.goods_type, store.ad_type, address.store_address,
+                         make_title(game), description(game, store), store.condition, make_price(game.price_tl),
+                         store.allow_email, store.manager_name, store.contact_phone] + make_image(game, store, address)
+        end
       end
 
       products.each do |product|
         sheet.add_row [product.id, product.ad_status || store.ad_status, product.category || store.category,
-                       product.goods_type || store.goods_type, product.ad_type || store.ad_type, store.address,
+                       product.goods_type || store.goods_type, product.ad_type || store.ad_type, store.addresses.first.store_address,
                        product.title, product.description, product.condition || store.condition, product.price,
                        product.allow_email || store.allow_email, store.manager_name, store.contact_phone] +
                        make_image_product(product)
@@ -32,9 +34,7 @@ class PopulateExcelJob < ApplicationJob
     file.use_shared_strings = true
     file.serialize(name)
 
-    # #####
-    # FtpService.new(name).send_file
-    # #####
+    FtpService.new(name).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
   end
@@ -69,9 +69,9 @@ class PopulateExcelJob < ApplicationJob
     end
   end
 
-  def make_image(game, site)
-    if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
-      image = game.images.find { |i| i.blob.metadata[:site] == site }
+  def make_image(game, store, address)
+    if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
+      image = game.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
       params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
       #[image.blob.filename.to_s, rails_blob_url(image, params)]
       [nil, rails_blob_url(image, params)]

@@ -3,14 +3,12 @@ class AddWatermarkJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   def perform(**args)
-    size  = Setting.pluck(:var, :value).to_h['game_img_size']
+    size  = args[:settings]['game_img_size']
     store = args[:store]
     games = Game.order(:top).with_attached_images
     games.each do |game|
       store.addresses.each do |address|
-        #
-        # next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
-        #
+        next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
 
         w_service = WatermarkService.new(store: store, address: address, size: size, game: game)
         next unless w_service.image
