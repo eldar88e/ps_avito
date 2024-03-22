@@ -1,5 +1,5 @@
-<li class="list-group-item list-group-item-secondary">
-  <h3>Новый слой</h3>
+<li class="list-group-item list-group-item-success">
+  <b>Новый слой</b>
   <%= form_with(model: @layer, url: image_layers_path, method: :post) do |form| %>
     <div class="row">
       <div class="col-12 col-md-2">
@@ -27,10 +27,9 @@
         <%= form.text_area :layer_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
       </div>
 
-      <div class="col-12 col-md-1">
+      <div class="col-12 col-md-1 mt-0 mt-md-2">
         <%= form.check_box :active, class: 'form-check-input', id: 'active-checkbox-layer' %>
         <%= form.label :active, class: 'form-check-label', for: 'active-checkbox-layer' %>
-
         <%= form.submit 'Add', class: 'btn btn-primary', style: 'width: 100%; padding: 2px;' %>
       </div>
     </div>

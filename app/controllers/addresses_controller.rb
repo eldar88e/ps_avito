@@ -23,6 +23,18 @@ class AddressesController < ApplicationController
     end
   end
 
+  def destroy
+    @address = Address.find(params[:id])
+    @store   = @address.store
+    notice =
+      if @address&.destroy
+        'Address was successfully deleted.'
+      else
+        'Address was not deleted!'
+      end
+    redirect_to store_path(@store), notice: notice
+  end
+
   private
 
   def address_params

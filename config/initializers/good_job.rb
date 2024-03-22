@@ -30,6 +30,13 @@ Rails.application.configure do
       class: "CleanAttachBlobJob",
       set: { priority: 10 },
       description: "Clean up tables of deleted images on local disk."
+    },
+    update_excel: {
+      cron: "0 2 29 2 *",
+      class: "WatermarksSheetsJob",
+      args: [true],
+      set: { priority: 10 },
+      description: "Update all excel files with replacing all images"
     }
   }
 end

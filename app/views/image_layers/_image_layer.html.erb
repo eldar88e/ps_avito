@@ -1,8 +1,9 @@
-<li class="list-group-item <%= image_layer.active ? 'list-group-item-secondary' : 'list-group-item-danger' %>">
+<li class="list-group-item list-group-item-action <%= image_layer.active ? '' : 'list-group-item-danger' %>">
+  <b>Слой</b>
   <%= form_with(model: image_layer, url: image_layer_path(image_layer), method: :patch, format: :turbo_stream) do |form| %>
     <div class="row">
       <div class="col-12 mb-3">
-        <%= form.label :layer_params, 'layer_params', class: 'form-label' %>
+        <%= form.label :layer_params, 'Параметры слоя', class: 'form-label' %>
         <%= form.text_area :layer_params, value: image_layer.layer_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
       </div>
 
@@ -36,7 +37,7 @@
         <%= form.text_field :title, value: image_layer.title, class: 'form-control', style: 'width: 100%' %>
       </div>
 
-      <div class="col-12 col-md-1">
+      <div class="col-12 col-md-1 mt-0 mt-md-3">
         <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{image_layer.id}" %>
         <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{image_layer.id}" %>
         <%= form.submit 'Edite', class: 'btn btn-warning', style: 'width: 100%; padding: 2px;' %>

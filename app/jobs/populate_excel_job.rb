@@ -94,8 +94,6 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def make_description(game, store, address)
-    #method_name = "desc_#{site}".to_sym
-    #DescriptionService.new(game).send(method_name)
     rus_voice = game.rus_voice ? 'Есть' : 'Нет'
     rus_text  = game.rus_screen ? 'Есть' : 'Нет'
     store.description.gsub('[name]', game.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', store.manager_name)

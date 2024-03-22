@@ -24,20 +24,23 @@ class WatermarkService
 
     if @platforms.present?
       platform = make_platform
-      platform[:layer_type] = :img
-      @layers << platform
+      @layers << platform if platform.present?
     end
 
-    # можно в дальнейшем добавить логику что бы слоган грузился в виде картинки
     if args[:address].image.attached?
-      key = args[:address].image.blob.key
-      raw_path = key.scan(/.{2}/)[0..1].join('/')
-      file_path = "./storage/#{raw_path}/#{key}"
-      @layers << { img: file_path, title: args[:address].slogan, params: args[:address].slogan_params || {}, layer_type: 'text', active: 1 }
+      blob      = args[:address].image.blob
+      raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
+      file_path = "./storage/#{raw_path}/#{blob.key}"
+      slogan    = { img: file_path, title: args[:address].slogan, params: args[:address].slogan_params || {}, active: 1 }
+      if blob[:content_type].match?(/font/)
+        slogan[:layer_type] = 'text'
+      else
+        slogan[:layer_type] = 'img'
+      end
+      @layers << slogan
     end
 
-
-    @new_image = nil
+    #@new_image = Magick::Image.new(width, height)
   end
 
   def add_watermarks
