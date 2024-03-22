@@ -5,9 +5,8 @@ class WatermarksSheetsJob < ApplicationJob
     # sites  = %w[open_ps open_ps_store alexander]
     stores   = Store.includes(:addresses).where(active: true, addresses: { active: true })
     settings = Setting.pluck(:var, :value).to_h
-    clean    = args[0]
     stores.each do |store|
-      AddWatermarkJob.perform_now(store: store, settings: settings, clean: clean)
+      AddWatermarkJob.perform_now(store: store, settings: settings, clean: args[0])
       #PopulateGoogleSheetsJob.perform_now(site: site)
       PopulateExcelJob.perform_now(store: store)
     end

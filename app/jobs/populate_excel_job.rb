@@ -35,9 +35,9 @@ class PopulateExcelJob < ApplicationJob
 
     source_path      = Rails.root.join(name)
     destination_path = Rails.root.join('public', 'game_lists', name)
-    FileUtils.cp(source_path, destination_path)
+    FileUtils.cp(source_path, destination_path) #&& TelegramService.new("✅ File http://server.open-ps.ru/public/#{name} is updated!").report
 
-    #FtpService.new(name).send_file
+    FtpService.new(name).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
   end
