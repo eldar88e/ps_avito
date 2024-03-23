@@ -52,11 +52,11 @@
                     data: { confirm: 'Вы уверены, что хотите удалить данный адресс и все с ним связанные картинки?',
                             controller: 'confirm', action: 'click->confirm#call' } %>
     </div>
-    <div class="col-6 col-md-2">
+    <div class="col-12 col-md-2">
       <%= button_to 'Создать картинки', update_img_path(store_id: address.store.id, address_id: address.id),
                     method: :post, class: 'mt-3 mt-md-0 btn btn-success', style: 'width: 100%;' %>
     </div>
-    <div class="col-6 col-md-2">
+    <div class="col-12 col-md-2">
       <%= form_with(url: update_img_path(store_id: address.store.id, address_id: address.id), method: :post) do |form| %>
         <%= form.hidden_field :clean, value: 1 %>
         <%= form.submit 'Обновить картинки', class: 'mt-3 mt-md-0 btn btn-dark', style: 'width: 100%;',
