@@ -32,15 +32,15 @@
         <%= form.text_field :menuindex, value: image_layer.menuindex, class: 'form-control', style: 'width: 100%' %>
       </div>
 
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4 mb-3 mb-md-0">
         <%= form.label :title, 'title', class: 'form-label' %>
         <%= form.text_field :title, value: image_layer.title, class: 'form-control', style: 'width: 100%' %>
       </div>
 
-      <div class="col-12 col-md-1 mt-0 mt-md-3">
+      <div class="col-12 col-md-1 mt-0 mt-md-2">
         <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{image_layer.id}" %>
         <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{image_layer.id}" %>
-        <%= form.submit 'Edite', class: 'btn btn-warning', style: 'width: 100%; padding: 2px;' %>
+        <%= form.submit 'Edite', class: 'mt-3 mt-md-0 btn btn-warning', style: 'width: 100%;' %>
       </div>
     </div>
   <% end %>

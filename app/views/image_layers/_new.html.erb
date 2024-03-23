@@ -22,7 +22,7 @@
         <%= form.text_field :menuindex, class: 'form-control', style: 'width: 100%' %>
       </div>
 
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4 mb-3 mb-md-0">
         <%= form.label :layer_params, 'layer_params', class: 'form-label' %>
         <%= form.text_area :layer_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
       </div>
@@ -30,7 +30,7 @@
       <div class="col-12 col-md-1 mt-0 mt-md-2">
         <%= form.check_box :active, class: 'form-check-input', id: 'active-checkbox-layer' %>
         <%= form.label :active, class: 'form-check-label', for: 'active-checkbox-layer' %>
-        <%= form.submit 'Add', class: 'btn btn-primary', style: 'width: 100%; padding: 2px;' %>
+        <%= form.submit 'Add', class: 'mt-3 mt-md-0 btn btn-primary', style: 'width: 100%;' %>
       </div>
     </div>
   <% end %>
