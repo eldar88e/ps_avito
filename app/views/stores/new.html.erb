@@ -74,6 +74,11 @@
     </div>
 
     <div class="mb-3">
+      <label for="menuindex" class="form-label">Расположение в слоях изображения для авито</label>
+      <%= form.text_field :menuindex, class: 'form-control', style: 'width: 100%', value: 1 %>
+    </div>
+
+    <div class="mb-3">
       <%= form.check_box :active, class: 'form-check-input' %>
       <%= form.label :active, class: 'form-check-label' %>
     </div>

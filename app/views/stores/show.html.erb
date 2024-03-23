@@ -1,8 +1,7 @@
 <div class="container">
   <h1>Магазин <%= @store.manager_name %></h1>
   <ul class="list-group">
-    <% colum_names = @store.attributes.keys %>
-    <% colum_names.each do |name| %>
+    <% @store.attributes.keys.reject { |i| i.match?(/id|created_at|updated_at/) }.each do |name| %>
       <li class="list-group-item list-group-item-action">
         <strong><%= name %>: </strong><%= @store.send(name.to_sym) %>
       </li>
@@ -10,8 +9,7 @@
   </ul>
   <a href="<%= edit_store_path(@store.id) %>" class='mt-3 btn btn-primary'>Edite</a>
 
-  <div class="mb-3"></div>
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Адреса магазина</button>
     </li>
@@ -34,6 +32,22 @@
         <%= render @image_layers %>
         <%= render '/image_layers/new' %>
       </ol>
+
+      <h3>Все картинки из каталога</h3>
+      <div class="row images-gallery">
+        <% directory_path = Rails.root.join('app', 'assets', 'images', "img_#{@store.id}") %>
+        <% if File.directory?(directory_path) %>
+          <% Dir.entries(directory_path).select { |i| i.match?(/.jpg/) }.each do |image_path| %>
+            <div class="image-item col-6 col-md-2">
+              <a href="<%= asset_path("img_#{@store.id}/#{image_path}") %>" data-fancybox="gallery" data-src="<%= asset_path("img_#{@store.id}/#{image_path}") %>" data-caption="">
+                <%= image_tag asset_path("img_#{@store.id}/#{image_path}"), style: 'width: 100%;' %>
+              </a>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= button_to 'Обновить тестовые картинки', update_store_test_img_path(store_id: @store.id), method: :post, class: 'mt-3 btn btn-primary' %>
     </div>
   </div>
 </div>

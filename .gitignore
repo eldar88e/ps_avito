@@ -40,3 +40,4 @@
 .DS_Store
 /*.xlsx
 /public/game_lists/*
+/app/assets/images/img_*

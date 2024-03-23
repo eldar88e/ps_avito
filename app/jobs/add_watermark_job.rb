@@ -3,24 +3,23 @@ class AddWatermarkJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   def perform(**args)
-    size  = args[:settings]['game_img_size']
-    store = args[:store]
-    games = Game.order(:top).with_attached_images
+    size    = args[:settings]['game_img_size']
+    store   = args[:store]
+    games   = Game.order(:top).with_attached_images
+    address = args[:address]
     games.each do |game|
-      store.addresses.each do |address|
-        if game.images.attached? && args[:clean]
-          game.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
-        end
-
-        next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
-
-        w_service = WatermarkService.new(store: store, address: address, size: size, game: game)
-        next unless w_service.image
-
-        image = w_service.add_watermarks
-        name  = "#{game.sony_id}_#{size}.jpg"
-        save_image(image: image, game: game, name: name, store_id: store.id, address_id: address.id)
+      if game.images.attached? && args[:clean]
+        game.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
       end
+
+      next if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
+
+      w_service = WatermarkService.new(store: store, address: address, size: size, game: game)
+      next unless w_service.image
+
+      image = w_service.add_watermarks
+      name  = "#{game.sony_id}_#{size}.jpg"
+      save_image(image: image, game: game, name: name, store_id: store.id, address_id: address.id)
     end
 
     nil

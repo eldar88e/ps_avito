@@ -46,11 +46,23 @@
     </div>
   <% end %>
   <div class="row">
-    <div class="col-12 col-md-1">
+    <div class="col-12 col-md-2">
       <%= button_to "Delete", address_path(address),
-                    method: :delete, class: 'btn btn-danger mt-1', style: 'width: 100%; padding: 2px;',
-                    data: { confirm: 'Are you sure you want to delete this address?',
+                    method: :delete, class: 'btn btn-danger mt-1', style: 'width: 100%;',
+                    data: { confirm: 'Вы уверены, что хотите удалить данный адресс и все с ним связанные картинки?',
                             controller: 'confirm', action: 'click->confirm#call' } %>
+    </div>
+    <div class="col-6 col-md-2">
+      <%= button_to 'Создать картинки', update_img_path(store_id: address.store.id, address_id: address.id),
+                    method: :post, class: 'mt-1 btn btn-success', style: 'width: 100%;' %>
+    </div>
+    <div class="col-6 col-md-2">
+      <%= form_with(url: update_img_path(store_id: address.store.id, address_id: address.id), method: :post) do |form| %>
+        <%= form.hidden_field :clean, value: 1 %>
+        <%= form.submit 'Обновить картинки', class: 'mt-1 btn btn-dark', style: 'width: 100%;',
+            data: { confirm: 'Вы уверены, что хотите удалить все старые картинки данного адреса и создать новые?',
+                    controller: 'confirm', action: 'click->confirm#call' }%>
+      <% end %>
     </div>
   </div>
 </li>

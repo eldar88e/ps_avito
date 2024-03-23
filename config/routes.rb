@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   resources :image_layers
   resources :addresses
 
-  root "games#index"
+  post '/stores/:store_id/store_test_img', to: 'jobs#update_store_test_img', as: 'update_store_test_img'
+  post '/stores/:store_id/addresses/:address_id/update_img', to: 'jobs#update_img', as: 'update_img'
+
+  root 'games#index'
   get '/google_sheets', to: 'google_sheets#index'
 
   authenticate :user do
