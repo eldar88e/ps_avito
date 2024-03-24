@@ -7,7 +7,17 @@
       </li>
     <% end %>
   </ul>
-  <a href="<%= edit_store_path(@store.id) %>" class='mt-3 btn btn-primary'>Edite</a>
+
+  <div class="buttons-group">
+    <div>
+      <a href="<%= edit_store_path(@store.id) %>" class='mt-3 btn btn-primary'>Edite</a>
+    </div>
+    <div>
+      <%= button_to 'Обновить feed', update_feed_path(store_id: @store.id),
+                    method: :post, class: 'loader-btn mt-3 btn btn-success',
+                    data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' } %>
+    </div>
+  </div>
 
   <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">

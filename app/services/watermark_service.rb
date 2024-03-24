@@ -4,6 +4,7 @@ class WatermarkService
   attr_reader :image
 
   def initialize(**args)
+    @main_font = args[:main_font]
     @game      = args[:game]
     img_url    = "./game_images/#{@game.sony_id}_#{args[:size]}.jpg"
     @image     = File.exist?(img_url)
@@ -13,6 +14,8 @@ class WatermarkService
         raw_path = key.scan(/.{2}/)[0..1].join('/')
         img_path = "./storage/#{raw_path}/#{key}"
         { img: img_path, params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title, active: i.active }
+      elsif i.layer_type == 'text' && i.layer_type.present?
+        { params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title, active: i.active }
       else
         nil
       end
@@ -27,18 +30,15 @@ class WatermarkService
       @layers << platform if platform.present?
     end
 
+    slogan = { title: args[:address].slogan, params: args[:address].slogan_params || {}, active: 1 }
     if args[:address].image.attached?
-      blob      = args[:address].image.blob
-      raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
-      file_path = "./storage/#{raw_path}/#{blob.key}"
-      slogan    = { img: file_path, title: args[:address].slogan, params: args[:address].slogan_params || {}, active: 1 }
-      if blob[:content_type].match?(/font/)
-        slogan[:layer_type] = 'text'
-      else
-        slogan[:layer_type] = 'img'
-      end
-      @layers << slogan
+      blob                = args[:address].image.blob
+      raw_path            = blob.key.scan(/.{2}/)[0..1].join('/')
+      slogan[:img]        = "./storage/#{raw_path}/#{blob.key}"
+      slogan[:layer_type] = 'img' if blob[:content_type].match?(/image/)
     end
+    slogan[:layer_type] = 'text' unless slogan[:layer_type]
+    @layers << slogan
 
     #@new_image = Magick::Image.new(width, height)
   end
@@ -82,12 +82,15 @@ class WatermarkService
 
     params               = layer[:params].is_a?(Hash) ? layer[:params] : eval(layer[:params]).transform_keys { |key| key.to_s }
     text_obj             = Magick::Draw.new
-    text_obj.font        = layer[:img] || params['font']
+    text_obj.font        = layer[:img] || @main_font # || params['font']
     text_obj.pointsize   = params['pointsize'] || 42  # Размер шрифта
     text_obj.fill        = params['fill'] || 'white'
     text_obj.stroke      = params['stroke'] || 'white'   # Цвет обводки текста
     text_obj.gravity     = Magick::LeftGravity  if params[:center]
     text_obj.annotate(@new_image, params['row'] || 0, params['column'] || 0, params['pos_x'] || 0, params['pos_y'] || 0, layer[:title])
+  rescue => e
+    puts e.message
+    binding.pry
   end
 
   def make_platform

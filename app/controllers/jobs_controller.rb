@@ -2,8 +2,12 @@ class JobsController < ApplicationController
   before_action :authenticate_user!
 
   def update_store_test_img
-    store = Store.includes(:addresses).where(active: true, id: params[:store_id]).first
-    size  = Setting.pluck(:var, :value).to_h['game_img_size']
+    store     = Store.includes(:addresses).where(active: true, id: params[:store_id]).first
+    settings  = Setting.pluck(:var, :value).to_h
+    size      = settings['game_img_size']
+    blob      = settings['main_font'].font.blob
+    raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
+    main_font = "./storage/#{raw_path}/#{blob.key}"
     game  = Game.order(:top).first
 
     directory_path = Rails.root.join('app', 'assets', 'images', "img_#{store.id}")
@@ -11,7 +15,7 @@ class JobsController < ApplicationController
     FileUtils.mkdir_p(directory_path)
 
     store.addresses.each do |address|
-      w_service = WatermarkService.new(store: store, address: address, size: size, game: game)
+      w_service = WatermarkService.new(store: store, address: address, size: size, game: game, main_font: main_font)
       next unless w_service.image
 
       image    = w_service.add_watermarks
@@ -22,13 +26,32 @@ class JobsController < ApplicationController
   end
 
   def update_img
-    clean = params[:clean]
+    clean     = params[:clean]
+    settings  = Setting.all
+    size      = settings.find_by(var: 'game_img_size').value
+    blob      = settings.find_by(var: 'main_font').font.blob
+    raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
+    main_font = "./storage/#{raw_path}/#{blob.key}"
     store = Store.includes(:addresses)
                  .where(active: true, id: params[:store_id], addresses: { active: true, id: params[:address_id] })
                  .first
-    address  = store.addresses.first
-    settings = Setting.pluck(:var, :value).to_h
-    AddWatermarkJob.perform_later(store: store, address: address, settings: settings, clean: clean)
+    if store
+      address = store.addresses.first
+      AddWatermarkJob.perform_later(address: address, size: size, main_font: main_font, clean: clean)
+      head :ok
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  def update_feed
+    store = Store.find_by(active: true, id: params[:store_id])
+    if store && PopulateExcelJob.perform_later(store: store)
+      # render js: "document.getElementById('loader').remove();"
+      head :ok
+    else
+      head :unprocessable_entity
+    end
   end
 
   private

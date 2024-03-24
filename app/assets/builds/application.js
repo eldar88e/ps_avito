@@ -13405,8 +13405,19 @@
     }
   };
 
+  // app/javascript/controllers/btn_preloader_controller.js
+  var btn_preloader_controller_default = class extends Controller {
+    call(e2) {
+      this.element.insertAdjacentHTML("afterbegin", '<div id="loader" class="loader"></div>');
+      setTimeout(() => {
+        this.element.querySelector("#loader").remove();
+      }, 5e3);
+    }
+  };
+
   // app/javascript/controllers/index.js
   application.register("confirm", confirm_controller_default);
+  application.register("btn_preloader", btn_preloader_controller_default);
 
   // app/javascript/application.js
   var import_bootstrap = __toESM(require_bootstrap());

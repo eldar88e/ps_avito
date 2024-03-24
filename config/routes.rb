@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   post '/stores/:store_id/store_test_img', to: 'jobs#update_store_test_img', as: 'update_store_test_img'
   post '/stores/:store_id/addresses/:address_id/update_img', to: 'jobs#update_img', as: 'update_img'
+  post '/stores/:store_id/update_feed', to: 'jobs#update_feed', as: 'update_feed'
 
   root 'games#index'
   get '/google_sheets', to: 'google_sheets#index'

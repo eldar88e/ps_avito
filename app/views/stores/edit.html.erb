@@ -73,6 +73,15 @@
     </div>
 
     <div class="mb-3">
+      <label for="contact_method" class="form-label">Способ связи</label>
+      <%= form.select :contact_method,
+                      options_for_select(
+                        ['По телефону и в сообщениях', 'По телефону', 'В сообщениях'],
+                        @store.contact_method),
+                      {}, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
       <label for="game_img_params" class="form-label">Параметры картинки игры</label>
       <%= form.text_area :game_img_params, value: @store.game_img_params,
                           class: 'form-control', style: 'width: 100%', size: '50x1',

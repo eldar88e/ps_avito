@@ -28,3 +28,33 @@ ul.pagination {
     cursor: pointer;
   }
 }
+
+.buttons-group > div {
+  display: inline-block;
+}
+
+.buttons-group a {
+  display: block;
+}
+
+.loader-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  .loader {
+    border: 2px solid rgb(243 243 243 / 9%);
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+

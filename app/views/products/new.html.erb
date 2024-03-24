@@ -39,6 +39,13 @@
     <p>Если их не заполнить, то они будут братся из настроек магазина</p>
 
     <div class="mb-3">
+      <label for="contact_method" class="form-label">Способ связи</label>
+      <%= form.select :contact_method,
+                      options_for_select(['По телефону и в сообщениях', 'По телефону', 'В сообщениях']),
+                      {}, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
       <label for="ad_status" class="form-label">Ad status</label>
       <%= form.text_field :ad_status, class: 'form-control', style: 'width: 100%', placeholder: 'Ad status' %>
     </div>

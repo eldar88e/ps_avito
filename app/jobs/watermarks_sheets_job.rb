@@ -2,12 +2,15 @@ class WatermarksSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    # sites  = %w[open_ps open_ps_store alexander]
-    stores   = Store.includes(:addresses).where(active: true, addresses: { active: true })
-    settings = Setting.pluck(:var, :value).to_h
+    stores    = Store.includes(:addresses).where(active: true, addresses: { active: true })
+    settings  = Setting.all
+    size      = settings.find_by(var: 'game_img_size').value
+    blob      = settings.find_by(var: 'main_font').font.blob
+    raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
+    main_font = "./storage/#{raw_path}/#{blob.key}"
     stores.each do |store|
       store.addresses.each do |address|
-        AddWatermarkJob.perform_now(store: store, address: address, settings: settings, clean: args[0])
+        AddWatermarkJob.perform_now(address: address, size: size, main_font: main_font, clean: args[0])
       end
       #PopulateGoogleSheetsJob.perform_now(site: site)
       PopulateExcelJob.perform_now(store: store)

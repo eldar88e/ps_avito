@@ -17,6 +17,6 @@ class ImageLayer < ApplicationRecord
   end
 
   def set_default_layer_params
-    self.layer_params = self.layer_params.present? ? self.layer_params : nil
+    self.layer_params = {} if layer_params.blank?
   end
 end
