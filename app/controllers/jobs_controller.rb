@@ -38,7 +38,7 @@ class JobsController < ApplicationController
     if store
       address = store.addresses.first
       [AddWatermarkJob, AddWatermarkOtherJob].each do |klass|
-        klass.send(:perform_now, address: address, size: size, main_font: main_font, clean: clean)
+        klass.send(:perform_later, address: address, size: size, main_font: main_font, clean: clean)
       end
       head :ok
     else
@@ -56,7 +56,7 @@ class JobsController < ApplicationController
     stores = Store.includes(:addresses).where(active: true, addresses: { active: true })
     stores.each do |store|
       store.addresses.each do |address|
-        AddWatermarkOtherJob.perform_now(address: address, size: size, main_font: main_font, clean: clean)
+        AddWatermarkOtherJob.perform_later(address: address, size: size, main_font: main_font, clean: clean)
       end
     end
     redirect_to '/products'
