@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @games = Game.order(:top).page(params[:page]).per(36)
+    @games = Game.order(:top).page(params[:page]).per(12)
   end
 
   def show
