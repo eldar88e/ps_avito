@@ -93,6 +93,11 @@
     </div>
 
     <div class="mb-3">
+      <%= form.check_box :active, { checked: @product.active }, class: 'form-check-input' %>
+      <%= form.label :active, class: 'form-check-label' %>
+    </div>
+
+    <div class="mb-3">
       <%= form.submit 'Save', class: 'btn btn-primary' %>
     </div>
   <% end %>

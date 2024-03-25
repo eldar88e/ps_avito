@@ -1,8 +1,7 @@
 <div class="container">
   <h1><%= @product.title %></h1>
   <ul class="list-group">
-    <% colum_names = @product.attributes.keys[1..-3] %>
-    <% colum_names.each do |name| %>
+    <% @product.attributes.keys.reject { |i| i.match?(/id|created_at|updated_at/) }.each do |name| %>
       <li class="list-group-item list-group-item-action">
         <strong><%= name %>: </strong><%= @product.send(name.to_sym) %>
       </li>
@@ -16,5 +15,5 @@
       <% end %>
     </li>
   </ul>
-  <a href="<%= edit_product_path(@product) %>" class='btn btn-primary'>Edite</a>
+  <a href="<%= edit_product_path(@product) %>" class='mt-3 btn btn-primary'>Edite</a>
 </div>

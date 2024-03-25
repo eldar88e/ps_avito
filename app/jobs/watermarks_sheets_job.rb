@@ -10,7 +10,9 @@ class WatermarksSheetsJob < ApplicationJob
     main_font = "./storage/#{raw_path}/#{blob.key}"
     stores.each do |store|
       store.addresses.each do |address|
-        AddWatermarkJob.perform_now(address: address, size: size, main_font: main_font, clean: args[0])
+        [AddWatermarkJob, AddWatermarkOtherJob].each do |klass|
+          klass.send(:perform_now, address: address, size: size, main_font: main_font, clean: args[0])
+        end
       end
       #PopulateGoogleSheetsJob.perform_now(site: site)
       PopulateExcelJob.perform_now(store: store)

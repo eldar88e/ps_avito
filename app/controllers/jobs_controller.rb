@@ -37,7 +37,9 @@ class JobsController < ApplicationController
                  .first
     if store
       address = store.addresses.first
-      AddWatermarkJob.perform_later(address: address, size: size, main_font: main_font, clean: clean)
+      [AddWatermarkJob, AddWatermarkOtherJob].each do |klass|
+        klass.send(:perform_now, address: address, size: size, main_font: main_font, clean: clean)
+      end
       head :ok
     else
       head :unprocessable_entity

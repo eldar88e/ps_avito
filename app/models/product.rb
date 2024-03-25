@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   validates :price, numericality: { only_integer: true }
 
   has_one_attached :image, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
 
   before_save :cleanup_description
 

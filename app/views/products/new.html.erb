@@ -65,8 +65,6 @@
       <%= form.text_field :ad_type, class: 'form-control', style: 'width: 100%', placeholder: 'Ad type' %>
     </div>
 
-
-
     <div class="mb-3">
       <label for="condition" class="form-label">Condition</label>
       <%= form.text_field :condition, class: 'form-control', style: 'width: 100%', placeholder: 'Condition' %>
@@ -75,6 +73,11 @@
     <div class="mb-3">
       <%= form.label :allow_email, 'Allow email', class: 'form-label' %>
       <%= form.text_field :allow_email, class: 'form-control', style: 'width: 100%', placeholder: 'Allow email' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.check_box :active, class: 'form-check-input' %>
+      <%= form.label :active, class: 'form-check-label' %>
     </div>
 
     <div class="mb-3">

@@ -8,7 +8,7 @@ class PopulateExcelJob < ApplicationJob
     name     = "top_1000_#{store.var}.xlsx"
     name     = "#{Rails.env}_#{name}" if Rails.env == 'development'
     file     = Axlsx::Package.new
-    products = Product.order(:id).with_attached_image
+    products = Product.where(active: true).with_attached_image
 
     file.workbook.add_worksheet(name: store.var) do |sheet|
       sheet.add_row %w[Id	AdStatus Category GoodsType	AdType Address Title Description Condition Price
@@ -24,13 +24,15 @@ class PopulateExcelJob < ApplicationJob
         end
       end
 
-      products.each do |product|
-        sheet.add_row [product.id, product.ad_status || store.ad_status, product.category || store.category,
-                       product.goods_type || store.goods_type, product.ad_type || store.ad_type,
-                       store.addresses.first.store_address, product.title, product.description,
-                       product.condition || store.condition, product.price, product.allow_email || store.allow_email,
-                       store.manager_name, store.contact_phone, product.contact_method || store.contact_method,
-                       make_image_product(product)]
+      store.addresses.where(active: true).each do |address|
+        products.each do |product|
+          sheet.add_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status, product.category || store.category,
+                         product.goods_type || store.goods_type, product.ad_type || store.ad_type,
+                         address.store_address, product.title, make_description(product, store, address),
+                         product.condition || store.condition, product.price, product.allow_email || store.allow_email,
+                         store.manager_name, store.contact_phone, product.contact_method || store.contact_method,
+                         make_image(product, store, address)]
+        end
       end
     end
     file.use_shared_strings = true
@@ -76,9 +78,9 @@ class PopulateExcelJob < ApplicationJob
     end
   end
 
-  def make_image(game, store, address)
-    if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
-      image = game.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
+  def make_image(model, store, address)
+    if model.images.attached? && model.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
+      image = model.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
       params = Rails.env == 'production' ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
       rails_blob_url(image, params)
     end
@@ -91,12 +93,19 @@ class PopulateExcelJob < ApplicationJob
     rails_blob_url(product.image, params)
   end
 
-  def make_description(game, store, address)
-    rus_voice = game.rus_voice ? 'Есть' : 'Нет'
-    rus_text  = game.rus_screen ? 'Есть' : 'Нет'
-    store.description.gsub('[name]', game.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', store.manager_name)
-         .gsub('[rus_text]', rus_text).gsub('[platform]', game.platform).gsub('[addr_desc]', address.description || '')
-         .squeeze(' ').chomp
+  def make_description(model, store, address)
+    if model.is_a?(Game)
+      desc_game = store.desc_game.to_s + store.description
+      rus_voice = model.rus_voice ? 'Есть' : 'Нет'
+      rus_text  = model.rus_screen ? 'Есть' : 'Нет'
+      desc_game.gsub('[name]', model.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', store.manager_name)
+           .gsub('[rus_text]', rus_text).gsub('[platform]', model.platform).gsub('[addr_desc]', address.description || '')
+           .squeeze(' ').chomp
+    else
+      desc_product = store.desc_product.to_s + store.description
+      desc_product.gsub('[name]', model.title).gsub('[addr_desc]', address.description || '')
+                  .gsub('[manager]', store.manager_name).gsub('[desc_product]', model.description).squeeze(' ').chomp
+    end
   end
 
   def make_price(price)

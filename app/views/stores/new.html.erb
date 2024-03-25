@@ -48,9 +48,21 @@
     </div>
 
     <div class="mb-3">
-      <label for="description" class="form-label tinymce">Описание</label>
+      <label for="description" class="form-label tinymce">Общее описание</label>
       <%= form.text_area :description, class: 'form-control',
-                         style: 'width: 100%', size: '50x10', placeholder: 'Description' %>
+                         style: 'width: 100%', size: '50x7', placeholder: 'Description' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="desc_game" class="form-label">Описание для Игр</label>
+      <%= form.text_area :desc_game, size: '50x5', class: 'form-control',
+                         style: 'width: 100%', placeholder: 'Описание для Игр' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="desc_product" class="form-label">Описание для других объявлений</label>
+      <%= form.text_area :desc_product, size: '50x5', class: 'form-control',
+                         style: 'width: 100%', placeholder: 'Описание для других объявлений' %>
     </div>
 
     <div class="mb-3">
@@ -81,7 +93,7 @@
       <label for="game_img_params" class="form-label">Параметры лого</label>
       <%= form.text_area :game_img_params, value: @store.game_img_params,
                           class: 'form-control', style: 'width: 100%', size: '50x1',
-                          placeholder: "нужно указать ввиде json: { 'flag': { 'width': 200, 'height': 300 } }" %>
+                          placeholder: "нужно указать ввиде json: { pos_x: 448, pos_y: 208 }" %>
     </div>
 
     <div class="mb-3">

@@ -49,9 +49,21 @@
     </div>
 
     <div class="mb-3">
-      <label for="description" class="form-label">Описание</label>
-      <%= form.text_area :description, value: @store.description, size: '50x10',
+      <label for="description" class="form-label">Общее описание</label>
+      <%= form.text_area :description, value: @store.description, size: '50x7',
                          class: 'form-control', style: 'width: 100%', placeholder: 'Description' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="desc_game" class="form-label">Описание для Игр</label>
+      <%= form.text_area :desc_game, value: @store.desc_game, size: '50x5',
+                         class: 'form-control', style: 'width: 100%', placeholder: 'Описание для Игр' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="desc_product" class="form-label">Описание для других объявлений</label>
+      <%= form.text_area :desc_product, value: @store.desc_product, size: '50x5',
+                         class: 'form-control', style: 'width: 100%', placeholder: 'Описание для других объявлений' %>
     </div>
 
     <div class="mb-3">

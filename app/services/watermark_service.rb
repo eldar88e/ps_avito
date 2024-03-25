@@ -6,7 +6,18 @@ class WatermarkService
   def initialize(**args)
     @main_font = args[:main_font]
     @game      = args[:game]
-    img_url    = "./game_images/#{@game.sony_id}_#{args[:size]}.jpg"
+    @product   = args[:product]
+    img_url    = if !@product
+                   "./game_images/#{@game.sony_id}_#{args[:size]}.jpg"
+                 else
+                   if @game.image.attached?
+                     key      = @game.image.blob.key
+                     raw_path = key.scan(/.{2}/)[0..1].join('/')
+                     "./storage/#{raw_path}/#{key}"
+                   else
+                     ''
+                   end
+                 end
     @image     = File.exist?(img_url)
     layers_row = args[:store].image_layers.map do |i|
       if i.layer.attached?
@@ -25,7 +36,7 @@ class WatermarkService
     @layers << { img: img_url, menuindex: args[:store].menuindex, params: args[:store].game_img_params || {}, :layer_type=>"img", active: true }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
-    if @platforms.present?
+    if @platforms.present? && !@product
       platform = make_platform
       @layers << platform if platform.present?
     end
@@ -46,6 +57,7 @@ class WatermarkService
   def add_watermarks
     @layers.each_with_index do |layer, idx|
       next unless layer[:active]
+      next if @product && layer[:layer_type] == 'flag'
 
       if layer[:layer_type] == 'text'
         add_text(layer)
