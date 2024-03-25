@@ -13411,7 +13411,7 @@
       this.element.insertAdjacentHTML("afterbegin", '<div id="loader" class="loader"></div>');
       setTimeout(() => {
         this.element.querySelector("#loader").remove();
-      }, 5e3);
+      }, 1e3);
     }
   };
 

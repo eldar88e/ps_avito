@@ -6,6 +6,6 @@ export default class extends Controller {
 
         setTimeout(() => {
             this.element.querySelector('#loader').remove();
-        }, 5000);
+        }, 1000);
     }
 }
