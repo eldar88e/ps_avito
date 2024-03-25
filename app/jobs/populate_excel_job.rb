@@ -102,7 +102,7 @@ class PopulateExcelJob < ApplicationJob
            .gsub('[rus_text]', rus_text).gsub('[platform]', model.platform).gsub('[addr_desc]', address.description || '')
            .squeeze(' ').chomp
     else
-      desc_product = store.desc_product.to_s + store.description
+      desc_product = store.description + store.desc_product.to_s
       desc_product.gsub('[name]', model.title).gsub('[addr_desc]', address.description || '')
                   .gsub('[manager]', store.manager_name).gsub('[desc_product]', model.description).squeeze(' ').chomp
     end

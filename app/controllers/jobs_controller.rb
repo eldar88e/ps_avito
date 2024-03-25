@@ -46,6 +46,22 @@ class JobsController < ApplicationController
     end
   end
 
+  def update_products_img
+    clean     = params[:clean]
+    settings  = Setting.all
+    size      = settings.find_by(var: 'game_img_size').value
+    blob      = settings.find_by(var: 'main_font').font.blob
+    raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
+    main_font = "./storage/#{raw_path}/#{blob.key}"
+    stores = Store.includes(:addresses).where(active: true, addresses: { active: true })
+    stores.each do |store|
+      store.addresses.each do |address|
+        AddWatermarkOtherJob.perform_now(address: address, size: size, main_font: main_font, clean: clean)
+      end
+    end
+    redirect_to '/products'
+  end
+
   def update_feed
     store = Store.find_by(active: true, id: params[:store_id])
     if store && PopulateExcelJob.perform_later(store: store)

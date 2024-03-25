@@ -5,7 +5,7 @@ class AddWatermarkOtherJob < ApplicationJob
   def perform(**args)
     size      = args[:size]
     main_font = args[:main_font]
-    products  = Product.with_attached_images
+    products  = Product.where(active: true).with_attached_images
     address   = args[:address]
     store     = address.store
     products.each do |product|
