@@ -32,13 +32,12 @@ class JobsController < ApplicationController
     blob      = settings.find_by(var: 'main_font').font.blob
     raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
     main_font = "./storage/#{raw_path}/#{blob.key}"
-    store = Store.includes(:addresses)
-                 .where(active: true, id: params[:store_id], addresses: { active: true, id: params[:address_id] })
-                 .first
+    store     = Store.includes(:addresses)
+                     .where(active: true, id: params[:store_id], addresses: { active: true, id: params[:address_id] })
+                     .first
     if store
-      address = store.addresses.first
-      [AddWatermarkJob, AddWatermarkOtherJob].each do |klass|
-        klass.send(:perform_later, address: address, size: size, main_font: main_font, clean: clean)
+      [Game, Product ].each do |model|
+        AddWatermarkJob.perform_later(model: model, store: store, size: size, main_font: main_font, clean: clean)
       end
       head :ok
     else
@@ -53,13 +52,9 @@ class JobsController < ApplicationController
     blob      = settings.find_by(var: 'main_font').font.blob
     raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
     main_font = "./storage/#{raw_path}/#{blob.key}"
-    stores = Store.includes(:addresses).where(active: true, addresses: { active: true })
-    stores.each do |store|
-      store.addresses.each do |address|
-        AddWatermarkOtherJob.perform_later(address: address, size: size, main_font: main_font, clean: clean)
-      end
-    end
-    redirect_to '/products'
+    AddWatermarkJob.perform_later(all: true, model: Product, size: size, main_font: main_font, clean: clean)
+
+    head :ok
   end
 
   def update_feed

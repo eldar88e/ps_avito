@@ -11,7 +11,7 @@
   <div style='display: inline-block;'>
     <%= form_with(url: update_products_img_path(clean: true)) do |form| %>
       <%= form.submit 'Обновить картинки', class: 'mt-3 mt-md-0 btn btn-dark',
-                      data: { confirm: 'Вы уверены, что хотите удалить все старые картинки данного адреса и создать новые?',
+                      data: { confirm: 'Вы уверены, что хотите удалить все текущие картинки со всех объявлений, кроме игр, и создать новые?',
                               controller: 'confirm', action: 'click->confirm#call' }%>
     <% end %>
   </div>

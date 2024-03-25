@@ -1,14 +1,16 @@
 <div class="container">
-  <h1>Google sheets</h1>
+  <h1>Excel таблицы для feed</h1>
   <ul class="list-group">
-    <% @google_sheets.each do |table| %>
+    <% @stores.each do |store| %>
       <li class="list-group-item list-group-item-action">
         <div class="row">
           <div class="col=12 col-md-2">
-            <a href="https://docs.google.com/spreadsheets/d/<%= table.value %>" target="_blank"><%= table.var %></a>
+            <%= store.manager_name %>
           </div>
           <div class="col=12 col-md-10">
-            <%= table.description %>
+            <a href="https://open-ps.ru/assets/top_1000_<%= store.var %>.xlsx" target="_blank">
+              https://open-ps.ru/assets/top_1000_<%= store.var %>.xlsx
+            </a>
           </div>
         </div>
       </li>
