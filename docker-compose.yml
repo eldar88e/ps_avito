@@ -30,7 +30,7 @@ services:
       - ./game_images:/app/game_images
       - ./storage:/app/storage
       - ./public:/app/public
-      - .game_lists:/app/game_lists
+      - ./game_lists:/app/game_lists
       - gems:/usr/local/bundle
       - node_modules:/app/node_modules
     networks:
