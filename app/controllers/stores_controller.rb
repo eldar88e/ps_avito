@@ -6,7 +6,11 @@ class StoresController < ApplicationController
   end
 
   def show
-    @store = Store.find(params[:id])
+    @store        = Store.find(params[:id])
+    @image_layers = @store.image_layers.order(:menuindex)
+    @layer        = ImageLayer.new
+    @addresses    = @store.addresses.order(:id)
+    @address      = Address.new
   end
 
   def new
@@ -52,7 +56,9 @@ class StoresController < ApplicationController
   private
 
   def store_params
-    params.require(:store).permit(:manager_name, :var, :ad_status, :category, :goods_type, :ad_type, :address,
-                                  :description, :condition, :allow_email, :contact_phone, :watermark_params, :table_id)
+    params.require(:store)
+          .permit(:manager_name, :var, :ad_status, :category, :goods_type, :ad_type, :desc_game,
+                  :menuindex, :active, :contact_method, :description, :condition, :desc_product,
+                  :allow_email, :contact_phone, :game_img_params, :table_id)
   end
 end

@@ -1,19 +1,48 @@
 <li class="list-group-item list-group-item-action product-item">
+  <div class="row">
+    <div class="col=12 col-md-8">
+      <% if product.image.attached? %>
+        <%= link_to (image_tag url_for(product.image), style: 'max-height: 100px; max-width: 100px;',
+                               class: 'mt-1 mb-1'),
+                    url_for(product.image),
+                    data: { src: url_for(product.image) , fancybox: 'gallery', caption: product.title } %>
+      <% end %>
 
-  <% if product.image.attached? %>
-    <%= link_to (image_tag url_for(product.image), style: 'max-height: 100px; max-width: 200px; margin-right: 10px;'),
-                url_for(product.image) %>
-  <% end %>
-  <%= link_to product.title, product_path(product) %>
+      <% if product.images.attached? %>
+        <% product.images.each do |image|  %>
+          <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= product.title %>">
+            <%= image_tag url_for(image), style: 'max-height: 100px; max-width: 100px;', class: 'mt-1 mb-1' %>
+          </a>
+        <% end %>
+      <% end %>
+    </div>
 
-  <div class="buttons">
-    <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning" %>
+    <div class="mb-3 col=12 col-md-3">
+      <%= link_to product.title, product_path(product) %>
+      <span style="margin: 0 10px;">
+        <% if product.active %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+            <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+          </svg>
+        <% else %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+            <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+          </svg>
+        <% end %>
+      </span>
+    </div>
 
-    <div style="display: inline-block;">
-      <%= button_to "Delete", product_path(product),
-                    method: :delete, class: 'btn btn-danger',
-                    data: { confirm: 'Are you sure you want to delete this product?',
-                            controller: 'confirm', action: 'click->confirm#call' } %>
+    <div class="col=12 col-md-1">
+      <div class="buttons">
+        <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning mb-md-1" %>
+
+        <div style="display: inline-block;">
+          <%= button_to "Delete", product_path(product),
+                        method: :delete, class: 'btn btn-danger',
+                        data: { confirm: 'Are you sure you want to delete this product?',
+                                controller: 'confirm', action: 'click->confirm#call' } %>
+        </div>
+      </div>
     </div>
   </div>
 </li>

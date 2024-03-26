@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import ConfirmController from "./confirm_controller"
 application.register("confirm", ConfirmController)
+
+import BtnPreloaderController from "./btn_preloader_controller"
+application.register("btn_preloader", BtnPreloaderController)

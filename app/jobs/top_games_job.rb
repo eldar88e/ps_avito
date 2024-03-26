@@ -1,8 +1,8 @@
 class TopGamesJob < ActiveJob::Base
   queue_as :default
 
-  def perform
-    quantity = Setting.pluck(:var, :value).to_h['quantity_games']
+  def perform(**args)
+    quantity = args[:games] || Setting.pluck(:var, :value).to_h['quantity_games']
     db       = connect_db
     games    = db.query(query_db(quantity))
     run_id   = Run.last_id

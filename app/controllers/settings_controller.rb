@@ -31,7 +31,7 @@ class SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:value, :description)
+    params.require(:setting).permit(:value, :description, :font)
   end
 
   def setting_new_params

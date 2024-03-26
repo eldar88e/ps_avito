@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_25_054114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.string "store_address", null: false
+    t.string "slogan"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "slogan_params"
+    t.boolean "active", default: false, null: false
+    t.string "description"
+    t.index ["store_id"], name: "index_addresses_on_store_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -143,6 +155,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "image_layers", force: :cascade do |t|
+    t.string "title"
+    t.json "layer_params"
+    t.integer "layer_type", default: 0
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "menuindex", default: 0
+    t.boolean "active", default: false, null: false
+    t.index ["store_id"], name: "index_image_layers_on_store_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -155,6 +179,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
     t.string "allow_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "contact_method"
+    t.boolean "active", default: false
   end
 
   create_table "runs", force: :cascade do |t|
@@ -179,16 +205,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
     t.string "category", null: false
     t.string "goods_type", null: false
     t.string "ad_type", null: false
-    t.string "address", null: false
     t.text "description", null: false
     t.string "condition", null: false
     t.string "allow_email", null: false
     t.string "manager_name", null: false
     t.string "contact_phone", null: false
     t.string "table_id"
-    t.string "watermark_params"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "menuindex", default: 0
+    t.jsonb "game_img_params"
+    t.boolean "active", default: false, null: false
+    t.string "contact_method"
+    t.text "desc_game"
+    t.text "desc_product"
   end
 
   create_table "users", force: :cascade do |t|
@@ -205,4 +235,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_180254) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "stores"
+  add_foreign_key "image_layers", "stores"
 end

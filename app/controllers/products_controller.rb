@@ -1,6 +1,9 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @products = Product.all
+    #@products = Product.all
+    @products = Product.order(:id).page(params[:page]).per(12)
   end
 
   def show
@@ -49,7 +52,8 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:ad_status, :category, :goods_type, :ad_type, :image,
-                                    :title, :price, :description, :condition, :allow_email)
+    params.require(:product)
+          .permit(:ad_status, :category, :goods_type, :ad_type, :image, :contact_method,
+                  :title, :price, :description, :condition, :allow_email, :active)
   end
 end

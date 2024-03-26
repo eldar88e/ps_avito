@@ -29,6 +29,8 @@ services:
     volumes:
       - ./game_images:/app/game_images
       - ./storage:/app/storage
+      - ./public:/app/public
+      - .game_lists:/app/game_lists
       - gems:/usr/local/bundle
       - node_modules:/app/node_modules
     networks:
@@ -71,6 +73,8 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./public:/app
+      - ./game_lists:/app/game_lists
     depends_on:
       - web
     networks:

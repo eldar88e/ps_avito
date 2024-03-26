@@ -49,15 +49,21 @@
     </div>
 
     <div class="mb-3">
-      <label for="address" class="form-label">Адрес</label>
-      <%= form.text_field :address, value: @store.address,
-                          class: 'form-control', style: 'width: 100%', placeholder: 'Address' %>
+      <label for="description" class="form-label">Общее описание</label>
+      <%= form.text_area :description, value: @store.description, size: '50x7',
+                         class: 'form-control', style: 'width: 100%', placeholder: 'Description' %>
     </div>
 
     <div class="mb-3">
-      <label for="description" class="form-label">Описание</label>
-      <%= form.text_area :description, value: @store.description, size: '50x10',
-                         class: 'form-control', style: 'width: 100%', placeholder: 'Description' %>
+      <label for="desc_game" class="form-label">Описание для Игр</label>
+      <%= form.text_area :desc_game, value: @store.desc_game, size: '50x5',
+                         class: 'form-control', style: 'width: 100%', placeholder: 'Описание для Игр' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="desc_product" class="form-label">Описание для других объявлений</label>
+      <%= form.text_area :desc_product, value: @store.desc_product, size: '50x5',
+                         class: 'form-control', style: 'width: 100%', placeholder: 'Описание для других объявлений' %>
     </div>
 
     <div class="mb-3">
@@ -79,20 +85,33 @@
     </div>
 
     <div class="mb-3">
-      <label for="watermark_params" class="form-label">Параметры лого</label>
-      <%= form.text_area :watermark_params, value: @store.watermark_params,
-                          class: 'form-control', style: 'width: 100%', size: '50x2',
+      <label for="contact_method" class="form-label">Способ связи</label>
+      <%= form.select :contact_method,
+                      options_for_select(
+                        ['По телефону и в сообщениях', 'По телефону', 'В сообщениях'],
+                        @store.contact_method),
+                      {}, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="game_img_params" class="form-label">Параметры картинки игры</label>
+      <%= form.text_area :game_img_params, value: @store.game_img_params,
+                          class: 'form-control', style: 'width: 100%', size: '50x1',
                           placeholder: "нужно указать ввиде json: { 'flag': { 'width': 200, 'height': 300 } }" %>
     </div>
 
     <div class="mb-3">
-      <label for="table_id" class="form-label">ID Google таблицы</label>
-      <%= form.text_field :table_id, value: @store.table_id,
-                          class: 'form-control', style: 'width: 100%', placeholder: 'Google sheet ID' %>
+      <%= form.label :menuindex, 'Расположение картинки в слоях изображения для авито', class: 'form-label' %>
+      <%= form.text_field :menuindex, class: 'form-control', style: 'width: 100%' %>
     </div>
 
     <div class="mb-3">
-      <%= form.submit 'Edite', class: 'btn btn-primary' %>
+      <%= form.check_box :active, { checked: @store.active }, class: 'form-check-input' %>
+      <%= form.label :active, class: 'form-check-label' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.submit 'Save', class: 'btn btn-primary' %>
     </div>
   <% end %>
 </div>

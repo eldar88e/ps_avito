@@ -24,7 +24,7 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-  config.public_file_server.enabled = true
+  config.public_file_server.enabled = true # false
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
@@ -91,11 +91,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [
-    'server.open-ps.ru',
-    'web',
-    'localhost'
-  ]
+  config.hosts = %w[server.open-ps.ru web localhost]
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com
   #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
