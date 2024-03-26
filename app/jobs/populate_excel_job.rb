@@ -3,12 +3,13 @@ class PopulateExcelJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    store    = args[:store]
-    games    = Game.order(:top).with_attached_images
-    name     = "top_1000_#{store.var}.xlsx"
-    name     = "#{Rails.env}_#{name}" if Rails.env == 'development'
-    file     = Axlsx::Package.new
-    products = Product.where(active: true).with_attached_image
+    store     = args[:store]
+    games     = Game.order(:top).with_attached_images
+    name      = "top_1000_#{store.var}.xlsx"
+    xlsx_path = "./game_lists/#{name}"
+    #name     = "#{Rails.env}_#{name}" if Rails.env == 'development'
+    file      = Axlsx::Package.new
+    products  = Product.where(active: true).with_attached_image
 
     file.workbook.add_worksheet(name: store.var) do |sheet|
       sheet.add_row %w[Id	AdStatus Category GoodsType	AdType Address Title Description Condition Price
@@ -36,14 +37,14 @@ class PopulateExcelJob < ApplicationJob
       end
     end
     file.use_shared_strings = true
-    file.serialize(name)
+    file.serialize(xlsx_path)
 
     # source_path      = Rails.root.join(name)
     # destination_path = Rails.root.join('public', 'game_lists', name)
     # FileUtils.cp(source_path, destination_path)
-    #&& TelegramService.new("✅ File http://server.open-ps.ru/public/#{name} is updated!").report
+    TelegramService.new("✅ File http://server.open-ps.ru/game_lists/#{name} is updated!").report
 
-    FtpService.new(name).send_file
+    #FtpService.new(name).send_file
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
   end
