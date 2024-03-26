@@ -38,5 +38,4 @@
 /key.json
 /game_images/*
 .DS_Store
-/*.xlsx
-# /game_lists/*
+/game_lists/*.xlsx
