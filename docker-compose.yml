@@ -47,6 +47,7 @@ services:
     command: bundle exec good_job start
     volumes:
       - ./game_images:/app/game_images
+      - ./game_lists:/app/game_lists
       - ./storage:/app/storage
       - gems:/usr/local/bundle
       - node_modules:/app/node_modules
