@@ -74,7 +74,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./public:/app/public
-      - .game_lists:/app/game_lists
+      - ./game_lists:/app/game_lists
     depends_on:
       - web
     networks:
