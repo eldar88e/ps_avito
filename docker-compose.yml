@@ -71,7 +71,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./public:/app
+      - ./public:/app/public
       - .game_lists:/app/game_lists
     depends_on:
       - web
