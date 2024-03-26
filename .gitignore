@@ -36,6 +36,8 @@
 /.idea
 /node_modules
 /key.json
-/game_images/*
 .DS_Store
-/game_lists/*.xlsx
+/game_images/*
+!/game_images/.keep
+/game_lists/*
+!/game_lists/.keep
