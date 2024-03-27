@@ -1,14 +1,12 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    #@products = Product.all
     @products = Product.order(:id).page(params[:page]).per(12)
   end
 
-  def show
-    @product = Product.find(params[:id])
-  end
+  def show; end
 
   def new
     @product = Product.new
@@ -18,38 +16,42 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
+      msg = ["Объявление #{@product.title} было успешно добавлено."]
+      msg << 'Внимание объявление не активно!' if product_params[:active].to_i.zero?
+      flash[:success] = msg
+      redirect_to @product
     else
-      render :new
+      error_notice(@product.errors.full_messages)
     end
   end
 
-  def edit
-    @product = Product.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @product = Product.find(params[:id])
-
     if @product.update(product_params)
-      redirect_to @product, notice: 'Product was successfully updated.'
+      msg = ["Объявление #{@product.title} было успешно обновлено."]
+      msg << 'Внимание объявление не активно!' if product_params[:active].to_i.zero?
+      flash[:success] = msg
+      redirect_to @product
     else
-      render :edit
+      error_notice(@product.errors.full_messages)
     end
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    notice =
-      if @product&.destroy
-        'Product was successfully deleted.'
-      else
-        'Product was not deleted!'
-      end
-    redirect_to products_path, notice: notice
+    if @product.destroy
+      msg = "Объявление #{@product.title} было успешно удалено."
+      render turbo_stream: [ turbo_stream.remove("product_#{@product.id}"), success_notice(msg)]
+    else
+      error_notice(@product.errors.full_messages)
+    end
   end
 
   private
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
     params.require(:product)

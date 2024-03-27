@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action <%= address.active ? '' : 'list-group-item-danger' %>">
+<li class="list-group-item list-group-item-action <%= address.active ? '' : 'list-group-item-danger' %>" id="address_<%= address.id %>">
   <%= form_with(model: address, url: address_path(address), method: :patch, format: :turbo_stream) do |form| %>
     <div class="row">
       <div class="col-12 mb-3">
@@ -12,15 +12,17 @@
       </div>
 
       <div class="col-12 col-md-1" style="word-wrap: break-word;">
-        <% if address.image.attached? %>
+        <div style="max-height: 70px; overflow: hidden; color: green;">
+          <% if address.image.attached? %>
             <% if address.image.blob.content_type.match?(/font/) %>
               <%= address.image.blob.filename %>
             <% else %>
               <%= image_tag url_for(address.image), class: 'img-fluid', style: 'max-height: 100px;' %>
             <% end %>
-        <% else %>
-          <span style="color: red;">Файл не указан!</span>
-        <% end %>
+          <% else %>
+            <span style="color: red;">Файл не указан!</span>
+          <% end %>
+        </div>
       </div>
 
       <div class="col-12 col-md-5">

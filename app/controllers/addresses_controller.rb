@@ -1,41 +1,48 @@
 class AddressesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_address, only: [:update, :destroy]
 
   def create
-    store_id = request.referer.split('/')[-1]
-    @store   = Store.find(store_id).addresses.build(address_params)
-
-    if @store.save
-      redirect_to store_path(@store), notice: 'Address was successfully created!'
+    address = Store.find(params[:store_id]).addresses.build(address_params)
+    if address.save
+      msg = ["Адрес #{address.store_address} был успешно добавлен."]
+      msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
+      render turbo_stream: [
+        turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: address }),
+        success_notice(msg)
+      ]
     else
-      render 'stores/show'
+      error_notice(address.errors.full_messages)
     end
   end
 
   def update
-    @address = Address.find(params[:id])
-    @store   = @address.store
-
     if @address.update(address_params)
-      redirect_to store_path(@store), alert: 'Address edited!'
+      msg = ["Адрес #{@address.store_address} был успешно обновлен."]
+      msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
+      render turbo_stream: [
+        turbo_stream.replace("address_#{@address.id}", partial: 'addresses/address', locals: { address: @address }),
+        success_notice(msg)
+      ]
     else
-      redirect_to store_path(@store), alert: 'Error editing address!'
+      error_notice(@address.errors.full_messages)
     end
   end
 
   def destroy
-    @address = Address.find(params[:id])
-    @store   = @address.store
-    notice =
-      if @address&.destroy
-        'Address was successfully deleted.'
-      else
-        'Address was not deleted!'
-      end
-    redirect_to store_path(@store), notice: notice
+    if @address.destroy
+      msg = "Адрес #{@address.store_address} был успешно удален."
+      render turbo_stream: [ turbo_stream.remove("address_#{@address.id}"), success_notice(msg)]
+    else
+      error_notice(@address.errors.full_messages)
+    end
   end
 
   private
+
+  def set_address
+    @address = Address.find(params[:id])
+  end
 
   def address_params
     params.require(:address).permit(:store_address, :slogan, :slogan_params, :active, :image, :description)

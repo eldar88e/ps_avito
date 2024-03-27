@@ -13415,9 +13415,67 @@
     }
   };
 
+  // app/javascript/controllers/notices_controller.js
+  var notices_controller_default = class extends Controller {
+    connect() {
+      const observer = new MutationObserver(this.handleMutation.bind(this));
+      observer.observe(this.element, { childList: true, subtree: true });
+      async function removeElementsWithDelay(elements) {
+        for (const element of elements) {
+          await new Promise((resolve) => setTimeout(resolve, 2e3));
+          element.style.opacity = 0;
+          element.style.height = 0;
+          element.style.margin = 0;
+          element.style.padding = 0;
+          await new Promise((resolve) => setTimeout(resolve, 2e3));
+          element.remove();
+        }
+      }
+      const startList = this.element.querySelectorAll("div");
+      removeElementsWithDelay(startList);
+    }
+    handleMutation(mutationsList) {
+      for (const mutation of mutationsList) {
+        if (mutation.type === "childList") {
+          const newDivs = Array.from(mutation.addedNodes).filter((node) => node.nodeType === Node.ELEMENT_NODE && node.classList.contains("alert"));
+          if (newDivs.length > 0) {
+            this.removeAlertsWithDelay(newDivs, 0);
+          }
+        }
+      }
+    }
+    removeAlertsWithDelay(alerts, index) {
+      if (index < alerts.length) {
+        setTimeout(() => {
+          alerts[index].style.opacity = 0;
+          alerts[index].style.margin = 0;
+          alerts[index].style.padding = 0;
+          alerts[index].style.height = 0;
+          setTimeout(() => {
+            alerts[index].remove();
+            this.removeAlertsWithDelay(alerts, index + 1);
+          }, 2e3);
+        }, 2e3);
+      }
+    }
+  };
+
+  // app/javascript/controllers/clear_form_controller.js
+  var clear_form_controller_default = class extends Controller {
+    clearForm() {
+      document.addEventListener("turbo:submit-end", (event) => {
+        if (event.detail.success) {
+          this.element.reset();
+        }
+      });
+    }
+  };
+
   // app/javascript/controllers/index.js
   application.register("confirm", confirm_controller_default);
   application.register("btn_preloader", btn_preloader_controller_default);
+  application.register("notices", notices_controller_default);
+  application.register("clear-form", clear_form_controller_default);
 
   // app/javascript/application.js
   var import_bootstrap = __toESM(require_bootstrap());

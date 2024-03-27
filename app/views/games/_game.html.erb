@@ -3,7 +3,7 @@
     <% if game.images.attached? %>
       <% game.images.each do |image|  %>
         <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
-          <%= image_tag url_for(image), style: 'width: 100px;' %>
+          <%= image_tag url_for(image), style: 'width: 96px;', class: "mb-1" %>
         </a>
       <% end %>
     <% end %>

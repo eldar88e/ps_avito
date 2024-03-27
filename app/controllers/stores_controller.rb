@@ -1,13 +1,13 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_store, only: [:show, :edit, :update, :destroy]
 
   def index
     @stores = Store.all
   end
 
   def show
-    @store        = Store.find(params[:id])
-    @image_layers = @store.image_layers.order(:menuindex)
+    @image_layers = @store.image_layers.order(:menuindex, :id)
     @layer        = ImageLayer.new
     @addresses    = @store.addresses.order(:id)
     @address      = Address.new
@@ -21,39 +21,42 @@ class StoresController < ApplicationController
     @store = Store.new(store_params)
 
     if @store.save
-      redirect_to @store, notice: 'Store was successfully created.'
+      msg = ["Магазин #{@store.manager_name} был успешно добавлен."]
+      msg << 'Внимание магазин не активен!' if store_params[:active].to_i.zero?
+      flash[:success] = msg
+      redirect_to @store
     else
-      render :new
+      error_notice(@store.errors.full_messages)
     end
   end
 
-  def edit
-    @store = Store.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @store = Store.find(params[:id])
-    store_params[:description].squeeze!(' ')
-    store_params[:description].chomp!
     if @store.update(store_params)
-      redirect_to @store, notice: 'Store was successfully updated.'
+      msg = ["Магазин #{@store.manager_name} был успешно обновлен."]
+      msg << 'Внимание магазин не активен!' if store_params[:active].to_i.zero?
+      flash[:success] = msg
+      redirect_to @store
     else
-      render :edit
+      error_notice(@store.errors.full_messages)
     end
   end
 
   def destroy
-    @store = Store.find(params[:id])
-    notice =
-      if @store&.destroy
-        'Store was successfully deleted.'
-      else
-        'Store was not deleted!'
-      end
-    redirect_to stores_path, notice: notice
+    if @store.destroy
+      msg = "Магазин #{@store.manager_name} был успешно удален."
+      render turbo_stream: [ turbo_stream.remove("store_#{@store.id}"), success_notice(msg)]
+    else
+      error_notice(@store.errors.full_messages)
+    end
   end
 
   private
+
+  def set_store
+    @store = Store.find(params[:id])
+  end
 
   def store_params
     params.require(:store)

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post '/stores/:store_id/update_feed', to: 'jobs#update_feed', as: 'update_feed'
   post '/update_products_img', to: 'jobs#update_products_img', as: 'update_products_img'
 
-  root 'games#index'
+  root 'google_sheets#index'
   get '/google_sheets', to: 'google_sheets#index'
 
   authenticate :user do

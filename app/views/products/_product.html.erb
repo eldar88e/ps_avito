@@ -1,9 +1,9 @@
-<li class="list-group-item list-group-item-action product-item">
+<li class="list-group-item list-group-item-action product-item" id="product_<%= product.id  %>">
   <div class="row">
     <div class="col=12 col-md-8">
       <% if product.image.attached? %>
-        <%= link_to (image_tag url_for(product.image), style: 'max-height: 100px; max-width: 100px;',
-                               class: 'mt-1 mb-1'),
+        <%= link_to (image_tag url_for(product.image), style: 'max-height: 97px; max-width: 97px;',
+                               class: 'mt-1'),
                     url_for(product.image),
                     data: { src: url_for(product.image) , fancybox: 'gallery', caption: product.title } %>
       <% end %>
@@ -11,7 +11,7 @@
       <% if product.images.attached? %>
         <% product.images.each do |image|  %>
           <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= product.title %>">
-            <%= image_tag url_for(image), style: 'max-height: 100px; max-width: 100px;', class: 'mt-1 mb-1' %>
+            <%= image_tag url_for(image), style: 'max-height: 97px; max-width: 97px;', class: 'mt-1' %>
           </a>
         <% end %>
       <% end %>

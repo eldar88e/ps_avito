@@ -55,3 +55,38 @@ ul.pagination {
   }
 }
 
+#notices {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  z-index: 2;
+
+  div {
+    opacity: 1;
+    transition: height 1s ease-out, margin 1s ease-out, padding 1s ease-out, opacity 0.1s ease-out;
+    font-size: 12px;
+  }
+}
+.del-layer-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  background: none;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.alert-notice {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.alert-alert {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}

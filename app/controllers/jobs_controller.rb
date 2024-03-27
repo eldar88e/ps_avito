@@ -39,9 +39,8 @@ class JobsController < ApplicationController
       [Game, Product ].each do |model|
         AddWatermarkJob.perform_later(model: model, store: store, size: size, main_font: main_font, clean: clean)
       end
-      head :ok
-    else
-      head :unprocessable_entity
+      msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."
+      render turbo_stream: [success_notice(msg)]
     end
   end
 
@@ -54,16 +53,18 @@ class JobsController < ApplicationController
     main_font = "./storage/#{raw_path}/#{blob.key}"
     AddWatermarkJob.perform_later(all: true, model: Product, size: size, main_font: main_font, clean: clean)
 
-    head :ok
+    msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для всех объявлений кроме игр успешно запущена."
+    render turbo_stream: [success_notice(msg)]
   end
 
   def update_feed
     store = Store.find_by(active: true, id: params[:store_id])
     if store && PopulateExcelJob.perform_later(store: store)
-      # render js: "document.getElementById('loader').remove();"
-      head :ok
+      msg = "Фоновая задача по обновлению фида для магазина #{store.manager_name} успешно запущена."
+      render turbo_stream: [success_notice(msg)]
     else
-      head :unprocessable_entity
+      msg = "Ошибка запуска фоновой задачи по обновлению фида, возможно магазин не активен!"
+      error_notice(msg)
     end
   end
 

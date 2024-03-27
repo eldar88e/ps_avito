@@ -1,10 +1,10 @@
-<li class="list-group-item">
+<li class="list-group-item list-group-item-action" id="store_<%= store.id %>">
   <div class="row">
-    <div class="col-4 col-md-8">
+    <div class="col-5 col-md-9">
       <%= link_to store.manager_name, store_path(store.id) %>
     </div>
 
-    <div class="col-2 col-md-2">
+    <div class="col-1 d-flex justify-content-end align-items-center">
       <% if store.active %>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
           <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
@@ -16,8 +16,8 @@
       <% end %>
     </div>
 
-    <div class="col-6 col-md-2">
-      <%= link_to 'Edit', edit_store_path(store.id), class: "btn btn-warning" %>
+    <div class="col-6 col-md-2 d-flex justify-content-end gap-1">
+      <%= link_to 'Edit', edit_store_path(store.id), class: "btn btn-warning", style: 'max-height: 39px;' %>
 
       <div style="display: inline-block;">
         <%= button_to "Delete", store_path(store.id),
