@@ -52,6 +52,6 @@
 
   <%= button_to "X", image_layer_path(image_layer),
                 method: :delete, class: 'del-layer-btn',
-                data: { confirm: 'Вы уверены, что хотите слой?',
+                data: { confirm: 'Вы уверены, что хотите удалить слой?',
                         controller: 'confirm', action: 'click->confirm#call' } %>
 </li>
