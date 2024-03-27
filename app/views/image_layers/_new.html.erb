@@ -13,12 +13,12 @@
         <%= form.file_field :layer, class: 'form-control' %>
       </div>
 
-      <div class="col-12 col-md-2">
+      <div class="col-8 col-md-2">
         <%= form.label :layer_type, 'layer_type', class: 'form-label' %>
         <%= form.select :layer_type, ImageLayer.layer_types.keys.map { |type| [type.humanize, type] }, {}, { class: 'form-select' } %>
       </div>
 
-      <div class="col-12 col-md-1">
+      <div class="col-4 col-md-1">
         <%= form.label :menuindex, 'menuindex', class: 'form-label' %>
         <%= form.text_field :menuindex, class: 'form-control', style: 'width: 100%' %>
       </div>
