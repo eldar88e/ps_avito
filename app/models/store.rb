@@ -17,7 +17,7 @@ class Store < ApplicationRecord
   private
 
   def set_default_layer_params
-    self.game_img_params = {} if self.game_img_params.present?
+    game_img_params = {} unless game_img_params.present?
   end
 
   def cleanup_description
