@@ -10,9 +10,9 @@ class AddWatermarkJob < ApplicationJob
     stores   = args[:all] ? Store.includes(:addresses).where(active: true, addresses: { active: true }) : [args[:store]]
     id       = model == Game ? :sony_id : :id
 
-    stores.each do |store|
-      store.addresses.each do |address|
-        products.each do |product|
+    products.each do |product|
+      stores.each do |store|
+        store.addresses.each do |address|
           if product.images.attached?
             if args[:clean]
               product.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
