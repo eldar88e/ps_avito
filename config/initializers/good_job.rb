@@ -37,6 +37,12 @@ Rails.application.configure do
       args: [true],
       set: { priority: 10 },
       description: "Update all excel files with replacing all images"
+    },
+    clean_del_stores: {
+      cron: "0 3 29 2 *",
+      class: "PurgeDeletedStoreImgJob",
+      set: { priority: 10 },
+      description: "Purge deleted stores and addresses images"
     }
   }
 end

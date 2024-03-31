@@ -2,7 +2,7 @@ class PurgeImagesJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    games = Game.order(:top).with_attached_images
+    games    = Game.order(:top).with_attached_images
     products = Product.with_attached_images
     [games, products].each do |model|
       model.each do |item|
