@@ -15,3 +15,6 @@ application.register("notices", NoticesController)
 
 import ClearFormController from "./clear_form_controller"
 application.register('clear-form', ClearFormController);
+
+import FancyboxController from "./fancybox_controller"
+application.register('fancybox', FancyboxController);

@@ -13471,15 +13471,6 @@
     }
   };
 
-  // app/javascript/controllers/index.js
-  application.register("confirm", confirm_controller_default);
-  application.register("btn_preloader", btn_preloader_controller_default);
-  application.register("notices", notices_controller_default);
-  application.register("clear-form", clear_form_controller_default);
-
-  // app/javascript/application.js
-  var import_bootstrap = __toESM(require_bootstrap());
-
   // node_modules/@fancyapps/ui/dist/index.esm.js
   var t = (t2, e2 = 1e4) => (t2 = parseFloat(t2 + "") || 0, Math.round((t2 + Number.EPSILON) * e2) / e2);
   var e = function(t2) {
@@ -16847,10 +16838,22 @@
   };
   Object.defineProperty(Ce, "version", { enumerable: true, configurable: true, writable: true, value: "5.0.33" }), Object.defineProperty(Ce, "defaults", { enumerable: true, configurable: true, writable: true, value: ot }), Object.defineProperty(Ce, "Plugins", { enumerable: true, configurable: true, writable: true, value: Qt }), Object.defineProperty(Ce, "openers", { enumerable: true, configurable: true, writable: true, value: /* @__PURE__ */ new Map() });
 
+  // app/javascript/controllers/fancybox_controller.js
+  var fancybox_controller_default = class extends Controller {
+    connect() {
+      Ce.bind("[data-fancybox]");
+    }
+  };
+
+  // app/javascript/controllers/index.js
+  application.register("confirm", confirm_controller_default);
+  application.register("btn_preloader", btn_preloader_controller_default);
+  application.register("notices", notices_controller_default);
+  application.register("clear-form", clear_form_controller_default);
+  application.register("fancybox", fancybox_controller_default);
+
   // app/javascript/application.js
-  document.addEventListener("DOMContentLoaded", function() {
-    Ce.bind("[data-fancybox]");
-  });
+  var import_bootstrap = __toESM(require_bootstrap());
 })();
 /*! Bundled license information:
 
