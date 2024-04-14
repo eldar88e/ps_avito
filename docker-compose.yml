@@ -21,8 +21,6 @@ services:
     build: .
     container_name: web-ps
     env_file: ./.env
-    ports:
-      - "3000:3000"
     depends_on:
       - pg
       - redis
@@ -70,8 +68,6 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx-ps
-    ports:
-      - "82:82"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./public:/app
