@@ -33,6 +33,7 @@ services:
       - node_modules:/app/node_modules
     networks:
       - web-net
+      - proxy-net
     restart: "unless-stopped"
 
   good_job:
