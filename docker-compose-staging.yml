@@ -4,7 +4,7 @@ services:
 
   pg:
     image: postgres:16.1
-    container_name: pg-ps
+    container_name: pg-ps-st
     hostname: pg
     restart: always
     environment:
@@ -17,9 +17,9 @@ services:
       - web-net
 
   web:
-    image: web
+    image: web-st
     build: .
-    container_name: web-ps
+    container_name: web-ps-st
     env_file: ./.env
     depends_on:
       - pg
@@ -36,10 +36,10 @@ services:
     restart: "unless-stopped"
 
   good_job:
-    image: good_job
+    image: good_job-ps-st
     build: .
     env_file: ./.env
-    container_name: good_job-ps
+    container_name: good_job-ps-st
     entrypoint: []
     command: bundle exec good_job start
     volumes:
@@ -56,7 +56,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: redis-ps
+    container_name: redis-ps-ps
     command: redis-server
     restart: always
     networks:
@@ -66,7 +66,7 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: nginx-ps
+    container_name: nginx-ps-ps
     volumes:
       - ./nginx-staging.conf:/etc/nginx/nginx.conf
       - ./public:/app
