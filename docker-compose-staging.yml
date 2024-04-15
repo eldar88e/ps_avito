@@ -56,7 +56,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: redis-ps-ps
+    container_name: redis-ps-st
     command: redis-server
     restart: always
     networks:
@@ -66,7 +66,7 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: nginx-ps-ps
+    container_name: nginx-ps-st
     volumes:
       - ./nginx-staging.conf:/etc/nginx/nginx.conf
       - ./public:/app
