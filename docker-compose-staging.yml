@@ -1,0 +1,89 @@
+version: "3.9"
+
+services:
+
+  pg:
+    image: postgres:16.1
+    container_name: pg-ps
+    hostname: pg
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      TZ: Europe/Moscow
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - web-net
+
+  web:
+    image: web
+    build: .
+    container_name: web-ps
+    env_file: ./.env
+    depends_on:
+      - pg
+      - redis
+    volumes:
+      - ./game_images:/app/game_images
+      - ./storage:/app/storage
+      - ./public:/app/public
+      - ./game_lists:/app/game_lists
+      - gems:/usr/local/bundle
+      - node_modules:/app/node_modules
+    networks:
+      - web-net
+    restart: "unless-stopped"
+
+  good_job:
+    image: good_job
+    build: .
+    env_file: ./.env
+    container_name: good_job-ps
+    entrypoint: []
+    command: bundle exec good_job start
+    volumes:
+      - ./game_images:/app/game_images
+      - ./game_lists:/app/game_lists
+      - ./storage:/app/storage
+      - gems:/usr/local/bundle
+      - node_modules:/app/node_modules
+    depends_on:
+      - pg
+    networks:
+      - web-net
+    restart: "unless-stopped"
+
+  redis:
+    image: redis:latest
+    container_name: redis-ps
+    command: redis-server
+    restart: always
+    networks:
+      - web-net
+    volumes:
+      - redis:/data
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-ps
+    volumes:
+      - ./nginx-staging.conf:/etc/nginx/nginx.conf
+      - ./public:/app
+      - ./game_lists:/app/game_lists
+    depends_on:
+      - web
+    networks:
+      - web-net
+      - proxy-net
+
+volumes:
+  gems:
+  node_modules:
+  db_data:
+  redis:
+
+networks:
+  web-net:
+  proxy-net:
+    external: true
