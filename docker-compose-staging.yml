@@ -17,7 +17,7 @@ services:
       - web-net
 
   web:
-    image: web-st
+    image: web-ps-st
     build: .
     container_name: web-ps-st
     env_file: ./.env
