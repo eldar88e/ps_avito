@@ -9,6 +9,8 @@ class Product < ApplicationRecord
   has_one_attached :image, dependent: :destroy
   has_many_attached :images, dependent: :destroy
 
+  self.inheritance_column = :type_
+
   private
 
   def set_defaults

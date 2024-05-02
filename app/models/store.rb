@@ -3,6 +3,7 @@ class Store < ApplicationRecord
   validates :category, presence: true
   validates :goods_type, presence: true
   validates :ad_type, presence: true
+  validates :type, presence: true
   validates :description, presence: true
   validates :condition, presence: true
   validates :allow_email, presence: true
@@ -13,6 +14,8 @@ class Store < ApplicationRecord
   has_many :addresses, dependent: :destroy
 
   before_save :set_default_layer_params, :cleanup_description
+
+  self.inheritance_column = :type_
 
   private
 

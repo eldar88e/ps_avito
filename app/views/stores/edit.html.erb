@@ -49,6 +49,12 @@
     </div>
 
     <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <%= form.text_field :type, value: @store.type, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Type' %>
+    </div>
+
+    <div class="mb-3">
       <label for="description" class="form-label">Общее описание</label>
       <%= form.text_area :description, value: @store.description, size: '50x7',
                          class: 'form-control', style: 'width: 100%', placeholder: 'Description' %>
