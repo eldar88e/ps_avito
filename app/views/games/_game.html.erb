@@ -1,0 +1,19 @@
+<li class="list-group-item list-group-item-action game-item">
+  <div style="display: inline-block; vertical-align: top;">
+    <% if game.images.attached? %>
+      <% game.images.each do |image|  %>
+        <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
+          <%= image_tag url_for(image), style: 'width: 96px;', class: "mb-1" %>
+        </a>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div style="display: inline-block;">
+    <a href='<%= game_path(game.top) %>'>
+      <h4><%= "#{game.top}. #{game.name}" %></h4>
+    </a>
+    <div><%= game.sony_id %></div>
+    <div>Platform: <%= game.platform %></div>
+  </div>
+</li>

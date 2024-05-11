@@ -1,4 +1,5 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
-//import "tailwind/src/tailwind"
+import "bootstrap/dist/js/bootstrap"
+import "./main"

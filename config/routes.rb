@@ -1,12 +1,26 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: {
+    registrations: 'registrations'
+  }
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  #get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  root "games#index"
+  resources :settings, only: [:index, :create, :update]
+  resources :games, only: [:index, :show]
+  resources :stores
+  resources :products
+  resources :image_layers
+  resources :addresses
 
-  mount GoodJob::Engine => '/good_job'
+  post '/stores/:store_id/store_test_img', to: 'jobs#update_store_test_img', as: 'update_store_test_img'
+  post '/stores/:store_id/addresses/:address_id/update_img', to: 'jobs#update_img', as: 'update_img'
+  post '/stores/:store_id/update_feed', to: 'jobs#update_feed', as: 'update_feed'
+  post '/update_products_img', to: 'jobs#update_products_img', as: 'update_products_img'
+
+  root 'google_sheets#index'
+  get '/google_sheets', to: 'google_sheets#index'
+
+  authenticate :user do
+    mount GoodJob::Engine => '/good_job'
+  end
 end

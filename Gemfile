@@ -5,8 +5,7 @@ gem "rails", "~> 7.1.3"
 
 gem "sprockets-rails"
 gem "pg", "~> 1.5"
-gem "good_job", "~> 3.24"
-gem 'mysql2'
+gem "good_job", "~> 3"
 gem "puma", ">= 5.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
@@ -16,11 +15,16 @@ gem "jbuilder"
 gem "redis", ">= 4.0.1"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
+gem 'dotenv'
 gem 'rmagick'
 gem 'google_drive'
-gem 'dotenv', '~> 3.0'
+gem 'mysql2'
+gem 'telegram-bot-ruby', "~> 0.19"
+gem 'devise'
+gem 'kaminari'
+gem 'caxlsx'
+gem 'net-ftp'
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do

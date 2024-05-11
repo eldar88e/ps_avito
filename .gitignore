@@ -34,4 +34,10 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /.idea
-key.json
+/node_modules
+/key.json
+.DS_Store
+/game_images/*
+!/game_images/.keep
+/game_lists/*
+!/game_lists/.keep

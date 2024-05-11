@@ -3,3 +3,18 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+
+import ConfirmController from "./confirm_controller"
+application.register("confirm", ConfirmController)
+
+import BtnPreloaderController from "./btn_preloader_controller"
+application.register("btn_preloader", BtnPreloaderController)
+
+import NoticesController from "./notices_controller"
+application.register("notices", NoticesController)
+
+import ClearFormController from "./clear_form_controller"
+application.register('clear-form', ClearFormController);
+
+import FancyboxController from "./fancybox_controller"
+application.register('fancybox', FancyboxController);

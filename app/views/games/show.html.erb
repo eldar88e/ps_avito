@@ -1,0 +1,18 @@
+<div class="container">
+  <% if user_signed_in? %>
+    <h1><%= @game.name %>(top: <%= @game.top %>)</h1>
+    <div>Platform: <%= @game.platform %></div>
+
+    <% if @game.images.attached? %>
+      <% @game.images.each do |image| %>
+        <%= image_tag url_for(image), style: 'width: 100%; margin: 1em 0;' %>
+      <% end %>
+    <% end %>
+
+    <div style="display: inline-block;">
+      <div><%= @game.sony_id %></div>
+    </div>
+  <% else %>
+    <h3>Увы вы не автризованы(</h3>
+  <% end %>
+</div>

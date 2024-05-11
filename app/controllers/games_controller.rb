@@ -1,6 +1,11 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!
 
   def index
-    @sony_games = Game.all.order(:top).limit(36)
+    @games = Game.order(:top).page(params[:page]).per(12)
+  end
+
+  def show
+    @game = Game.find_by(top: params[:id])
   end
 end

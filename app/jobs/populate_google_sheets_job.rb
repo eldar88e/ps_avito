@@ -1,42 +1,104 @@
 class PopulateGoogleSheetsJob < ApplicationJob
+  include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(*args)
-    games       = Game.all.order(:top).limit(100)  #del limit
+  def perform(**args)
+    file_id     = Setting.pluck(:var, :value).to_h["tid_#{args[:site]}"]
+    games       = Game.order(:top).with_attached_images
 
     session     = GoogleDrive::Session.from_service_account_key('key.json')
-    spreadsheet = session.file_by_id(ENV["FILE_ID"])
+    spreadsheet = session.file_by_id(file_id)
     worksheet   = spreadsheet.worksheets.first
 
-    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: 3000 }
-
-    games.each_with_index do |game, idx|
-      worksheet[idx + 2, 12] = game.name
-      worksheet[idx + 2, 13] = description(game.name, game.rus_voice, game.rus_screen, game.platform)
-      worksheet[idx + 2, 14] = game.price
-      worksheet[idx + 2, 15] = game.image.url
+    idx = 2
+    games.each_slice(100) do |games_slice|
+      games_slice.each do |game|
+        worksheet[idx, 7]  = game.sony_id
+        worksheet[idx, 12] = make_name(game)
+        worksheet[idx, 13] = description(game, args[:site])
+        worksheet[idx, 14] = make_price(game.price_tl)
+        worksheet[idx, 15] = make_image(game, args[:site])
+        idx += 1
+      end
+      worksheet.save
     end
-    worksheet.save
+    nil
+  rescue => e
+    TelegramService.new("Error #{self.class} || #{e.message}").report
+    raise
   end
 
   private
 
-  def description(name, rus_voice, rus_screen, platform)
-    <<~DESCR
-      ⚽️Игра #{name}
-  
-      📌Русская озвучка: #{rus_voice ? 'Есть' : 'Нет'}
-      📌Русская субтитры: #{rus_screen ? 'Есть' : 'Нет'}
-      
-      📌Платформа: #{platform}
-  
-      📌Оформляем на ваш аккаунт либо создадим вам его бесплатно.
-  
-      📌Основные преимущества покупки в ПС-СТОР:
-        ✅ Без передачи личных данных
-        ✅ Без перерывов и выходных
-        ✅ Без очередей, за 5 минут
-        ✅ Гарантия блокировок
-    DESCR
+  def make_name(game)
+    raw_name = game.name
+    platform  = game.platform
+
+    if platform == 'PS5, PS4' || platform.match?(/PS4/) #ps4, ps5
+      prefix = ' (PS5 and PS4)'
+      if raw_name.downcase.match?(/ps4/)
+        if raw_name.downcase.match?(/ps5/)
+          raw_name
+        else
+          raw_name.sub('(PS4)', '').sub('PS4', '') + prefix
+        end
+      else
+        if raw_name.downcase.match?(/ps5/)
+          raw_name.sub('(PS5)', '').sub('PS5', '') + prefix
+        else
+          raw_name + prefix
+        end
+      end
+    else #ps5
+      if raw_name.downcase.match?(/ps5/)
+        raw_name
+      else
+        raw_name + ' (PS5)'
+      end
+    end
+  end
+
+  def make_image(game, site)
+    if game.images.attached? && game.images.blobs.any? { |i| i.metadata[:site] == site }
+      image = game.images.find { |i| i.blob.metadata[:site] == site }
+      rails_blob_url(image, host: 'server.open-ps.ru')
+    else
+      nil
+    end
+  end
+
+  def description(game, site)
+    method_name = "desc_#{site}".to_sym
+    DescriptionService.new(game).send(method_name)
+  end
+
+  def make_price(price)
+    exchange_rate = make_exchange_rate(price)
+    round_up_price(price * exchange_rate)
+  end
+
+  def round_up_price(price)
+    #(price / settings['round_price'].to_f).round * settings['round_price']
+    (price / 10.to_f).round * 10
+  end
+
+  def make_exchange_rate(price)
+    #от 1 до 300 лир курс - 5.5
+    # от 300 до 800 лир курс 5
+    # от 800 до 1200 курс 4.5
+    # от 1200 до 1700 курс 4.3
+    # от 1700 курс 4
+    if price >= 1 && price < 300
+      5.5
+    elsif price >= 300 && price < 800
+      5
+    elsif price >= 800 && price < 1200
+      # settings['exchange_rate'] - 0.5
+      4.5
+    elsif price >= 1200 && price < 1700
+      4.3
+    elsif price >= 1700
+      4
+    end
   end
 end

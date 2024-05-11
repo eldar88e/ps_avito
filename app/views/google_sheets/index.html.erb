@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Excel таблицы для feed</h1>
+  <ul class="list-group">
+    <% @stores.each do |store| %>
+      <li class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="col=12 col-md-2">
+            <%= store.manager_name %>
+          </div>
+          <div class="col=12 col-md-10">
+            <a href="/game_lists/top_1000_<%= store.var %>.xlsx" target="_blank">
+              top_1000_<%= store.var %>.xlsx
+            </a>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
