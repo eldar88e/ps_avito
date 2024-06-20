@@ -37,7 +37,7 @@ class AddWatermarkJob < ApplicationJob
 
     if !args[:all] && args[:clean]
       address = addresses.size == 1 ? addresses.first.store_address : addresses.map { |i| i.store_address }.join("\n")
-      TelegramService.new("Added #{products.size} image(s) for #{model == Game ? 'Games' : 'Plus'} for:\n#{address}").report
+      TelegramService.new("Added #{products.size} image(s) for #{model == Game ? 'Games' : 'Plus'} for #{stores.first.manager_name} for:\n#{address}").report
     end
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
