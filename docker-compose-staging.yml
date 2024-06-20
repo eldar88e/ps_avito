@@ -5,7 +5,6 @@ services:
   pg:
     image: postgres:16.1
     container_name: pg-ps-st
-    hostname: pg
     restart: always
     environment:
       POSTGRES_USER: admin

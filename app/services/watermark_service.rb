@@ -50,8 +50,6 @@ class WatermarkService
     end
     slogan[:layer_type] = 'text' unless slogan[:layer_type]
     @layers << slogan
-
-    #@new_image = Magick::Image.new(width, height)
   end
 
   def add_watermarks
