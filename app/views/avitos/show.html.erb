@@ -1,0 +1,86 @@
+<% content_for :title do %>
+  Настройки авито автозагрузки магазина <%= @store.manager_name %>
+<% end %>
+
+<div class="container">
+  <ul class="list-group">
+    <%  @auto_load.each do |key, val| %>
+      <li class="list-group-item list-group-item-action">
+        <div class="d-flex gap-3">
+          <div class="fw-bold">
+            <%= key %>:
+          </div>
+          <div>
+            <% if val.is_a?(Array) %>
+              <ul class="list-group">
+                <% val.first.each do |k, v| %>
+                  <li class="list-group-item list-group-item-action">
+                    <div class="d-flex gap-3">
+                      <div class="fw-bold">
+                        <%= k %>:
+                      </div>
+                      <div>
+                        <%= v %>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <%= val %>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2 class="mt-3 mb-3">Отчет по последней загрузке</h2>
+
+  <ul class="list-group">
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-md-3">Номер отчета:</div>
+        <div class="col-md-9"><%= @report['report_id'] %></div>
+      </div>
+    </div>
+
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-md-3">Время начала загрузки:</div>
+        <div class="col-md-9"><%= @report['started_at'] %></div>
+      </div>
+    </div>
+
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-md-3">Статус:</div>
+        <div class="col-md-9"><%= @report['status'] %></div>
+      </div>
+    </div>
+
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-md-3"><%= @report['section_stats']['title'] %>:</div>
+        <div class="col-md-9"><%= @report['section_stats']['count'] %></div>
+      </div>
+    </div>
+
+    <% @report['section_stats']['sections'].each do |section| %>
+      <div class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="col-md-3"><%= section['title'] %>:</div>
+          <div class="col-md-9"><%= section['count'] %></div>
+        </div>
+      </div>
+      <% section['sections'].each do |sec| %>
+        <div class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="col-md-3"><%= sec['title'] %>:</div>
+            <div class="col-md-9"><%= sec['count'] %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

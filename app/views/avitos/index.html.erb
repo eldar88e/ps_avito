@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  Настройки авито автозагрузки
+<% end %>
+
+<div class="container">
+  <ul class="list-group">
+    <% @stores.each do |store| %>
+      <li class="list-group-item list-group-item-action">
+        <%= link_to store.manager_name, avito_path(store), data: { turbo_prefetch: false } %>
+      </li>
+    <% end %>
+  </ul>
+</div>

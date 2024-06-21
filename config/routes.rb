@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :products
   resources :image_layers
   resources :addresses
+  resources :avitos, only: [:index, :show]
 
   resources :stores do
     ####
