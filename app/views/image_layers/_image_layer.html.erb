@@ -13,8 +13,10 @@
               <% if image_layer.layer.blob.content_type.match?(/font/) %>
                 <%= image_layer.layer.blob.filename %>
               <% else %>
+              <%= link_to '#', data: { controller: "fancybox", fancybox: "gallery", src: url_for(image_layer.layer), caption: image_layer.layer.blob.filename } do %>
                 <div style="background-image: url(<%= url_for(image_layer.layer) %>); background-size: contain;
                   width: 100%; height: 70px; background-repeat: no-repeat;"></div>
+              <% end %>
               <% end %>
           <% else %>
             <span style="color: red;">Файл не указан!</span>

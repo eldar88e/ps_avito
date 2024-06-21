@@ -94,6 +94,7 @@ class WatermarkService
     text_obj             = Magick::Draw.new
     text_obj.font        = layer[:img] || @main_font # || params['font']
     text_obj.pointsize   = params['pointsize'] || 42  # Размер шрифта
+    #text_obj.rotate      = params['rotate']&.to_f || 0
     text_obj.fill        = params['fill'] || 'white'
     text_obj.stroke      = params['stroke'] || 'white'   # Цвет обводки текста
     text_obj.gravity     = Magick::LeftGravity  if params[:center]
