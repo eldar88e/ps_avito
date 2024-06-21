@@ -1,37 +1,7 @@
 <li class="list-group-item list-group-item-action list-group-item-success">
   <h5>Новый адрес</h5>
-  <%= form_with(model: @address, url: addresses_path, method: :post) do |form| %>
-    <div class="row">
-      <div class="col-12 col-md-5 mb-3">
-        <%= form.label :store_address, 'Адрес', class: 'form-label' %>
-        <%= form.text_field :store_address, class: 'form-control', style: 'width: 100%' %>
-      </div>
+  <%= render partial: '/addresses/form',
+             locals: { address: @address, url: addresses_path(store_id: @store),
+                       method: :post, data: { controller: "clear-form" } } %>
 
-      <div class="col-12 col-md-3 mb-3">
-        <%= form.label :image, 'Картинка или шрифт', class: 'form-label' %>
-        <%= form.file_field :image, class: 'form-control' %>
-      </div>
-
-      <div class="col-12 col-md-4 mb-3">
-        <%= form.label :slogan, 'Слоган', class: 'form-label' %>
-        <%= form.text_field :slogan, class: 'form-control', style: 'width: 100%' %>
-      </div>
-
-      <div class="col-12 col-md-6">
-        <%= form.label :slogan_params, 'layer_params', class: 'form-label' %>
-        <%= form.text_area :slogan_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
-      </div>
-
-      <div class="col-12 col-md-5 mb-3 mb-md-0">
-        <%= form.label :description, 'Описание', class: 'form-label' %>
-        <%= form.text_area :description, size: '50x1', class: 'form-control', style: 'width: 100%' %>
-      </div>
-
-      <div class="col-12 col-md-1 mt-0 mt-md-2">
-        <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-addr" %>
-        <%= form.label :active, class: 'form-check-label', for: "active-checkbox-addr" %>
-        <%= form.submit 'Add', class: 'mt-3 mt-md-0 btn btn-primary', style: 'width: 100%;' %>
-      </div>
-    </div>
-  <% end %>
 </li>

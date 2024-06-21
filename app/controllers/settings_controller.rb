@@ -3,17 +3,17 @@ class SettingsController < ApplicationController
 
   def index
     @settings = Setting.all.order(:id)
-    @setting = Setting.new
+    @setting  = Setting.new
   end
 
   def update
     @setting = Setting.find(params[:id])
 
     if @setting.update(setting_params)
-      redirect_to settings_path, alert: 'Setting edited!'
+      flash[:success] = "Настройка #{@setting.var} была успешно обновлена."
+      redirect_to settings_path
     else
-      @settings = Setting.all.order(:id)
-      render :index, alert: 'Error editing setting!'
+      error_notice(@setting.errors.full_messages)
     end
   end
 
@@ -21,10 +21,10 @@ class SettingsController < ApplicationController
     @setting = Setting.new(setting_new_params)
 
     if @setting.save
-      redirect_to settings_path, alert: 'Setting saved!'
+      flash[:success] = "Настройка #{@setting.var} была успешно добавлена."
+      redirect_to settings_path
     else
-      @settings = Setting.all.order(:id)
-      render :index, alert: 'Error saving setting!'
+      error_notice(@setting.errors.full_messages)
     end
   end
 

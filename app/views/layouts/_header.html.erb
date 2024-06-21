@@ -1,29 +1,43 @@
-<div class="container">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <% if user_signed_in? %>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">OpenPS</a>
+<div class="container mt-3">
+  <%= turbo_frame_tag :notices, class: "notice-group", data: { controller: "notices" } do %>
+    <% flash.each do |key, value| %>
+      <% [value].flatten.each do |i| %>
+        <div class="alert alert-<%= key %>" role="alert">
+          <%= i %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <nav class="navbar navbar-expand-lg bg-light mb-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">PsAvito</a>
+      <% if user_signed_in? %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="<%= games_path %>">Games</a>
+              <%= active_link_to 'Games', games_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= settings_path %>">Settings</a>
+              <%= active_link_to 'Settings', settings_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= stores_path %>">Stores</a>
+              <%= active_link_to 'Stores', stores_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= products_path %>">Products</a>
+              <%= active_link_to 'Products', products_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= google_sheets_path %>">Feeds</a>
+              <%= active_link_to 'Feeds', google_sheets_path, class: 'nav-link', active: :exclusive %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Errors', '/exception-track', class: 'nav-link', target: '_blank' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Jobs', '/good_job', class: 'nav-link', target: '_blank' %>
             </li>
           </ul>
 
@@ -33,10 +47,10 @@
             </div>
             <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
           </div>
-        </div>
+        <% else %>
+          <%= button_to "Sign in", new_user_session_path, class: 'btn btn-primary' %>
+        <% end %>
       </div>
-    </nav>
-  <% else %>
-    <%= button_to "Sign in", new_user_session_path, class: 'btn btn-primary' %>
-  <% end %>
+    </div>
+  </nav>
 </div>

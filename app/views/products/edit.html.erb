@@ -81,6 +81,24 @@
     </div>
 
     <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <%= form.text_field :type, value: @product.type, class: 'form-control',
+                          style: 'width: 100%', placeholder: 'Type' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="platform" class="form-label">Platform</label>
+      <%= form.text_field :platform, value: @product.platform,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Platform' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="localization" class="form-label">Localization</label>
+      <%= form.text_field :localization, value: @product.localization,
+                          class: 'form-control', style: 'width: 100%', placeholder: 'Localization' %>
+    </div>
+
+    <div class="mb-3">
       <label for="condition" class="form-label">Condition</label>
       <%= form.text_field :condition, value: @product.condition, class: 'form-control',
                           style: 'width: 100%', placeholder: 'Condition' %>
@@ -93,7 +111,7 @@
     </div>
 
     <div class="mb-3">
-      <%= form.check_box :active, { checked: @product.active }, class: 'form-check-input' %>
+      <%= form.check_box :active, { checked: @product.active, class: 'form-check-input' } %>
       <%= form.label :active, class: 'form-check-label' %>
     </div>
 

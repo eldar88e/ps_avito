@@ -10,9 +10,12 @@ class AddWatermarkJob < ApplicationJob
     stores   = args[:all] ? Store.includes(:addresses).where(active: true, addresses: { active: true }) : [args[:store]]
     id       = model == Game ? :sony_id : :id
 
-    stores.each do |store|
-      store.addresses.each do |address|
-        products.each do |product|
+    addresses = nil
+    products.each do |product|
+      stores.each do |store|
+        addresses = store.addresses
+        addresses = addresses.select { |i| i.id == args[:address_id].to_i } if args[:address_id]
+        addresses.each do |address|
           if product.images.attached?
             if args[:clean]
               product.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
@@ -32,7 +35,10 @@ class AddWatermarkJob < ApplicationJob
       end
     end
 
-    nil
+    if !args[:all] && args[:clean]
+      address = addresses.size == 1 ? addresses.first.store_address : addresses.map { |i| i.store_address }.join("\n")
+      TelegramService.new("Added #{products.size} image(s) for #{model == Game ? 'Games' : 'Plus'} for #{stores.first.manager_name} for:\n#{address}").report
+    end
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report
     raise

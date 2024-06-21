@@ -7,28 +7,28 @@ class PopulateExcelJob < ApplicationJob
     games     = Game.order(:top).with_attached_images
     name      = "top_1000_#{store.var}.xlsx"
     xlsx_path = "./game_lists/#{name}"
-    #name     = "#{Rails.env}_#{name}" if Rails.env == 'development'
     file      = Axlsx::Package.new
     products  = Product.where(active: true).with_attached_image
 
     file.workbook.add_worksheet(name: store.var) do |sheet|
-      sheet.add_row %w[Id	AdStatus Category GoodsType	AdType Address Title Description Condition Price
-                       AllowEmail	ManagerName	ContactPhone ContactMethod ImageUrls]
+      sheet.add_row %w[Id	AdStatus Category GoodsType	AdType Type Platform Localization Address Title
+                       Description Condition Price AllowEmail	ManagerName	ContactPhone ContactMethod ImageUrls]
 
       store.addresses.where(active: true).each do |address|
         games.each do |game|
           sheet.add_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category,
-                         store.goods_type, store.ad_type, address.store_address, make_title(game),
-                         make_description(game, store, address), store.condition, make_price(game.price_tl),
-                         store.allow_email, store.manager_name, store.contact_phone,
-                         store.contact_method, make_image(game, store, address)]
+                         store.goods_type, store.ad_type, store.type, make_platform(game),  make_local(game),
+                         address.store_address, make_title(game), make_description(game, store, address),
+                         store.condition, make_price(game.price_tl), store.allow_email, store.manager_name,
+                         store.contact_phone, store.contact_method, make_image(game, store, address)]
         end
       end
 
       store.addresses.where(active: true).each do |address|
         products.each do |product|
-          sheet.add_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status, product.category || store.category,
-                         product.goods_type || store.goods_type, product.ad_type || store.ad_type,
+          sheet.add_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
+                         product.category || store.category, product.goods_type || store.goods_type,
+                         product.ad_type || store.ad_type, product.type || store.type, product.platform, product.localization,
                          address.store_address, product.title, make_description(product, store, address),
                          product.condition || store.condition, product.price, product.allow_email || store.allow_email,
                          store.manager_name, store.contact_phone, product.contact_method || store.contact_method,
@@ -39,9 +39,6 @@ class PopulateExcelJob < ApplicationJob
     file.use_shared_strings = true
     file.serialize(xlsx_path)
 
-    # source_path      = Rails.root.join(name)
-    # destination_path = Rails.root.join('public', 'game_lists', name)
-    # FileUtils.cp(source_path, destination_path)
     TelegramService.new("✅ File http://server.open-ps.ru/game_lists/#{name} is updated!").report
 
     #FtpService.new(name).send_file
@@ -50,6 +47,23 @@ class PopulateExcelJob < ApplicationJob
   end
 
   private
+
+  def make_platform(game)
+    platform = game.platform
+    return 'PlayStation 5' if platform.match?(/PS5/)
+
+    'PlayStation 4'
+  end
+
+  def make_local(game)
+    if game.rus_voice
+      'Русская озвучка, субтитры и интерфейс'
+    elsif game.rus_screen
+      'Русский интерфейс'
+    else
+      'Без локализации'
+    end
+  end
 
   def make_title(game)
     raw_name = game.name

@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action <%= image_layer.active ? '' : 'list-group-item-danger' %>">
+<li class="list-group-item list-group-item-action <%= image_layer.active ? '' : 'list-group-item-danger' %>" id="layer_<%= image_layer.id %>">
   <b>Слой</b>
   <%= form_with(model: image_layer, url: image_layer_path(image_layer), method: :patch, format: :turbo_stream) do |form| %>
     <div class="row">
@@ -7,27 +7,34 @@
         <%= form.text_area :layer_params, value: image_layer.layer_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
       </div>
 
-      <% if image_layer.layer.attached? %>
-        <div class="col-12 col-md-1" style="word-wrap: break-word;">
-          <% if image_layer.layer.blob.content_type.match?(/font/) %>
-            <%= image_layer.layer.blob.filename %>
+      <div class="col-4 col-md-1">
+        <div style="max-height: 70px; overflow: hidden; color: green; word-wrap: break-word;">
+          <% if image_layer.layer.attached? %>
+              <% if image_layer.layer.blob.content_type.match?(/font/) %>
+                <%= image_layer.layer.blob.filename %>
+              <% else %>
+              <%= link_to '#', data: { controller: "fancybox", fancybox: "gallery", src: url_for(image_layer.layer), caption: image_layer.layer.blob.filename } do %>
+                <div style="background-image: url(<%= url_for(image_layer.layer) %>); background-size: contain;
+                  width: 100%; height: 70px; background-repeat: no-repeat;"></div>
+              <% end %>
+              <% end %>
           <% else %>
-            <%= image_tag url_for(image_layer.layer), class: 'img-fluid', style: 'max-height: 100px;' %>
+            <span style="color: red;">Файл не указан!</span>
           <% end %>
         </div>
-      <% end %>
+      </div>
 
-      <div class="col-12 col-md-3">
+      <div class="col-8 col-md-3">
         <%= form.label :layer, 'Указать изображение или шрифт', class: 'form-label' %>
         <%= form.file_field :layer, class: 'form-control' %>
       </div>
 
-      <div class="col-12 col-md-2">
+      <div class="col-8 col-md-2">
         <%= form.label :layer_type, 'layer_type', class: 'form-label' %>
         <%= form.select :layer_type, ImageLayer.layer_types.keys.map { |type| [type.humanize, type] }, {}, { class: 'form-select' } %>
       </div>
 
-      <div class="col-12 col-md-1">
+      <div class="col-4 col-md-1">
         <%= form.label :menuindex, 'menuindex', class: 'form-label' %>
         <%= form.text_field :menuindex, value: image_layer.menuindex, class: 'form-control', style: 'width: 100%' %>
       </div>
@@ -44,4 +51,9 @@
       </div>
     </div>
   <% end %>
+
+  <%= button_to "X", image_layer_path(image_layer),
+                method: :delete, class: 'del-layer-btn',
+                data: { confirm: 'Вы уверены, что хотите удалить слой?',
+                        controller: 'confirm', action: 'click->confirm#call' } %>
 </li>

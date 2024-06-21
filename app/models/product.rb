@@ -1,14 +1,15 @@
 class Product < ApplicationRecord
   before_validation :set_defaults
+  before_save :cleanup_description
+
   validates :title, presence: true
   validates :description, presence: true
-  validates :price, presence: true
-  validates :price, numericality: { only_integer: true }
+  validates :price, presence: true, numericality: { only_integer: true }
 
   has_one_attached :image, dependent: :destroy
   has_many_attached :images, dependent: :destroy
 
-  before_save :cleanup_description
+  self.inheritance_column = :type_
 
   private
 

@@ -15,6 +15,6 @@ class CleanAttachBlobJob < ApplicationJob
         end
       end
     end
-    TelegramService.new("✅ Cleared #{count} rows in tables with missing images.").report
+    TelegramService.new("⚠️ Cleared #{count} rows in tables with missing images.").report
   end
 end

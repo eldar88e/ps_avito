@@ -66,6 +66,21 @@
     </div>
 
     <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <%= form.text_field :type, value: 'Другое', class: 'form-control', style: 'width: 100%', placeholder: 'Type' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="platform" class="form-label">Platform</label>
+      <%= form.text_field :platform, value: 'PlayStation', class: 'form-control', style: 'width: 100%', placeholder: 'Platform' %>
+    </div>
+
+    <div class="mb-3">
+      <label for="localization" class="form-label">Localization</label>
+      <%= form.text_field :localization, value: 'Без локализации', class: 'form-control', style: 'width: 100%', placeholder: 'Localization' %>
+    </div>
+
+    <div class="mb-3">
       <label for="condition" class="form-label">Condition</label>
       <%= form.text_field :condition, class: 'form-control', style: 'width: 100%', placeholder: 'Condition' %>
     </div>
