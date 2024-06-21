@@ -1,0 +1,54 @@
+<%= form_with(model: address, url: url, method: method, data: data) do |form| %>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <%= form.label :store_address, 'Адрес', class: 'form-label', style: "font-weight: bold;" %>
+      <%= form.text_field :store_address, value: address.store_address, class: 'form-control' %>
+    </div>
+
+    <div class="col-12 mb-3">
+      <%= form.label :slogan_params, class: 'form-label' %>
+      <%= form.text_field :slogan_params,
+                          value: address.slogan_params.present? ? address.slogan_params : '{}',
+                          class: 'form-control', placeholder: '{ row: 300, pos_x: 800, pos_y: 120, column: 100 }' %>
+    </div>
+
+    <div class="col-12 col-md-1" style="word-wrap: break-word;">
+      <% if method == :patch %>
+        <div style="max-height: 70px; overflow: hidden; color: green;">
+          <% if address.image.attached? %>
+            <% if address.image.blob.content_type.match?(/font/) %>
+              <%= address.image.blob.filename %>
+            <% else %>
+              <%= image_tag url_for(address.image), class: 'img-fluid', style: 'max-height: 100px;' %>
+            <% end %>
+          <% else %>
+            <span style="color: red;">Файл не указан!</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-12 col-md-5">
+      <%= form.label :image, 'Указать изображение или шрифт', class: 'form-label' %>
+      <%= form.file_field :image, class: 'form-control' %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= form.label :slogan, 'Слоган', class: 'form-label' %>
+      <%= form.text_field :slogan, value: address.slogan, class: 'form-control' %>
+    </div>
+
+    <div class="col-12 col-md-11 mb-3">
+      <%= form.label :description, 'Описание', class: 'form-label' %>
+      <%= form.text_area :description, size: '50x1', class: 'form-control' %>
+    </div>
+
+    <div class="col-12 col-md-1 mt-0 mt-md-2">
+      <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{address.id}" %>
+      <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{address.id}" %>
+      <%= form.submit method == :patch ?  'Save' : 'Add',
+                      class: "btn #{method == :patch ? 'btn-warning' : 'btn-primary'} mt-3 mt-md-0",
+                      data: method == :patch ? '' : { action: "click->clear-form#clearForm" } %>
+    </div>
+  </div>
+<% end %>

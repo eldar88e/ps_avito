@@ -19,19 +19,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="<%= games_path %>">Games</a>
+              <%= active_link_to 'Games', games_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= settings_path %>">Settings</a>
+              <%= active_link_to 'Settings', settings_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= stores_path %>">Stores</a>
+              <%= active_link_to 'Stores', stores_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= products_path %>">Products</a>
+              <%= active_link_to 'Products', products_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= google_sheets_path %>">Feeds</a>
+              <%= active_link_to 'Feeds', google_sheets_path, class: 'nav-link', active: :exclusive %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Errors', '/exception-track', class: 'nav-link', target: '_blank' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Jobs', '/good_job', class: 'nav-link', target: '_blank' %>
             </li>
           </ul>
 
