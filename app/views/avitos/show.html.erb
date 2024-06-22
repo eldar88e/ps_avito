@@ -6,11 +6,11 @@
   <ul class="list-group">
     <%  @auto_load.each do |key, val| %>
       <li class="list-group-item list-group-item-action">
-        <div class="d-flex gap-3">
-          <div class="fw-bold">
+        <div class="row" style="overflow: hidden;">
+          <div class="fw-bold col-6 col-md-3">
             <%= key %>:
           </div>
-          <div>
+          <div class="col-6 col-md-9">
             <% if val.is_a?(Array) %>
               <ul class="list-group">
                 <% val.first.each do |k, v| %>
@@ -54,30 +54,30 @@
 
     <div class="list-group-item list-group-item-action">
       <div class="row">
-        <div class="col-md-3">Статус:</div>
-        <div class="col-md-9"><%= @report['status'] %></div>
+        <div class="col-6 col-md-3">Статус:</div>
+        <div class="col-6 col-md-9"><%= @report['status'] %></div>
       </div>
     </div>
 
     <div class="list-group-item list-group-item-action">
       <div class="row">
-        <div class="col-md-3"><%= @report['section_stats']['title'] %>:</div>
-        <div class="col-md-9"><%= @report['section_stats']['count'] %></div>
+        <div class="col-6 col-md-3"><%= @report['section_stats']['title'] %>:</div>
+        <div class="col-6 col-md-9"><%= @report['section_stats']['count'] %></div>
       </div>
     </div>
 
     <% @report['section_stats']['sections'].each do |section| %>
       <div class="list-group-item list-group-item-action">
         <div class="row">
-          <div class="col-md-3"><%= section['title'] %>:</div>
-          <div class="col-md-9"><%= section['count'] %></div>
+          <div class="col-6 col-md-3"><%= section['title'] %>:</div>
+          <div class="col-6 col-md-9"><%= section['count'] %></div>
         </div>
       </div>
       <% section['sections'].each do |sec| %>
         <div class="list-group-item list-group-item-action">
           <div class="row">
-            <div class="col-md-3"><%= sec['title'] %>:</div>
-            <div class="col-md-9"><%= sec['count'] %></div>
+            <div class="col-6 col-md-3 ps-4"><%= sec['title'] %>:</div>
+            <div class="col-6 col-md-9"><%= sec['count'] %></div>
           </div>
         </div>
       <% end %>
