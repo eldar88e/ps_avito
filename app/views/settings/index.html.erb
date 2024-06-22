@@ -1,6 +1,8 @@
-<div class="container">
-  <h1>Settings</h1>
+<% content_for :title do %>
+  Настройки
+<% end %>
 
+<div class="container">
   <% if @setting&.errors&.any? %>
     <div id="error_explanation">
       <h3>Возникли ошибки:</h3>
@@ -13,11 +15,11 @@
   <% end %>
 
   <ul class="list-group">
-    <li class="list-group-item list-group-item-action">
+    <li class="list-group-item list-group-item-action active mobile-none">
       <div class="row">
-        <div class="col-4 col-md-2"><b>variable</b></div>
-        <div class="col-4 col-md-3"><b>value</b></div>
-        <div class="col-4 col-md-6"><b>description</b></div>
+        <div class="col-4 col-md-2">Переменная</div>
+        <div class="col-4 col-md-3">Значение</div>
+        <div class="col-4 col-md-6">Описание</div>
         <div class="col-0 col-md-1"></div>
       </div>
     </li>

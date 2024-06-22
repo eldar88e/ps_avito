@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action" id="setting_<%= setting.id %>">
+<li class="list-group-item list-group-item-action mobile-list-top-border" id="setting_<%= setting.id %>">
   <%= form_with(model: setting, url: setting_path(setting.id), method: :patch, format: :turbo_stream) do |form| %>
     <div class="row">
       <div class="col-12 col-md-2 mb-3 mb-md-0">
