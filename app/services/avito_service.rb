@@ -20,6 +20,9 @@ class AvitoService
     end
 
     faraday.send(method)
+  rescue => e
+    Rails.logger.error e.message
+    nil
   end
 
   private

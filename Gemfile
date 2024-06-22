@@ -26,6 +26,7 @@ gem 'caxlsx'
 gem 'net-ftp'
 gem 'active_link_to'
 gem 'exception-track'
+gem 'rails-i18n'
 
 # gem "image_processing", "~> 1.2"
 

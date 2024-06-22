@@ -41,5 +41,8 @@ module PsAvito
     config.generators.system_tests = nil
 
     config.active_job.queue_adapter = :good_job
+
+    config.i18n.available_locales = [:ru, :en]
+    config.i18n.default_locale = :ru
   end
 end

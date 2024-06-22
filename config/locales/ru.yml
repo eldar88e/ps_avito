@@ -1,0 +1,16 @@
+ru:
+  avito:
+    autoload:
+      upload_url: "Ссылка на файл"
+      autoload_enabled: "Автозагрузка"
+      report_email: "Электронная почта для отчетов"
+      schedule: "Расписание"
+      rate: "Объявлений за период"
+      weekdays: "Дни"
+      time_slots: "Часы"
+      report:
+        report_id: "Отчет"
+        started_at: "Время начала выгрузки"
+        section_stats: "Подробности"
+        status: "Статус"
+        success_warning: "Завершено с проблемами"
