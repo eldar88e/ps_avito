@@ -30,7 +30,7 @@ class AvitoService
   end
 
   def valid_token?(model)
-    model&.created_at.to_i + model.expires_in > Time.current.to_i
+    model&.created_at.to_i + model&.expires_in.to_i > Time.current.to_i
   end
 
   def refresh_token
