@@ -25,6 +25,7 @@ services:
     volumes:
       - gems:/usr/local/bundle
       - ./node_modules:/app/node_modules
+      - ./log:/app/log
       - ./public:/app/public
       - ./storage:/app/storage
       - ./game_images:/app/game_images
@@ -42,7 +43,8 @@ services:
     command: bundle exec good_job start
     volumes:
       - gems:/usr/local/bundle
-      - node_modules:/app/node_modules
+      - ./node_modules:/app/node_modules
+      - ./log:/app/log
       - ./storage:/app/storage
       - ./game_images:/app/game_images
       - ./game_lists:/app/game_lists
@@ -77,7 +79,6 @@ services:
 
 volumes:
   gems:
-  node_modules:
   db_data:
   redis:
 
