@@ -7,12 +7,12 @@ class PopulateExcelJob < ApplicationJob
     games     = Game.order(:top).with_attached_images
     name      = "top_1000_#{store.var}.xlsx"
     xlsx_path = "./game_lists/#{name}"
-    #file      = Axlsx::Package.new
-    workbook = FastExcel.open
+    # file      = Axlsx::Package.new
+    workbook  = FastExcel.open
     worksheet = workbook.add_worksheet
     products  = Product.where(active: true).with_attached_image
 
-    #worksheet.append_row(name: store.var) do |sheet|
+    # worksheet.append_row(name: store.var) do |sheet|
       worksheet.append_row %w[Id	AdStatus Category GoodsType	AdType Type Platform Localization Address Title
                        Description Condition Price AllowEmail	ManagerName	ContactPhone ContactMethod ImageUrls]
 

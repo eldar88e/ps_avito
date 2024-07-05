@@ -9,6 +9,4 @@ Pagy::DEFAULT[:size]  = [1, 2, 2, 1]  # nav bar links
 
 Pagy::DEFAULT[:steps] = { 0 => 5, 540 => 7, 720 => 9 }
 
-Pagy::I18n.load({ locale: 'en' },
-                { locale:   'ru',
-                  filepath: './config/locales/ru.yml' })
+# Pagy::I18n.load({ locale: 'ru', filepath: './config/locales/ru.yml' })
