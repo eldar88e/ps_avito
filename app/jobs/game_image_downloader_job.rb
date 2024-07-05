@@ -27,7 +27,8 @@ class GameImageDownloaderJob < ApplicationJob
     if response.status == 200 || response.headers['content-type'].match?(/image/)
       response.body
     else
-      Rails.logger.error "Class: #{self.class} || Error message: PS-image is not available! URL: #{url}"
+      puts "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
+      Rails.logger.error "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
       TelegramService.new("PS img is not available\n#{url}").report
       nil
     end
