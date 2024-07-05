@@ -6,7 +6,6 @@ class GameImageDownloaderJob < ApplicationJob
     sony_ids = Game.order(:top).pluck(:sony_id)
     sony_ids.each do |id|
       img_path = "./game_images/#{id}_#{size}.jpg"
-      puts "Downloading #{img_path}"
       next if File.exist?(img_path)
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
@@ -15,7 +14,7 @@ class GameImageDownloaderJob < ApplicationJob
       next if img.nil?
 
       File.open(img_path, 'wb') { |local_file| local_file.write(img) }
-      sleep rand(1..5)
+      sleep rand(1..3)
     end
     TelegramService.new('✅ All game image downloaded!').report
   end
@@ -23,12 +22,11 @@ class GameImageDownloaderJob < ApplicationJob
   private
 
   def download_image(url)
-    response = Faraday.new.get(url)
-    # response = connect_to(url)
+    # response = Faraday.new.get(url)
+    response = connect_to(url)
     if response.status == 200 || response.headers['content-type'].match?(/image/)
       response.body
     else
-      puts "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
       Rails.logger.error "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
       TelegramService.new("PS img is not available\n#{url}").report
       nil
