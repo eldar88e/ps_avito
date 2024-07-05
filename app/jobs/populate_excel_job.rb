@@ -7,16 +7,19 @@ class PopulateExcelJob < ApplicationJob
     games     = Game.order(:top).with_attached_images
     name      = "top_1000_#{store.var}.xlsx"
     xlsx_path = "./game_lists/#{name}"
-    file      = Axlsx::Package.new
+    #file      = Axlsx::Package.new
+    workbook = FastExcel.open
+    worksheet = workbook.add_worksheet
     products  = Product.where(active: true).with_attached_image
 
-    file.workbook.add_worksheet(name: store.var) do |sheet|
-      sheet.add_row %w[Id	AdStatus Category GoodsType	AdType Type Platform Localization Address Title
+    #worksheet.append_row(name: store.var) do |sheet|
+      worksheet.append_row %w[Id	AdStatus Category GoodsType	AdType Type Platform Localization Address Title
                        Description Condition Price AllowEmail	ManagerName	ContactPhone ContactMethod ImageUrls]
 
       store.addresses.where(active: true).each do |address|
         games.each do |game|
-          sheet.add_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category,
+          # worksheet.add_row
+          worksheet.append_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category,
                          store.goods_type, store.ad_type, store.type, make_platform(game),  make_local(game),
                          address.store_address, make_title(game), make_description(game, store, address),
                          store.condition, make_price(game.price_tl), store.allow_email, store.manager_name,
@@ -26,7 +29,7 @@ class PopulateExcelJob < ApplicationJob
 
       store.addresses.where(active: true).each do |address|
         products.each do |product|
-          sheet.add_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
+          worksheet.add_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
                          product.category || store.category, product.goods_type || store.goods_type,
                          product.ad_type || store.ad_type, product.type || store.type, product.platform, product.localization,
                          address.store_address, product.title, make_description(product, store, address),
@@ -35,9 +38,11 @@ class PopulateExcelJob < ApplicationJob
                          make_image(product, store, address)]
         end
       end
-    end
-    file.use_shared_strings = true
-    file.serialize(xlsx_path)
+    #end
+    #file.use_shared_strings = true
+    #file.serialize(xlsx_path)
+    content = workbook.read_string
+    File.open(xlsx_path, 'wb') {|f| f.write(content) }
 
     domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
     TelegramService.new("✅ File http://#{domain}/game_lists/#{name} is updated!").report

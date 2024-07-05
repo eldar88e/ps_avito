@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   def error_notice(msg)
     render turbo_stream: send_notice(msg, 'danger')
   end

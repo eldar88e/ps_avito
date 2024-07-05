@@ -21,12 +21,14 @@ gem 'google_drive'
 gem 'mysql2'
 gem 'telegram-bot-ruby', "~> 0.19"
 gem 'devise'
-gem 'kaminari'
-gem 'caxlsx'
+# gem 'kaminari'
+# gem 'caxlsx'
 gem 'net-ftp'
 gem 'active_link_to'
 gem 'exception-track'
 gem 'rails-i18n'
+gem 'fast_excel'
+gem 'pagy'
 
 # gem "image_processing", "~> 1.2"
 
