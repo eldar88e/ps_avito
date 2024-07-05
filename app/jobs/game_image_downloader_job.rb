@@ -4,18 +4,9 @@ class GameImageDownloaderJob < ApplicationJob
   def perform
     size     = Setting.pluck(:var, :value).to_h['game_img_size']
     sony_ids = Game.order(:top).pluck(:sony_id)
-    puts "=" * 100
-    puts sony_ids.size
-    puts "=" * 100
-    sleep 3
-
     sony_ids.each do |id|
-      p img_path = "./game_images/#{id}_#{size}.jpg"
+      img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
-
-      puts "=" * 100
-      puts "Downloading #{img_path}"
-      puts "=" * 100
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
             "#{id}/0/image?w=#{size}&h=#{size}"
@@ -36,7 +27,7 @@ class GameImageDownloaderJob < ApplicationJob
     if response.status == 200 || response.headers['content-type'].match?(/image/)
       response.body
     else
-      puts "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
+      #puts "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
       Rails.logger.error "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
       TelegramService.new("PS img is not available\n#{url}").report
       nil
