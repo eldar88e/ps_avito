@@ -8,6 +8,10 @@ class GameImageDownloaderJob < ApplicationJob
       img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
 
+      puts "=" * 100
+      puts "Downloading #{img_path}"
+      puts "=" * 100
+
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
             "#{id}/0/image?w=#{size}&h=#{size}"
       img = download_image(url)
