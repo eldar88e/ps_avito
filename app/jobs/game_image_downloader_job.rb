@@ -6,11 +6,8 @@ class GameImageDownloaderJob < ApplicationJob
     sony_ids = Game.order(:top).pluck(:sony_id)
     sony_ids.each do |id|
       img_path = "./game_images/#{id}_#{size}.jpg"
-      next if File.exist?(img_path)
-
-      puts "=" * 100
       puts "Downloading #{img_path}"
-      puts "=" * 100
+      next if File.exist?(img_path)
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
             "#{id}/0/image?w=#{size}&h=#{size}"
