@@ -5,7 +5,7 @@ class GameImageDownloaderJob < ApplicationJob
     size     = Setting.pluck(:var, :value).to_h['game_img_size']
     sony_ids = Game.order(:top).pluck(:sony_id)
     sony_ids.each do |id|
-      img_path = "./game_images/#{id}_#{size}.jpg"
+      p img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
 
       puts "=" * 100
