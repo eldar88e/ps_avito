@@ -39,7 +39,7 @@ class PopulateExcelJob < ApplicationJob
     file.use_shared_strings = true
     file.serialize(xlsx_path)
 
-    domain = Rails.env == :production ? 'server.open-ps.ru' : 'localhost:3000'
+    domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
     TelegramService.new("✅ File http://#{domain}/game_lists/#{name} is updated!").report
 
     #FtpService.new(name).send_file
