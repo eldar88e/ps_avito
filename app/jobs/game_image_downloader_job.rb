@@ -4,6 +4,11 @@ class GameImageDownloaderJob < ApplicationJob
   def perform
     size     = Setting.pluck(:var, :value).to_h['game_img_size']
     sony_ids = Game.order(:top).pluck(:sony_id)
+    puts "=" * 100
+    puts sony_ids.size
+    puts "=" * 100
+    sleep 3
+
     sony_ids.each do |id|
       p img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
