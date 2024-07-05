@@ -18,7 +18,7 @@ class PopulateExcelJob < ApplicationJob
 
       store.addresses.where(active: true).each do |address|
         games.each do |game|
-          # worksheet.add_row
+          # sheet.worksheet.add_row
           worksheet.append_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category,
                          store.goods_type, store.ad_type, store.type, make_platform(game),  make_local(game),
                          address.store_address, make_title(game), make_description(game, store, address),
@@ -29,7 +29,7 @@ class PopulateExcelJob < ApplicationJob
 
       store.addresses.where(active: true).each do |address|
         products.each do |product|
-          worksheet.add_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
+          worksheet.append_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
                          product.category || store.category, product.goods_type || store.goods_type,
                          product.ad_type || store.ad_type, product.type || store.type, product.platform, product.localization,
                          address.store_address, product.title, make_description(product, store, address),
@@ -42,7 +42,7 @@ class PopulateExcelJob < ApplicationJob
     #file.use_shared_strings = true
     #file.serialize(xlsx_path)
     content = workbook.read_string
-    File.open(xlsx_path, 'wb') {|f| f.write(content) }
+    File.open(xlsx_path, 'wb') { |f| f.write(content) }
 
     domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
     TelegramService.new("✅ File http://#{domain}/game_lists/#{name} is updated!").report

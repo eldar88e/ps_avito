@@ -14,3 +14,8 @@ ru:
         section_stats: "Подробности"
         status: "Статус"
         success_warning: "Завершено с проблемами"
+  pagy:
+    nav:
+      prev: "Предыдущая"
+      next: "Слудующая"
+      gap: "…"
