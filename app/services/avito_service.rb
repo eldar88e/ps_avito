@@ -18,11 +18,12 @@ class AvitoService
       faraday.request request
       faraday.response :logger if Rails.env.development?
       faraday.adapter Faraday.default_adapter
-      faraday.headers = @headers
-      faraday.body = payload.to_json if payload
     end
 
-    connection.send(method)
+    connection.send(method) do |req|
+      req.headers = @headers
+      req.body = payload.to_json if payload
+    end
   rescue => e
     Rails.logger.error e.message
     nil
