@@ -2,8 +2,8 @@ class AvitosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_weekdays, only: [:show, :edit]
   before_action :set_time_slots, only: [:show, :edit]
-  before_action :set_store, only: [:show, :edit, :update]
-  before_action :set_avito, only: [:show, :edit, :update]
+  before_action :set_store, only: [:show, :edit, :update, :update_ads]
+  before_action :set_avito, only: [:show, :edit, :update, :update_ads]
   before_action :set_auto_load, only: [:show, :edit]
   add_breadcrumb "Главная", :root_path
   add_breadcrumb "Avito", :avitos_path
@@ -41,6 +41,15 @@ class AvitosController < ApplicationController
     else
       msg = "Ошибка параметров JSON. Настройки автозагрузки не были изменены."
       error_notice(msg)
+    end
+  end
+
+  def update_ads
+    result = @avito.connect_to('https://api.avito.ru/autoload/v1/upload', method=:post)
+    if result&.status == 200
+      render turbo_stream: success_notice('Успешно запущен процес обновления обявлений из Excel-feed.'), status: :ok
+    else
+      error_notice('Ошибка запуска обновления!')
     end
   end
 

@@ -58,7 +58,14 @@
     </ul>
 
     <%= link_to 'Edit', edit_avito_path(@store), class: 'mt-3 btn btn-warning' %>
+
   <% end %>
+  <div class="avito-buttons">
+    <%= button_to 'Update', update_ads_avito_path(@store),
+                  class: 'mt-3 btn btn-success', data: { turbo_prefetch: 'false' },
+                  data: { confirm: 'Вы уверены, что хотите обновить объявления? Их можно обновлять не чаще одного раза в час.',
+                          controller: 'confirm', action: 'click->confirm#call' } %>
+  </div>
 
   <h2 class="mt-3 mb-3">Отчет по последней загрузке</h2>
 

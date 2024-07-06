@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :image_layers
   resources :addresses
   resources :avitos, only: [:index, :show, :edit, :update]
+  post 'avitos/:id/update_ads', to: 'avitos#update_ads', as: 'update_ads_avito'
 
   resources :stores do
     ####
