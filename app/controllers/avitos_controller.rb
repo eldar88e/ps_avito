@@ -35,7 +35,7 @@ class AvitosController < ApplicationController
 
     result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', method=:post, payload=avito_json)
 
-    if result&.status == 2001
+    if result&.status == 200
       #render turbo_stream:  success_notice('Настройки автозагрузки была изменены.')
       redirect_to avito_path(@store) #, flash[:notice] = 'Настройки автозагрузки была изменены.'
     else
