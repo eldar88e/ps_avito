@@ -12,6 +12,7 @@ class Store < ApplicationRecord
 
   has_many :image_layers, dependent: :destroy
   has_many :addresses, dependent: :destroy
+  has_many :avito_tokens, dependent: :destroy
 
   before_save :set_default_layer_params, :cleanup_description
 

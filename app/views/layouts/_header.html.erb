@@ -1,17 +1,7 @@
 <div class="container mt-3">
-  <%= turbo_frame_tag :notices, class: "notice-group", data: { controller: "notices" } do %>
-    <% flash.each do |key, value| %>
-      <% [value].flatten.each do |i| %>
-        <div class="alert alert-<%= key %>" role="alert">
-          <%= i %>
-        </div>
-      <% end %>
-    <% end %>
-  <% end %>
-
   <nav class="navbar navbar-expand-lg bg-light mb-3">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">PsAvito</a>
+      <a class="navbar-brand" href="/" title="На главную">PsAvito</a>
       <% if user_signed_in? %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -34,6 +24,9 @@
               <%= active_link_to 'Feeds', google_sheets_path, class: 'nav-link', active: :exclusive %>
             </li>
             <li class="nav-item">
+              <%= active_link_to 'Avito', avitos_path, class: 'nav-link', active: :exclusive %>
+            </li>
+            <li class="nav-item">
               <%= link_to 'Errors', '/exception-track', class: 'nav-link', target: '_blank' %>
             </li>
             <li class="nav-item">
@@ -54,3 +47,13 @@
     </div>
   </nav>
 </div>
+
+<%= turbo_frame_tag :notices, class: "notice-group", data: { controller: "notices" } do %>
+  <% flash.each do |key, value| %>
+    <% [value].flatten.each do |i| %>
+      <div class="alert alert-<%= key %>" role="alert">
+        <%= i %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

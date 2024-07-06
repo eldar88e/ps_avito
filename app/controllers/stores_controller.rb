@@ -62,6 +62,6 @@ class StoresController < ApplicationController
     params.require(:store)
           .permit(:manager_name, :var, :ad_status, :category, :goods_type, :ad_type, :type, :desc_game,
                   :menuindex, :active, :contact_method, :description, :condition, :desc_product,
-                  :allow_email, :contact_phone, :game_img_params, :table_id)
+                  :allow_email, :contact_phone, :game_img_params, :table_id, :client_id, :client_secret)
   end
 end
