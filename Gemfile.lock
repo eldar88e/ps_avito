@@ -100,6 +100,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
+    breadcrumbs_on_rails (4.1.0)
+      railties (>= 5.0)
     builder (3.2.4)
     capybara (3.40.0)
       addressable
@@ -491,6 +493,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
+  breadcrumbs_on_rails
   capybara
   chusaku
   cssbundling-rails

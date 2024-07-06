@@ -29,6 +29,7 @@ gem 'exception-track'
 gem 'rails-i18n'
 gem 'fast_excel'
 gem 'pagy'
+gem 'breadcrumbs_on_rails'
 
 # gem "image_processing", "~> 1.2"
 

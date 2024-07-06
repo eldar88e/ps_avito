@@ -12,14 +12,17 @@ class AvitoService
     }
   end
 
-  def connect_to(url, method=:get)
-    faraday = Faraday.new(url: url) do |faraday|
-      faraday.request :url_encoded
+  def connect_to(url, method=:get, payload=nil)
+    request    = method == :get ? :url_encoded : :json
+    connection = Faraday.new(url: url) do |faraday|
+      faraday.request request
+      faraday.response :logger if Rails.env.development?
       faraday.adapter Faraday.default_adapter
       faraday.headers = @headers
+      faraday.body = payload.to_json if payload
     end
 
-    faraday.send(method)
+    connection.send(method)
   rescue => e
     Rails.logger.error e.message
     nil

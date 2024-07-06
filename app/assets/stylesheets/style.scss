@@ -106,3 +106,16 @@ ul.pagination {
     border-top-right-radius: inherit;
   }
 }
+
+.breadcrumb {
+  color: var(--bs-breadcrumb-item-active-color);
+
+  & > li {
+  margin: 0 5px;
+  color: var(--bs-breadcrumb-item-active-color);
+    & > a {
+      color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+      text-decoration: none;
+    }
+  }
+}

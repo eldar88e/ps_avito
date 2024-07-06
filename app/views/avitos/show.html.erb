@@ -3,58 +3,62 @@
 <% end %>
 
 <div class="container">
-  <ul class="list-group">
-    <% @auto_load.each do |key, val| %>
-      <li class="list-group-item list-group-item-action">
-        <div class="row" style="overflow: hidden;">
-          <% if val.is_a?(Array) %>
-            <div class="col-6 col-md-3">
-              <h5><%= t("avito.autoload.#{key}") %>:</h5>
-            </div>
-          <% else %>
-            <div class="fw-bold col-6 col-md-3">
-              <%= t("avito.autoload.#{key}") %>:
-            </div>
-            <div class="col-6 col-md-9">
-              <% if key == 'autoload_enabled' %>
-                <%= val == true ? 'Включено' : 'Отключено' %>
-              <% elsif key == 'upload_url' %>
-                <%= link_to val, val, title: t("avito.autoload.#{key}") %>
-              <% else %>
-                <%= val %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </li>
-    <% end %>
-
-    <% @auto_load['schedule'].first.each do |k, v| %>
-      <li class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="fw-bold col-6 col-md-3">
-            <%= t("avito.autoload.#{k}") %>:
-          </div>
-          <div class="col-6 col-md-9">
-            <% if k == 'weekdays' %>
-              <%= v.map { |i| @week_day[i] }.join(', ') %>
-            <% elsif v.is_a?(Array) %>
-              <%= v.sort.map { |i| "#{i}.00-#{i+1}.00" }.join(', ') %>
-              <!--
-              <ul class="pagination">
-                <%# (1..24).to_a.each do |hour| %>
-                  <li class="page-item<%#= v.include?(hour) ? ' active' : '' %>"><span class="page-link"><%#= hour %></span></li>
-                <%# end %>
-              </ul>
-              -->
+  <%= turbo_frame_tag "avitos_#{@store.id}" do %>
+    <ul class="list-group">
+      <% @auto_load.each do |key, val| %>
+        <li class="list-group-item list-group-item-action">
+          <div class="row" style="overflow: hidden;">
+            <% if val.is_a?(Array) %>
+              <div class="col-6 col-md-3">
+                <h5><%= t("avito.autoload.#{key}") %>:</h5>
+              </div>
             <% else %>
-              <%= v %>
+              <div class="fw-bold col-6 col-md-3">
+                <%= t("avito.autoload.#{key}") %>:
+              </div>
+              <div class="col-6 col-md-9">
+                <% if key == 'autoload_enabled' %>
+                  <%= val == true ? 'Включено' : 'Отключено' %>
+                <% elsif key == 'upload_url' %>
+                  <%= link_to val, val, title: t("avito.autoload.#{key}") %>
+                <% else %>
+                  <%= val %>
+                <% end %>
+              </div>
             <% end %>
           </div>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+        </li>
+      <% end %>
+
+      <% @auto_load['schedule'].first.each do |k, v| %>
+        <li class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="fw-bold col-6 col-md-3">
+              <%= t("avito.autoload.#{k}") %>:
+            </div>
+            <div class="col-6 col-md-9">
+              <% if k == 'weekdays' %>
+                <%= v.map { |i| @weekdays[i][:name] }.join(', ') %>
+              <% elsif v.is_a?(Array) %>
+                <%= v.sort.map { |i| "#{i}.00-#{i+1}.00" }.join(', ') %>
+                <!--
+                <ul class="pagination">
+                  <%# (1..24).to_a.each do |hour| %>
+                    <li class="page-item<%#= v.include?(hour) ? ' active' : '' %>"><span class="page-link"><%#= hour %></span></li>
+                  <%# end %>
+                </ul>
+                -->
+              <% else %>
+                <%= v %>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= link_to 'Edit', edit_avito_path(@store), class: 'mt-3 btn btn-warning' %>
+  <% end %>
 
   <h2 class="mt-3 mb-3">Отчет по последней загрузке</h2>
 

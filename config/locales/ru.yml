@@ -6,7 +6,7 @@ ru:
       report_email: "Электронная почта для отчетов"
       schedule: "Расписание"
       rate: "Объявлений за период"
-      weekdays: "Дни"
+      weekdays: "Дни недели"
       time_slots: "Часы"
       report:
         report_id: "Отчет"

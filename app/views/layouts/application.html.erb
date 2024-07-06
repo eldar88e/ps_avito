@@ -17,7 +17,13 @@
     <main>
       <div class="container">
         <h1 class="mb-3 mt-3"><%= yield :title %></h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <%= render_breadcrumbs tag: 'li', separator: ' / ', class: 'breadcrumb-item' %>
+          </ol>
+        </nav>
       </div>
+
       <%= yield %>
     </main>
     <footer>
