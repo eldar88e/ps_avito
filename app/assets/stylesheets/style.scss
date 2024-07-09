@@ -127,3 +127,36 @@ ul.pagination {
     display: inline-block;
   }
 }
+
+.address-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  @media screen and (max-width: 568px) {
+    align-items: end;
+  }
+
+  form, a {
+    display: inline-block;
+  }
+
+  .btn-update-img {
+    &::before {
+      content: '\F226';
+      font-family: 'bootstrap-icons';
+      margin-right: 5px;
+    }
+  }
+
+  .btn-create-img {
+    &::before {
+      content: '\F226';
+      font-family: 'bootstrap-icons';
+    }
+  }
+}
+
+.steets-wrap {
+  max-height: 300px;
+  overflow-y: auto;
+}

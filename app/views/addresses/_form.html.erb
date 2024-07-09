@@ -47,7 +47,7 @@
       <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{address.id}" %>
       <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{address.id}" %>
       <%= form.submit method == :patch ?  'Save' : 'Add',
-                      class: "btn #{method == :patch ? 'btn-warning' : 'btn-primary'} mt-3 mt-md-0",
+                      class: "btn #{method == :patch ? 'btn-warning' : 'btn-primary'} mt-md-2 mt-md-0 btn-sm",
                       data: method == :patch ? '' : { action: "click->clear-form#clearForm" } %>
     </div>
   </div>

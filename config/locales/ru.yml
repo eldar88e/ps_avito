@@ -3,7 +3,7 @@ ru:
     add: "Добавить"
     delete: "Удалить"
     add_city: "Добавить город"
-    cities: "Города"
+    streets: "Улицы"
   avito:
     autoload:
       upload_url: "Ссылка на файл"

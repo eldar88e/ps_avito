@@ -1,5 +1,6 @@
 class StreetsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_street, only: [:update, :destroy]
 
   def index
     address = Address.find(params[:address_id])
@@ -14,7 +15,7 @@ class StreetsController < ApplicationController
     if street.save
       msg = "Улица #{street.title} была успешно добавлена."
       render turbo_stream: [
-        turbo_stream.append(:streets, partial: 'streets/form',
+        turbo_stream.append("streets_#{params[:address_id]}", partial: 'streets/form',
                             locals: { street: street, method: :patch, url: store_streets_path(street) }),
         success_notice(msg)
       ]
@@ -24,7 +25,6 @@ class StreetsController < ApplicationController
   end
 
   def update
-    @street = Street.find(params[:id])
     if @street.update(title: params[:street][:title])
       msg = "Улица #{@street.title} была успешно обновлена."
       render turbo_stream: [
@@ -38,12 +38,17 @@ class StreetsController < ApplicationController
   end
 
   def destroy
-    @street = Street.find(params[:id])
     if @street.destroy
       msg = "Улица #{@street.title} была успешно удалена."
       render turbo_stream: [ turbo_stream.remove("street_#{@street.id}"), success_notice(msg)]
     else
       error_notice(@street.errors.full_messages)
     end
+  end
+
+  private
+
+  def set_street
+    @street = Street.find(params[:id])
   end
 end

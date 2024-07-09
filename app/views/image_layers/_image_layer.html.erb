@@ -47,13 +47,15 @@
       <div class="col-12 col-md-1 mt-0 mt-md-2">
         <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{image_layer.id}" %>
         <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{image_layer.id}" %>
-        <%= form.submit 'Edite', class: 'mt-3 mt-md-0 btn btn-warning', style: 'width: 100%;' %>
+        <%= form.submit 'Edite', class: 'mt-3 mt-md-1 btn btn-warning btn-sm', style: 'width: 100%;' %>
       </div>
     </div>
   <% end %>
 
-  <%= button_to "X", image_layer_path(image_layer),
+  <%= button_to image_layer_path(image_layer),
                 method: :delete, class: 'del-layer-btn',
                 data: { confirm: 'Вы уверены, что хотите удалить слой?',
-                        controller: 'confirm', action: 'click->confirm#call' } %>
+                        controller: 'confirm', action: 'click->confirm#call' } do %>
+    <i class="bi bi-x-lg"></i>
+  <% end %>
 </li>

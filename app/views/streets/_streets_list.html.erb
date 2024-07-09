@@ -1,16 +1,15 @@
-<li class="list-group-item list-group-item-action list-group-item-secondary" id="address_<%= address.id %>">
+<li class="list-group-item list-group-item-action list-group-item-info steets-wrap" id="address_<%= address.id %>">
   <h5>Улицы для города <%= address.city %>:</h5>
-  <ul class="list-group mb-3" id="streets">
+
+  <%= render partial: '/streets/form', locals: { street: address.streets.build, method: :post, url: store_streets_path(address_id: address) } %>
+
+  <div id="streets_<%= address.id %>">
     <% if address.streets.any? %>
-      <% address.streets.each do |street| %>
+      <% address.streets.order(:created_at).each do |street| %>
+        <% next if street.id.nil? %>
+
         <%= render partial: '/streets/form', locals: { street: street, method: :patch, url: store_street_path(id: street) } %>
       <% end %>
     <% end %>
-
-    <%= render partial: '/streets/form', locals: { street: nil, method: :post, url: store_streets_path(address_id: address) } %>
-  </ul>
-
-  <%= link_to address_path(address), title: 'Назад', class: 'btn btn-primary btn-sm', data: { turbo_prefetch: false } do %>
-    <i class="bi bi-backspace"></i>
-  <% end %>
+  </div>
 </li>
