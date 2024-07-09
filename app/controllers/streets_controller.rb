@@ -5,7 +5,7 @@ class StreetsController < ApplicationController
     address = Address.find(params[:address_id])
 
     render turbo_stream: [
-      turbo_stream.update(:addresses, partial: '/streets/streets_list', locals: { address: address }),
+      turbo_stream.replace("address_#{address.id}", partial: '/streets/streets_list', locals: { address: address }),
     ]
   end
 
