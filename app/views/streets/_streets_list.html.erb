@@ -1,0 +1,16 @@
+<li class="list-group-item list-group-item-action" id="address_<%= address.id %>">
+  <h5>Улицы для города <%= address.city %>:</h5>
+  <ul class="list-group mb-3" id="streets">
+    <% if address.streets.any? %>
+      <% address.streets.each do |street| %>
+        <%= render partial: '/streets/form', locals: { street: street, method: :patch, url: store_street_path(id: street) } %>
+      <% end %>
+    <% end %>
+
+    <%= render partial: '/streets/form', locals: { street: nil, method: :post, url: store_streets_path(address_id: address) } %>
+  </ul>
+
+  <%= link_to address_path(address), title: 'Назад', class: 'btn btn-primary btn-sm', data: { turbo_prefetch: false } do %>
+    <i class="bi bi-backspace"></i>
+  <% end %>
+</li>

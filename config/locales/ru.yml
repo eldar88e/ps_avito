@@ -1,4 +1,9 @@
 ru:
+  buttons:
+    add: "Добавить"
+    delete: "Удалить"
+    add_city: "Добавить город"
+    cities: "Города"
   avito:
     autoload:
       upload_url: "Ссылка на файл"

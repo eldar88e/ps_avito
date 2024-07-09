@@ -99,12 +99,57 @@
       </div>
     <% end %>
 
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="fw-bold col-6 col-md-3">Обработано объявлений</div>
+        <div class="col-6 col-md-9">
+          <%= @report['section_stats']['sections'].map { |i| i['count'] }.sum %>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="ps-3 ps-md-3 fw-bold col-6 col-md-3">Объявлений в файле</div>
+        <div class="col-6 col-md-9">
+          <%= @report['section_stats']['sections'].map { |i| i['count'] if %w[will_publish_later not_publish error successful].include? i['slug'] }.compact.sum %>
+        </div>
+      </div>
+    </div>
+
     <% @report['section_stats']['sections'].each do |section| %>
+      <% if section['slug'] == 'removed_from_file' %>
+        <div class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="ps-3 ps-md-3 fw-bold col-6 col-md-3">Удалено</div>
+            <div class="col-6 col-md-9"></div>
+          </div>
+        </div>
+      <% end %>
+
       <%= render partial: '/avitos/list_item', locals: { title: section['title'], value: section['count'] } %>
 
       <% section['sections'].each do |sec| %>
         <%= render partial: '/avitos/list_item', locals: { title: sec['title'], value: sec['count'], second: true } %>
       <% end %>
+    <% end %>
+
+    <% if success = @report['section_stats']['sections'].find { |i| i['slug'] == 'successful' } %>
+      <li class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="fw-bold col-6 col-md-3">Платные услуги</div>
+          <div class="col-6 col-md-9"></div>
+        </div>
+      </li>
+
+      <li class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="ps-3 ps-md-3 fw-bold col-6 col-md-3">Размещение из пакета</div>
+          <div class="col-6 col-md-9">
+            <%= success['sections'].map { |i| i['count'] if %w[success_activated success_activated_updated success_added].include? i['slug'] }.compact.sum %>
+          </div>
+        </div>
+      </li>
     <% end %>
   </ul>
 </div>

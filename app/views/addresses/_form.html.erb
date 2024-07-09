@@ -1,8 +1,8 @@
 <%= form_with(model: address, url: url, method: method, data: data) do |form| %>
   <div class="row">
     <div class="col-12 mb-3">
-      <%= form.label :store_address, 'Адрес', class: 'form-label', style: "font-weight: bold;" %>
-      <%= form.text_field :store_address, value: address.store_address, class: 'form-control' %>
+      <%= form.label :city, 'Адрес', class: 'form-label', style: "font-weight: bold;" %>
+      <%= form.text_field :city, value: address.city, class: 'form-control' %>
     </div>
 
     <div class="col-12 mb-3">
