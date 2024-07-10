@@ -3,6 +3,9 @@
     <div class="col-12 mb-3">
       <%= form.label :city, 'Адрес', class: 'form-label', style: "font-weight: bold;" %>
       <%= form.text_field :city, value: address.city, class: 'form-control' %>
+      <% if !address.streets.present? %>
+        <p class="text-danger mb-0">Отсутствуют улицы для данного города! Добавьте пожалуйста как минимум одну улицу.</p>
+      <% end %>
     </div>
 
     <div class="col-12 mb-3">
