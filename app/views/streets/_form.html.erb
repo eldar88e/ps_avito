@@ -1,34 +1,28 @@
-<div class="row mb-3" id="street_<%= street.id || 'new' %>">
-  <div class="col-12 col-md-11">
-    <%= form_with(model: street, url: url, method: method, data: { controller: "clear-form" }) do |form| %>
-      <div class="row">
-        <div class="col-9 col-md-11">
-          <%= form.text_field :title, value: street&.title, class: 'form-control' %>
-        </div>
+<div class="steets-item mb-3" id="street_<%= street.id || 'new' %>">
+  <%= form_with(model: street, url: url, method: method, data: { controller: "clear-form" }) do |form| %>
+    <div class="steets-item-form">
+        <%= form.text_field :title, value: street&.title, class: 'form-control form-control-sm',
+                            placeholder: 'Введите название улицы и номер дома...' %>
 
-        <div class="col-3 col-md-1">
-          <% if method == :patch %>
-            <%= form.submit 'Save', class: 'btn btn-warning btn-sm' %>
-          <% else %>
-            <%= form.submit 'Add', class: 'btn btn-primary btn-sm', data: { action: "click->clear-form#clearForm" } %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+        <% if method == :patch %>
+          <%= form.submit 'Save', class: 'btn btn-warning btn-sm' %>
+        <% else %>
+          <%= form.submit 'Add', class: 'btn btn-primary btn-sm', data: { action: "click->clear-form#clearForm" } %>
+        <% end %>
+    </div>
+  <% end %>
 
-  <div class="col-6 col-md-1">
-    <% if method == :patch %>
-      <%= button_to store_street_path(id: street), title: 'Удалить',
-                    method: :delete, class: 'btn btn-danger mt-3 mt-md-0 btn-sm',
-                    data: { confirm: 'Вы уверены, что хотите удалить данную улицу?',
-                            controller: 'confirm', action: 'click->confirm#call' } do %>
-        <i class="bi bi-trash"></i>
-      <% end %>
-    <% else %>
-      <%= link_to address_path(street.address), title: 'Назад', class: 'btn btn-primary btn-sm', data: { turbo_prefetch: false } do %>
-        <i class="bi bi-backspace"></i>
-      <% end %>
+  <% if method == :patch %>
+    <%= button_to store_street_path(id: street), title: 'Удалить',
+                  method: :delete, class: 'btn btn-danger btn-sm',
+                  data: { confirm: 'Вы уверены, что хотите удалить данную улицу?',
+                          controller: 'confirm', action: 'click->confirm#call' } do %>
+      <i class="bi bi-trash"></i>
     <% end %>
-  </div>
+  <% else %>
+    <%= link_to address_path(street.address), title: 'Назад', class: 'btn btn-primary btn-sm',
+                data: { turbo_prefetch: false } do %>
+      <i class="bi bi-backspace"></i>
+    <% end %>
+  <% end %>
 </div>

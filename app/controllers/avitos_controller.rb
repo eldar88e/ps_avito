@@ -19,6 +19,10 @@ class AvitosController < ApplicationController
 
     @report    = JSON.parse(report.body)
     @tz        = TZInfo::Timezone.get(Rails.application.config.time_zone)
+    #self_avito = @avito.connect_to('https://api.avito.ru/core/v1/accounts/self')
+    #return error_notice("Ошибка подключения к API Avito") if self_avito.nil? || self_avito.status != 200
+
+    #@self_avito = JSON.parse(self_avito.body)
   end
 
   def edit; end

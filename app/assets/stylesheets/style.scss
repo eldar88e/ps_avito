@@ -136,6 +136,20 @@ ul.pagination {
     align-items: end;
   }
 
+  button {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-street {
+    span {
+      margin-left: 5px;
+      @media screen and (max-width: 568px) {
+        display: none;
+      }
+    }
+  }
+
   form, a {
     display: inline-block;
   }
@@ -159,4 +173,18 @@ ul.pagination {
 .steets-wrap {
   max-height: 300px;
   overflow-y: auto;
+
+  .steets-item {
+    display: flex;
+    gap: 10px;
+
+    form:first-child {
+      width: 100%;
+
+      .steets-item-form {
+        display: flex;
+        gap: 5px;
+      }
+    }
+  }
 }

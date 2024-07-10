@@ -2,7 +2,7 @@
   <h1>Магазин <%= @store.manager_name %></h1>
   <ul class="list-group">
     <% @store.attributes.keys.reject { |i| i.match?(/^id|created_at|updated_at/) }.each do |name| %>
-      <li class="list-group-item list-group-item-action">
+      <li class="list-group-item list-group-item-action overflow-hidden">
         <strong><%= name %>: </strong><%= @store.send(name.to_sym) %>
       </li>
     <% end %>
