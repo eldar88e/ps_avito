@@ -7,7 +7,7 @@
             <% if @a_a.include?(image.blob.metadata['address_id']) && @a_s.include?(image.blob.metadata['store_id']) %>
               <div class="swiper-slide">
                 <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
-                  <%= image_tag url_for(image), style: 'width: 96px; height: 96px', class: "mb-1" %>
+                  <%= image_tag url_for(image), style: 'width: 96px;', class: "mb-1" %>
                 </a>
               </div>
             <% end %>
