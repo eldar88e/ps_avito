@@ -24,3 +24,6 @@ application.register('pagy_initializer', PagyInitializerController);
 
 import MapController from "./map_controller";
 application.register('map', MapController);
+
+import SwiperController from "./swiper_controller";
+application.register('swiper', SwiperController);
