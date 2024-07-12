@@ -21786,12 +21786,12 @@
           },
           // when window width is >= 480px
           480: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 5
           },
           // when window width is >= 768px
           768: {
-            slidesPerView: 5,
+            slidesPerView: 6,
             spaceBetween: 5
           },
           // when window width is >= 992px
