@@ -44,7 +44,7 @@ export default class extends Controller {
         },
         loop: true,
         autoplay: {
-          delay: 3000,
+          delay: 5000,
         },
 
         // Navigation arrows

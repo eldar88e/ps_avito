@@ -21812,7 +21812,7 @@
         },
         loop: true,
         autoplay: {
-          delay: 3e3
+          delay: 5e3
         },
         // Navigation arrows
         navigation: {
