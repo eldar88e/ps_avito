@@ -16954,6 +16954,46 @@
     }
   };
 
+  // app/javascript/controllers/map_controller.js
+  var map_controller_default = class extends Controller {
+    static targets = ["map", "addresses"];
+    connect() {
+      ymaps.ready(() => {
+        this.initMap();
+        this.processAddresses();
+      });
+    }
+    initMap() {
+      this.myMap = new ymaps.Map(this.mapTarget, {
+        center: [55.753994, 37.622093],
+        zoom: 10,
+        controls: ["zoomControl", "fullscreenControl"]
+      });
+    }
+    processAddresses() {
+      const addresses = this.addressesTarget.querySelectorAll("span");
+      addresses.forEach((address) => {
+        const cityName = address.textContent.trim();
+        this.addCityToMap(cityName);
+      });
+    }
+    addCityToMap(cityName) {
+      if (!this.myMap)
+        return console.error("\u041A\u0430\u0440\u0442\u0430 \u0435\u0449\u0435 \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
+      ymaps.geocode(cityName, {
+        results: 1
+      }).then((res) => {
+        let firstGeoObject = res.geoObjects.get(0), coords = firstGeoObject.geometry.getCoordinates(), bounds = firstGeoObject.properties.get("boundedBy");
+        firstGeoObject.options.set("preset", "islands#darkBlueDotIconWithCaption");
+        firstGeoObject.properties.set("iconCaption", firstGeoObject.getAddressLine());
+        this.myMap.geoObjects.add(firstGeoObject);
+        this.myMap.setBounds(this.myMap.geoObjects.getBounds(), {
+          checkZoomRange: true
+        });
+      });
+    }
+  };
+
   // app/javascript/controllers/index.js
   application.register("confirm", confirm_controller_default);
   application.register("btn_preloader", btn_preloader_controller_default);
@@ -16961,6 +17001,7 @@
   application.register("clear-form", clear_form_controller_default);
   application.register("fancybox", fancybox_controller_default);
   application.register("pagy_initializer", pagy_initializer_controller_default);
+  application.register("map", map_controller_default);
 
   // app/javascript/application.js
   var import_bootstrap = __toESM(require_bootstrap());

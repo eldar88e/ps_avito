@@ -10,7 +10,7 @@ class StoresController < ApplicationController
     @image_layers = @store.image_layers.order(:menuindex, :id)
     @layer        = ImageLayer.new
     @addresses    = @store.addresses.order(:id)
-    @address      = Address.new
+    #@address      = Address.new
   end
 
   def new

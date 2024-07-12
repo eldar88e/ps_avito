@@ -12,6 +12,14 @@ class AddressesController < ApplicationController
     end
   end
 
+  def new
+    @address = Store.find(params[:store_id]).addresses.build
+    render turbo_stream: [
+      turbo_stream.prepend(:addresses, partial: 'addresses/new', locals: { address: @address }),
+      turbo_stream.remove(:new_address_btn)
+    ]
+  end
+
   def create
     address = Store.find(params[:store_id]).addresses.build(address_params)
     if address.save
@@ -19,7 +27,9 @@ class AddressesController < ApplicationController
       msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
       render turbo_stream: [
         turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: address }),
-        success_notice(msg)
+        turbo_stream.remove(:new_address),
+        turbo_stream.before(:addresses, partial: 'addresses/new_address_btn', locals: { store: address.store }),
+        success_notice(msg),
       ]
     else
       error_notice(address.errors.full_messages)

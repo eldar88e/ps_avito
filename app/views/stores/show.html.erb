@@ -1,5 +1,12 @@
+<% content_for :title do %>
+  Магазин <%= @store.manager_name %>
+<% end %>
+
+<% content_for :head do %>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=369d354e-0df0-4d9d-bb3a-08bc6a532a15" type="text/javascript"></script>
+<% end %>
+
 <div class="container">
-  <h1>Магазин <%= @store.manager_name %></h1>
   <ul class="list-group">
     <% @store.attributes.keys.reject { |i| i.match?(/^id|created_at|updated_at/) }.each do |name| %>
       <li class="list-group-item list-group-item-action overflow-hidden">
@@ -30,11 +37,10 @@
 
   <div class="tab-content mt-3" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
+
       <ul class="list-group" id="addresses">
         <%= render @addresses %>
-      </ul>
-      <ul class="list-group mt-3">
-        <%= render '/addresses/new' %>
       </ul>
     </div>
 

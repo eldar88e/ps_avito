@@ -167,6 +167,12 @@ ul.pagination {
       content: '\F226';
       font-family: 'bootstrap-icons';
     }
+
+    span {
+      @media screen and (max-width: 568px) {
+        display: none;
+      }
+    }
   }
 }
 
@@ -187,4 +193,8 @@ ul.pagination {
       }
     }
   }
+}
+
+#map {
+  height: 350px !important;
 }
