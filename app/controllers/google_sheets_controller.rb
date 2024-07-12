@@ -3,6 +3,6 @@ class GoogleSheetsController < ApplicationController
 
   def index
     #@google_sheets = Setting.all.select { |i| i['var'].match?(/tid/) }
-    @stores = Store.order(:id)
+    @stores = Store.order(:created_at)
   end
 end

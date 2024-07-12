@@ -9,7 +9,7 @@ class AvitosController < ApplicationController
   add_breadcrumb "Avito", :avitos_path
 
   def index
-    @stores = Store.all.order(created_at: :desc)
+    @stores = Store.order(:created_at)
   end
 
   def show
@@ -82,11 +82,12 @@ class AvitosController < ApplicationController
 
   def set_store
     @store = Store.find_by(id: params[:id])
-    if @store&.client_id && @store&.client_secret
+    if @store&.client_id&.present? && @store&.client_secret&.present?
       @store
     else
       msg = "Не задан для магазина client_id или client_secret или магазин отсутствует в базе"
-      redirect_to avitos_path, alert: msg
+      #redirect_to avitos_path, alert: msg
+      error_notice msg
     end
   end
 

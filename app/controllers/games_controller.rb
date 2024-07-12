@@ -4,6 +4,8 @@ class GamesController < ApplicationController
   def index
     # @games = Game.order(:top).page(params[:page]).per(12)
     @pagy, @games = pagy(Game.order(:top), items: 12)
+    @a_a = Address.where(active: true).pluck(:id)
+    @a_s = Store.where(active: true).pluck(:id)
   end
 
   def show

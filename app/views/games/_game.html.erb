@@ -2,9 +2,11 @@
   <div style="display: inline-block; vertical-align: top;">
     <% if game.images.attached? %>
       <% game.images.each do |image|  %>
-        <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
-          <%= image_tag url_for(image), style: 'width: 96px;', class: "mb-1" %>
-        </a>
+        <% if @a_a.include?(image.blob.metadata['address_id']) && @a_s.include?(image.blob.metadata['store_id']) %>
+          <a data-fancybox="gallery" data-src="<%= url_for(image) %>" data-caption="<%= game.name %>">
+            <%= image_tag url_for(image), style: 'width: 96px;', class: "mb-1" %>
+          </a>
+        <% end %>
       <% end %>
     <% end %>
   </div>
