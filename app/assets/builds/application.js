@@ -21796,7 +21796,7 @@
           },
           // when window width is >= 992px
           992: {
-            slidesPerView: 10,
+            slidesPerView: 12,
             spaceBetween: 5
           }
         },
