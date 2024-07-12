@@ -28,6 +28,11 @@ export default class extends Controller {
           },
           // when window width is >= 992px
           992: {
+            slidesPerView: 10,
+            spaceBetween: 5
+          },
+          // when window width is >= 1440px
+          1440: {
             slidesPerView: 12,
             spaceBetween: 5
           }
