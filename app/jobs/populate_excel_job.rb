@@ -49,7 +49,8 @@ class PopulateExcelJob < ApplicationJob
 
     #FtpService.new(name).send_file
   rescue => e
-    TelegramService.new("Error #{self.class} || #{e.message}").report
+    Rails.logger.error("Error #{self.class} || #{e.message}")
+    TelegramService.call("Error #{self.class} || #{e.message}")
   end
 
   private

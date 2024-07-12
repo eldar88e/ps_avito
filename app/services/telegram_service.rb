@@ -5,6 +5,11 @@ class TelegramService
     @message = message
     @chat_id = Setting.pluck(:var, :value).to_h['telegram_chat_id']
   end
+
+  def self.call(message)
+    new(message).report
+  end
+
   def report
     unless @message.present?
       log 'An empty message has been sent to Telegram!', :red

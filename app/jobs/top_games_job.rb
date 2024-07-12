@@ -30,8 +30,8 @@ class TopGamesJob < ActiveJob::Base
     TelegramService.new(msg).report
     count
   rescue => e
-    TelegramService.new("Error #{self.class} || #{e.message}").report
     Rails.logger.error("Error #{self.class} || #{e.message}")
+    TelegramService.call("Error #{self.class} || #{e.message}")
     return 0
   ensure
     db&.close
