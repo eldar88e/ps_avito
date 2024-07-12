@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_09_213545) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_12_025311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_213545) do
     t.jsonb "slogan_params"
     t.boolean "active", default: false, null: false
     t.string "description"
+    t.integer "total_games"
     t.index ["store_id"], name: "index_addresses_on_store_id"
   end
 

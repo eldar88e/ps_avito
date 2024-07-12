@@ -4,7 +4,6 @@ class PopulateExcelJob < ApplicationJob
 
   def perform(**args)
     store     = args[:store]
-    games     = Game.order(:top).with_attached_images
     name      = "top_1000_#{store.var}.xlsx"
     xlsx_path = "./game_lists/#{name}"
     # file      = Axlsx::Package.new
@@ -17,6 +16,7 @@ class PopulateExcelJob < ApplicationJob
                        Description Condition Price AllowEmail	ManagerName	ContactPhone ContactMethod ImageUrls]
 
       store.addresses.where(active: true).each do |address|
+        games = Game.order(:top).limit(address.total_games || 1000).with_attached_images # TODO limit games import to settings
         games.each do |game|
           # sheet.worksheet.add_row
           worksheet.append_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category,

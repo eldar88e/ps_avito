@@ -4,15 +4,26 @@
       <%= form.label :city, 'Адрес', class: 'form-label', style: "font-weight: bold;" %>
       <%= form.text_field :city, value: address.city, class: 'form-control' %>
       <% if method == :patch && address.streets.blank? %>
-        <p class="text-danger mb-0" style="font-size: 0.8rem;">Отсутствуют улицы для данного города! Добавьте пожалуйста как минимум одну улицу.</p>
+        <p class="text-danger mb-0" style="font-size: 0.8rem;">
+          Отсутствуют улицы для данного города! Добавьте пожалуйста как минимум одну улицу.
+        </p>
       <% end %>
     </div>
 
     <div class="col-12 mb-3">
-      <%= form.label :slogan_params, class: 'form-label' %>
-      <%= form.text_field :slogan_params,
-                          value: address.slogan_params.present? ? address.slogan_params : '{}',
-                          class: 'form-control', placeholder: '{ row: 300, pos_x: 800, pos_y: 120, column: 100 }' %>
+      <div class="row">
+        <div class="col-12 col-md-10 mb-3 mb-md-0">
+          <%= form.label :slogan_params, class: 'form-label' %>
+          <%= form.text_field :slogan_params, value: address.slogan_params.present? ? address.slogan_params : '{}',
+                              class: 'form-control', placeholder: '{ row: 300, pos_x: 800, pos_y: 120, column: 100 }' %>
+        </div>
+
+        <div class="col-12 col-md-2">
+          <%= form.label :total_games, class: 'form-label' %>
+          <%= form.select :total_games, [100, 300, 500, 800, 1000],
+                          { selected: address.total_games || 1000 }, { class: 'form-select' } %>
+        </div>
+      </div>
     </div>
 
     <div class="col-12 col-md-1" style="word-wrap: break-word;">
