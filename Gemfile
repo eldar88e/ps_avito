@@ -30,12 +30,13 @@ gem 'rails-i18n'
 gem 'fast_excel'
 gem 'pagy'
 gem 'breadcrumbs_on_rails'
+gem 'pry'
 
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
-  gem 'pry'
+  #gem 'pry'
 end
 
 group :development do
