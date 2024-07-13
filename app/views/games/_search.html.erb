@@ -1,0 +1,8 @@
+<%= search_form_for @q, url: games_path, method: :get do |f| %>
+  <div class="mb-3 d-flex gap-1">
+    <%= f.text_field :sony_id_or_name_cont_any, class: 'form-control' %>
+    <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+      <i class="bi bi-search"></i>
+    <% end %>
+  </div>
+<% end %>

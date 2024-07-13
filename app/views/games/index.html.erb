@@ -1,12 +1,15 @@
 <div class="container">
   <h1>Игры PlayStation</h1>
+
   <ul class="list-group" data-controller="fancybox">
     <%= render @games %>
   </ul>
 
   <%#= paginate @games %>
+
   <div data-controller="pagy_initializer" class="mt-3">
     <%== pagy_bootstrap_nav_js(@pagy) if @pagy.pages > 1 %>
   </div>
+
   <%== pagy_info(@pagy) %>
 </div>

@@ -46,6 +46,8 @@
       </div>
     </div>
   </nav>
+
+  <%= render '/games/search' %>
 </div>
 
 <%= turbo_frame_tag :notices, class: "notice-group", data: { controller: "notices" } do %>

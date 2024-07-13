@@ -30,6 +30,7 @@ gem 'rails-i18n'
 gem 'fast_excel'
 gem 'pagy'
 gem 'breadcrumbs_on_rails'
+gem 'ransack', '~> 4.2'
 
 # gem "image_processing", "~> 1.2"
 
