@@ -6,26 +6,26 @@
   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=369d354e-0df0-4d9d-bb3a-08bc6a532a15" type="text/javascript"></script>
 <% end %>
 
-<div class="container">
-  <%= button_to 'Обновить feed', store_update_feed_path(@store),
-                class: 'loader-btn btn btn-success btn-upd-feed',
-                data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' } %>
+<%= turbo_frame_tag @store do %>
+  <div class="container">
+    <%= button_to 'Обновить feed', store_update_feed_path(@store),
+                  class: 'loader-btn btn btn-success btn-upd-feed',
+                  data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' } %>
 
-  <ul class="nav nav-tabs mt-2 mt-md-3" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Основная информация</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" type="button" role="tab" aria-controls="profile" aria-selected="false">Адреса магазина</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Слои картинки</button>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs mt-2 mt-md-3" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Основная информация</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" type="button" role="tab" aria-controls="profile" aria-selected="false">Адреса магазина</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Слои картинки</button>
+      </li>
+    </ul>
 
-  <div class="tab-content mt-3" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-      <%= turbo_frame_tag @store do %>
+    <div class="tab-content mt-3" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <a href="<%= edit_store_path(@store.id) %>" class='mb-3 btn btn-warning'>Edite</a>
 
         <ul class="list-group">
@@ -35,24 +35,24 @@
             </li>
           <% end %>
         </ul>
-      <% end %>
-    </div>
+      </div>
 
-    <div class="tab-pane fade show" id="address" role="tabpanel" aria-labelledby="home-tab">
-      <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
+      <div class="tab-pane fade show" id="address" role="tabpanel" aria-labelledby="home-tab">
+        <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
 
-      <ul class="list-group" id="addresses">
-        <%= render @addresses %>
-      </ul>
-    </div>
+        <ul class="list-group" id="addresses">
+          <%= render @addresses %>
+        </ul>
+      </div>
 
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-      <ol class="list-group list-group-numbered" id="layers">
-        <%= render @image_layers %>
-      </ol>
-      <ul class="list-group mt-3">
-        <%= render '/image_layers/new' %>
-      </ul>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <ol class="list-group list-group-numbered" id="layers">
+          <%= render @image_layers %>
+        </ol>
+        <ul class="list-group mt-3">
+          <%= render '/image_layers/new' %>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

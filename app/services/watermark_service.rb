@@ -56,19 +56,12 @@ class WatermarkService
     @layers.each_with_index do |layer, idx|
       next if !layer[:active] || (@product && layer[:layer_type] == 'flag')
 
-      layer[:params] = layer[:params].is_a?(Hash) ? layer[:params] : eval(layer[:params]).transform_keys { |key| key.to_s }
+      layer[:params] = layer[:params].is_a?(Hash) ? layer[:params] : eval(layer[:params]).transform_keys { |key| key.to_s } if layer[:params].present?
       if layer[:layer_type] == 'text'
         add_text(layer)
       else
         add_img(layer, idx)
       end
-    rescue => e
-      puts '=' * 100
-      puts layer[:params]
-      puts '*' * 100
-      puts layer
-      puts '=' * 100
-      raise e
     end
 
     @new_image
