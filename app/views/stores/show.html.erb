@@ -8,7 +8,7 @@
 
 <div class="container">
   <%= button_to 'Обновить feed', store_update_feed_path(@store),
-                class: 'loader-btn btn btn-success',
+                class: 'loader-btn btn btn-success btn-upd-feed',
                 data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' } %>
 
   <ul class="nav nav-tabs mt-2 mt-md-3" id="myTab" role="tablist">

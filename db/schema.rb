@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_12_025311) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_13_122237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_025311) do
     t.text "body"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "game_black_lists", force: :cascade do |t|
+    t.string "game_id", null: false
+    t.string "comment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_black_lists_on_game_id", unique: true
   end
 
   create_table "games", force: :cascade do |t|
@@ -270,6 +278,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_025311) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "stores"
   add_foreign_key "avito_tokens", "stores"
+  add_foreign_key "game_black_lists", "games", primary_key: "sony_id"
   add_foreign_key "image_layers", "stores"
   add_foreign_key "streets", "addresses"
 end

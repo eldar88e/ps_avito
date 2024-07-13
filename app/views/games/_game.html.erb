@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action game-item">
+<li class="list-group-item list-group-item-action game-item<%= ' list-group-item-danger' if game.game_black_list %>">
   <div>
     <% if game.images.attached? %>
       <div class="swiper games_swiper" data-controller="swiper">

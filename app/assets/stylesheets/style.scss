@@ -198,3 +198,10 @@ ul.pagination {
 #map {
   height: 350px !important;
 }
+
+.btn-upd-feed {
+  &::before {
+    content: '\F368';
+    font-family: 'bootstrap-icons';
+  }
+}
