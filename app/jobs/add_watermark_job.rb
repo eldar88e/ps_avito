@@ -11,9 +11,10 @@ class AddWatermarkJob < ApplicationJob
     id       = model == Game ? :sony_id : :id
 
     addresses = nil
+    count = 0
     products.each do |product|
       stores.each do |store|
-        addresses = store.addresses
+        addresses = store.addresses.where(active: true)
         addresses = addresses.select { |i| i.id == args[:address_id].to_i } if args[:address_id]
         addresses.each do |address|
           if product.images.attached?
@@ -31,13 +32,16 @@ class AddWatermarkJob < ApplicationJob
           image = w_service.add_watermarks
           name  = "#{product.send(id)}_#{store.id}_#{address.id}_#{size}.jpg"
           save_image(image: image, product: product, name: name, store_id: store.id, address_id: address.id)
+          count += 1
         end
       end
     end
 
-    if !args[:all] && args[:clean]
+    if !args[:all] # && args[:clean]
       address = addresses.size == 1 ? addresses.first.store_address : addresses.map { |i| i.store_address }.join("\n")
-      TelegramService.new("Added #{products.size} image(s) for #{model == Game ? 'Games' : 'Plus'} for #{stores.first.manager_name} for:\n#{address}").report
+      address = 'No active address!' if addresses.size.zero?
+      msg = "Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
+      TelegramService.call(msg)
     end
   rescue => e
     TelegramService.new("Error #{self.class} || #{e.message}").report

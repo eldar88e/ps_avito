@@ -30,9 +30,8 @@ class JobsController < ApplicationController
     clean     = params[:clean]
     raw_path  = @blob.key.scan(/.{2}/)[0..1].join('/')
     main_font = "./storage/#{raw_path}/#{@blob.key}"
-    store     = Store.includes(:addresses)
-                     .where(active: true, id: params[:store_id], addresses: { active: true, id: params[:address_id] })
-                     .first
+    store     = Store.find_by(active: true, id: params[:store_id]) #.includes(:addresses) # , addresses: { active: true, id: params[:address_id] }
+
     if store
       [Game, Product].each do |model|
         AddWatermarkJob.perform_later(model: model, store: store, size: @size, main_font: main_font,

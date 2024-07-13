@@ -63,7 +63,10 @@ class WatermarkService
         add_img(layer, idx)
       end
     rescue => e
-      binding.pry
+      puts '='*100
+      puts e.full_message
+      puts '='*100
+      raise e
     end
 
     @new_image
