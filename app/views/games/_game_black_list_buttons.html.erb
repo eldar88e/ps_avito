@@ -1,5 +1,5 @@
 <% if @game.game_black_list %>
-  <p class="text-danger"><span class="fw-bold">Причина добавления в черный список:</span><%= @game.game_black_list.comment %></p>
+  <p class="text-danger"><span class="fw-bold">Причина добавления в черный список: </span><%= @game.game_black_list.comment %></p>
   <%= button_to 'Убрать из черного списка', game_game_black_list_path(id: @game.game_black_list, game_id: @game),
                 method: :delete, class: 'btn btn-primary',
                 data: { confirm: 'Вы уверены, что хотите удалить игру из Черного списка?',
