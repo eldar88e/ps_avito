@@ -62,6 +62,8 @@ class WatermarkService
       else
         add_img(layer, idx)
       end
+    rescue => e
+      binding.pry
     end
 
     @new_image
