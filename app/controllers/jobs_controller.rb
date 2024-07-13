@@ -34,7 +34,7 @@ class JobsController < ApplicationController
 
     if store
       [Game, Product].each do |model|
-        AddWatermarkJob.perform_later(model: model, store: store, size: @size, main_font: main_font,
+        AddWatermarkJob.perform_later(notify: true, model: model, store: store, size: @size, main_font: main_font,
                                       clean: clean, address_id: params[:address_id])
       end
       msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."

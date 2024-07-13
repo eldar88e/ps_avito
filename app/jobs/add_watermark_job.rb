@@ -37,7 +37,7 @@ class AddWatermarkJob < ApplicationJob
       end
     end
 
-    if !args[:all] # && args[:clean]
+    if args[:notify] # && args[:clean]
       address = addresses.size == 1 ? addresses.first.store_address : addresses.map { |i| i.store_address }.join("\n")
       address = 'No active address!' if addresses.size.zero?
       msg = "Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
