@@ -63,9 +63,11 @@ class WatermarkService
         add_img(layer, idx)
       end
     rescue => e
-      puts '='*100
-      puts e.full_message
-      puts '='*100
+      puts '=' * 100
+      puts layer[:params]
+      puts '*' * 100
+      puts layer
+      puts '=' * 100
       raise e
     end
 
