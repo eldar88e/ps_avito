@@ -1,4 +1,4 @@
-class  < ApplicationController
+class AvitosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_weekdays, only: [:show, :edit]
   before_action :set_time_slots, only: [:show, :edit]
