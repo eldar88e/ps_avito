@@ -1,4 +1,4 @@
-class AvitosController < ApplicationController
+class  < ApplicationController
   before_action :authenticate_user!
   before_action :set_weekdays, only: [:show, :edit]
   before_action :set_time_slots, only: [:show, :edit]
@@ -81,7 +81,7 @@ class AvitosController < ApplicationController
   end
 
   def set_store
-    @store = current_user.stores.find(id: params[:id])
+    @store = current_user.stores.find(params[:id])
     if @store&.client_id&.present? && @store&.client_secret&.present?
       @store
     else
