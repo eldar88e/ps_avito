@@ -92,17 +92,17 @@ class PopulateExcelJob < ApplicationJob
           raw_name[0..39] + prefix
         end
       end
-    elsif platform.match?(/PS4/) #ps4
-      if raw_name.downcase.match?(/ps4/)
-        raw_name
-      else
-        raw_name[0..45] + ' PS4'
-      end
-    else #ps5
+    elsif platform.match?(/PS5/) #ps5
       if raw_name.downcase.match?(/ps5/)
         raw_name
       else
         raw_name[0..45] + ' PS5'
+      end
+    else #ps4
+      if raw_name.downcase.match?(/ps4/)
+        raw_name
+      else
+        raw_name[0..45] + ' PS4'
       end
     end
   end
