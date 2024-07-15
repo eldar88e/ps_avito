@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_13_122237) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_14_124438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -210,6 +210,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_13_122237) do
     t.string "type"
     t.string "platform"
     t.string "localization"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "runs", force: :cascade do |t|
@@ -225,6 +227,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_13_122237) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_settings_on_user_id"
     t.index ["var"], name: "index_settings_on_var", unique: true
   end
 
@@ -251,6 +255,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_13_122237) do
     t.string "type"
     t.string "client_id"
     t.string "client_secret"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
   create_table "streets", force: :cascade do |t|
@@ -280,5 +286,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_13_122237) do
   add_foreign_key "avito_tokens", "stores"
   add_foreign_key "game_black_lists", "games", primary_key: "sony_id"
   add_foreign_key "image_layers", "stores"
+  add_foreign_key "products", "users"
+  add_foreign_key "settings", "users"
+  add_foreign_key "stores", "users"
   add_foreign_key "streets", "addresses"
 end

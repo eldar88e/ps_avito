@@ -9,11 +9,10 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show] do
     resources :game_black_lists, only: [:create, :destroy]
   end
-  #resources :stores
   resources :products
-  resources :image_layers
-  resources :addresses, only: [:new, :create, :show, :update, :destroy]
+  resources :image_layers, only: [:new, :create, :show, :update, :destroy]
   resources :avitos, only: [:index, :show, :edit, :update]
+
   post 'avitos/:id/update_ads', to: 'avitos#update_ads', as: 'update_ads_avito'
 
   resources :stores do
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
 
     resources :streets, only: [:index, :create, :update, :destroy]
     resources :maps, only: [:show]
+    resources :addresses, only: [:new, :create, :show, :update, :destroy]
   end
 
   post '/update_products_img', to: 'jobs#update_products_img', as: 'update_products_img'

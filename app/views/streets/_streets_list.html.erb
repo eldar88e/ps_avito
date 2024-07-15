@@ -8,7 +8,7 @@
       <% address.streets.order(:created_at).each do |street| %>
         <% next if street.id.nil? %>
 
-        <%= render partial: '/streets/form', locals: { street: street, method: :patch, url: store_street_path(id: street) } %>
+        <%= render partial: '/streets/form', locals: { street: street, method: :patch, url: store_street_path(id: street, address_id: address) } %>
       <% end %>
     <% end %>
   </div>

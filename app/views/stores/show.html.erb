@@ -41,16 +41,18 @@
         <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
 
         <ul class="list-group" id="addresses">
-          <%= render @addresses %>
+          <%= render @store.addresses.order(:id) %>
         </ul>
       </div>
 
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <ol class="list-group list-group-numbered" id="layers">
-          <%= render @image_layers %>
+        <%= render partial: '/image_layers/new_image_layer_btn', locals: { store: @store } %>
+
+        <ol class="list-group list-group-numbered" id="image_layers">
+          <%= render @store.image_layers.order(:menuindex, :id) %>
         </ol>
         <ul class="list-group mt-3">
-          <%= render '/image_layers/new' %>
+          <%#= render '/image_layers/new' %>
         </ul>
       </div>
     </div>

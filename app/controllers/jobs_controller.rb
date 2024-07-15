@@ -3,8 +3,8 @@ class JobsController < ApplicationController
   before_action :set_settings, only: [:update_img, :update_products_img]
 
   def update_store_test_img
-    store     = Store.includes(:addresses).where(active: true, id: params[:store_id]).first
-    settings  = Setting.pluck(:var, :value).to_h
+    store     = current_user.stores.includes(:addresses).where(active: true, id: params[:store_id]).first
+    settings  = current_user.settings.pluck(:var, :value).to_h
     size      = settings['game_img_size']
     blob      = settings['main_font'].font.blob
     raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
@@ -30,11 +30,11 @@ class JobsController < ApplicationController
     clean     = params[:clean]
     raw_path  = @blob.key.scan(/.{2}/)[0..1].join('/')
     main_font = "./storage/#{raw_path}/#{@blob.key}"
-    store     = Store.find_by(active: true, id: params[:store_id]) #.includes(:addresses) # , addresses: { active: true, id: params[:address_id] }
+    store     = current_user.stores.find_by(active: true, id: params[:store_id])
 
     if store
       [Game, Product].each do |model|
-        AddWatermarkJob.perform_later(notify: true, model: model, store: store, size: @size, main_font: main_font,
+        AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, size: @size, main_font: main_font,
                                       clean: clean, address_id: params[:address_id])
       end
       msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."
@@ -46,14 +46,14 @@ class JobsController < ApplicationController
     clean     = params[:clean]
     raw_path  = @blob.key.scan(/.{2}/)[0..1].join('/')
     main_font = "./storage/#{raw_path}/#{@blob.key}"
-    AddWatermarkJob.perform_later(all: true, model: Product, size: @size, main_font: main_font, clean: clean)
+    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size, main_font: main_font, clean: clean)
 
     msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для всех объявлений кроме игр успешно запущена."
     render turbo_stream: [success_notice(msg)]
   end
 
   def update_feed
-    store = Store.find_by(active: true, id: params[:store_id])
+    store = current_user.stores.find_by(active: true, id: params[:store_id])
     if store && PopulateExcelJob.perform_later(store: store)
       msg = "Фоновая задача по обновлению фида для магазина #{store.manager_name} успешно запущена."
       render turbo_stream: [success_notice(msg)]
@@ -66,7 +66,7 @@ class JobsController < ApplicationController
   private
 
   def set_settings
-    settings = Setting.all
+    settings = current_user.settings
     @size    = settings.find_by(var: 'game_img_size').value
     @blob    = settings.find_by(var: 'main_font').font.blob
   end

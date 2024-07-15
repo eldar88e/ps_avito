@@ -1,8 +1,8 @@
 class GameImageDownloaderJob < ApplicationJob
   queue_as :default
 
-  def perform
-    size     = Setting.pluck(:var, :value).to_h['game_img_size']
+  def perform(**args)
+    size     = args[:settings]['game_img_size']
     sony_ids = Game.order(:top).pluck(:sony_id)
     sony_ids.each do |id|
       img_path = "./game_images/#{id}_#{size}.jpg"
@@ -16,7 +16,7 @@ class GameImageDownloaderJob < ApplicationJob
       File.open(img_path, 'wb') { |local_file| local_file.write(img) }
       sleep rand(1..3)
     end
-    TelegramService.new('✅ All game image downloaded!').report
+    TelegramService.call(args[:user],'✅ All game image downloaded!')
   end
 
   private

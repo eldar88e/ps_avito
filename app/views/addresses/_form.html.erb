@@ -1,4 +1,4 @@
-<%= form_with(model: address, url: url, method: method, data: data) do |form| %>
+<%= form_with(model: address, url: url, method: method) do |form| %>
   <div class="row">
     <div class="col-12 mb-3">
       <%= form.label :city, 'Адрес', class: 'form-label', style: "font-weight: bold;" %>
@@ -63,8 +63,7 @@
         <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{address.id}" %>
       </div>
       <%= form.submit method == :patch ?  'Save' : 'Add',
-                      class: "btn #{method == :patch ? 'btn-warning' : 'btn-primary'} mt-md-2 mt-md-0 btn-sm",
-                      data: method == :patch ? '' : { action: "click->clear-form#clearForm" } %>
+                      class: "btn #{method == :patch ? 'btn-warning' : 'btn-primary'} mt-md-2 mt-0 btn-sm" %>
     </div>
   </div>
 <% end %>

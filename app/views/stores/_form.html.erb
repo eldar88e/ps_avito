@@ -57,34 +57,28 @@
 
   <div class="mb-3">
     <label for="condition" class="form-label">Condition</label>
-    <%= form.text_field :condition, value: @store.condition || 'Новое',
-                        class: 'form-control', placeholder: 'Новое' %>
+    <%= form.text_field :condition, value: @store.condition || 'Новое', class: 'form-control', placeholder: 'Новое' %>
   </div>
 
   <div class="mb-3">
     <label for="allow_email" class="form-label">Allow email</label>
-    <%= form.text_field :allow_email, value: @store.allow_email || 'Нет',
-                        class: 'form-control', placeholder: 'Allow email' %>
+    <%= form.text_field :allow_email, value: @store.allow_email || 'Нет', class: 'form-control', placeholder: 'Нет' %>
   </div>
 
   <div class="mb-3">
-    <label for="contact_phone" class="form-label">Телефон</label>
-    <%= form.text_field :contact_phone, value: @store.contact_phone,
-                        class: 'form-control', placeholder: 'Сontact phone' %>
+    <%= form.label :contact_phone, class: 'form-label' %>
+    <%= form.text_field :contact_phone, value: @store.contact_phone, class: 'form-control', placeholder: 'Телефон' %>
   </div>
 
   <div class="mb-3">
     <label for="contact_method" class="form-label">Способ связи</label>
-    <%= form.select :contact_method,
-                    options_for_select(
-                      ['По телефону и в сообщениях', 'По телефону', 'В сообщениях'],
-                      @store.contact_method),
-                    {}, class: 'form-control' %>
+    <%= form.select :contact_method, options_for_select(['По телефону и в сообщениях', 'По телефону', 'В сообщениях'],
+                                                        @store.contact_method), {}, class: 'form-control' %>
   </div>
 
   <div class="mb-3">
     <label for="game_img_params" class="form-label">Параметры картинки игры</label>
-    <%= form.text_area :game_img_params, value: @store.game_img_params || {}, class: 'form-control', size: '50x1',
+    <%= form.text_area :game_img_params, value: @store.game_img_params, class: 'form-control', size: '50x1',
                        placeholder: "нужно указать ввиде json: { pos_x: 448, pos_y: 208, row: 1024, column: 1024 }" %>
   </div>
 

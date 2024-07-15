@@ -3,22 +3,17 @@ class StoresController < ApplicationController
   before_action :set_store, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stores = Store.order(:created_at)
+    @stores = current_user.stores.order(active: :desc).order(:created_at)
   end
 
-  def show
-    @image_layers = @store.image_layers.order(:menuindex, :id)
-    @layer        = ImageLayer.new
-    @addresses    = @store.addresses.order(:id)
-    #@address      = Address.new
-  end
+  def show; end
 
   def new
-    @store = Store.new
+    @store = current_user.stores.build
   end
 
   def create
-    @store = Store.new(store_params)
+    @store = current_user.stores.build(store_params)
 
     if @store.save
       msg = ["Магазин #{@store.manager_name} был успешно добавлен."]
@@ -55,7 +50,7 @@ class StoresController < ApplicationController
   private
 
   def set_store
-    @store = Store.find(params[:id])
+    @store = current_user.stores.find(params[:id])
   end
 
   def store_params

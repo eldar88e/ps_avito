@@ -3,4 +3,6 @@ class Setting < ApplicationRecord
   validates :value, presence: true
 
   has_one_attached :font, dependent: :destroy
+
+  belongs_to :user
 end

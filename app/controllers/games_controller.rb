@@ -2,10 +2,10 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # @games = Game.order(:top).page(params[:page]).per(12)
     @pagy, @games = pagy(@q.result, items: 12)
-    @a_a = Address.where(active: true).pluck(:id)
-    @a_s = Store.where(active: true).pluck(:id)
+    active_stores = current_user.stores.where(active: true)
+    @a_s          = active_stores.ids
+    @a_a          = Address.joins(:store).where(store: { id: active_stores.ids }, active: true).ids
   end
 
   def show

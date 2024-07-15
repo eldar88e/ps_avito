@@ -1,58 +1,10 @@
-<li class="list-group-item list-group-item-action <%= image_layer.active ? '' : 'list-group-item-danger' %>" id="layer_<%= image_layer.id %>">
+<li class="list-group-item list-group-item-action <%= image_layer.active ? '' : 'list-group-item-danger' %>" id="image_layer_<%= image_layer.id %>">
   <b>Слой</b>
-  <%= form_with(model: image_layer, url: image_layer_path(image_layer), method: :patch, format: :turbo_stream) do |form| %>
-    <div class="row">
-      <div class="col-12 mb-3">
-        <%= form.label :layer_params, 'Параметры слоя', class: 'form-label' %>
-        <%= form.text_area :layer_params, value: image_layer.layer_params, size: '50x1', class: 'form-control', style: 'width: 100%' %>
-      </div>
+  <%= render partial: '/image_layers/form',
+             locals: { image_layer: image_layer,
+                       url: image_layer_path(id: image_layer, store_id: image_layer.store), method: :patch } %>
 
-      <div class="col-4 col-md-1">
-        <div style="max-height: 70px; overflow: hidden; color: green; word-wrap: break-word;">
-          <% if image_layer.layer.attached? %>
-              <% if image_layer.layer.blob.content_type.match?(/font/) %>
-                <%= image_layer.layer.blob.filename %>
-              <% else %>
-              <%= link_to '#', data: { controller: "fancybox", fancybox: "gallery", src: url_for(image_layer.layer), caption: image_layer.layer.blob.filename } do %>
-                <div style="background-image: url(<%= url_for(image_layer.layer) %>); background-size: contain;
-                  width: 100%; height: 70px; background-repeat: no-repeat;"></div>
-              <% end %>
-              <% end %>
-          <% else %>
-            <span style="color: red;">Файл не указан!</span>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="col-8 col-md-3">
-        <%= form.label :layer, 'Указать изображение или шрифт', class: 'form-label' %>
-        <%= form.file_field :layer, class: 'form-control' %>
-      </div>
-
-      <div class="col-8 col-md-2">
-        <%= form.label :layer_type, class: 'form-label' %>
-        <%= form.select :layer_type, ImageLayer.layer_types.keys.map { |type| [type.humanize, type] }, {}, { class: 'form-select' } %>
-      </div>
-
-      <div class="col-4 col-md-1">
-        <%= form.label :menuindex, class: 'form-label' %>
-        <%= form.text_field :menuindex, value: image_layer.menuindex, class: 'form-control', style: 'width: 100%' %>
-      </div>
-
-      <div class="col-12 col-md-4 mb-3 mb-md-0">
-        <%= form.label :title, class: 'form-label' %>
-        <%= form.text_field :title, value: image_layer.title, class: 'form-control', style: 'width: 100%' %>
-      </div>
-
-      <div class="col-12 col-md-1 mt-0 mt-md-2">
-        <%= form.check_box :active, class: 'form-check-input', id: "active-checkbox-#{image_layer.id}" %>
-        <%= form.label :active, class: 'form-check-label', for: "active-checkbox-#{image_layer.id}" %>
-        <%= form.submit 'Edite', class: 'mt-3 mt-md-1 btn btn-warning btn-sm', style: 'width: 100%;' %>
-      </div>
-    </div>
-  <% end %>
-
-  <%= button_to image_layer_path(image_layer),
+  <%= button_to image_layer_path(id: image_layer, store_id: image_layer.store),
                 method: :delete, class: 'del-layer-btn',
                 data: { confirm: 'Вы уверены, что хотите удалить слой?',
                         controller: 'confirm', action: 'click->confirm#call' } do %>

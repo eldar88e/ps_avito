@@ -2,7 +2,7 @@ class TopGamesJob < ActiveJob::Base
   queue_as :default
 
   def perform(**args)
-    quantity = args[:games] || Setting.pluck(:var, :value).to_h['quantity_games']
+    quantity = args[:games] || args[:settings]['quantity_games']
     db       = connect_db
     games    = db.query(query_db(quantity))
     run_id   = Run.last_id
@@ -27,11 +27,11 @@ class TopGamesJob < ActiveJob::Base
     Run.finish
     msg = '✅ Game list updated.'
     msg += " Add #{count} new game(s)." if count > 0
-    TelegramService.new(msg).report
+    TelegramService.call(args[:user], msg)
     count
   rescue => e
     Rails.logger.error("Error #{self.class} || #{e.message}")
-    TelegramService.call("Error #{self.class} || #{e.message}")
+    TelegramService.call(args[:user],"Error #{self.class} || #{e.message}")
     return 0
   ensure
     db&.close
