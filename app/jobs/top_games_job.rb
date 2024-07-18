@@ -1,4 +1,4 @@
-class TopGamesJob < ActiveJob::Base
+class TopGamesJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
@@ -27,11 +27,14 @@ class TopGamesJob < ActiveJob::Base
     Run.finish
     msg = '✅ Game list updated.'
     msg += " Add #{count} new game(s)." if count > 0
+    broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
   rescue => e
-    Rails.logger.error("Error #{self.class} || #{e.message}")
-    TelegramService.call(args[:user],"Error #{self.class} || #{e.message}")
+    msg = "Error #{self.class} || #{e.message}"
+    Rails.logger.error(msg)
+    broadcast_notify(msg)
+    TelegramService.call(args[:user], msg)
     return 0
   ensure
     db&.close

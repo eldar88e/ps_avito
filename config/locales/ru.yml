@@ -18,7 +18,12 @@ ru:
         started_at: "Время начала выгрузки"
         section_stats: "Подробности"
         status: "Статус"
-        success_warning: "Завершено с проблемами"
+        success_warning: "C проблемами"
+        error: "Ошибки"
+        per_page: "На странице"
+        page: "Страница"
+        pages: "Страниц"
+        total: "Всего"
   pagy:
     nav:
       prev: "Предыдущая"

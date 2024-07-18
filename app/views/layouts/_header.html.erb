@@ -50,12 +50,13 @@
   <%= render '/games/search' %>
 </div>
 
-<%= turbo_frame_tag :notices, class: "notice-group", data: { controller: "notices" } do %>
+<%= turbo_frame_tag :notices, class: "notice-group" do %>
   <% flash.each do |key, value| %>
     <% [value].flatten.each do |i| %>
-      <div class="alert alert-<%= key %>" role="alert">
+      <div class="alert alert-<%= key %>" role="alert" data-controller="notices">
         <%= i %>
       </div>
     <% end %>
   <% end %>
 <% end %>
+<%= turbo_stream_from :notify, channel: NotifyChannel, data: { user_id: current_user.id } %>

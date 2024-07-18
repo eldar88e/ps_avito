@@ -41,6 +41,7 @@ class AddWatermarkJob < ApplicationJob
       address = addresses.size == 1 ? addresses.first.city : addresses.map { |i| i.city }.join("\n")
       address = 'No active address!' if addresses.size.zero?
       msg = "🏞 Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
+      broadcast_notify(msg)
       TelegramService.call(args[:user], msg)
     end
   rescue => e

@@ -46,7 +46,9 @@ class PopulateExcelJob < ApplicationJob
     File.open(xlsx_path, 'wb') { |f| f.write(content) }
 
     domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
-    TelegramService.call(user, "✅ File http://#{domain}/game_lists/#{name} is updated!")
+    msg    = "✅ File http://#{domain}/game_lists/#{name} is updated!"
+    broadcast_notify(msg)
+    TelegramService.call(user, msg)
 
     #FtpService.new(name).send_file
   rescue => e
@@ -76,40 +78,41 @@ class PopulateExcelJob < ApplicationJob
   def make_title(game)
     raw_name = game.name
     platform = game.platform
+    prefix   = ' PS5 и PS4'
 
     if platform == 'PS5, PS4' # || platform.match?(/PS4/) #ps4, ps5
-      prefix = ' PS5 и PS4'
       if raw_name.downcase.match?(/ps4/)
         if raw_name.downcase.match?(/ps5/)
           raw_name
         else
-          raw_name.sub('(PS4)', '').sub('PS4', '')[0..39] + prefix
+          raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix
         end
       else
         if raw_name.downcase.match?(/ps5/)
           raw_name.sub('(PS5)', '').sub('PS5', '')[0..39] + prefix
         else
-          raw_name[0..39] + prefix
+          raw_name.strip[0..39] + prefix
         end
       end
     elsif platform.match?(/PS5/) #ps5
       if raw_name.downcase.match?(/ps5/)
         raw_name
       else
-        raw_name[0..45] + ' PS5'
+        raw_name.strip[0..45] + ' PS5'
       end
     else #ps4
+      prefix_old = ' ps4 и ps5'
       if raw_name.downcase.match?(/ps4/)
-        raw_name
+        raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix_old
       else
-        raw_name[0..45] + ' PS4'
+        raw_name.strip[0..39] + prefix_old
       end
     end
   end
 
   def make_image(model, store, address)
     if model.images.attached? && model.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
-      image = model.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
+      image  = model.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
       params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
       rails_blob_url(image, params)
     end

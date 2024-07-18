@@ -22,6 +22,15 @@ Rails.application.routes.draw do
     resources :streets, only: [:index, :create, :update, :destroy]
     resources :maps, only: [:show]
     resources :addresses, only: [:new, :create, :show, :update, :destroy]
+
+    namespace :avito do
+      get '/dashboard', to: 'dashboard#index'
+      get '/reports', to: 'reports#index'
+      get '/reports/:id', to: 'reports#show'
+      get '/items', to: 'items#index'
+    end
+
+    match '/avito', to: 'avito/dashboard#index', via: :get
   end
 
   post '/update_products_img', to: 'jobs#update_products_img', as: 'update_products_img'

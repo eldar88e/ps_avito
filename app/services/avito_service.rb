@@ -22,7 +22,7 @@ class AvitoService
 
     connection.send(method) do |req|
       req.headers = @headers
-      req.body = payload.to_json if payload
+      req.body    = payload.to_json if payload
     end
   rescue => e
     Rails.logger.error e.message

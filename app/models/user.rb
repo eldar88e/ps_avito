@@ -7,4 +7,8 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :settings, dependent: :destroy
   has_many :products, dependent: :destroy
+
+  def member_of?(store)
+    stores.include?(store)
+  end
 end

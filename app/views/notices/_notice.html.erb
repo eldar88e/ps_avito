@@ -1,5 +1,5 @@
 <% [notices].flatten.each do |notice| %>
-  <div class="alert alert-<%= key %>" role="alert">
+  <div class="alert alert-<%= key %>" role="alert" data-controller="notices">
     <%= notice %>
   </div>
 <% end %>
