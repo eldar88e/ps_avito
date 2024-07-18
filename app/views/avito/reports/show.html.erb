@@ -9,15 +9,14 @@
 
       <span class="me-3">
       <%= t("avito.autoload.report.#{key}") %>:
-
         <% if key == 'status' %>
           <span class="badge bg-<%= val.match?(/warning/) ? 'warning text-dark' : 'primary' %>"><%= t("avito.autoload.report.#{val}") %></span>
-      <% elsif key == 'started_at' %>
-        <%= format_date val %>
-      <% else %>
-        <%= val %>
-      <% end %>
-    </span>
+        <% elsif key == 'started_at' %>
+          <%= format_date val %>
+        <% else %>
+          <%= val %>
+        <% end %>
+      </span>
     <% end %>
   </div>
 
@@ -32,9 +31,8 @@
         </li>
 
         <li class="list-group-item">
-          <div class="ps-3 ps-md-3 fw-bold ">
-            Объявлений в файле <%= @report['section_stats']['sections'].map { |i| i['count'] if %w[will_publish_later not_publish error successful].include? i['slug'] }.compact.sum %>
-          </div>
+          <% deleted = @report['section_stats']['sections'].find { |i| i['slug'] == 'removed_from_file' }.try(:[], 'count') || 0 %>
+          <div class="ps-3 ps-md-3 fw-bold ">Объявлений в файле <%= @report['section_stats']['count'] - deleted %></div>
         </li>
 
         <% @report['section_stats']['sections'].each do |section| %>

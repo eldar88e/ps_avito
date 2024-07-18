@@ -75,9 +75,9 @@
       <% end %>
     </ul>
 
-    <%= link_to 'Edit', edit_avito_path(@store), class: 'mt-3 btn btn-warning' %>
-
+    <%= link_to 'Edit', edit_avito_path(@store), data: { turbo_prefetch: false }, class: 'mt-3 btn btn-warning' %>
   <% end %>
+
   <div class="avito-buttons">
     <%= button_to 'Update', update_ads_avito_path(@store),
                   class: 'mt-3 btn btn-success', data: { turbo_prefetch: 'false' },
@@ -89,49 +89,43 @@
 
   <ul class="list-group">
     <% @report.to_a[0..4].to_h.each do |key, val| %>
-      <% next if key == 'finished_at' %>
+      <% next if key == 'finished_at' || val.is_a?(Array) || val.is_a?(Hash) %>
 
-      <% if val.is_a?(Array) || val.is_a?(Hash) %>
-        <%#= next %>
-      <% else %>
-        <li class="list-group-item list-group-item-action">
-          <div class="row">
-            <div class="fw-bold col-6 col-md-3">
-              <%= t("avito.autoload.report.#{key}") %>:
-            </div>
-            <div class="col-6 col-md-9">
-              <% if key == 'status' %>
-                <div class="row">
-                  <span class="badge bg-<%= val.match?(/warning/) ? 'warning text-dark' : 'primary' %>"><%= t("avito.autoload.report.#{val}") %></span>
-                </div>
-              <% elsif key == 'started_at' %>
-                <%= format_date val %>
-              <% else %>
-                <%= val %>
-              <% end %>
-            </div>
+      <li class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="fw-bold col-6 col-md-3">
+            <%= t("avito.autoload.report.#{key}") %>:
           </div>
-        </li>
-      <% end %>
+          <div class="col-6 col-md-9">
+            <% if key == 'status' %>
+              <div class="row">
+                <span class="badge bg-<%= val.match?(/warning/) ? 'warning text-dark' : 'primary' %>">
+                  <%= t("avito.autoload.report.#{val}") %>
+                </span>
+              </div>
+            <% elsif key == 'started_at' %>
+              <%= format_date val %>
+            <% else %>
+              <%= val %>
+            <% end %>
+          </div>
+        </div>
+      </li>
     <% end %>
 
     <div class="list-group-item list-group-item-action">
       <div class="row">
         <div class="fw-bold col-6 col-md-3">Обработано объявлений</div>
-        <div class="col-6 col-md-9">
-          <%= @report['section_stats']['sections'].map { |i| i['count'] }.sum %>
-        </div>
+        <div class="col-6 col-md-9"><%= @report['section_stats']['sections'].map { |i| i['count'] }.sum %></div>
       </div>
     </div>
 
     <div class="list-group-item list-group-item-action">
+      <% deleted = @report['section_stats']['sections'].find { |i| i['slug'] == 'removed_from_file' }.try(:[], 'count') || 0 %>
       <div class="row">
         <div class="ps-3 ps-md-3 fw-bold col-6 col-md-3">Объявлений в файле</div>
-        <div class="col-6 col-md-9">
-          <%= @report['section_stats']['sections'].map { |i| i['count'] if %w[will_publish_later not_publish error successful].include? i['slug'] }.compact.sum %>
-        </div>
+        <div class="col-6 col-md-9"><%= @report['section_stats']['count'] - deleted %></div>
       </div>
     </div>
   </ul>
 </div>
-
