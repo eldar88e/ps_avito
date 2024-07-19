@@ -44,8 +44,9 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain.
   config.action_cable.mount_path = '/cable' # nil
-  config.action_cable.url = "ws://server.open-ps.ru/cable"
-  config.action_cable.allowed_request_origins = [ "http://server.open-ps.ru", /http:\/\/server.open-ps.*/ ]
+  # config.action_cable.url = "ws://server.open-ps.ru/cable"
+  # config.action_cable.allowed_request_origins = [ "http://server.open-ps.ru", /http:\/\/server.open-ps.*/ ]
+  config.action_cable.disable_request_forgery_protection = true
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
