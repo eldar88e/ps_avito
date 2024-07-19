@@ -33,7 +33,7 @@ class TopGamesJob < ApplicationJob
   rescue => e
     msg = "Error #{self.class} || #{e.message}"
     Rails.logger.error(msg)
-    broadcast_notify(msg)
+    broadcast_notify(msg, 'danger')
     TelegramService.call(args[:user], msg)
     return 0
   ensure
