@@ -13,7 +13,7 @@ module Avito
       #return error_notice("Ошибка подключения к API Avito") if account.nil? || account.status != 200
 
       #account = JSON.parse(account.body)
-      items   = @avito.connect_to("https://api.avito.ru/core/v1/items?page=#{params['page']}&per_page=#{params['per_page'] || 100}")
+      items   = @avito.connect_to("https://api.avito.ru/core/v1/items?page=#{params['page']}&per_page=#{params['per_page'] || 50}")
       return error_notice("Ошибка подключения к API Avito") if items.nil? || items.status != 200
 
       @items = JSON.parse(items.body)

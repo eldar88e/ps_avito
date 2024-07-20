@@ -33,6 +33,7 @@ services:
       - web-net
     ports:
       - 3002:3000
+      - 28080:28080
     restart: "unless-stopped"
 
   good_job:
