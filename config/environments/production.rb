@@ -46,8 +46,6 @@ Rails.application.configure do
   config.action_cable.mount_path = '/cable' # nil
   config.action_cable.url = "ws://server.open-ps.ru:28080"
   #config.action_cable.allowed_request_origins = ["http://server.open-ps.ru", /http:\/\/server.open-ps.*/]
-  # config.action_cable.url = "ws://localhost:3000/cable"
-  # config.action_cable.allowed_request_origins = [ "http://localhost:3000" ]
   config.action_cable.disable_request_forgery_protection = true
 
   config.after_initialize do
