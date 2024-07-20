@@ -32,7 +32,7 @@ gem 'pagy'
 gem 'breadcrumbs_on_rails'
 gem 'ransack', '~> 4.2'
 
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

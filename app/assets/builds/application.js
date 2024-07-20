@@ -5,8 +5,8 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __esm = (fn, res) => function __init() {
-    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  var __esm = (fn2, res) => function __init() {
+    return fn2 && (res = (0, fn2[__getOwnPropNames(fn2)[0]])(fn2 = 0)), res;
   };
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -420,7 +420,7 @@
         }
         forget(subscription) {
           logger_default.log(`SubscriptionGuarantor forgetting ${subscription.identifier}`);
-          this.pendingSubscriptions = this.pendingSubscriptions.filter((s2) => s2 !== subscription);
+          this.pendingSubscriptions = this.pendingSubscriptions.filter((s3) => s3 !== subscription);
         }
         startGuaranteeing() {
           this.stopGuaranteeing();
@@ -490,11 +490,11 @@
         }
         forget(subscription) {
           this.guarantor.forget(subscription);
-          this.subscriptions = this.subscriptions.filter((s2) => s2 !== subscription);
+          this.subscriptions = this.subscriptions.filter((s3) => s3 !== subscription);
           return subscription;
         }
         findAll(identifier) {
-          return this.subscriptions.filter((s2) => s2.identifier === identifier);
+          return this.subscriptions.filter((s3) => s3.identifier === identifier);
         }
         reload() {
           return this.subscriptions.map((subscription) => this.subscribe(subscription));
@@ -534,11 +534,11 @@
       url = url();
     }
     if (url && !/^wss?:/i.test(url)) {
-      const a2 = document.createElement("a");
-      a2.href = url;
-      a2.href = a2.href;
-      a2.protocol = a2.protocol.replace("http", "ws");
-      return a2.href;
+      const a3 = document.createElement("a");
+      a3.href = url;
+      a3.href = a3.href;
+      a3.protocol = a3.protocol.replace("http", "ws");
+      return a3.href;
     } else {
       return url;
     }
@@ -679,19 +679,19 @@
         }
         var _ref = isElement(element) ? getWindow2(element) : window, visualViewport = _ref.visualViewport;
         var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
-        var x2 = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
-        var y2 = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
+        var x3 = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
+        var y3 = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
         var width = clientRect.width / scaleX;
         var height = clientRect.height / scaleY;
         return {
           width,
           height,
-          top: y2,
-          right: x2 + width,
-          bottom: y2 + height,
-          left: x2,
-          x: x2,
-          y: y2
+          top: y3,
+          right: x3 + width,
+          bottom: y3 + height,
+          left: x3,
+          x: x3,
+          y: y3
         };
       }
       function getWindowScroll(node) {
@@ -940,14 +940,14 @@
           }));
         }, []);
       }
-      function debounce2(fn) {
+      function debounce2(fn2) {
         var pending;
         return function() {
           if (!pending) {
             pending = new Promise(function(resolve) {
               Promise.resolve().then(function() {
                 pending = void 0;
-                resolve(fn());
+                resolve(fn2());
               });
             });
           }
@@ -973,22 +973,22 @@
         var visualViewport = win.visualViewport;
         var width = html.clientWidth;
         var height = html.clientHeight;
-        var x2 = 0;
-        var y2 = 0;
+        var x3 = 0;
+        var y3 = 0;
         if (visualViewport) {
           width = visualViewport.width;
           height = visualViewport.height;
           var layoutViewport = isLayoutViewport();
           if (layoutViewport || !layoutViewport && strategy === "fixed") {
-            x2 = visualViewport.offsetLeft;
-            y2 = visualViewport.offsetTop;
+            x3 = visualViewport.offsetLeft;
+            y3 = visualViewport.offsetTop;
           }
         }
         return {
           width,
           height,
-          x: x2 + getWindowScrollBarX(element),
-          y: y2
+          x: x3 + getWindowScrollBarX(element),
+          y: y3
         };
       }
       function getDocumentRect(element) {
@@ -998,16 +998,16 @@
         var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
         var width = max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
         var height = max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
-        var x2 = -winScroll.scrollLeft + getWindowScrollBarX(element);
-        var y2 = -winScroll.scrollTop;
+        var x3 = -winScroll.scrollLeft + getWindowScrollBarX(element);
+        var y3 = -winScroll.scrollTop;
         if (getComputedStyle3(body || html).direction === "rtl") {
-          x2 += max(html.clientWidth, body ? body.clientWidth : 0) - width;
+          x3 += max(html.clientWidth, body ? body.clientWidth : 0) - width;
         }
         return {
           width,
           height,
-          x: x2,
-          y: y2
+          x: x3,
+          y: y3
         };
       }
       function contains(parent, child) {
@@ -1238,8 +1238,8 @@
                 popper: listScrollParents(popper2)
               };
               var orderedModifiers = orderModifiers(mergeByName([].concat(defaultModifiers2, state.options.modifiers)));
-              state.orderedModifiers = orderedModifiers.filter(function(m2) {
-                return m2.enabled;
+              state.orderedModifiers = orderedModifiers.filter(function(m3) {
+                return m3.enabled;
               });
               runModifierEffects();
               return instance.update();
@@ -1272,9 +1272,9 @@
                   index = -1;
                   continue;
                 }
-                var _state$orderedModifie = state.orderedModifiers[index], fn = _state$orderedModifie.fn, _state$orderedModifie2 = _state$orderedModifie.options, _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2, name = _state$orderedModifie.name;
-                if (typeof fn === "function") {
-                  state = fn({
+                var _state$orderedModifie = state.orderedModifiers[index], fn2 = _state$orderedModifie.fn, _state$orderedModifie2 = _state$orderedModifie.options, _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2, name = _state$orderedModifie.name;
+                if (typeof fn2 === "function") {
+                  state = fn2({
                     state,
                     options: _options,
                     name,
@@ -1321,8 +1321,8 @@
             });
           }
           function cleanupModifierEffects() {
-            effectCleanupFns.forEach(function(fn) {
-              return fn();
+            effectCleanupFns.forEach(function(fn2) {
+              return fn2();
             });
             effectCleanupFns = [];
           }
@@ -1360,7 +1360,7 @@
         name: "eventListeners",
         enabled: true,
         phase: "write",
-        fn: function fn() {
+        fn: function fn2() {
         },
         effect: effect$2,
         data: {}
@@ -1388,26 +1388,26 @@
         left: "auto"
       };
       function roundOffsetsByDPR(_ref, win) {
-        var x2 = _ref.x, y2 = _ref.y;
+        var x3 = _ref.x, y3 = _ref.y;
         var dpr = win.devicePixelRatio || 1;
         return {
-          x: round(x2 * dpr) / dpr || 0,
-          y: round(y2 * dpr) / dpr || 0
+          x: round(x3 * dpr) / dpr || 0,
+          y: round(y3 * dpr) / dpr || 0
         };
       }
       function mapToStyles(_ref2) {
         var _Object$assign2;
         var popper2 = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
-        var _offsets$x = offsets.x, x2 = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y2 = _offsets$y === void 0 ? 0 : _offsets$y;
+        var _offsets$x = offsets.x, x3 = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y3 = _offsets$y === void 0 ? 0 : _offsets$y;
         var _ref3 = typeof roundOffsets === "function" ? roundOffsets({
-          x: x2,
-          y: y2
+          x: x3,
+          y: y3
         }) : {
-          x: x2,
-          y: y2
+          x: x3,
+          y: y3
         };
-        x2 = _ref3.x;
-        y2 = _ref3.y;
+        x3 = _ref3.x;
+        y3 = _ref3.y;
         var hasX = offsets.hasOwnProperty("x");
         var hasY = offsets.hasOwnProperty("y");
         var sideX = left;
@@ -1431,8 +1431,8 @@
               // $FlowFixMe[prop-missing]
               offsetParent[heightProp]
             );
-            y2 -= offsetY - popperRect.height;
-            y2 *= gpuAcceleration ? 1 : -1;
+            y3 -= offsetY - popperRect.height;
+            y3 *= gpuAcceleration ? 1 : -1;
           }
           if (placement === left || (placement === top || placement === bottom) && variation === end) {
             sideX = right;
@@ -1440,27 +1440,27 @@
               // $FlowFixMe[prop-missing]
               offsetParent[widthProp]
             );
-            x2 -= offsetX - popperRect.width;
-            x2 *= gpuAcceleration ? 1 : -1;
+            x3 -= offsetX - popperRect.width;
+            x3 *= gpuAcceleration ? 1 : -1;
           }
         }
         var commonStyles = Object.assign({
           position
         }, adaptive && unsetSides);
         var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
-          x: x2,
-          y: y2
+          x: x3,
+          y: y3
         }, getWindow2(popper2)) : {
-          x: x2,
-          y: y2
+          x: x3,
+          y: y3
         };
-        x2 = _ref4.x;
-        y2 = _ref4.y;
+        x3 = _ref4.x;
+        y3 = _ref4.y;
         if (gpuAcceleration) {
           var _Object$assign;
-          return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? "0" : "", _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x2 + "px, " + y2 + "px)" : "translate3d(" + x2 + "px, " + y2 + "px, 0)", _Object$assign));
+          return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? "0" : "", _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x3 + "px, " + y3 + "px)" : "translate3d(" + x3 + "px, " + y3 + "px, 0)", _Object$assign));
         }
-        return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y2 + "px" : "", _Object$assign2[sideX] = hasX ? x2 + "px" : "", _Object$assign2.transform = "", _Object$assign2));
+        return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y3 + "px" : "", _Object$assign2[sideX] = hasX ? x3 + "px" : "", _Object$assign2.transform = "", _Object$assign2));
       }
       function computeStyles(_ref5) {
         var state = _ref5.state, options = _ref5.options;
@@ -1589,10 +1589,10 @@
           acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset2);
           return acc;
         }, {});
-        var _data$state$placement = data[state.placement], x2 = _data$state$placement.x, y2 = _data$state$placement.y;
+        var _data$state$placement = data[state.placement], x3 = _data$state$placement.x, y3 = _data$state$placement.y;
         if (state.modifiersData.popperOffsets != null) {
-          state.modifiersData.popperOffsets.x += x2;
-          state.modifiersData.popperOffsets.y += y2;
+          state.modifiersData.popperOffsets.x += x3;
+          state.modifiersData.popperOffsets.y += y3;
         }
         state.modifiersData[name] = data;
       }
@@ -1647,8 +1647,8 @@
           })[getBasePlacement(placement2)];
           return acc;
         }, {});
-        return Object.keys(overflows).sort(function(a2, b2) {
-          return overflows[a2] - overflows[b2];
+        return Object.keys(overflows).sort(function(a3, b3) {
+          return overflows[a3] - overflows[b3];
         });
       }
       function getExpandedFallbackPlacements(placement) {
@@ -1683,8 +1683,8 @@
         var checksMap = /* @__PURE__ */ new Map();
         var makeFallbackChecks = true;
         var firstFittingPlacement = placements2[0];
-        for (var i2 = 0; i2 < placements2.length; i2++) {
-          var placement = placements2[i2];
+        for (var i3 = 0; i3 < placements2.length; i3++) {
+          var placement = placements2[i3];
           var _basePlacement = getBasePlacement(placement);
           var isStartVariation = getVariation(placement) === start2;
           var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
@@ -1719,11 +1719,11 @@
         }
         if (makeFallbackChecks) {
           var numberOfChecks = flipVariations ? 3 : 1;
-          var _loop = function _loop2(_i2) {
+          var _loop = function _loop2(_i3) {
             var fittingPlacement = placements2.find(function(placement2) {
               var checks2 = checksMap.get(placement2);
               if (checks2) {
-                return checks2.slice(0, _i2).every(function(check) {
+                return checks2.slice(0, _i3).every(function(check) {
                   return check;
                 });
               }
@@ -1733,8 +1733,8 @@
               return "break";
             }
           };
-          for (var _i = numberOfChecks; _i > 0; _i--) {
-            var _ret = _loop(_i);
+          for (var _i2 = numberOfChecks; _i2 > 0; _i2--) {
+            var _ret = _loop(_i2);
             if (_ret === "break")
               break;
           }
@@ -1762,8 +1762,8 @@
         return max(min$1, min(value, max$1));
       }
       function withinMaxClamp(min2, value, max2) {
-        var v2 = within(min2, value, max2);
-        return v2 > max2 ? max2 : v2;
+        var v3 = within(min2, value, max2);
+        return v3 > max2 ? max2 : v3;
       }
       function preventOverflow(_ref) {
         var state = _ref.state, options = _ref.options, name = _ref.name;
@@ -2000,21 +2000,21 @@
         typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory(require_popper()) : typeof define === "function" && define.amd ? define(["@popperjs/core"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.bootstrap = factory(global.Popper));
       })(exports, function(Popper) {
         "use strict";
-        function _interopNamespaceDefault(e2) {
-          const n2 = Object.create(null, { [Symbol.toStringTag]: { value: "Module" } });
-          if (e2) {
-            for (const k2 in e2) {
-              if (k2 !== "default") {
-                const d2 = Object.getOwnPropertyDescriptor(e2, k2);
-                Object.defineProperty(n2, k2, d2.get ? d2 : {
+        function _interopNamespaceDefault(e3) {
+          const n3 = Object.create(null, { [Symbol.toStringTag]: { value: "Module" } });
+          if (e3) {
+            for (const k3 in e3) {
+              if (k3 !== "default") {
+                const d3 = Object.getOwnPropertyDescriptor(e3, k3);
+                Object.defineProperty(n3, k3, d3.get ? d3 : {
                   enumerable: true,
-                  get: () => e2[k2]
+                  get: () => e3[k3]
                 });
               }
             }
           }
-          n2.default = e2;
-          return Object.freeze(n2);
+          n3.default = e3;
+          return Object.freeze(n3);
         }
         const Popper__namespace = /* @__PURE__ */ _interopNamespaceDefault(Popper);
         const elementMap = /* @__PURE__ */ new Map();
@@ -2183,14 +2183,14 @@
         const isRTL = () => document.documentElement.dir === "rtl";
         const defineJQueryPlugin = (plugin) => {
           onDOMContentLoaded(() => {
-            const $2 = getjQuery();
-            if ($2) {
+            const $3 = getjQuery();
+            if ($3) {
               const name = plugin.NAME;
-              const JQUERY_NO_CONFLICT = $2.fn[name];
-              $2.fn[name] = plugin.jQueryInterface;
-              $2.fn[name].Constructor = plugin;
-              $2.fn[name].noConflict = () => {
-                $2.fn[name] = JQUERY_NO_CONFLICT;
+              const JQUERY_NO_CONFLICT = $3.fn[name];
+              $3.fn[name] = plugin.jQueryInterface;
+              $3.fn[name].Constructor = plugin;
+              $3.fn[name].noConflict = () => {
+                $3.fn[name] = JQUERY_NO_CONFLICT;
                 return plugin.jQueryInterface;
               };
             }
@@ -2255,18 +2255,18 @@
           eventRegistry[uid] = eventRegistry[uid] || {};
           return eventRegistry[uid];
         }
-        function bootstrapHandler(element, fn) {
+        function bootstrapHandler(element, fn2) {
           return function handler(event2) {
             hydrateObj(event2, {
               delegateTarget: element
             });
             if (handler.oneOff) {
-              EventHandler.off(element, event2.type, fn);
+              EventHandler.off(element, event2.type, fn2);
             }
-            return fn.apply(element, [event2]);
+            return fn2.apply(element, [event2]);
           };
         }
-        function bootstrapDelegationHandler(element, selector, fn) {
+        function bootstrapDelegationHandler(element, selector, fn2) {
           return function handler(event2) {
             const domElements = element.querySelectorAll(selector);
             for (let {
@@ -2280,9 +2280,9 @@
                   delegateTarget: target
                 });
                 if (handler.oneOff) {
-                  EventHandler.off(element, event2.type, selector, fn);
+                  EventHandler.off(element, event2.type, selector, fn2);
                 }
-                return fn.apply(target, [event2]);
+                return fn2.apply(target, [event2]);
               }
             }
           };
@@ -2305,10 +2305,10 @@
           }
           let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
           if (originalTypeEvent in customEvents) {
-            const wrapFunction = (fn2) => {
+            const wrapFunction = (fn3) => {
               return function(event2) {
                 if (!event2.relatedTarget || event2.relatedTarget !== event2.delegateTarget && !event2.delegateTarget.contains(event2.relatedTarget)) {
-                  return fn2.call(this, event2);
+                  return fn3.call(this, event2);
                 }
               };
             };
@@ -2322,21 +2322,21 @@
             return;
           }
           const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ""));
-          const fn = isDelegated ? bootstrapDelegationHandler(element, handler, callable) : bootstrapHandler(element, callable);
-          fn.delegationSelector = isDelegated ? handler : null;
-          fn.callable = callable;
-          fn.oneOff = oneOff;
-          fn.uidEvent = uid;
-          handlers[uid] = fn;
-          element.addEventListener(typeEvent, fn, isDelegated);
+          const fn2 = isDelegated ? bootstrapDelegationHandler(element, handler, callable) : bootstrapHandler(element, callable);
+          fn2.delegationSelector = isDelegated ? handler : null;
+          fn2.callable = callable;
+          fn2.oneOff = oneOff;
+          fn2.uidEvent = uid;
+          handlers[uid] = fn2;
+          element.addEventListener(typeEvent, fn2, isDelegated);
         }
         function removeHandler(element, events2, typeEvent, handler, delegationSelector) {
-          const fn = findHandler(events2[typeEvent], handler, delegationSelector);
-          if (!fn) {
+          const fn2 = findHandler(events2[typeEvent], handler, delegationSelector);
+          if (!fn2) {
             return;
           }
-          element.removeEventListener(typeEvent, fn, Boolean(delegationSelector));
-          delete events2[typeEvent][fn.uidEvent];
+          element.removeEventListener(typeEvent, fn2, Boolean(delegationSelector));
+          delete events2[typeEvent][fn2.uidEvent];
         }
         function removeNamespacedHandlers(element, events2, typeEvent, namespace) {
           const storeElementEvent = events2[typeEvent] || {};
@@ -2389,16 +2389,16 @@
             if (typeof event2 !== "string" || !element) {
               return null;
             }
-            const $2 = getjQuery();
+            const $3 = getjQuery();
             const typeEvent = getTypeEvent(event2);
             const inNamespace = event2 !== typeEvent;
             let jQueryEvent = null;
             let bubbles = true;
             let nativeDispatch = true;
             let defaultPrevented = false;
-            if (inNamespace && $2) {
-              jQueryEvent = $2.Event(event2, args);
-              $2(element).trigger(jQueryEvent);
+            if (inNamespace && $3) {
+              jQueryEvent = $3.Event(event2, args);
+              $3(element).trigger(jQueryEvent);
               bubbles = !jQueryEvent.isPropagationStopped();
               nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
               defaultPrevented = jQueryEvent.isDefaultPrevented();
@@ -6089,18 +6089,18 @@
     return lines.map((line) => line.slice(indent)).join("\n");
   }
   function interpolate(strings, values) {
-    return strings.reduce((result, string, i2) => {
-      const value = values[i2] == void 0 ? "" : values[i2];
+    return strings.reduce((result, string, i3) => {
+      const value = values[i3] == void 0 ? "" : values[i3];
       return result + string + value;
     }, "");
   }
   function uuid() {
-    return Array.from({ length: 36 }).map((_2, i2) => {
-      if (i2 == 8 || i2 == 13 || i2 == 18 || i2 == 23) {
+    return Array.from({ length: 36 }).map((_3, i3) => {
+      if (i3 == 8 || i3 == 13 || i3 == 18 || i3 == 23) {
         return "-";
-      } else if (i2 == 14) {
+      } else if (i3 == 14) {
         return "4";
-      } else if (i2 == 19) {
+      } else if (i3 == 19) {
         return (Math.floor(Math.random() * 4) + 8).toString(16);
       } else {
         return Math.floor(Math.random() * 15).toString(16);
@@ -6212,10 +6212,10 @@
   function getLocationForLink(link) {
     return expandURL(link.getAttribute("href") || "");
   }
-  function debounce(fn, delay) {
+  function debounce(fn2, delay) {
     let timeoutId = null;
     return (...args) => {
-      const callback = () => fn.apply(this, args);
+      const callback = () => fn2.apply(this, args);
       clearTimeout(timeoutId);
       timeoutId = setTimeout(callback, delay);
     };
@@ -6867,8 +6867,8 @@
         }
       }
     }
-    scrollToPosition({ x: x2, y: y2 }) {
-      this.scrollRoot.scrollTo(x2, y2);
+    scrollToPosition({ x: x3, y: y3 }) {
+      this.scrollRoot.scrollTo(x3, y3);
     }
     scrollToTop() {
       this.scrollToPosition({ x: 0, y: 0 });
@@ -8909,8 +8909,8 @@
             to.setAttribute(fromAttribute.name, fromAttribute.value);
           }
         }
-        for (let i2 = toAttributes.length - 1; 0 <= i2; i2--) {
-          const toAttribute = toAttributes[i2];
+        for (let i3 = toAttributes.length - 1; 0 <= i3; i3--) {
+          const toAttribute = toAttributes[i3];
           if (ignoreAttribute(toAttribute.name, to, "remove", ctx)) {
             continue;
           }
@@ -9682,7 +9682,7 @@
         const responseHTML = await fetchResponse.responseHTML;
         const snapshot = PageSnapshot.fromHTMLString(responseHTML);
         this.snapshotCache.put(fetchRequest.url, snapshot);
-      } catch (_2) {
+      } catch (_3) {
       }
     }
     requestStarted(fetchRequest) {
@@ -10597,24 +10597,24 @@
   }
   var StreamActions = {
     after() {
-      this.targetElements.forEach((e2) => e2.parentElement?.insertBefore(this.templateContent, e2.nextSibling));
+      this.targetElements.forEach((e3) => e3.parentElement?.insertBefore(this.templateContent, e3.nextSibling));
     },
     append() {
       this.removeDuplicateTargetChildren();
-      this.targetElements.forEach((e2) => e2.append(this.templateContent));
+      this.targetElements.forEach((e3) => e3.append(this.templateContent));
     },
     before() {
-      this.targetElements.forEach((e2) => e2.parentElement?.insertBefore(this.templateContent, e2));
+      this.targetElements.forEach((e3) => e3.parentElement?.insertBefore(this.templateContent, e3));
     },
     prepend() {
       this.removeDuplicateTargetChildren();
-      this.targetElements.forEach((e2) => e2.prepend(this.templateContent));
+      this.targetElements.forEach((e3) => e3.prepend(this.templateContent));
     },
     remove() {
-      this.targetElements.forEach((e2) => e2.remove());
+      this.targetElements.forEach((e3) => e3.remove());
     },
     replace() {
-      this.targetElements.forEach((e2) => e2.replaceWith(this.templateContent));
+      this.targetElements.forEach((e3) => e3.replaceWith(this.templateContent));
     },
     update() {
       this.targetElements.forEach((targetElement) => {
@@ -10658,15 +10658,15 @@
      * Removes duplicate children (by ID)
      */
     removeDuplicateTargetChildren() {
-      this.duplicateChildren.forEach((c2) => c2.remove());
+      this.duplicateChildren.forEach((c3) => c3.remove());
     }
     /**
      * Gets the list of duplicate children (i.e. those with the same ID)
      */
     get duplicateChildren() {
-      const existingChildren = this.targetElements.flatMap((e2) => [...e2.children]).filter((c2) => !!c2.id);
-      const newChildrenIds = [...this.templateContent?.children || []].filter((c2) => !!c2.id).map((c2) => c2.id);
-      return existingChildren.filter((c2) => newChildrenIds.includes(c2.id));
+      const existingChildren = this.targetElements.flatMap((e3) => [...e3.children]).filter((c3) => !!c3.id);
+      const newChildrenIds = [...this.templateContent?.children || []].filter((c3) => !!c3.id).map((c3) => c3.id);
+      return existingChildren.filter((c3) => newChildrenIds.includes(c3.id));
     }
     /**
      * Gets the action function to be performed.
@@ -10848,8 +10848,8 @@
     if (Array.isArray(obj))
       return obj.map(walk);
     return Object.keys(obj).reduce(function(acc, key) {
-      var camel = key[0].toLowerCase() + key.slice(1).replace(/([A-Z]+)/g, function(m2, x2) {
-        return "_" + x2.toLowerCase();
+      var camel = key[0].toLowerCase() + key.slice(1).replace(/([A-Z]+)/g, function(m3, x3) {
+        return "_" + x3.toLowerCase();
       });
       acc[camel] = walk(obj[key]);
       return acc;
@@ -11136,7 +11136,7 @@
     }
   }
   function camelize(value) {
-    return value.replace(/(?:[_-])([a-z0-9])/g, (_2, char) => char.toUpperCase());
+    return value.replace(/(?:[_-])([a-z0-9])/g, (_3, char) => char.toUpperCase());
   }
   function namespaceCamelize(value) {
     return camelize(value.replace(/--/g, "-").replace(/__/g, "_"));
@@ -11145,7 +11145,7 @@
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
   function dasherize(value) {
-    return value.replace(/([A-Z])/g, (_2, char) => `-${char.toLowerCase()}`);
+    return value.replace(/([A-Z])/g, (_3, char) => `-${char.toLowerCase()}`);
   }
   function tokenize(value) {
     return value.match(/[^\s]+/g) || [];
@@ -11232,7 +11232,7 @@
     button: () => "click",
     form: () => "submit",
     details: () => "toggle",
-    input: (e2) => e2.getAttribute("type") == "submit" ? "click" : "input",
+    input: (e3) => e3.getAttribute("type") == "submit" ? "click" : "input",
     select: () => "change",
     textarea: () => "input"
   };
@@ -11834,7 +11834,7 @@
   }
   function zip(left, right) {
     const length = Math.max(left.length, right.length);
-    return Array.from({ length }, (_2, index) => [left[index], right[index]]);
+    return Array.from({ length }, (_3, index) => [left[index], right[index]]);
   }
   function tokensAreEqual(left, right) {
     return left && right && left.index == right.index && left.content == right.content;
@@ -12479,13 +12479,13 @@
       return extended;
     }
     function testReflectExtension() {
-      const a2 = function() {
+      const a3 = function() {
         this.a.call(this);
       };
-      const b2 = extendWithReflect(a2);
-      b2.prototype.a = function() {
+      const b3 = extendWithReflect(a3);
+      b3.prototype.a = function() {
       };
-      return new b2();
+      return new b3();
     }
     try {
       testReflectExtension();
@@ -12919,10 +12919,10 @@
     targetAttribute: "data-target",
     targetAttributeForScope: (identifier) => `data-${identifier}-target`,
     outletAttributeForScope: (identifier, outlet) => `data-${identifier}-${outlet}-outlet`,
-    keyMappings: Object.assign(Object.assign({ enter: "Enter", tab: "Tab", esc: "Escape", space: " ", up: "ArrowUp", down: "ArrowDown", left: "ArrowLeft", right: "ArrowRight", home: "Home", end: "End", page_up: "PageUp", page_down: "PageDown" }, objectFromEntries("abcdefghijklmnopqrstuvwxyz".split("").map((c2) => [c2, c2]))), objectFromEntries("0123456789".split("").map((n2) => [n2, n2])))
+    keyMappings: Object.assign(Object.assign({ enter: "Enter", tab: "Tab", esc: "Escape", space: " ", up: "ArrowUp", down: "ArrowDown", left: "ArrowLeft", right: "ArrowRight", home: "Home", end: "End", page_up: "PageUp", page_down: "PageDown" }, objectFromEntries("abcdefghijklmnopqrstuvwxyz".split("").map((c3) => [c3, c3]))), objectFromEntries("0123456789".split("").map((n3) => [n3, n3])))
   };
   function objectFromEntries(array) {
-    return array.reduce((memo, [k2, v2]) => Object.assign(Object.assign({}, memo), { [k2]: v2 }), {});
+    return array.reduce((memo, [k3, v3]) => Object.assign(Object.assign({}, memo), { [k3]: v3 }), {});
   }
   var Application = class {
     constructor(element = document.documentElement, schema = defaultSchema) {
@@ -13397,17 +13397,17 @@
 
   // app/javascript/controllers/confirm_controller.js
   var confirm_controller_default = class extends Controller {
-    call(e2) {
+    call(e3) {
       let message = this.element.getAttribute("data-confirm");
       if (!confirm(message)) {
-        e2.preventDefault();
+        e3.preventDefault();
       }
     }
   };
 
   // app/javascript/controllers/btn_preloader_controller.js
   var btn_preloader_controller_default = class extends Controller {
-    call(e2) {
+    call(e3) {
       this.element.insertAdjacentHTML("afterbegin", '<div id="loader" class="loader"></div>');
       setTimeout(() => {
         this.element.querySelector("#loader").remove();
@@ -13443,210 +13443,210 @@
   };
 
   // node_modules/@fancyapps/ui/dist/index.esm.js
-  var t = (t2, e2 = 1e4) => (t2 = parseFloat(t2 + "") || 0, Math.round((t2 + Number.EPSILON) * e2) / e2);
-  var e = function(t2) {
-    if (!(t2 && t2 instanceof Element && t2.offsetParent))
+  var t = (t3, e3 = 1e4) => (t3 = parseFloat(t3 + "") || 0, Math.round((t3 + Number.EPSILON) * e3) / e3);
+  var e = function(t3) {
+    if (!(t3 && t3 instanceof Element && t3.offsetParent))
       return false;
-    const e2 = t2.scrollHeight > t2.clientHeight, i2 = window.getComputedStyle(t2).overflowY, n2 = -1 !== i2.indexOf("hidden"), s2 = -1 !== i2.indexOf("visible");
-    return e2 && !n2 && !s2;
+    const e3 = t3.scrollHeight > t3.clientHeight, i3 = window.getComputedStyle(t3).overflowY, n3 = -1 !== i3.indexOf("hidden"), s3 = -1 !== i3.indexOf("visible");
+    return e3 && !n3 && !s3;
   };
-  var i = function(t2, n2 = void 0) {
-    return !(!t2 || t2 === document.body || n2 && t2 === n2) && (e(t2) ? t2 : i(t2.parentElement, n2));
+  var i = function(t3, n3 = void 0) {
+    return !(!t3 || t3 === document.body || n3 && t3 === n3) && (e(t3) ? t3 : i(t3.parentElement, n3));
   };
-  var n = function(t2) {
-    var e2 = new DOMParser().parseFromString(t2, "text/html").body;
-    if (e2.childElementCount > 1) {
-      for (var i2 = document.createElement("div"); e2.firstChild; )
-        i2.appendChild(e2.firstChild);
-      return i2;
+  var n = function(t3) {
+    var e3 = new DOMParser().parseFromString(t3, "text/html").body;
+    if (e3.childElementCount > 1) {
+      for (var i3 = document.createElement("div"); e3.firstChild; )
+        i3.appendChild(e3.firstChild);
+      return i3;
     }
-    return e2.firstChild;
+    return e3.firstChild;
   };
-  var s = (t2) => `${t2 || ""}`.split(" ").filter((t3) => !!t3);
-  var o = (t2, e2, i2) => {
-    t2 && s(e2).forEach((e3) => {
-      t2.classList.toggle(e3, i2 || false);
+  var s = (t3) => `${t3 || ""}`.split(" ").filter((t4) => !!t4);
+  var o = (t3, e3, i3) => {
+    t3 && s(e3).forEach((e4) => {
+      t3.classList.toggle(e4, i3 || false);
     });
   };
   var a = class {
-    constructor(t2) {
-      Object.defineProperty(this, "pageX", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "pageY", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "clientX", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "clientY", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "id", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "time", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "nativePointer", { enumerable: true, configurable: true, writable: true, value: void 0 }), this.nativePointer = t2, this.pageX = t2.pageX, this.pageY = t2.pageY, this.clientX = t2.clientX, this.clientY = t2.clientY, this.id = self.Touch && t2 instanceof Touch ? t2.identifier : -1, this.time = Date.now();
+    constructor(t3) {
+      Object.defineProperty(this, "pageX", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "pageY", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "clientX", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "clientY", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "id", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "time", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "nativePointer", { enumerable: true, configurable: true, writable: true, value: void 0 }), this.nativePointer = t3, this.pageX = t3.pageX, this.pageY = t3.pageY, this.clientX = t3.clientX, this.clientY = t3.clientY, this.id = self.Touch && t3 instanceof Touch ? t3.identifier : -1, this.time = Date.now();
     }
   };
   var r = { passive: false };
   var l = class {
-    constructor(t2, { start: e2 = () => true, move: i2 = () => {
-    }, end: n2 = () => {
+    constructor(t3, { start: e3 = () => true, move: i3 = () => {
+    }, end: n3 = () => {
     } }) {
-      Object.defineProperty(this, "element", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "startCallback", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "moveCallback", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "endCallback", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "currentPointers", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "startPointers", { enumerable: true, configurable: true, writable: true, value: [] }), this.element = t2, this.startCallback = e2, this.moveCallback = i2, this.endCallback = n2;
-      for (const t3 of ["onPointerStart", "onTouchStart", "onMove", "onTouchEnd", "onPointerEnd", "onWindowBlur"])
-        this[t3] = this[t3].bind(this);
+      Object.defineProperty(this, "element", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "startCallback", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "moveCallback", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "endCallback", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "currentPointers", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "startPointers", { enumerable: true, configurable: true, writable: true, value: [] }), this.element = t3, this.startCallback = e3, this.moveCallback = i3, this.endCallback = n3;
+      for (const t4 of ["onPointerStart", "onTouchStart", "onMove", "onTouchEnd", "onPointerEnd", "onWindowBlur"])
+        this[t4] = this[t4].bind(this);
       this.element.addEventListener("mousedown", this.onPointerStart, r), this.element.addEventListener("touchstart", this.onTouchStart, r), this.element.addEventListener("touchmove", this.onMove, r), this.element.addEventListener("touchend", this.onTouchEnd), this.element.addEventListener("touchcancel", this.onTouchEnd);
     }
-    onPointerStart(t2) {
-      if (!t2.buttons || 0 !== t2.button)
+    onPointerStart(t3) {
+      if (!t3.buttons || 0 !== t3.button)
         return;
-      const e2 = new a(t2);
-      this.currentPointers.some((t3) => t3.id === e2.id) || this.triggerPointerStart(e2, t2) && (window.addEventListener("mousemove", this.onMove), window.addEventListener("mouseup", this.onPointerEnd), window.addEventListener("blur", this.onWindowBlur));
+      const e3 = new a(t3);
+      this.currentPointers.some((t4) => t4.id === e3.id) || this.triggerPointerStart(e3, t3) && (window.addEventListener("mousemove", this.onMove), window.addEventListener("mouseup", this.onPointerEnd), window.addEventListener("blur", this.onWindowBlur));
     }
-    onTouchStart(t2) {
-      for (const e2 of Array.from(t2.changedTouches || []))
-        this.triggerPointerStart(new a(e2), t2);
+    onTouchStart(t3) {
+      for (const e3 of Array.from(t3.changedTouches || []))
+        this.triggerPointerStart(new a(e3), t3);
       window.addEventListener("blur", this.onWindowBlur);
     }
-    onMove(t2) {
-      const e2 = this.currentPointers.slice(), i2 = "changedTouches" in t2 ? Array.from(t2.changedTouches || []).map((t3) => new a(t3)) : [new a(t2)], n2 = [];
-      for (const t3 of i2) {
-        const e3 = this.currentPointers.findIndex((e4) => e4.id === t3.id);
-        e3 < 0 || (n2.push(t3), this.currentPointers[e3] = t3);
+    onMove(t3) {
+      const e3 = this.currentPointers.slice(), i3 = "changedTouches" in t3 ? Array.from(t3.changedTouches || []).map((t4) => new a(t4)) : [new a(t3)], n3 = [];
+      for (const t4 of i3) {
+        const e4 = this.currentPointers.findIndex((e5) => e5.id === t4.id);
+        e4 < 0 || (n3.push(t4), this.currentPointers[e4] = t4);
       }
-      n2.length && this.moveCallback(t2, this.currentPointers.slice(), e2);
+      n3.length && this.moveCallback(t3, this.currentPointers.slice(), e3);
     }
-    onPointerEnd(t2) {
-      t2.buttons > 0 && 0 !== t2.button || (this.triggerPointerEnd(t2, new a(t2)), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur));
+    onPointerEnd(t3) {
+      t3.buttons > 0 && 0 !== t3.button || (this.triggerPointerEnd(t3, new a(t3)), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur));
     }
-    onTouchEnd(t2) {
-      for (const e2 of Array.from(t2.changedTouches || []))
-        this.triggerPointerEnd(t2, new a(e2));
+    onTouchEnd(t3) {
+      for (const e3 of Array.from(t3.changedTouches || []))
+        this.triggerPointerEnd(t3, new a(e3));
     }
-    triggerPointerStart(t2, e2) {
-      return !!this.startCallback(e2, t2, this.currentPointers.slice()) && (this.currentPointers.push(t2), this.startPointers.push(t2), true);
+    triggerPointerStart(t3, e3) {
+      return !!this.startCallback(e3, t3, this.currentPointers.slice()) && (this.currentPointers.push(t3), this.startPointers.push(t3), true);
     }
-    triggerPointerEnd(t2, e2) {
-      const i2 = this.currentPointers.findIndex((t3) => t3.id === e2.id);
-      i2 < 0 || (this.currentPointers.splice(i2, 1), this.startPointers.splice(i2, 1), this.endCallback(t2, e2, this.currentPointers.slice()));
+    triggerPointerEnd(t3, e3) {
+      const i3 = this.currentPointers.findIndex((t4) => t4.id === e3.id);
+      i3 < 0 || (this.currentPointers.splice(i3, 1), this.startPointers.splice(i3, 1), this.endCallback(t3, e3, this.currentPointers.slice()));
     }
     onWindowBlur() {
       this.clear();
     }
     clear() {
       for (; this.currentPointers.length; ) {
-        const t2 = this.currentPointers[this.currentPointers.length - 1];
-        this.currentPointers.splice(this.currentPointers.length - 1, 1), this.startPointers.splice(this.currentPointers.length - 1, 1), this.endCallback(new Event("touchend", { bubbles: true, cancelable: true, clientX: t2.clientX, clientY: t2.clientY }), t2, this.currentPointers.slice());
+        const t3 = this.currentPointers[this.currentPointers.length - 1];
+        this.currentPointers.splice(this.currentPointers.length - 1, 1), this.startPointers.splice(this.currentPointers.length - 1, 1), this.endCallback(new Event("touchend", { bubbles: true, cancelable: true, clientX: t3.clientX, clientY: t3.clientY }), t3, this.currentPointers.slice());
       }
     }
     stop() {
       this.element.removeEventListener("mousedown", this.onPointerStart, r), this.element.removeEventListener("touchstart", this.onTouchStart, r), this.element.removeEventListener("touchmove", this.onMove, r), this.element.removeEventListener("touchend", this.onTouchEnd), this.element.removeEventListener("touchcancel", this.onTouchEnd), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur);
     }
   };
-  function c(t2, e2) {
-    return e2 ? Math.sqrt(Math.pow(e2.clientX - t2.clientX, 2) + Math.pow(e2.clientY - t2.clientY, 2)) : 0;
+  function c(t3, e3) {
+    return e3 ? Math.sqrt(Math.pow(e3.clientX - t3.clientX, 2) + Math.pow(e3.clientY - t3.clientY, 2)) : 0;
   }
-  function h(t2, e2) {
-    return e2 ? { clientX: (t2.clientX + e2.clientX) / 2, clientY: (t2.clientY + e2.clientY) / 2 } : t2;
+  function h(t3, e3) {
+    return e3 ? { clientX: (t3.clientX + e3.clientX) / 2, clientY: (t3.clientY + e3.clientY) / 2 } : t3;
   }
-  var d = (t2) => "object" == typeof t2 && null !== t2 && t2.constructor === Object && "[object Object]" === Object.prototype.toString.call(t2);
-  var u = (t2, ...e2) => {
-    const i2 = e2.length;
-    for (let n2 = 0; n2 < i2; n2++) {
-      const i3 = e2[n2] || {};
-      Object.entries(i3).forEach(([e3, i4]) => {
-        const n3 = Array.isArray(i4) ? [] : {};
-        t2[e3] || Object.assign(t2, { [e3]: n3 }), d(i4) ? Object.assign(t2[e3], u(n3, i4)) : Array.isArray(i4) ? Object.assign(t2, { [e3]: [...i4] }) : Object.assign(t2, { [e3]: i4 });
+  var d = (t3) => "object" == typeof t3 && null !== t3 && t3.constructor === Object && "[object Object]" === Object.prototype.toString.call(t3);
+  var u = (t3, ...e3) => {
+    const i3 = e3.length;
+    for (let n3 = 0; n3 < i3; n3++) {
+      const i4 = e3[n3] || {};
+      Object.entries(i4).forEach(([e4, i5]) => {
+        const n4 = Array.isArray(i5) ? [] : {};
+        t3[e4] || Object.assign(t3, { [e4]: n4 }), d(i5) ? Object.assign(t3[e4], u(n4, i5)) : Array.isArray(i5) ? Object.assign(t3, { [e4]: [...i5] }) : Object.assign(t3, { [e4]: i5 });
       });
     }
-    return t2;
+    return t3;
   };
-  var p = function(t2, e2) {
-    return t2.split(".").reduce((t3, e3) => "object" == typeof t3 ? t3[e3] : void 0, e2);
+  var p = function(t3, e3) {
+    return t3.split(".").reduce((t4, e4) => "object" == typeof t4 ? t4[e4] : void 0, e3);
   };
   var f = class {
-    constructor(t2 = {}) {
-      Object.defineProperty(this, "options", { enumerable: true, configurable: true, writable: true, value: t2 }), Object.defineProperty(this, "events", { enumerable: true, configurable: true, writable: true, value: /* @__PURE__ */ new Map() }), this.setOptions(t2);
-      for (const t3 of Object.getOwnPropertyNames(Object.getPrototypeOf(this)))
-        t3.startsWith("on") && "function" == typeof this[t3] && (this[t3] = this[t3].bind(this));
+    constructor(t3 = {}) {
+      Object.defineProperty(this, "options", { enumerable: true, configurable: true, writable: true, value: t3 }), Object.defineProperty(this, "events", { enumerable: true, configurable: true, writable: true, value: /* @__PURE__ */ new Map() }), this.setOptions(t3);
+      for (const t4 of Object.getOwnPropertyNames(Object.getPrototypeOf(this)))
+        t4.startsWith("on") && "function" == typeof this[t4] && (this[t4] = this[t4].bind(this));
     }
-    setOptions(t2) {
-      this.options = t2 ? u({}, this.constructor.defaults, t2) : {};
-      for (const [t3, e2] of Object.entries(this.option("on") || {}))
-        this.on(t3, e2);
+    setOptions(t3) {
+      this.options = t3 ? u({}, this.constructor.defaults, t3) : {};
+      for (const [t4, e3] of Object.entries(this.option("on") || {}))
+        this.on(t4, e3);
     }
-    option(t2, ...e2) {
-      let i2 = p(t2, this.options);
-      return i2 && "function" == typeof i2 && (i2 = i2.call(this, this, ...e2)), i2;
+    option(t3, ...e3) {
+      let i3 = p(t3, this.options);
+      return i3 && "function" == typeof i3 && (i3 = i3.call(this, this, ...e3)), i3;
     }
-    optionFor(t2, e2, i2, ...n2) {
-      let s2 = p(e2, t2);
-      var o2;
-      "string" != typeof (o2 = s2) || isNaN(o2) || isNaN(parseFloat(o2)) || (s2 = parseFloat(s2)), "true" === s2 && (s2 = true), "false" === s2 && (s2 = false), s2 && "function" == typeof s2 && (s2 = s2.call(this, this, t2, ...n2));
-      let a2 = p(e2, this.options);
-      return a2 && "function" == typeof a2 ? s2 = a2.call(this, this, t2, ...n2, s2) : void 0 === s2 && (s2 = a2), void 0 === s2 ? i2 : s2;
+    optionFor(t3, e3, i3, ...n3) {
+      let s3 = p(e3, t3);
+      var o3;
+      "string" != typeof (o3 = s3) || isNaN(o3) || isNaN(parseFloat(o3)) || (s3 = parseFloat(s3)), "true" === s3 && (s3 = true), "false" === s3 && (s3 = false), s3 && "function" == typeof s3 && (s3 = s3.call(this, this, t3, ...n3));
+      let a3 = p(e3, this.options);
+      return a3 && "function" == typeof a3 ? s3 = a3.call(this, this, t3, ...n3, s3) : void 0 === s3 && (s3 = a3), void 0 === s3 ? i3 : s3;
     }
-    cn(t2) {
-      const e2 = this.options.classes;
-      return e2 && e2[t2] || "";
+    cn(t3) {
+      const e3 = this.options.classes;
+      return e3 && e3[t3] || "";
     }
-    localize(t2, e2 = []) {
-      t2 = String(t2).replace(/\{\{(\w+).?(\w+)?\}\}/g, (t3, e3, i2) => {
-        let n2 = "";
-        return i2 ? n2 = this.option(`${e3[0] + e3.toLowerCase().substring(1)}.l10n.${i2}`) : e3 && (n2 = this.option(`l10n.${e3}`)), n2 || (n2 = t3), n2;
+    localize(t3, e3 = []) {
+      t3 = String(t3).replace(/\{\{(\w+).?(\w+)?\}\}/g, (t4, e4, i3) => {
+        let n3 = "";
+        return i3 ? n3 = this.option(`${e4[0] + e4.toLowerCase().substring(1)}.l10n.${i3}`) : e4 && (n3 = this.option(`l10n.${e4}`)), n3 || (n3 = t4), n3;
       });
-      for (let i2 = 0; i2 < e2.length; i2++)
-        t2 = t2.split(e2[i2][0]).join(e2[i2][1]);
-      return t2 = t2.replace(/\{\{(.*?)\}\}/g, (t3, e3) => e3);
+      for (let i3 = 0; i3 < e3.length; i3++)
+        t3 = t3.split(e3[i3][0]).join(e3[i3][1]);
+      return t3 = t3.replace(/\{\{(.*?)\}\}/g, (t4, e4) => e4);
     }
-    on(t2, e2) {
-      let i2 = [];
-      "string" == typeof t2 ? i2 = t2.split(" ") : Array.isArray(t2) && (i2 = t2), this.events || (this.events = /* @__PURE__ */ new Map()), i2.forEach((t3) => {
-        let i3 = this.events.get(t3);
-        i3 || (this.events.set(t3, []), i3 = []), i3.includes(e2) || i3.push(e2), this.events.set(t3, i3);
+    on(t3, e3) {
+      let i3 = [];
+      "string" == typeof t3 ? i3 = t3.split(" ") : Array.isArray(t3) && (i3 = t3), this.events || (this.events = /* @__PURE__ */ new Map()), i3.forEach((t4) => {
+        let i4 = this.events.get(t4);
+        i4 || (this.events.set(t4, []), i4 = []), i4.includes(e3) || i4.push(e3), this.events.set(t4, i4);
       });
     }
-    off(t2, e2) {
-      let i2 = [];
-      "string" == typeof t2 ? i2 = t2.split(" ") : Array.isArray(t2) && (i2 = t2), i2.forEach((t3) => {
-        const i3 = this.events.get(t3);
-        if (Array.isArray(i3)) {
-          const t4 = i3.indexOf(e2);
-          t4 > -1 && i3.splice(t4, 1);
+    off(t3, e3) {
+      let i3 = [];
+      "string" == typeof t3 ? i3 = t3.split(" ") : Array.isArray(t3) && (i3 = t3), i3.forEach((t4) => {
+        const i4 = this.events.get(t4);
+        if (Array.isArray(i4)) {
+          const t5 = i4.indexOf(e3);
+          t5 > -1 && i4.splice(t5, 1);
         }
       });
     }
-    emit(t2, ...e2) {
-      [...this.events.get(t2) || []].forEach((t3) => t3(this, ...e2)), "*" !== t2 && this.emit("*", t2, ...e2);
+    emit(t3, ...e3) {
+      [...this.events.get(t3) || []].forEach((t4) => t4(this, ...e3)), "*" !== t3 && this.emit("*", t3, ...e3);
     }
   };
   Object.defineProperty(f, "version", { enumerable: true, configurable: true, writable: true, value: "5.0.33" }), Object.defineProperty(f, "defaults", { enumerable: true, configurable: true, writable: true, value: {} });
   var g = class extends f {
-    constructor(t2 = {}) {
-      super(t2), Object.defineProperty(this, "plugins", { enumerable: true, configurable: true, writable: true, value: {} });
+    constructor(t3 = {}) {
+      super(t3), Object.defineProperty(this, "plugins", { enumerable: true, configurable: true, writable: true, value: {} });
     }
-    attachPlugins(t2 = {}) {
-      const e2 = /* @__PURE__ */ new Map();
-      for (const [i2, n2] of Object.entries(t2)) {
-        const t3 = this.option(i2), s2 = this.plugins[i2];
-        s2 || false === t3 ? s2 && false === t3 && (s2.detach(), delete this.plugins[i2]) : e2.set(i2, new n2(this, t3 || {}));
+    attachPlugins(t3 = {}) {
+      const e3 = /* @__PURE__ */ new Map();
+      for (const [i3, n3] of Object.entries(t3)) {
+        const t4 = this.option(i3), s3 = this.plugins[i3];
+        s3 || false === t4 ? s3 && false === t4 && (s3.detach(), delete this.plugins[i3]) : e3.set(i3, new n3(this, t4 || {}));
       }
-      for (const [t3, i2] of e2)
-        this.plugins[t3] = i2, i2.attach();
+      for (const [t4, i3] of e3)
+        this.plugins[t4] = i3, i3.attach();
     }
-    detachPlugins(t2) {
-      t2 = t2 || Object.keys(this.plugins);
-      for (const e2 of t2) {
-        const t3 = this.plugins[e2];
-        t3 && t3.detach(), delete this.plugins[e2];
+    detachPlugins(t3) {
+      t3 = t3 || Object.keys(this.plugins);
+      for (const e3 of t3) {
+        const t4 = this.plugins[e3];
+        t4 && t4.detach(), delete this.plugins[e3];
       }
       return this.emit("detachPlugins"), this;
     }
   };
   var m;
-  !function(t2) {
-    t2[t2.Init = 0] = "Init", t2[t2.Error = 1] = "Error", t2[t2.Ready = 2] = "Ready", t2[t2.Panning = 3] = "Panning", t2[t2.Mousemove = 4] = "Mousemove", t2[t2.Destroy = 5] = "Destroy";
+  !function(t3) {
+    t3[t3.Init = 0] = "Init", t3[t3.Error = 1] = "Error", t3[t3.Ready = 2] = "Ready", t3[t3.Panning = 3] = "Panning", t3[t3.Mousemove = 4] = "Mousemove", t3[t3.Destroy = 5] = "Destroy";
   }(m || (m = {}));
   var v = ["a", "b", "c", "d", "e", "f"];
   var b = { PANUP: "Move up", PANDOWN: "Move down", PANLEFT: "Move left", PANRIGHT: "Move right", ZOOMIN: "Zoom in", ZOOMOUT: "Zoom out", TOGGLEZOOM: "Toggle zoom level", TOGGLE1TO1: "Toggle zoom level", ITERATEZOOM: "Toggle zoom level", ROTATECCW: "Rotate counterclockwise", ROTATECW: "Rotate clockwise", FLIPX: "Flip horizontally", FLIPY: "Flip vertically", FITX: "Fit horizontally", FITY: "Fit vertically", RESET: "Reset", TOGGLEFS: "Toggle fullscreen" };
   var y = { content: null, width: "auto", height: "auto", panMode: "drag", touch: true, dragMinThreshold: 3, lockAxis: false, mouseMoveFactor: 1, mouseMoveFriction: 0.12, zoom: true, pinchToZoom: true, panOnlyZoomed: "auto", minScale: 1, maxScale: 2, friction: 0.25, dragFriction: 0.35, decelFriction: 0.05, click: "toggleZoom", dblClick: false, wheel: "zoom", wheelLimit: 7, spinner: true, bounds: "auto", infinite: false, rubberband: true, bounce: true, maxVelocity: 75, transformParent: false, classes: { content: "f-panzoom__content", isLoading: "is-loading", canZoomIn: "can-zoom_in", canZoomOut: "can-zoom_out", isDraggable: "is-draggable", isDragging: "is-dragging", inFullscreen: "in-fullscreen", htmlHasFullscreen: "with-panzoom-in-fullscreen" }, l10n: b };
   var w = '<circle cx="25" cy="25" r="20"></circle>';
   var x = '<div class="f-spinner"><svg viewBox="0 0 50 50">' + w + w + "</svg></div>";
-  var E = (t2) => t2 && null !== t2 && t2 instanceof Element && "nodeType" in t2;
-  var S = (t2, e2) => {
-    t2 && s(e2).forEach((e3) => {
-      t2.classList.remove(e3);
+  var E = (t3) => t3 && null !== t3 && t3 instanceof Element && "nodeType" in t3;
+  var S = (t3, e3) => {
+    t3 && s(e3).forEach((e4) => {
+      t3.classList.remove(e4);
     });
   };
-  var P = (t2, e2) => {
-    t2 && s(e2).forEach((e3) => {
-      t2.classList.add(e3);
+  var P = (t3, e3) => {
+    t3 && s(e3).forEach((e4) => {
+      t3.classList.add(e4);
     });
   };
   var C = { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
@@ -13671,8 +13671,8 @@
       return this.options.panMode !== O || this.isTouchDevice ? A : O;
     }
     get panOnlyZoomed() {
-      const t2 = this.options.panOnlyZoomed;
-      return "auto" === t2 ? this.isTouchDevice : t2;
+      const t3 = this.options.panOnlyZoomed;
+      return "auto" === t3 ? this.isTouchDevice : t3;
     }
     get isInfinite() {
       return this.option("infinite");
@@ -13684,55 +13684,55 @@
       return 180 * Math.atan2(this.target.b, this.target.a) / Math.PI || 0;
     }
     get scale() {
-      const { a: t2, b: e2 } = this.current;
-      return Math.sqrt(t2 * t2 + e2 * e2) || 1;
+      const { a: t3, b: e3 } = this.current;
+      return Math.sqrt(t3 * t3 + e3 * e3) || 1;
     }
     get targetScale() {
-      const { a: t2, b: e2 } = this.target;
-      return Math.sqrt(t2 * t2 + e2 * e2) || 1;
+      const { a: t3, b: e3 } = this.target;
+      return Math.sqrt(t3 * t3 + e3 * e3) || 1;
     }
     get minScale() {
       return this.option("minScale") || 1;
     }
     get fullScale() {
-      const { contentRect: t2 } = this;
-      return t2.fullWidth / t2.fitWidth || 1;
+      const { contentRect: t3 } = this;
+      return t3.fullWidth / t3.fitWidth || 1;
     }
     get maxScale() {
       return this.fullScale * (this.option("maxScale") || 1) || 1;
     }
     get coverScale() {
-      const { containerRect: t2, contentRect: e2 } = this, i2 = Math.max(t2.height / e2.fitHeight, t2.width / e2.fitWidth) || 1;
-      return Math.min(this.fullScale, i2);
+      const { containerRect: t3, contentRect: e3 } = this, i3 = Math.max(t3.height / e3.fitHeight, t3.width / e3.fitWidth) || 1;
+      return Math.min(this.fullScale, i3);
     }
     get isScaling() {
       return Math.abs(this.targetScale - this.scale) > 1e-5 && !this.isResting;
     }
     get isContentLoading() {
-      const t2 = this.content;
-      return !!(t2 && t2 instanceof HTMLImageElement) && !t2.complete;
+      const t3 = this.content;
+      return !!(t3 && t3 instanceof HTMLImageElement) && !t3.complete;
     }
     get isResting() {
       if (this.isBouncingX || this.isBouncingY)
         return false;
-      for (const t2 of v) {
-        const e2 = "e" == t2 || "f" === t2 ? 1e-4 : 1e-5;
-        if (Math.abs(this.target[t2] - this.current[t2]) > e2)
+      for (const t3 of v) {
+        const e3 = "e" == t3 || "f" === t3 ? 1e-4 : 1e-5;
+        if (Math.abs(this.target[t3] - this.current[t3]) > e3)
           return false;
       }
       return !(!this.ignoreBounds && !this.checkBounds().inBounds);
     }
-    constructor(t2, e2 = {}, i2 = {}) {
-      var s2;
-      if (super(e2), Object.defineProperty(this, "pointerTracker", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "resizeObserver", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "updateTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "clickTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "rAF", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "isTicking", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "ignoreBounds", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "isBouncingX", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "isBouncingY", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "clicks", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "trackingPoints", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "pwt", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "cwd", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "pmme", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "friction", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: m.Init }), Object.defineProperty(this, "isDragging", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "content", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "spinner", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "containerRect", { enumerable: true, configurable: true, writable: true, value: { width: 0, height: 0, innerWidth: 0, innerHeight: 0 } }), Object.defineProperty(this, "contentRect", { enumerable: true, configurable: true, writable: true, value: { top: 0, right: 0, bottom: 0, left: 0, fullWidth: 0, fullHeight: 0, fitWidth: 0, fitHeight: 0, width: 0, height: 0 } }), Object.defineProperty(this, "dragStart", { enumerable: true, configurable: true, writable: true, value: { x: 0, y: 0, top: 0, left: 0, time: 0 } }), Object.defineProperty(this, "dragOffset", { enumerable: true, configurable: true, writable: true, value: { x: 0, y: 0, time: 0 } }), Object.defineProperty(this, "current", { enumerable: true, configurable: true, writable: true, value: Object.assign({}, C) }), Object.defineProperty(this, "target", { enumerable: true, configurable: true, writable: true, value: Object.assign({}, C) }), Object.defineProperty(this, "velocity", { enumerable: true, configurable: true, writable: true, value: { a: 0, b: 0, c: 0, d: 0, e: 0, f: 0 } }), Object.defineProperty(this, "lockedAxis", { enumerable: true, configurable: true, writable: true, value: false }), !t2)
+    constructor(t3, e3 = {}, i3 = {}) {
+      var s3;
+      if (super(e3), Object.defineProperty(this, "pointerTracker", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "resizeObserver", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "updateTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "clickTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "rAF", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "isTicking", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "ignoreBounds", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "isBouncingX", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "isBouncingY", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "clicks", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "trackingPoints", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "pwt", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "cwd", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "pmme", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "friction", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: m.Init }), Object.defineProperty(this, "isDragging", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "content", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "spinner", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "containerRect", { enumerable: true, configurable: true, writable: true, value: { width: 0, height: 0, innerWidth: 0, innerHeight: 0 } }), Object.defineProperty(this, "contentRect", { enumerable: true, configurable: true, writable: true, value: { top: 0, right: 0, bottom: 0, left: 0, fullWidth: 0, fullHeight: 0, fitWidth: 0, fitHeight: 0, width: 0, height: 0 } }), Object.defineProperty(this, "dragStart", { enumerable: true, configurable: true, writable: true, value: { x: 0, y: 0, top: 0, left: 0, time: 0 } }), Object.defineProperty(this, "dragOffset", { enumerable: true, configurable: true, writable: true, value: { x: 0, y: 0, time: 0 } }), Object.defineProperty(this, "current", { enumerable: true, configurable: true, writable: true, value: Object.assign({}, C) }), Object.defineProperty(this, "target", { enumerable: true, configurable: true, writable: true, value: Object.assign({}, C) }), Object.defineProperty(this, "velocity", { enumerable: true, configurable: true, writable: true, value: { a: 0, b: 0, c: 0, d: 0, e: 0, f: 0 } }), Object.defineProperty(this, "lockedAxis", { enumerable: true, configurable: true, writable: true, value: false }), !t3)
         throw new Error("Container Element Not Found");
-      this.container = t2, this.initContent(), this.attachPlugins(Object.assign(Object.assign({}, _k.Plugins), i2)), this.emit("attachPlugins"), this.emit("init");
-      const o2 = this.content;
-      if (o2.addEventListener("load", this.onLoad), o2.addEventListener("error", this.onError), this.isContentLoading) {
+      this.container = t3, this.initContent(), this.attachPlugins(Object.assign(Object.assign({}, _k.Plugins), i3)), this.emit("attachPlugins"), this.emit("init");
+      const o3 = this.content;
+      if (o3.addEventListener("load", this.onLoad), o3.addEventListener("error", this.onError), this.isContentLoading) {
         if (this.option("spinner")) {
-          t2.classList.add(this.cn("isLoading"));
-          const e3 = n(x);
-          !t2.contains(o2) || o2.parentElement instanceof HTMLPictureElement ? this.spinner = t2.appendChild(e3) : this.spinner = (null === (s2 = o2.parentElement) || void 0 === s2 ? void 0 : s2.insertBefore(e3, o2)) || null;
+          t3.classList.add(this.cn("isLoading"));
+          const e4 = n(x);
+          !t3.contains(o3) || o3.parentElement instanceof HTMLPictureElement ? this.spinner = t3.appendChild(e4) : this.spinner = (null === (s3 = o3.parentElement) || void 0 === s3 ? void 0 : s3.insertBefore(e4, o3)) || null;
         }
         this.emit("beforeLoad");
       } else
@@ -13741,418 +13741,418 @@
         });
     }
     initContent() {
-      const { container: t2 } = this, e2 = this.cn(L);
-      let i2 = this.option(L) || t2.querySelector(`.${e2}`);
-      if (i2 || (i2 = t2.querySelector("img,picture") || t2.firstElementChild, i2 && P(i2, e2)), i2 instanceof HTMLPictureElement && (i2 = i2.querySelector("img")), !i2)
+      const { container: t3 } = this, e3 = this.cn(L);
+      let i3 = this.option(L) || t3.querySelector(`.${e3}`);
+      if (i3 || (i3 = t3.querySelector("img,picture") || t3.firstElementChild, i3 && P(i3, e3)), i3 instanceof HTMLPictureElement && (i3 = i3.querySelector("img")), !i3)
         throw new Error("No content found");
-      this.content = i2;
+      this.content = i3;
     }
     onLoad() {
-      const { spinner: t2, container: e2, state: i2 } = this;
-      t2 && (t2.remove(), this.spinner = null), this.option("spinner") && e2.classList.remove(this.cn("isLoading")), this.emit("afterLoad"), i2 === m.Init ? this.enable() : this.updateMetrics();
+      const { spinner: t3, container: e3, state: i3 } = this;
+      t3 && (t3.remove(), this.spinner = null), this.option("spinner") && e3.classList.remove(this.cn("isLoading")), this.emit("afterLoad"), i3 === m.Init ? this.enable() : this.updateMetrics();
     }
     onError() {
       this.state !== m.Destroy && (this.spinner && (this.spinner.remove(), this.spinner = null), this.stop(), this.detachEvents(), this.state = m.Error, this.emit("error"));
     }
-    getNextScale(t2) {
-      const { fullScale: e2, targetScale: i2, coverScale: n2, maxScale: s2, minScale: o2 } = this;
-      let a2 = o2;
-      switch (t2) {
+    getNextScale(t3) {
+      const { fullScale: e3, targetScale: i3, coverScale: n3, maxScale: s3, minScale: o3 } = this;
+      let a3 = o3;
+      switch (t3) {
         case "toggleMax":
-          a2 = i2 - o2 < 0.5 * (s2 - o2) ? s2 : o2;
+          a3 = i3 - o3 < 0.5 * (s3 - o3) ? s3 : o3;
           break;
         case "toggleCover":
-          a2 = i2 - o2 < 0.5 * (n2 - o2) ? n2 : o2;
+          a3 = i3 - o3 < 0.5 * (n3 - o3) ? n3 : o3;
           break;
         case "toggleZoom":
-          a2 = i2 - o2 < 0.5 * (e2 - o2) ? e2 : o2;
+          a3 = i3 - o3 < 0.5 * (e3 - o3) ? e3 : o3;
           break;
         case "iterateZoom":
-          let t3 = [1, e2, s2].sort((t4, e3) => t4 - e3), r2 = t3.findIndex((t4) => t4 > i2 + 1e-5);
-          a2 = t3[r2] || 1;
+          let t4 = [1, e3, s3].sort((t5, e4) => t5 - e4), r3 = t4.findIndex((t5) => t5 > i3 + 1e-5);
+          a3 = t4[r3] || 1;
       }
-      return a2;
+      return a3;
     }
     attachObserver() {
-      var t2;
-      const e2 = () => {
-        const { container: t3, containerRect: e3 } = this;
-        return Math.abs(e3.width - t3.getBoundingClientRect().width) > 0.1 || Math.abs(e3.height - t3.getBoundingClientRect().height) > 0.1;
+      var t3;
+      const e3 = () => {
+        const { container: t4, containerRect: e4 } = this;
+        return Math.abs(e4.width - t4.getBoundingClientRect().width) > 0.1 || Math.abs(e4.height - t4.getBoundingClientRect().height) > 0.1;
       };
       this.resizeObserver || void 0 === window.ResizeObserver || (this.resizeObserver = new ResizeObserver(() => {
-        this.updateTimer || (e2() ? (this.onResize(), this.isMobile && (this.updateTimer = setTimeout(() => {
-          e2() && this.onResize(), this.updateTimer = null;
+        this.updateTimer || (e3() ? (this.onResize(), this.isMobile && (this.updateTimer = setTimeout(() => {
+          e3() && this.onResize(), this.updateTimer = null;
         }, 500))) : this.updateTimer && (clearTimeout(this.updateTimer), this.updateTimer = null));
-      })), null === (t2 = this.resizeObserver) || void 0 === t2 || t2.observe(this.container);
+      })), null === (t3 = this.resizeObserver) || void 0 === t3 || t3.observe(this.container);
     }
     detachObserver() {
-      var t2;
-      null === (t2 = this.resizeObserver) || void 0 === t2 || t2.disconnect();
+      var t3;
+      null === (t3 = this.resizeObserver) || void 0 === t3 || t3.disconnect();
     }
     attachEvents() {
-      const { container: t2 } = this;
-      t2.addEventListener("click", this.onClick, { passive: false, capture: false }), t2.addEventListener("wheel", this.onWheel, { passive: false }), this.pointerTracker = new l(t2, { start: this.onPointerDown, move: this.onPointerMove, end: this.onPointerUp }), document.addEventListener(O, this.onMouseMove);
+      const { container: t3 } = this;
+      t3.addEventListener("click", this.onClick, { passive: false, capture: false }), t3.addEventListener("wheel", this.onWheel, { passive: false }), this.pointerTracker = new l(t3, { start: this.onPointerDown, move: this.onPointerMove, end: this.onPointerUp }), document.addEventListener(O, this.onMouseMove);
     }
     detachEvents() {
-      var t2;
-      const { container: e2 } = this;
-      e2.removeEventListener("click", this.onClick, { passive: false, capture: false }), e2.removeEventListener("wheel", this.onWheel, { passive: false }), null === (t2 = this.pointerTracker) || void 0 === t2 || t2.stop(), this.pointerTracker = null, document.removeEventListener(O, this.onMouseMove), document.removeEventListener("keydown", this.onKeydown, true), this.clickTimer && (clearTimeout(this.clickTimer), this.clickTimer = null), this.updateTimer && (clearTimeout(this.updateTimer), this.updateTimer = null);
+      var t3;
+      const { container: e3 } = this;
+      e3.removeEventListener("click", this.onClick, { passive: false, capture: false }), e3.removeEventListener("wheel", this.onWheel, { passive: false }), null === (t3 = this.pointerTracker) || void 0 === t3 || t3.stop(), this.pointerTracker = null, document.removeEventListener(O, this.onMouseMove), document.removeEventListener("keydown", this.onKeydown, true), this.clickTimer && (clearTimeout(this.clickTimer), this.clickTimer = null), this.updateTimer && (clearTimeout(this.updateTimer), this.updateTimer = null);
     }
     animate() {
       this.setTargetForce();
-      const t2 = this.friction, e2 = this.option("maxVelocity");
-      for (const i2 of v)
-        t2 ? (this.velocity[i2] *= 1 - t2, e2 && !this.isScaling && (this.velocity[i2] = Math.max(Math.min(this.velocity[i2], e2), -1 * e2)), this.current[i2] += this.velocity[i2]) : this.current[i2] = this.target[i2];
+      const t3 = this.friction, e3 = this.option("maxVelocity");
+      for (const i3 of v)
+        t3 ? (this.velocity[i3] *= 1 - t3, e3 && !this.isScaling && (this.velocity[i3] = Math.max(Math.min(this.velocity[i3], e3), -1 * e3)), this.current[i3] += this.velocity[i3]) : this.current[i3] = this.target[i3];
       this.setTransform(), this.setEdgeForce(), !this.isResting || this.isDragging ? this.rAF = requestAnimationFrame(() => this.animate()) : this.stop("current");
     }
     setTargetForce() {
-      for (const t2 of v)
-        "e" === t2 && this.isBouncingX || "f" === t2 && this.isBouncingY || (this.velocity[t2] = (1 / (1 - this.friction) - 1) * (this.target[t2] - this.current[t2]));
+      for (const t3 of v)
+        "e" === t3 && this.isBouncingX || "f" === t3 && this.isBouncingY || (this.velocity[t3] = (1 / (1 - this.friction) - 1) * (this.target[t3] - this.current[t3]));
     }
-    checkBounds(t2 = 0, e2 = 0) {
-      const { current: i2 } = this, n2 = i2.e + t2, s2 = i2.f + e2, o2 = this.getBounds(), { x: a2, y: r2 } = o2, l2 = a2.min, c2 = a2.max, h2 = r2.min, d2 = r2.max;
-      let u2 = 0, p2 = 0;
-      return l2 !== 1 / 0 && n2 < l2 ? u2 = l2 - n2 : c2 !== 1 / 0 && n2 > c2 && (u2 = c2 - n2), h2 !== 1 / 0 && s2 < h2 ? p2 = h2 - s2 : d2 !== 1 / 0 && s2 > d2 && (p2 = d2 - s2), Math.abs(u2) < 1e-4 && (u2 = 0), Math.abs(p2) < 1e-4 && (p2 = 0), Object.assign(Object.assign({}, o2), { xDiff: u2, yDiff: p2, inBounds: !u2 && !p2 });
+    checkBounds(t3 = 0, e3 = 0) {
+      const { current: i3 } = this, n3 = i3.e + t3, s3 = i3.f + e3, o3 = this.getBounds(), { x: a3, y: r3 } = o3, l3 = a3.min, c3 = a3.max, h3 = r3.min, d3 = r3.max;
+      let u3 = 0, p3 = 0;
+      return l3 !== 1 / 0 && n3 < l3 ? u3 = l3 - n3 : c3 !== 1 / 0 && n3 > c3 && (u3 = c3 - n3), h3 !== 1 / 0 && s3 < h3 ? p3 = h3 - s3 : d3 !== 1 / 0 && s3 > d3 && (p3 = d3 - s3), Math.abs(u3) < 1e-4 && (u3 = 0), Math.abs(p3) < 1e-4 && (p3 = 0), Object.assign(Object.assign({}, o3), { xDiff: u3, yDiff: p3, inBounds: !u3 && !p3 });
     }
     clampTargetBounds() {
-      const { target: t2 } = this, { x: e2, y: i2 } = this.getBounds();
-      e2.min !== 1 / 0 && (t2.e = Math.max(t2.e, e2.min)), e2.max !== 1 / 0 && (t2.e = Math.min(t2.e, e2.max)), i2.min !== 1 / 0 && (t2.f = Math.max(t2.f, i2.min)), i2.max !== 1 / 0 && (t2.f = Math.min(t2.f, i2.max));
+      const { target: t3 } = this, { x: e3, y: i3 } = this.getBounds();
+      e3.min !== 1 / 0 && (t3.e = Math.max(t3.e, e3.min)), e3.max !== 1 / 0 && (t3.e = Math.min(t3.e, e3.max)), i3.min !== 1 / 0 && (t3.f = Math.max(t3.f, i3.min)), i3.max !== 1 / 0 && (t3.f = Math.min(t3.f, i3.max));
     }
-    calculateContentDim(t2 = this.current) {
-      const { content: e2, contentRect: i2 } = this, { fitWidth: n2, fitHeight: s2, fullWidth: o2, fullHeight: a2 } = i2;
-      let r2 = o2, l2 = a2;
+    calculateContentDim(t3 = this.current) {
+      const { content: e3, contentRect: i3 } = this, { fitWidth: n3, fitHeight: s3, fullWidth: o3, fullHeight: a3 } = i3;
+      let r3 = o3, l3 = a3;
       if (this.option("zoom") || 0 !== this.angle) {
-        const i3 = !(e2 instanceof HTMLImageElement) && ("none" === window.getComputedStyle(e2).maxWidth || "none" === window.getComputedStyle(e2).maxHeight), c2 = i3 ? o2 : n2, h2 = i3 ? a2 : s2, d2 = this.getMatrix(t2), u2 = new DOMPoint(0, 0).matrixTransform(d2), p2 = new DOMPoint(0 + c2, 0).matrixTransform(d2), f2 = new DOMPoint(0 + c2, 0 + h2).matrixTransform(d2), g2 = new DOMPoint(0, 0 + h2).matrixTransform(d2), m2 = Math.abs(f2.x - u2.x), v2 = Math.abs(f2.y - u2.y), b2 = Math.abs(g2.x - p2.x), y2 = Math.abs(g2.y - p2.y);
-        r2 = Math.max(m2, b2), l2 = Math.max(v2, y2);
+        const i4 = !(e3 instanceof HTMLImageElement) && ("none" === window.getComputedStyle(e3).maxWidth || "none" === window.getComputedStyle(e3).maxHeight), c3 = i4 ? o3 : n3, h3 = i4 ? a3 : s3, d3 = this.getMatrix(t3), u3 = new DOMPoint(0, 0).matrixTransform(d3), p3 = new DOMPoint(0 + c3, 0).matrixTransform(d3), f3 = new DOMPoint(0 + c3, 0 + h3).matrixTransform(d3), g3 = new DOMPoint(0, 0 + h3).matrixTransform(d3), m3 = Math.abs(f3.x - u3.x), v3 = Math.abs(f3.y - u3.y), b3 = Math.abs(g3.x - p3.x), y3 = Math.abs(g3.y - p3.y);
+        r3 = Math.max(m3, b3), l3 = Math.max(v3, y3);
       }
-      return { contentWidth: r2, contentHeight: l2 };
+      return { contentWidth: r3, contentHeight: l3 };
     }
     setEdgeForce() {
       if (this.ignoreBounds || this.isDragging || this.panMode === O || this.targetScale < this.scale)
         return this.isBouncingX = false, void (this.isBouncingY = false);
-      const { target: t2 } = this, { x: e2, y: i2, xDiff: n2, yDiff: s2 } = this.checkBounds();
-      const o2 = this.option("maxVelocity");
-      let a2 = this.velocity.e, r2 = this.velocity.f;
-      0 !== n2 ? (this.isBouncingX = true, n2 * a2 <= 0 ? a2 += 0.14 * n2 : (a2 = 0.14 * n2, e2.min !== 1 / 0 && (this.target.e = Math.max(t2.e, e2.min)), e2.max !== 1 / 0 && (this.target.e = Math.min(t2.e, e2.max))), o2 && (a2 = Math.max(Math.min(a2, o2), -1 * o2))) : this.isBouncingX = false, 0 !== s2 ? (this.isBouncingY = true, s2 * r2 <= 0 ? r2 += 0.14 * s2 : (r2 = 0.14 * s2, i2.min !== 1 / 0 && (this.target.f = Math.max(t2.f, i2.min)), i2.max !== 1 / 0 && (this.target.f = Math.min(t2.f, i2.max))), o2 && (r2 = Math.max(Math.min(r2, o2), -1 * o2))) : this.isBouncingY = false, this.isBouncingX && (this.velocity.e = a2), this.isBouncingY && (this.velocity.f = r2);
+      const { target: t3 } = this, { x: e3, y: i3, xDiff: n3, yDiff: s3 } = this.checkBounds();
+      const o3 = this.option("maxVelocity");
+      let a3 = this.velocity.e, r3 = this.velocity.f;
+      0 !== n3 ? (this.isBouncingX = true, n3 * a3 <= 0 ? a3 += 0.14 * n3 : (a3 = 0.14 * n3, e3.min !== 1 / 0 && (this.target.e = Math.max(t3.e, e3.min)), e3.max !== 1 / 0 && (this.target.e = Math.min(t3.e, e3.max))), o3 && (a3 = Math.max(Math.min(a3, o3), -1 * o3))) : this.isBouncingX = false, 0 !== s3 ? (this.isBouncingY = true, s3 * r3 <= 0 ? r3 += 0.14 * s3 : (r3 = 0.14 * s3, i3.min !== 1 / 0 && (this.target.f = Math.max(t3.f, i3.min)), i3.max !== 1 / 0 && (this.target.f = Math.min(t3.f, i3.max))), o3 && (r3 = Math.max(Math.min(r3, o3), -1 * o3))) : this.isBouncingY = false, this.isBouncingX && (this.velocity.e = a3), this.isBouncingY && (this.velocity.f = r3);
     }
     enable() {
-      const { content: t2 } = this, e2 = new DOMMatrixReadOnly(window.getComputedStyle(t2).transform);
-      for (const t3 of v)
-        this.current[t3] = this.target[t3] = e2[t3];
+      const { content: t3 } = this, e3 = new DOMMatrixReadOnly(window.getComputedStyle(t3).transform);
+      for (const t4 of v)
+        this.current[t4] = this.target[t4] = e3[t4];
       this.updateMetrics(), this.attachObserver(), this.attachEvents(), this.state = m.Ready, this.emit("ready");
     }
-    onClick(t2) {
-      var e2;
-      "click" === t2.type && 0 === t2.detail && (this.dragOffset.x = 0, this.dragOffset.y = 0), this.isDragging && (null === (e2 = this.pointerTracker) || void 0 === e2 || e2.clear(), this.trackingPoints = [], this.startDecelAnim());
-      const i2 = t2.target;
-      if (!i2 || t2.defaultPrevented)
+    onClick(t3) {
+      var e3;
+      "click" === t3.type && 0 === t3.detail && (this.dragOffset.x = 0, this.dragOffset.y = 0), this.isDragging && (null === (e3 = this.pointerTracker) || void 0 === e3 || e3.clear(), this.trackingPoints = [], this.startDecelAnim());
+      const i3 = t3.target;
+      if (!i3 || t3.defaultPrevented)
         return;
-      if (i2.hasAttribute("disabled"))
-        return t2.preventDefault(), void t2.stopPropagation();
+      if (i3.hasAttribute("disabled"))
+        return t3.preventDefault(), void t3.stopPropagation();
       if ((() => {
-        const t3 = window.getSelection();
-        return t3 && "Range" === t3.type;
-      })() && !i2.closest("button"))
+        const t4 = window.getSelection();
+        return t4 && "Range" === t4.type;
+      })() && !i3.closest("button"))
         return;
-      const n2 = i2.closest("[data-panzoom-action]"), s2 = i2.closest("[data-panzoom-change]"), o2 = n2 || s2, a2 = o2 && E(o2) ? o2.dataset : null;
-      if (a2) {
-        const e3 = a2.panzoomChange, i3 = a2.panzoomAction;
-        if ((e3 || i3) && t2.preventDefault(), e3) {
-          let t3 = {};
+      const n3 = i3.closest("[data-panzoom-action]"), s3 = i3.closest("[data-panzoom-change]"), o3 = n3 || s3, a3 = o3 && E(o3) ? o3.dataset : null;
+      if (a3) {
+        const e4 = a3.panzoomChange, i4 = a3.panzoomAction;
+        if ((e4 || i4) && t3.preventDefault(), e4) {
+          let t4 = {};
           try {
-            t3 = JSON.parse(e3);
-          } catch (t4) {
+            t4 = JSON.parse(e4);
+          } catch (t5) {
             console && console.warn("The given data was not valid JSON");
           }
-          return void this.applyChange(t3);
+          return void this.applyChange(t4);
         }
-        if (i3)
-          return void (this[i3] && this[i3]());
+        if (i4)
+          return void (this[i4] && this[i4]());
       }
       if (Math.abs(this.dragOffset.x) > 3 || Math.abs(this.dragOffset.y) > 3)
-        return t2.preventDefault(), void t2.stopPropagation();
-      if (i2.closest("[data-fancybox]"))
+        return t3.preventDefault(), void t3.stopPropagation();
+      if (i3.closest("[data-fancybox]"))
         return;
-      const r2 = this.content.getBoundingClientRect(), l2 = this.dragStart;
-      if (l2.time && !this.canZoomOut() && (Math.abs(r2.x - l2.x) > 2 || Math.abs(r2.y - l2.y) > 2))
+      const r3 = this.content.getBoundingClientRect(), l3 = this.dragStart;
+      if (l3.time && !this.canZoomOut() && (Math.abs(r3.x - l3.x) > 2 || Math.abs(r3.y - l3.y) > 2))
         return;
       this.dragStart.time = 0;
-      const c2 = (e3) => {
-        this.option("zoom", t2) && e3 && "string" == typeof e3 && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e3) && "function" == typeof this[e3] && (t2.preventDefault(), this[e3]({ event: t2 }));
-      }, h2 = this.option("click", t2), d2 = this.option("dblClick", t2);
-      d2 ? (this.clicks++, 1 == this.clicks && (this.clickTimer = setTimeout(() => {
-        1 === this.clicks ? (this.emit("click", t2), !t2.defaultPrevented && h2 && c2(h2)) : (this.emit("dblClick", t2), t2.defaultPrevented || c2(d2)), this.clicks = 0, this.clickTimer = null;
-      }, 350))) : (this.emit("click", t2), !t2.defaultPrevented && h2 && c2(h2));
+      const c3 = (e4) => {
+        this.option("zoom", t3) && e4 && "string" == typeof e4 && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e4) && "function" == typeof this[e4] && (t3.preventDefault(), this[e4]({ event: t3 }));
+      }, h3 = this.option("click", t3), d3 = this.option("dblClick", t3);
+      d3 ? (this.clicks++, 1 == this.clicks && (this.clickTimer = setTimeout(() => {
+        1 === this.clicks ? (this.emit("click", t3), !t3.defaultPrevented && h3 && c3(h3)) : (this.emit("dblClick", t3), t3.defaultPrevented || c3(d3)), this.clicks = 0, this.clickTimer = null;
+      }, 350))) : (this.emit("click", t3), !t3.defaultPrevented && h3 && c3(h3));
     }
-    addTrackingPoint(t2) {
-      const e2 = this.trackingPoints.filter((t3) => t3.time > Date.now() - 100);
-      e2.push(t2), this.trackingPoints = e2;
+    addTrackingPoint(t3) {
+      const e3 = this.trackingPoints.filter((t4) => t4.time > Date.now() - 100);
+      e3.push(t3), this.trackingPoints = e3;
     }
-    onPointerDown(t2, e2, i2) {
-      var n2;
-      if (false === this.option("touch", t2))
+    onPointerDown(t3, e3, i3) {
+      var n3;
+      if (false === this.option("touch", t3))
         return false;
       this.pwt = 0, this.dragOffset = { x: 0, y: 0, time: 0 }, this.trackingPoints = [];
-      const s2 = this.content.getBoundingClientRect();
-      if (this.dragStart = { x: s2.x, y: s2.y, top: s2.top, left: s2.left, time: Date.now() }, this.clickTimer)
+      const s3 = this.content.getBoundingClientRect();
+      if (this.dragStart = { x: s3.x, y: s3.y, top: s3.top, left: s3.left, time: Date.now() }, this.clickTimer)
         return false;
       if (this.panMode === O && this.targetScale > 1)
-        return t2.preventDefault(), t2.stopPropagation(), false;
-      const o2 = t2.composedPath()[0];
-      if (!i2.length) {
-        if (["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO", "IFRAME"].includes(o2.nodeName) || o2.closest("[contenteditable],[data-selectable],[data-draggable],[data-clickable],[data-panzoom-change],[data-panzoom-action]"))
+        return t3.preventDefault(), t3.stopPropagation(), false;
+      const o3 = t3.composedPath()[0];
+      if (!i3.length) {
+        if (["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO", "IFRAME"].includes(o3.nodeName) || o3.closest("[contenteditable],[data-selectable],[data-draggable],[data-clickable],[data-panzoom-change],[data-panzoom-action]"))
           return false;
-        null === (n2 = window.getSelection()) || void 0 === n2 || n2.removeAllRanges();
+        null === (n3 = window.getSelection()) || void 0 === n3 || n3.removeAllRanges();
       }
-      if ("mousedown" === t2.type)
-        ["A", "BUTTON"].includes(o2.nodeName) || t2.preventDefault();
+      if ("mousedown" === t3.type)
+        ["A", "BUTTON"].includes(o3.nodeName) || t3.preventDefault();
       else if (Math.abs(this.velocity.a) > 0.3)
         return false;
-      return this.target.e = this.current.e, this.target.f = this.current.f, this.stop(), this.isDragging || (this.isDragging = true, this.addTrackingPoint(e2), this.emit("touchStart", t2)), true;
+      return this.target.e = this.current.e, this.target.f = this.current.f, this.stop(), this.isDragging || (this.isDragging = true, this.addTrackingPoint(e3), this.emit("touchStart", t3)), true;
     }
-    onPointerMove(e2, n2, s2) {
-      if (false === this.option("touch", e2))
+    onPointerMove(e3, n3, s3) {
+      if (false === this.option("touch", e3))
         return;
       if (!this.isDragging)
         return;
-      if (n2.length < 2 && this.panOnlyZoomed && t(this.targetScale) <= t(this.minScale))
+      if (n3.length < 2 && this.panOnlyZoomed && t(this.targetScale) <= t(this.minScale))
         return;
-      if (this.emit("touchMove", e2), e2.defaultPrevented)
+      if (this.emit("touchMove", e3), e3.defaultPrevented)
         return;
-      this.addTrackingPoint(n2[0]);
-      const { content: o2 } = this, a2 = h(s2[0], s2[1]), r2 = h(n2[0], n2[1]);
-      let l2 = 0, d2 = 0;
-      if (n2.length > 1) {
-        const t2 = o2.getBoundingClientRect();
-        l2 = a2.clientX - t2.left - 0.5 * t2.width, d2 = a2.clientY - t2.top - 0.5 * t2.height;
+      this.addTrackingPoint(n3[0]);
+      const { content: o3 } = this, a3 = h(s3[0], s3[1]), r3 = h(n3[0], n3[1]);
+      let l3 = 0, d3 = 0;
+      if (n3.length > 1) {
+        const t3 = o3.getBoundingClientRect();
+        l3 = a3.clientX - t3.left - 0.5 * t3.width, d3 = a3.clientY - t3.top - 0.5 * t3.height;
       }
-      const u2 = c(s2[0], s2[1]), p2 = c(n2[0], n2[1]);
-      let f2 = u2 ? p2 / u2 : 1, g2 = r2.clientX - a2.clientX, m2 = r2.clientY - a2.clientY;
-      this.dragOffset.x += g2, this.dragOffset.y += m2, this.dragOffset.time = Date.now() - this.dragStart.time;
-      let v2 = t(this.targetScale) === t(this.minScale) && this.option("lockAxis");
-      if (v2 && !this.lockedAxis)
-        if ("xy" === v2 || "y" === v2 || "touchmove" === e2.type) {
+      const u3 = c(s3[0], s3[1]), p3 = c(n3[0], n3[1]);
+      let f3 = u3 ? p3 / u3 : 1, g3 = r3.clientX - a3.clientX, m3 = r3.clientY - a3.clientY;
+      this.dragOffset.x += g3, this.dragOffset.y += m3, this.dragOffset.time = Date.now() - this.dragStart.time;
+      let v3 = t(this.targetScale) === t(this.minScale) && this.option("lockAxis");
+      if (v3 && !this.lockedAxis)
+        if ("xy" === v3 || "y" === v3 || "touchmove" === e3.type) {
           if (Math.abs(this.dragOffset.x) < 6 && Math.abs(this.dragOffset.y) < 6)
-            return void e2.preventDefault();
-          const t2 = Math.abs(180 * Math.atan2(this.dragOffset.y, this.dragOffset.x) / Math.PI);
-          this.lockedAxis = t2 > 45 && t2 < 135 ? "y" : "x", this.dragOffset.x = 0, this.dragOffset.y = 0, g2 = 0, m2 = 0;
+            return void e3.preventDefault();
+          const t3 = Math.abs(180 * Math.atan2(this.dragOffset.y, this.dragOffset.x) / Math.PI);
+          this.lockedAxis = t3 > 45 && t3 < 135 ? "y" : "x", this.dragOffset.x = 0, this.dragOffset.y = 0, g3 = 0, m3 = 0;
         } else
-          this.lockedAxis = v2;
-      if (i(e2.target, this.content) && (v2 = "x", this.dragOffset.y = 0), v2 && "xy" !== v2 && this.lockedAxis !== v2 && t(this.targetScale) === t(this.minScale))
+          this.lockedAxis = v3;
+      if (i(e3.target, this.content) && (v3 = "x", this.dragOffset.y = 0), v3 && "xy" !== v3 && this.lockedAxis !== v3 && t(this.targetScale) === t(this.minScale))
         return;
-      e2.cancelable && e2.preventDefault(), this.container.classList.add(this.cn("isDragging"));
-      const b2 = this.checkBounds(g2, m2);
-      this.option("rubberband") ? ("x" !== this.isInfinite && (b2.xDiff > 0 && g2 < 0 || b2.xDiff < 0 && g2 > 0) && (g2 *= Math.max(0, 0.5 - Math.abs(0.75 / this.contentRect.fitWidth * b2.xDiff))), "y" !== this.isInfinite && (b2.yDiff > 0 && m2 < 0 || b2.yDiff < 0 && m2 > 0) && (m2 *= Math.max(0, 0.5 - Math.abs(0.75 / this.contentRect.fitHeight * b2.yDiff)))) : (b2.xDiff && (g2 = 0), b2.yDiff && (m2 = 0));
-      const y2 = this.targetScale, w2 = this.minScale, x2 = this.maxScale;
-      y2 < 0.5 * w2 && (f2 = Math.max(f2, w2)), y2 > 1.5 * x2 && (f2 = Math.min(f2, x2)), "y" === this.lockedAxis && t(y2) === t(w2) && (g2 = 0), "x" === this.lockedAxis && t(y2) === t(w2) && (m2 = 0), this.applyChange({ originX: l2, originY: d2, panX: g2, panY: m2, scale: f2, friction: this.option("dragFriction"), ignoreBounds: true });
+      e3.cancelable && e3.preventDefault(), this.container.classList.add(this.cn("isDragging"));
+      const b3 = this.checkBounds(g3, m3);
+      this.option("rubberband") ? ("x" !== this.isInfinite && (b3.xDiff > 0 && g3 < 0 || b3.xDiff < 0 && g3 > 0) && (g3 *= Math.max(0, 0.5 - Math.abs(0.75 / this.contentRect.fitWidth * b3.xDiff))), "y" !== this.isInfinite && (b3.yDiff > 0 && m3 < 0 || b3.yDiff < 0 && m3 > 0) && (m3 *= Math.max(0, 0.5 - Math.abs(0.75 / this.contentRect.fitHeight * b3.yDiff)))) : (b3.xDiff && (g3 = 0), b3.yDiff && (m3 = 0));
+      const y3 = this.targetScale, w3 = this.minScale, x3 = this.maxScale;
+      y3 < 0.5 * w3 && (f3 = Math.max(f3, w3)), y3 > 1.5 * x3 && (f3 = Math.min(f3, x3)), "y" === this.lockedAxis && t(y3) === t(w3) && (g3 = 0), "x" === this.lockedAxis && t(y3) === t(w3) && (m3 = 0), this.applyChange({ originX: l3, originY: d3, panX: g3, panY: m3, scale: f3, friction: this.option("dragFriction"), ignoreBounds: true });
     }
-    onPointerUp(t2, e2, n2) {
-      if (n2.length)
+    onPointerUp(t3, e3, n3) {
+      if (n3.length)
         return this.dragOffset.x = 0, this.dragOffset.y = 0, void (this.trackingPoints = []);
-      this.container.classList.remove(this.cn("isDragging")), this.isDragging && (this.addTrackingPoint(e2), this.panOnlyZoomed && this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1 && (this.trackingPoints = []), i(t2.target, this.content) && "y" === this.lockedAxis && (this.trackingPoints = []), this.emit("touchEnd", t2), this.isDragging = false, this.lockedAxis = false, this.state !== m.Destroy && (t2.defaultPrevented || this.startDecelAnim()));
+      this.container.classList.remove(this.cn("isDragging")), this.isDragging && (this.addTrackingPoint(e3), this.panOnlyZoomed && this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1 && (this.trackingPoints = []), i(t3.target, this.content) && "y" === this.lockedAxis && (this.trackingPoints = []), this.emit("touchEnd", t3), this.isDragging = false, this.lockedAxis = false, this.state !== m.Destroy && (t3.defaultPrevented || this.startDecelAnim()));
     }
     startDecelAnim() {
-      var e2;
-      const i2 = this.isScaling;
+      var e3;
+      const i3 = this.isScaling;
       this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.isBouncingX = false, this.isBouncingY = false;
-      for (const t2 of v)
-        this.velocity[t2] = 0;
+      for (const t3 of v)
+        this.velocity[t3] = 0;
       this.target.e = this.current.e, this.target.f = this.current.f, S(this.container, "is-scaling"), S(this.container, "is-animating"), this.isTicking = false;
-      const { trackingPoints: n2 } = this, s2 = n2[0], o2 = n2[n2.length - 1];
-      let a2 = 0, r2 = 0, l2 = 0;
-      o2 && s2 && (a2 = o2.clientX - s2.clientX, r2 = o2.clientY - s2.clientY, l2 = o2.time - s2.time);
-      const c2 = (null === (e2 = window.visualViewport) || void 0 === e2 ? void 0 : e2.scale) || 1;
-      1 !== c2 && (a2 *= c2, r2 *= c2);
-      let h2 = 0, d2 = 0, u2 = 0, p2 = 0, f2 = this.option("decelFriction");
-      const g2 = this.targetScale;
-      if (l2 > 0) {
-        u2 = Math.abs(a2) > 3 ? a2 / (l2 / 30) : 0, p2 = Math.abs(r2) > 3 ? r2 / (l2 / 30) : 0;
-        const t2 = this.option("maxVelocity");
-        t2 && (u2 = Math.max(Math.min(u2, t2), -1 * t2), p2 = Math.max(Math.min(p2, t2), -1 * t2));
+      const { trackingPoints: n3 } = this, s3 = n3[0], o3 = n3[n3.length - 1];
+      let a3 = 0, r3 = 0, l3 = 0;
+      o3 && s3 && (a3 = o3.clientX - s3.clientX, r3 = o3.clientY - s3.clientY, l3 = o3.time - s3.time);
+      const c3 = (null === (e3 = window.visualViewport) || void 0 === e3 ? void 0 : e3.scale) || 1;
+      1 !== c3 && (a3 *= c3, r3 *= c3);
+      let h3 = 0, d3 = 0, u3 = 0, p3 = 0, f3 = this.option("decelFriction");
+      const g3 = this.targetScale;
+      if (l3 > 0) {
+        u3 = Math.abs(a3) > 3 ? a3 / (l3 / 30) : 0, p3 = Math.abs(r3) > 3 ? r3 / (l3 / 30) : 0;
+        const t3 = this.option("maxVelocity");
+        t3 && (u3 = Math.max(Math.min(u3, t3), -1 * t3), p3 = Math.max(Math.min(p3, t3), -1 * t3));
       }
-      u2 && (h2 = u2 / (1 / (1 - f2) - 1)), p2 && (d2 = p2 / (1 / (1 - f2) - 1)), ("y" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "y" === this.lockedAxis && t(g2) === this.minScale) && (h2 = u2 = 0), ("x" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "x" === this.lockedAxis && t(g2) === this.minScale) && (d2 = p2 = 0);
-      const m2 = this.dragOffset.x, b2 = this.dragOffset.y, y2 = this.option("dragMinThreshold") || 0;
-      Math.abs(m2) < y2 && Math.abs(b2) < y2 && (h2 = d2 = 0, u2 = p2 = 0), (this.option("zoom") && (g2 < this.minScale - 1e-5 || g2 > this.maxScale + 1e-5) || i2 && !h2 && !d2) && (f2 = 0.35), this.applyChange({ panX: h2, panY: d2, friction: f2 }), this.emit("decel", u2, p2, m2, b2);
+      u3 && (h3 = u3 / (1 / (1 - f3) - 1)), p3 && (d3 = p3 / (1 / (1 - f3) - 1)), ("y" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "y" === this.lockedAxis && t(g3) === this.minScale) && (h3 = u3 = 0), ("x" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "x" === this.lockedAxis && t(g3) === this.minScale) && (d3 = p3 = 0);
+      const m3 = this.dragOffset.x, b3 = this.dragOffset.y, y3 = this.option("dragMinThreshold") || 0;
+      Math.abs(m3) < y3 && Math.abs(b3) < y3 && (h3 = d3 = 0, u3 = p3 = 0), (this.option("zoom") && (g3 < this.minScale - 1e-5 || g3 > this.maxScale + 1e-5) || i3 && !h3 && !d3) && (f3 = 0.35), this.applyChange({ panX: h3, panY: d3, friction: f3 }), this.emit("decel", u3, p3, m3, b3);
     }
-    onWheel(t2) {
-      var e2 = [-t2.deltaX || 0, -t2.deltaY || 0, -t2.detail || 0].reduce(function(t3, e3) {
-        return Math.abs(e3) > Math.abs(t3) ? e3 : t3;
+    onWheel(t3) {
+      var e3 = [-t3.deltaX || 0, -t3.deltaY || 0, -t3.detail || 0].reduce(function(t4, e4) {
+        return Math.abs(e4) > Math.abs(t4) ? e4 : t4;
       });
-      const i2 = Math.max(-1, Math.min(1, e2));
-      if (this.emit("wheel", t2, i2), this.panMode === O)
+      const i3 = Math.max(-1, Math.min(1, e3));
+      if (this.emit("wheel", t3, i3), this.panMode === O)
         return;
-      if (t2.defaultPrevented)
+      if (t3.defaultPrevented)
         return;
-      const n2 = this.option("wheel");
-      "pan" === n2 ? (t2.preventDefault(), this.panOnlyZoomed && !this.canZoomOut() || this.applyChange({ panX: 2 * -t2.deltaX, panY: 2 * -t2.deltaY, bounce: false })) : "zoom" === n2 && false !== this.option("zoom") && this.zoomWithWheel(t2);
+      const n3 = this.option("wheel");
+      "pan" === n3 ? (t3.preventDefault(), this.panOnlyZoomed && !this.canZoomOut() || this.applyChange({ panX: 2 * -t3.deltaX, panY: 2 * -t3.deltaY, bounce: false })) : "zoom" === n3 && false !== this.option("zoom") && this.zoomWithWheel(t3);
     }
-    onMouseMove(t2) {
-      this.panWithMouse(t2);
+    onMouseMove(t3) {
+      this.panWithMouse(t3);
     }
-    onKeydown(t2) {
-      "Escape" === t2.key && this.toggleFS();
+    onKeydown(t3) {
+      "Escape" === t3.key && this.toggleFS();
     }
     onResize() {
       this.updateMetrics(), this.checkBounds().inBounds || this.requestTick();
     }
     setTransform() {
       this.emit("beforeTransform");
-      const { current: e2, target: i2, content: n2, contentRect: s2 } = this, o2 = Object.assign({}, C);
-      for (const n3 of v) {
-        const s3 = "e" == n3 || "f" === n3 ? M : T;
-        o2[n3] = t(e2[n3], s3), Math.abs(i2[n3] - e2[n3]) < ("e" == n3 || "f" === n3 ? 0.51 : 1e-3) && (e2[n3] = i2[n3]);
+      const { current: e3, target: i3, content: n3, contentRect: s3 } = this, o3 = Object.assign({}, C);
+      for (const n4 of v) {
+        const s4 = "e" == n4 || "f" === n4 ? M : T;
+        o3[n4] = t(e3[n4], s4), Math.abs(i3[n4] - e3[n4]) < ("e" == n4 || "f" === n4 ? 0.51 : 1e-3) && (e3[n4] = i3[n4]);
       }
-      let { a: a2, b: r2, c: l2, d: c2, e: h2, f: d2 } = o2, u2 = `matrix(${a2}, ${r2}, ${l2}, ${c2}, ${h2}, ${d2})`, p2 = n2.parentElement instanceof HTMLPictureElement ? n2.parentElement : n2;
-      if (this.option("transformParent") && (p2 = p2.parentElement || p2), p2.style.transform === u2)
+      let { a: a3, b: r3, c: l3, d: c3, e: h3, f: d3 } = o3, u3 = `matrix(${a3}, ${r3}, ${l3}, ${c3}, ${h3}, ${d3})`, p3 = n3.parentElement instanceof HTMLPictureElement ? n3.parentElement : n3;
+      if (this.option("transformParent") && (p3 = p3.parentElement || p3), p3.style.transform === u3)
         return;
-      p2.style.transform = u2;
-      const { contentWidth: f2, contentHeight: g2 } = this.calculateContentDim();
-      s2.width = f2, s2.height = g2, this.emit("afterTransform");
+      p3.style.transform = u3;
+      const { contentWidth: f3, contentHeight: g3 } = this.calculateContentDim();
+      s3.width = f3, s3.height = g3, this.emit("afterTransform");
     }
-    updateMetrics(e2 = false) {
-      var i2;
+    updateMetrics(e3 = false) {
+      var i3;
       if (!this || this.state === m.Destroy)
         return;
       if (this.isContentLoading)
         return;
-      const n2 = Math.max(1, (null === (i2 = window.visualViewport) || void 0 === i2 ? void 0 : i2.scale) || 1), { container: s2, content: o2 } = this, a2 = o2 instanceof HTMLImageElement, r2 = s2.getBoundingClientRect(), l2 = getComputedStyle(this.container);
-      let c2 = r2.width * n2, h2 = r2.height * n2;
-      const d2 = parseFloat(l2.paddingTop) + parseFloat(l2.paddingBottom), u2 = c2 - (parseFloat(l2.paddingLeft) + parseFloat(l2.paddingRight)), p2 = h2 - d2;
-      this.containerRect = { width: c2, height: h2, innerWidth: u2, innerHeight: p2 };
-      let f2 = this.option("width") || "auto", g2 = this.option("height") || "auto";
-      "auto" === f2 && (f2 = parseFloat(o2.dataset.width || "") || ((t2) => {
-        let e3 = 0;
-        return e3 = t2 instanceof HTMLImageElement ? t2.naturalWidth : t2 instanceof SVGElement ? t2.width.baseVal.value : Math.max(t2.offsetWidth, t2.scrollWidth), e3 || 0;
-      })(o2)), "auto" === g2 && (g2 = parseFloat(o2.dataset.height || "") || ((t2) => {
-        let e3 = 0;
-        return e3 = t2 instanceof HTMLImageElement ? t2.naturalHeight : t2 instanceof SVGElement ? t2.height.baseVal.value : Math.max(t2.offsetHeight, t2.scrollHeight), e3 || 0;
-      })(o2));
-      let v2 = o2.parentElement instanceof HTMLPictureElement ? o2.parentElement : o2;
-      this.option("transformParent") && (v2 = v2.parentElement || v2);
-      const b2 = v2.getAttribute("style") || "";
-      v2.style.setProperty("transform", "none", "important"), a2 && (v2.style.width = "", v2.style.height = ""), v2.offsetHeight;
-      const y2 = o2.getBoundingClientRect();
-      let w2 = y2.width * n2, x2 = y2.height * n2, E2 = 0, S2 = 0;
-      a2 && (Math.abs(f2 - w2) > 1 || Math.abs(g2 - x2) > 1) && ({ width: w2, height: x2, top: E2, left: S2 } = ((t2, e3, i3, n3) => {
-        const s3 = i3 / n3;
-        return s3 > t2 / e3 ? (i3 = t2, n3 = t2 / s3) : (i3 = e3 * s3, n3 = e3), { width: i3, height: n3, top: 0.5 * (e3 - n3), left: 0.5 * (t2 - i3) };
-      })(w2, x2, f2, g2)), this.contentRect = Object.assign(Object.assign({}, this.contentRect), { top: y2.top - r2.top + E2, bottom: r2.bottom - y2.bottom + E2, left: y2.left - r2.left + S2, right: r2.right - y2.right + S2, fitWidth: w2, fitHeight: x2, width: w2, height: x2, fullWidth: f2, fullHeight: g2 }), v2.style.cssText = b2, a2 && (v2.style.width = `${w2}px`, v2.style.height = `${x2}px`), this.setTransform(), true !== e2 && this.emit("refresh"), this.ignoreBounds || (t(this.targetScale) < t(this.minScale) ? this.zoomTo(this.minScale, { friction: 0 }) : this.targetScale > this.maxScale ? this.zoomTo(this.maxScale, { friction: 0 }) : this.state === m.Init || this.checkBounds().inBounds || this.requestTick()), this.updateControls();
+      const n3 = Math.max(1, (null === (i3 = window.visualViewport) || void 0 === i3 ? void 0 : i3.scale) || 1), { container: s3, content: o3 } = this, a3 = o3 instanceof HTMLImageElement, r3 = s3.getBoundingClientRect(), l3 = getComputedStyle(this.container);
+      let c3 = r3.width * n3, h3 = r3.height * n3;
+      const d3 = parseFloat(l3.paddingTop) + parseFloat(l3.paddingBottom), u3 = c3 - (parseFloat(l3.paddingLeft) + parseFloat(l3.paddingRight)), p3 = h3 - d3;
+      this.containerRect = { width: c3, height: h3, innerWidth: u3, innerHeight: p3 };
+      let f3 = this.option("width") || "auto", g3 = this.option("height") || "auto";
+      "auto" === f3 && (f3 = parseFloat(o3.dataset.width || "") || ((t3) => {
+        let e4 = 0;
+        return e4 = t3 instanceof HTMLImageElement ? t3.naturalWidth : t3 instanceof SVGElement ? t3.width.baseVal.value : Math.max(t3.offsetWidth, t3.scrollWidth), e4 || 0;
+      })(o3)), "auto" === g3 && (g3 = parseFloat(o3.dataset.height || "") || ((t3) => {
+        let e4 = 0;
+        return e4 = t3 instanceof HTMLImageElement ? t3.naturalHeight : t3 instanceof SVGElement ? t3.height.baseVal.value : Math.max(t3.offsetHeight, t3.scrollHeight), e4 || 0;
+      })(o3));
+      let v3 = o3.parentElement instanceof HTMLPictureElement ? o3.parentElement : o3;
+      this.option("transformParent") && (v3 = v3.parentElement || v3);
+      const b3 = v3.getAttribute("style") || "";
+      v3.style.setProperty("transform", "none", "important"), a3 && (v3.style.width = "", v3.style.height = ""), v3.offsetHeight;
+      const y3 = o3.getBoundingClientRect();
+      let w3 = y3.width * n3, x3 = y3.height * n3, E3 = 0, S3 = 0;
+      a3 && (Math.abs(f3 - w3) > 1 || Math.abs(g3 - x3) > 1) && ({ width: w3, height: x3, top: E3, left: S3 } = ((t3, e4, i4, n4) => {
+        const s4 = i4 / n4;
+        return s4 > t3 / e4 ? (i4 = t3, n4 = t3 / s4) : (i4 = e4 * s4, n4 = e4), { width: i4, height: n4, top: 0.5 * (e4 - n4), left: 0.5 * (t3 - i4) };
+      })(w3, x3, f3, g3)), this.contentRect = Object.assign(Object.assign({}, this.contentRect), { top: y3.top - r3.top + E3, bottom: r3.bottom - y3.bottom + E3, left: y3.left - r3.left + S3, right: r3.right - y3.right + S3, fitWidth: w3, fitHeight: x3, width: w3, height: x3, fullWidth: f3, fullHeight: g3 }), v3.style.cssText = b3, a3 && (v3.style.width = `${w3}px`, v3.style.height = `${x3}px`), this.setTransform(), true !== e3 && this.emit("refresh"), this.ignoreBounds || (t(this.targetScale) < t(this.minScale) ? this.zoomTo(this.minScale, { friction: 0 }) : this.targetScale > this.maxScale ? this.zoomTo(this.maxScale, { friction: 0 }) : this.state === m.Init || this.checkBounds().inBounds || this.requestTick()), this.updateControls();
     }
     calculateBounds() {
-      const { contentWidth: e2, contentHeight: i2 } = this.calculateContentDim(this.target), { targetScale: n2, lockedAxis: s2 } = this, { fitWidth: o2, fitHeight: a2 } = this.contentRect;
-      let r2 = 0, l2 = 0, c2 = 0, h2 = 0;
-      const d2 = this.option("infinite");
-      if (true === d2 || s2 && d2 === s2)
-        r2 = -1 / 0, c2 = 1 / 0, l2 = -1 / 0, h2 = 1 / 0;
+      const { contentWidth: e3, contentHeight: i3 } = this.calculateContentDim(this.target), { targetScale: n3, lockedAxis: s3 } = this, { fitWidth: o3, fitHeight: a3 } = this.contentRect;
+      let r3 = 0, l3 = 0, c3 = 0, h3 = 0;
+      const d3 = this.option("infinite");
+      if (true === d3 || s3 && d3 === s3)
+        r3 = -1 / 0, c3 = 1 / 0, l3 = -1 / 0, h3 = 1 / 0;
       else {
-        let { containerRect: s3, contentRect: d3 } = this, u2 = t(o2 * n2, M), p2 = t(a2 * n2, M), { innerWidth: f2, innerHeight: g2 } = s3;
-        if (s3.width === u2 && (f2 = s3.width), s3.width === p2 && (g2 = s3.height), e2 > f2) {
-          c2 = 0.5 * (e2 - f2), r2 = -1 * c2;
-          let t2 = 0.5 * (d3.right - d3.left);
-          r2 += t2, c2 += t2;
+        let { containerRect: s4, contentRect: d4 } = this, u3 = t(o3 * n3, M), p3 = t(a3 * n3, M), { innerWidth: f3, innerHeight: g3 } = s4;
+        if (s4.width === u3 && (f3 = s4.width), s4.width === p3 && (g3 = s4.height), e3 > f3) {
+          c3 = 0.5 * (e3 - f3), r3 = -1 * c3;
+          let t3 = 0.5 * (d4.right - d4.left);
+          r3 += t3, c3 += t3;
         }
-        if (o2 > f2 && e2 < f2 && (r2 -= 0.5 * (o2 - f2), c2 -= 0.5 * (o2 - f2)), i2 > g2) {
-          h2 = 0.5 * (i2 - g2), l2 = -1 * h2;
-          let t2 = 0.5 * (d3.bottom - d3.top);
-          l2 += t2, h2 += t2;
+        if (o3 > f3 && e3 < f3 && (r3 -= 0.5 * (o3 - f3), c3 -= 0.5 * (o3 - f3)), i3 > g3) {
+          h3 = 0.5 * (i3 - g3), l3 = -1 * h3;
+          let t3 = 0.5 * (d4.bottom - d4.top);
+          l3 += t3, h3 += t3;
         }
-        a2 > g2 && i2 < g2 && (r2 -= 0.5 * (a2 - g2), c2 -= 0.5 * (a2 - g2));
+        a3 > g3 && i3 < g3 && (r3 -= 0.5 * (a3 - g3), c3 -= 0.5 * (a3 - g3));
       }
-      return { x: { min: r2, max: c2 }, y: { min: l2, max: h2 } };
+      return { x: { min: r3, max: c3 }, y: { min: l3, max: h3 } };
     }
     getBounds() {
-      const t2 = this.option("bounds");
-      return "auto" !== t2 ? t2 : this.calculateBounds();
+      const t3 = this.option("bounds");
+      return "auto" !== t3 ? t3 : this.calculateBounds();
     }
     updateControls() {
-      const e2 = this, i2 = e2.container, { panMode: n2, contentRect: s2, targetScale: a2, minScale: r2 } = e2;
-      let l2 = r2, c2 = e2.option("click") || false;
-      c2 && (l2 = e2.getNextScale(c2));
-      let h2 = e2.canZoomIn(), d2 = e2.canZoomOut(), u2 = n2 === A && !!this.option("touch"), p2 = d2 && u2;
-      if (u2 && (t(a2) < t(r2) && !this.panOnlyZoomed && (p2 = true), (t(s2.width, 1) > t(s2.fitWidth, 1) || t(s2.height, 1) > t(s2.fitHeight, 1)) && (p2 = true)), t(s2.width * a2, 1) < t(s2.fitWidth, 1) && (p2 = false), n2 === O && (p2 = false), o(i2, this.cn("isDraggable"), p2), !this.option("zoom"))
+      const e3 = this, i3 = e3.container, { panMode: n3, contentRect: s3, targetScale: a3, minScale: r3 } = e3;
+      let l3 = r3, c3 = e3.option("click") || false;
+      c3 && (l3 = e3.getNextScale(c3));
+      let h3 = e3.canZoomIn(), d3 = e3.canZoomOut(), u3 = n3 === A && !!this.option("touch"), p3 = d3 && u3;
+      if (u3 && (t(a3) < t(r3) && !this.panOnlyZoomed && (p3 = true), (t(s3.width, 1) > t(s3.fitWidth, 1) || t(s3.height, 1) > t(s3.fitHeight, 1)) && (p3 = true)), t(s3.width * a3, 1) < t(s3.fitWidth, 1) && (p3 = false), n3 === O && (p3 = false), o(i3, this.cn("isDraggable"), p3), !this.option("zoom"))
         return;
-      let f2 = h2 && t(l2) > t(a2), g2 = !f2 && !p2 && d2 && t(l2) < t(a2);
-      o(i2, this.cn("canZoomIn"), f2), o(i2, this.cn("canZoomOut"), g2);
-      for (const t2 of i2.querySelectorAll("[data-panzoom-action]")) {
-        let e3 = false, i3 = false;
-        switch (t2.dataset.panzoomAction) {
+      let f3 = h3 && t(l3) > t(a3), g3 = !f3 && !p3 && d3 && t(l3) < t(a3);
+      o(i3, this.cn("canZoomIn"), f3), o(i3, this.cn("canZoomOut"), g3);
+      for (const t3 of i3.querySelectorAll("[data-panzoom-action]")) {
+        let e4 = false, i4 = false;
+        switch (t3.dataset.panzoomAction) {
           case "zoomIn":
-            h2 ? e3 = true : i3 = true;
+            h3 ? e4 = true : i4 = true;
             break;
           case "zoomOut":
-            d2 ? e3 = true : i3 = true;
+            d3 ? e4 = true : i4 = true;
             break;
           case "toggleZoom":
           case "iterateZoom":
-            h2 || d2 ? e3 = true : i3 = true;
-            const n3 = t2.querySelector("g");
-            n3 && (n3.style.display = h2 ? "" : "none");
+            h3 || d3 ? e4 = true : i4 = true;
+            const n4 = t3.querySelector("g");
+            n4 && (n4.style.display = h3 ? "" : "none");
         }
-        e3 ? (t2.removeAttribute("disabled"), t2.removeAttribute("tabindex")) : i3 && (t2.setAttribute("disabled", ""), t2.setAttribute("tabindex", "-1"));
+        e4 ? (t3.removeAttribute("disabled"), t3.removeAttribute("tabindex")) : i4 && (t3.setAttribute("disabled", ""), t3.setAttribute("tabindex", "-1"));
       }
     }
-    panTo({ x: t2 = this.target.e, y: e2 = this.target.f, scale: i2 = this.targetScale, friction: n2 = this.option("friction"), angle: s2 = 0, originX: o2 = 0, originY: a2 = 0, flipX: r2 = false, flipY: l2 = false, ignoreBounds: c2 = false }) {
-      this.state !== m.Destroy && this.applyChange({ panX: t2 - this.target.e, panY: e2 - this.target.f, scale: i2 / this.targetScale, angle: s2, originX: o2, originY: a2, friction: n2, flipX: r2, flipY: l2, ignoreBounds: c2 });
+    panTo({ x: t3 = this.target.e, y: e3 = this.target.f, scale: i3 = this.targetScale, friction: n3 = this.option("friction"), angle: s3 = 0, originX: o3 = 0, originY: a3 = 0, flipX: r3 = false, flipY: l3 = false, ignoreBounds: c3 = false }) {
+      this.state !== m.Destroy && this.applyChange({ panX: t3 - this.target.e, panY: e3 - this.target.f, scale: i3 / this.targetScale, angle: s3, originX: o3, originY: a3, friction: n3, flipX: r3, flipY: l3, ignoreBounds: c3 });
     }
-    applyChange({ panX: e2 = 0, panY: i2 = 0, scale: n2 = 1, angle: s2 = 0, originX: o2 = -this.current.e, originY: a2 = -this.current.f, friction: r2 = this.option("friction"), flipX: l2 = false, flipY: c2 = false, ignoreBounds: h2 = false, bounce: d2 = this.option("bounce") }) {
-      const u2 = this.state;
-      if (u2 === m.Destroy)
+    applyChange({ panX: e3 = 0, panY: i3 = 0, scale: n3 = 1, angle: s3 = 0, originX: o3 = -this.current.e, originY: a3 = -this.current.f, friction: r3 = this.option("friction"), flipX: l3 = false, flipY: c3 = false, ignoreBounds: h3 = false, bounce: d3 = this.option("bounce") }) {
+      const u3 = this.state;
+      if (u3 === m.Destroy)
         return;
-      this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.friction = r2 || 0, this.ignoreBounds = h2;
-      const { current: p2 } = this, f2 = p2.e, g2 = p2.f, b2 = this.getMatrix(this.target);
-      let y2 = new DOMMatrix().translate(f2, g2).translate(o2, a2).translate(e2, i2);
+      this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.friction = r3 || 0, this.ignoreBounds = h3;
+      const { current: p3 } = this, f3 = p3.e, g3 = p3.f, b3 = this.getMatrix(this.target);
+      let y3 = new DOMMatrix().translate(f3, g3).translate(o3, a3).translate(e3, i3);
       if (this.option("zoom")) {
-        if (!h2) {
-          const t2 = this.targetScale, e3 = this.minScale, i3 = this.maxScale;
-          t2 * n2 < e3 && (n2 = e3 / t2), t2 * n2 > i3 && (n2 = i3 / t2);
+        if (!h3) {
+          const t3 = this.targetScale, e4 = this.minScale, i4 = this.maxScale;
+          t3 * n3 < e4 && (n3 = e4 / t3), t3 * n3 > i4 && (n3 = i4 / t3);
         }
-        y2 = y2.scale(n2);
+        y3 = y3.scale(n3);
       }
-      y2 = y2.translate(-o2, -a2).translate(-f2, -g2).multiply(b2), s2 && (y2 = y2.rotate(s2)), l2 && (y2 = y2.scale(-1, 1)), c2 && (y2 = y2.scale(1, -1));
-      for (const e3 of v)
-        "e" !== e3 && "f" !== e3 && (y2[e3] > this.minScale + 1e-5 || y2[e3] < this.minScale - 1e-5) ? this.target[e3] = y2[e3] : this.target[e3] = t(y2[e3], M);
-      (this.targetScale < this.scale || Math.abs(n2 - 1) > 0.1 || this.panMode === O || false === d2) && !h2 && this.clampTargetBounds(), u2 === m.Init ? this.animate() : this.isResting || (this.state = m.Panning, this.requestTick());
+      y3 = y3.translate(-o3, -a3).translate(-f3, -g3).multiply(b3), s3 && (y3 = y3.rotate(s3)), l3 && (y3 = y3.scale(-1, 1)), c3 && (y3 = y3.scale(1, -1));
+      for (const e4 of v)
+        "e" !== e4 && "f" !== e4 && (y3[e4] > this.minScale + 1e-5 || y3[e4] < this.minScale - 1e-5) ? this.target[e4] = y3[e4] : this.target[e4] = t(y3[e4], M);
+      (this.targetScale < this.scale || Math.abs(n3 - 1) > 0.1 || this.panMode === O || false === d3) && !h3 && this.clampTargetBounds(), u3 === m.Init ? this.animate() : this.isResting || (this.state = m.Panning, this.requestTick());
     }
-    stop(t2 = false) {
+    stop(t3 = false) {
       if (this.state === m.Init || this.state === m.Destroy)
         return;
-      const e2 = this.isTicking;
+      const e3 = this.isTicking;
       this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.isBouncingX = false, this.isBouncingY = false;
-      for (const e3 of v)
-        this.velocity[e3] = 0, "current" === t2 ? this.current[e3] = this.target[e3] : "target" === t2 && (this.target[e3] = this.current[e3]);
-      this.setTransform(), S(this.container, "is-scaling"), S(this.container, "is-animating"), this.isTicking = false, this.state = m.Ready, e2 && (this.emit("endAnimation"), this.updateControls());
+      for (const e4 of v)
+        this.velocity[e4] = 0, "current" === t3 ? this.current[e4] = this.target[e4] : "target" === t3 && (this.target[e4] = this.current[e4]);
+      this.setTransform(), S(this.container, "is-scaling"), S(this.container, "is-animating"), this.isTicking = false, this.state = m.Ready, e3 && (this.emit("endAnimation"), this.updateControls());
     }
     requestTick() {
       this.isTicking || (this.emit("startAnimation"), this.updateControls(), P(this.container, "is-animating"), this.isScaling && P(this.container, "is-scaling")), this.isTicking = true, this.rAF || (this.rAF = requestAnimationFrame(() => this.animate()));
     }
-    panWithMouse(e2, i2 = this.option("mouseMoveFriction")) {
-      if (this.pmme = e2, this.panMode !== O || !e2)
+    panWithMouse(e3, i3 = this.option("mouseMoveFriction")) {
+      if (this.pmme = e3, this.panMode !== O || !e3)
         return;
       if (t(this.targetScale) <= t(this.minScale))
         return;
-      this.emit("mouseMove", e2);
-      const { container: n2, containerRect: s2, contentRect: o2 } = this, a2 = s2.width, r2 = s2.height, l2 = n2.getBoundingClientRect(), c2 = (e2.clientX || 0) - l2.left, h2 = (e2.clientY || 0) - l2.top;
-      let { contentWidth: d2, contentHeight: u2 } = this.calculateContentDim(this.target);
-      const p2 = this.option("mouseMoveFactor");
-      p2 > 1 && (d2 !== a2 && (d2 *= p2), u2 !== r2 && (u2 *= p2));
-      let f2 = 0.5 * (d2 - a2) - c2 / a2 * 100 / 100 * (d2 - a2);
-      f2 += 0.5 * (o2.right - o2.left);
-      let g2 = 0.5 * (u2 - r2) - h2 / r2 * 100 / 100 * (u2 - r2);
-      g2 += 0.5 * (o2.bottom - o2.top), this.applyChange({ panX: f2 - this.target.e, panY: g2 - this.target.f, friction: i2 });
+      this.emit("mouseMove", e3);
+      const { container: n3, containerRect: s3, contentRect: o3 } = this, a3 = s3.width, r3 = s3.height, l3 = n3.getBoundingClientRect(), c3 = (e3.clientX || 0) - l3.left, h3 = (e3.clientY || 0) - l3.top;
+      let { contentWidth: d3, contentHeight: u3 } = this.calculateContentDim(this.target);
+      const p3 = this.option("mouseMoveFactor");
+      p3 > 1 && (d3 !== a3 && (d3 *= p3), u3 !== r3 && (u3 *= p3));
+      let f3 = 0.5 * (d3 - a3) - c3 / a3 * 100 / 100 * (d3 - a3);
+      f3 += 0.5 * (o3.right - o3.left);
+      let g3 = 0.5 * (u3 - r3) - h3 / r3 * 100 / 100 * (u3 - r3);
+      g3 += 0.5 * (o3.bottom - o3.top), this.applyChange({ panX: f3 - this.target.e, panY: g3 - this.target.f, friction: i3 });
     }
-    zoomWithWheel(e2) {
+    zoomWithWheel(e3) {
       if (this.state === m.Destroy || this.state === m.Init)
         return;
-      const i2 = Date.now();
-      if (i2 - this.pwt < 45)
-        return void e2.preventDefault();
-      this.pwt = i2;
-      var n2 = [-e2.deltaX || 0, -e2.deltaY || 0, -e2.detail || 0].reduce(function(t2, e3) {
-        return Math.abs(e3) > Math.abs(t2) ? e3 : t2;
+      const i3 = Date.now();
+      if (i3 - this.pwt < 45)
+        return void e3.preventDefault();
+      this.pwt = i3;
+      var n3 = [-e3.deltaX || 0, -e3.deltaY || 0, -e3.detail || 0].reduce(function(t3, e4) {
+        return Math.abs(e4) > Math.abs(t3) ? e4 : t3;
       });
-      const s2 = Math.max(-1, Math.min(1, n2)), { targetScale: o2, maxScale: a2, minScale: r2 } = this;
-      let l2 = o2 * (100 + 45 * s2) / 100;
-      t(l2) < t(r2) && t(o2) <= t(r2) ? (this.cwd += Math.abs(s2), l2 = r2) : t(l2) > t(a2) && t(o2) >= t(a2) ? (this.cwd += Math.abs(s2), l2 = a2) : (this.cwd = 0, l2 = Math.max(Math.min(l2, a2), r2)), this.cwd > this.option("wheelLimit") || (e2.preventDefault(), t(l2) !== t(o2) && this.zoomTo(l2, { event: e2 }));
+      const s3 = Math.max(-1, Math.min(1, n3)), { targetScale: o3, maxScale: a3, minScale: r3 } = this;
+      let l3 = o3 * (100 + 45 * s3) / 100;
+      t(l3) < t(r3) && t(o3) <= t(r3) ? (this.cwd += Math.abs(s3), l3 = r3) : t(l3) > t(a3) && t(o3) >= t(a3) ? (this.cwd += Math.abs(s3), l3 = a3) : (this.cwd = 0, l3 = Math.max(Math.min(l3, a3), r3)), this.cwd > this.option("wheelLimit") || (e3.preventDefault(), t(l3) !== t(o3) && this.zoomTo(l3, { event: e3 }));
     }
     canZoomIn() {
       return this.option("zoom") && (t(this.contentRect.width, 1) < t(this.contentRect.fitWidth, 1) || t(this.targetScale) < t(this.maxScale));
@@ -14160,46 +14160,46 @@
     canZoomOut() {
       return this.option("zoom") && t(this.targetScale) > t(this.minScale);
     }
-    zoomIn(t2 = 1.25, e2) {
-      this.zoomTo(this.targetScale * t2, e2);
+    zoomIn(t3 = 1.25, e3) {
+      this.zoomTo(this.targetScale * t3, e3);
     }
-    zoomOut(t2 = 0.8, e2) {
-      this.zoomTo(this.targetScale * t2, e2);
+    zoomOut(t3 = 0.8, e3) {
+      this.zoomTo(this.targetScale * t3, e3);
     }
-    zoomToFit(t2) {
-      this.zoomTo("fit", t2);
+    zoomToFit(t3) {
+      this.zoomTo("fit", t3);
     }
-    zoomToCover(t2) {
-      this.zoomTo("cover", t2);
+    zoomToCover(t3) {
+      this.zoomTo("cover", t3);
     }
-    zoomToFull(t2) {
-      this.zoomTo("full", t2);
+    zoomToFull(t3) {
+      this.zoomTo("full", t3);
     }
-    zoomToMax(t2) {
-      this.zoomTo("max", t2);
+    zoomToMax(t3) {
+      this.zoomTo("max", t3);
     }
-    toggleZoom(t2) {
-      this.zoomTo(this.getNextScale("toggleZoom"), t2);
+    toggleZoom(t3) {
+      this.zoomTo(this.getNextScale("toggleZoom"), t3);
     }
-    toggleMax(t2) {
-      this.zoomTo(this.getNextScale("toggleMax"), t2);
+    toggleMax(t3) {
+      this.zoomTo(this.getNextScale("toggleMax"), t3);
     }
-    toggleCover(t2) {
-      this.zoomTo(this.getNextScale("toggleCover"), t2);
+    toggleCover(t3) {
+      this.zoomTo(this.getNextScale("toggleCover"), t3);
     }
-    iterateZoom(t2) {
-      this.zoomTo("next", t2);
+    iterateZoom(t3) {
+      this.zoomTo("next", t3);
     }
-    zoomTo(t2 = 1, { friction: e2 = "auto", originX: i2 = "auto", originY: n2 = "auto", event: s2 } = {}) {
+    zoomTo(t3 = 1, { friction: e3 = "auto", originX: i3 = "auto", originY: n3 = "auto", event: s3 } = {}) {
       if (this.isContentLoading || this.state === m.Destroy)
         return;
-      const { targetScale: o2, fullScale: a2, maxScale: r2, coverScale: l2 } = this;
-      if (this.stop(), this.panMode === O && (s2 = this.pmme || s2), s2 || "auto" === i2 || "auto" === n2) {
-        const t3 = this.content.getBoundingClientRect(), e3 = this.container.getBoundingClientRect(), o3 = s2 ? s2.clientX : e3.left + 0.5 * e3.width, a3 = s2 ? s2.clientY : e3.top + 0.5 * e3.height;
-        i2 = o3 - t3.left - 0.5 * t3.width, n2 = a3 - t3.top - 0.5 * t3.height;
+      const { targetScale: o3, fullScale: a3, maxScale: r3, coverScale: l3 } = this;
+      if (this.stop(), this.panMode === O && (s3 = this.pmme || s3), s3 || "auto" === i3 || "auto" === n3) {
+        const t4 = this.content.getBoundingClientRect(), e4 = this.container.getBoundingClientRect(), o4 = s3 ? s3.clientX : e4.left + 0.5 * e4.width, a4 = s3 ? s3.clientY : e4.top + 0.5 * e4.height;
+        i3 = o4 - t4.left - 0.5 * t4.width, n3 = a4 - t4.top - 0.5 * t4.height;
       }
-      let c2 = 1;
-      "number" == typeof t2 ? c2 = t2 : "full" === t2 ? c2 = a2 : "cover" === t2 ? c2 = l2 : "max" === t2 ? c2 = r2 : "fit" === t2 ? c2 = 1 : "next" === t2 && (c2 = this.getNextScale("iterateZoom")), c2 = c2 / o2 || 1, e2 = "auto" === e2 ? c2 > 1 ? 0.15 : 0.25 : e2, this.applyChange({ scale: c2, originX: i2, originY: n2, friction: e2 }), s2 && this.panMode === O && this.panWithMouse(s2, e2);
+      let c3 = 1;
+      "number" == typeof t3 ? c3 = t3 : "full" === t3 ? c3 = a3 : "cover" === t3 ? c3 = l3 : "max" === t3 ? c3 = r3 : "fit" === t3 ? c3 = 1 : "next" === t3 && (c3 = this.getNextScale("iterateZoom")), c3 = c3 / o3 || 1, e3 = "auto" === e3 ? c3 > 1 ? 0.15 : 0.25 : e3, this.applyChange({ scale: c3, originX: i3, originY: n3, friction: e3 }), s3 && this.panMode === O && this.panWithMouse(s3, e3);
     }
     rotateCCW() {
       this.applyChange({ angle: -90 });
@@ -14215,73 +14215,73 @@
     }
     fitX() {
       this.stop("target");
-      const { containerRect: t2, contentRect: e2, target: i2 } = this;
-      this.applyChange({ panX: 0.5 * t2.width - (e2.left + 0.5 * e2.fitWidth) - i2.e, panY: 0.5 * t2.height - (e2.top + 0.5 * e2.fitHeight) - i2.f, scale: t2.width / e2.fitWidth / this.targetScale, originX: 0, originY: 0, ignoreBounds: true });
+      const { containerRect: t3, contentRect: e3, target: i3 } = this;
+      this.applyChange({ panX: 0.5 * t3.width - (e3.left + 0.5 * e3.fitWidth) - i3.e, panY: 0.5 * t3.height - (e3.top + 0.5 * e3.fitHeight) - i3.f, scale: t3.width / e3.fitWidth / this.targetScale, originX: 0, originY: 0, ignoreBounds: true });
     }
     fitY() {
       this.stop("target");
-      const { containerRect: t2, contentRect: e2, target: i2 } = this;
-      this.applyChange({ panX: 0.5 * t2.width - (e2.left + 0.5 * e2.fitWidth) - i2.e, panY: 0.5 * t2.innerHeight - (e2.top + 0.5 * e2.fitHeight) - i2.f, scale: t2.height / e2.fitHeight / this.targetScale, originX: 0, originY: 0, ignoreBounds: true });
+      const { containerRect: t3, contentRect: e3, target: i3 } = this;
+      this.applyChange({ panX: 0.5 * t3.width - (e3.left + 0.5 * e3.fitWidth) - i3.e, panY: 0.5 * t3.innerHeight - (e3.top + 0.5 * e3.fitHeight) - i3.f, scale: t3.height / e3.fitHeight / this.targetScale, originX: 0, originY: 0, ignoreBounds: true });
     }
     toggleFS() {
-      const { container: t2 } = this, e2 = this.cn("inFullscreen"), i2 = this.cn("htmlHasFullscreen");
-      t2.classList.toggle(e2);
-      const n2 = t2.classList.contains(e2);
-      n2 ? (document.documentElement.classList.add(i2), document.addEventListener("keydown", this.onKeydown, true)) : (document.documentElement.classList.remove(i2), document.removeEventListener("keydown", this.onKeydown, true)), this.updateMetrics(), this.emit(n2 ? "enterFS" : "exitFS");
+      const { container: t3 } = this, e3 = this.cn("inFullscreen"), i3 = this.cn("htmlHasFullscreen");
+      t3.classList.toggle(e3);
+      const n3 = t3.classList.contains(e3);
+      n3 ? (document.documentElement.classList.add(i3), document.addEventListener("keydown", this.onKeydown, true)) : (document.documentElement.classList.remove(i3), document.removeEventListener("keydown", this.onKeydown, true)), this.updateMetrics(), this.emit(n3 ? "enterFS" : "exitFS");
     }
-    getMatrix(t2 = this.current) {
-      const { a: e2, b: i2, c: n2, d: s2, e: o2, f: a2 } = t2;
-      return new DOMMatrix([e2, i2, n2, s2, o2, a2]);
+    getMatrix(t3 = this.current) {
+      const { a: e3, b: i3, c: n3, d: s3, e: o3, f: a3 } = t3;
+      return new DOMMatrix([e3, i3, n3, s3, o3, a3]);
     }
-    reset(t2) {
+    reset(t3) {
       if (this.state !== m.Init && this.state !== m.Destroy) {
         this.stop("current");
-        for (const t3 of v)
-          this.target[t3] = C[t3];
-        this.target.a = this.minScale, this.target.d = this.minScale, this.clampTargetBounds(), this.isResting || (this.friction = void 0 === t2 ? this.option("friction") : t2, this.state = m.Panning, this.requestTick());
+        for (const t4 of v)
+          this.target[t4] = C[t4];
+        this.target.a = this.minScale, this.target.d = this.minScale, this.clampTargetBounds(), this.isResting || (this.friction = void 0 === t3 ? this.option("friction") : t3, this.state = m.Panning, this.requestTick());
       }
     }
     destroy() {
       this.stop(), this.state = m.Destroy, this.detachEvents(), this.detachObserver();
-      const { container: t2, content: e2 } = this, i2 = this.option("classes") || {};
-      for (const e3 of Object.values(i2))
-        t2.classList.remove(e3 + "");
-      e2 && (e2.removeEventListener("load", this.onLoad), e2.removeEventListener("error", this.onError)), this.detachPlugins();
+      const { container: t3, content: e3 } = this, i3 = this.option("classes") || {};
+      for (const e4 of Object.values(i3))
+        t3.classList.remove(e4 + "");
+      e3 && (e3.removeEventListener("load", this.onLoad), e3.removeEventListener("error", this.onError)), this.detachPlugins();
     }
   };
   Object.defineProperty(k, "defaults", { enumerable: true, configurable: true, writable: true, value: y }), Object.defineProperty(k, "Plugins", { enumerable: true, configurable: true, writable: true, value: {} });
-  var I = function(t2, e2) {
-    let i2 = true;
-    return (...n2) => {
-      i2 && (i2 = false, t2(...n2), setTimeout(() => {
-        i2 = true;
-      }, e2));
+  var I = function(t3, e3) {
+    let i3 = true;
+    return (...n3) => {
+      i3 && (i3 = false, t3(...n3), setTimeout(() => {
+        i3 = true;
+      }, e3));
     };
   };
-  var D = (t2, e2) => {
-    let i2 = [];
-    return t2.childNodes.forEach((t3) => {
-      t3.nodeType !== Node.ELEMENT_NODE || e2 && !t3.matches(e2) || i2.push(t3);
-    }), i2;
+  var D = (t3, e3) => {
+    let i3 = [];
+    return t3.childNodes.forEach((t4) => {
+      t4.nodeType !== Node.ELEMENT_NODE || e3 && !t4.matches(e3) || i3.push(t4);
+    }), i3;
   };
   var F = { viewport: null, track: null, enabled: true, slides: [], axis: "x", transition: "fade", preload: 1, slidesPerPage: "auto", initialPage: 0, friction: 0.12, Panzoom: { decelFriction: 0.12 }, center: true, infinite: true, fill: true, dragFree: false, adaptiveHeight: false, direction: "ltr", classes: { container: "f-carousel", viewport: "f-carousel__viewport", track: "f-carousel__track", slide: "f-carousel__slide", isLTR: "is-ltr", isRTL: "is-rtl", isHorizontal: "is-horizontal", isVertical: "is-vertical", inTransition: "in-transition", isSelected: "is-selected" }, l10n: { NEXT: "Next slide", PREV: "Previous slide", GOTO: "Go to slide #%d" } };
   var j;
-  !function(t2) {
-    t2[t2.Init = 0] = "Init", t2[t2.Ready = 1] = "Ready", t2[t2.Destroy = 2] = "Destroy";
+  !function(t3) {
+    t3[t3.Init = 0] = "Init", t3[t3.Ready = 1] = "Ready", t3[t3.Destroy = 2] = "Destroy";
   }(j || (j = {}));
-  var B = (t2) => {
-    if ("string" == typeof t2 || t2 instanceof HTMLElement)
-      t2 = { html: t2 };
+  var B = (t3) => {
+    if ("string" == typeof t3 || t3 instanceof HTMLElement)
+      t3 = { html: t3 };
     else {
-      const e2 = t2.thumb;
-      void 0 !== e2 && ("string" == typeof e2 && (t2.thumbSrc = e2), e2 instanceof HTMLImageElement && (t2.thumbEl = e2, t2.thumbElSrc = e2.src, t2.thumbSrc = e2.src), delete t2.thumb);
+      const e3 = t3.thumb;
+      void 0 !== e3 && ("string" == typeof e3 && (t3.thumbSrc = e3), e3 instanceof HTMLImageElement && (t3.thumbEl = e3, t3.thumbElSrc = e3.src, t3.thumbSrc = e3.src), delete t3.thumb);
     }
-    return Object.assign({ html: "", el: null, isDom: false, class: "", customClass: "", index: -1, dim: 0, gap: 0, pos: 0, transition: false }, t2);
+    return Object.assign({ html: "", el: null, isDom: false, class: "", customClass: "", index: -1, dim: 0, gap: 0, pos: 0, transition: false }, t3);
   };
-  var H = (t2 = {}) => Object.assign({ index: -1, slides: [], dim: 0, pos: -1 }, t2);
+  var H = (t3 = {}) => Object.assign({ index: -1, slides: [], dim: 0, pos: -1 }, t3);
   var N = class extends f {
-    constructor(t2, e2) {
-      super(e2), Object.defineProperty(this, "instance", { enumerable: true, configurable: true, writable: true, value: t2 });
+    constructor(t3, e3) {
+      super(e3), Object.defineProperty(this, "instance", { enumerable: true, configurable: true, writable: true, value: t3 });
     }
     attach() {
     }
@@ -14297,47 +14297,47 @@
       this.refresh();
     }
     build() {
-      let t2 = this.list;
-      if (!t2) {
-        t2 = document.createElement("ul"), P(t2, this.cn("list")), t2.setAttribute("role", "tablist");
-        const e2 = this.instance.container;
-        e2.appendChild(t2), P(e2, this.cn("hasDots")), this.list = t2;
+      let t3 = this.list;
+      if (!t3) {
+        t3 = document.createElement("ul"), P(t3, this.cn("list")), t3.setAttribute("role", "tablist");
+        const e3 = this.instance.container;
+        e3.appendChild(t3), P(e3, this.cn("hasDots")), this.list = t3;
       }
-      return t2;
+      return t3;
     }
     refresh() {
-      var t2;
-      const e2 = this.instance.pages.length, i2 = Math.min(2, this.option("minCount")), n2 = Math.max(2e3, this.option("maxCount")), s2 = this.option("dynamicFrom");
-      if (e2 < i2 || e2 > n2)
+      var t3;
+      const e3 = this.instance.pages.length, i3 = Math.min(2, this.option("minCount")), n3 = Math.max(2e3, this.option("maxCount")), s3 = this.option("dynamicFrom");
+      if (e3 < i3 || e3 > n3)
         return void this.cleanup();
-      const a2 = "number" == typeof s2 && e2 > 5 && e2 >= s2, r2 = !this.list || this.isDynamic !== a2 || this.list.children.length !== e2;
-      r2 && this.cleanup();
-      const l2 = this.build();
-      if (o(l2, this.cn("isDynamic"), !!a2), r2)
-        for (let t3 = 0; t3 < e2; t3++)
-          l2.append(this.createItem(t3));
-      let c2, h2 = 0;
-      for (const e3 of [...l2.children]) {
-        const i3 = h2 === this.instance.page;
-        i3 && (c2 = e3), o(e3, this.cn("isCurrent"), i3), null === (t2 = e3.children[0]) || void 0 === t2 || t2.setAttribute("aria-selected", i3 ? "true" : "false");
-        for (const t3 of ["isBeforePrev", "isPrev", "isNext", "isAfterNext"])
-          S(e3, this.cn(t3));
-        h2++;
+      const a3 = "number" == typeof s3 && e3 > 5 && e3 >= s3, r3 = !this.list || this.isDynamic !== a3 || this.list.children.length !== e3;
+      r3 && this.cleanup();
+      const l3 = this.build();
+      if (o(l3, this.cn("isDynamic"), !!a3), r3)
+        for (let t4 = 0; t4 < e3; t4++)
+          l3.append(this.createItem(t4));
+      let c3, h3 = 0;
+      for (const e4 of [...l3.children]) {
+        const i4 = h3 === this.instance.page;
+        i4 && (c3 = e4), o(e4, this.cn("isCurrent"), i4), null === (t3 = e4.children[0]) || void 0 === t3 || t3.setAttribute("aria-selected", i4 ? "true" : "false");
+        for (const t4 of ["isBeforePrev", "isPrev", "isNext", "isAfterNext"])
+          S(e4, this.cn(t4));
+        h3++;
       }
-      if (c2 = c2 || l2.firstChild, a2 && c2) {
-        const t3 = c2.previousElementSibling, e3 = t3 && t3.previousElementSibling;
-        P(t3, this.cn("isPrev")), P(e3, this.cn("isBeforePrev"));
-        const i3 = c2.nextElementSibling, n3 = i3 && i3.nextElementSibling;
-        P(i3, this.cn("isNext")), P(n3, this.cn("isAfterNext"));
+      if (c3 = c3 || l3.firstChild, a3 && c3) {
+        const t4 = c3.previousElementSibling, e4 = t4 && t4.previousElementSibling;
+        P(t4, this.cn("isPrev")), P(e4, this.cn("isBeforePrev"));
+        const i4 = c3.nextElementSibling, n4 = i4 && i4.nextElementSibling;
+        P(i4, this.cn("isNext")), P(n4, this.cn("isAfterNext"));
       }
-      this.isDynamic = a2;
+      this.isDynamic = a3;
     }
-    createItem(t2 = 0) {
-      var e2;
-      const i2 = document.createElement("li");
-      i2.setAttribute("role", "presentation");
-      const s2 = n(this.instance.localize(this.option("dotTpl"), [["%d", t2 + 1]]).replace(/\%i/g, t2 + ""));
-      return i2.appendChild(s2), null === (e2 = i2.children[0]) || void 0 === e2 || e2.setAttribute("role", "tab"), i2;
+    createItem(t3 = 0) {
+      var e3;
+      const i3 = document.createElement("li");
+      i3.setAttribute("role", "presentation");
+      const s3 = n(this.instance.localize(this.option("dotTpl"), [["%d", t3 + 1]]).replace(/\%i/g, t3 + ""));
+      return i3.appendChild(s3), null === (e3 = i3.children[0]) || void 0 === e3 || e3.setAttribute("role", "tab"), i3;
     }
     cleanup() {
       this.list && (this.list.remove(), this.list = null), this.isDynamic = false, S(this.instance.container, this.cn("hasDots"));
@@ -14358,25 +14358,25 @@
       super(...arguments), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "prev", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "next", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "isDom", { enumerable: true, configurable: true, writable: true, value: false });
     }
     onRefresh() {
-      const t2 = this.instance, e2 = t2.pages.length, i2 = t2.page;
-      if (e2 < 2)
+      const t3 = this.instance, e3 = t3.pages.length, i3 = t3.page;
+      if (e3 < 2)
         return void this.cleanup();
       this.build();
-      let n2 = this.prev, s2 = this.next;
-      n2 && s2 && (n2.removeAttribute(W), s2.removeAttribute(W), t2.isInfinite || (i2 <= 0 && n2.setAttribute(W, ""), i2 >= e2 - 1 && s2.setAttribute(W, "")));
+      let n3 = this.prev, s3 = this.next;
+      n3 && s3 && (n3.removeAttribute(W), s3.removeAttribute(W), t3.isInfinite || (i3 <= 0 && n3.setAttribute(W, ""), i3 >= e3 - 1 && s3.setAttribute(W, "")));
     }
-    addBtn(t2) {
-      var e2;
-      const i2 = this.instance, n2 = document.createElement("button");
-      n2.setAttribute("tabindex", "0"), n2.setAttribute("title", i2.localize(`{{${t2.toUpperCase()}}}`)), P(n2, this.cn("button") + " " + this.cn(t2 === X ? "isNext" : "isPrev"));
-      const s2 = i2.isRTL ? t2 === X ? q : X : t2;
-      var o2;
-      return n2.innerHTML = i2.localize(this.option(`${s2}Tpl`)), n2.dataset[`carousel${o2 = t2, o2 ? o2.match("^[a-z]") ? o2.charAt(0).toUpperCase() + o2.substring(1) : o2 : ""}`] = "true", null === (e2 = this.container) || void 0 === e2 || e2.appendChild(n2), n2;
+    addBtn(t3) {
+      var e3;
+      const i3 = this.instance, n3 = document.createElement("button");
+      n3.setAttribute("tabindex", "0"), n3.setAttribute("title", i3.localize(`{{${t3.toUpperCase()}}}`)), P(n3, this.cn("button") + " " + this.cn(t3 === X ? "isNext" : "isPrev"));
+      const s3 = i3.isRTL ? t3 === X ? q : X : t3;
+      var o3;
+      return n3.innerHTML = i3.localize(this.option(`${s3}Tpl`)), n3.dataset[`carousel${o3 = t3, o3 ? o3.match("^[a-z]") ? o3.charAt(0).toUpperCase() + o3.substring(1) : o3 : ""}`] = "true", null === (e3 = this.container) || void 0 === e3 || e3.appendChild(n3), n3;
     }
     build() {
-      const t2 = this.instance.container, e2 = this.cn("container");
-      let { container: i2, prev: n2, next: s2 } = this;
-      i2 || (i2 = t2.querySelector("." + e2), this.isDom = !!i2), i2 || (i2 = document.createElement("div"), P(i2, e2), t2.appendChild(i2)), this.container = i2, s2 || (s2 = i2.querySelector("[data-carousel-next]")), s2 || (s2 = this.addBtn(X)), this.next = s2, n2 || (n2 = i2.querySelector("[data-carousel-prev]")), n2 || (n2 = this.addBtn(q)), this.prev = n2;
+      const t3 = this.instance.container, e3 = this.cn("container");
+      let { container: i3, prev: n3, next: s3 } = this;
+      i3 || (i3 = t3.querySelector("." + e3), this.isDom = !!i3), i3 || (i3 = document.createElement("div"), P(i3, e3), t3.appendChild(i3)), this.container = i3, s3 || (s3 = i3.querySelector("[data-carousel-next]")), s3 || (s3 = this.addBtn(X)), this.next = s3, n3 || (n3 = i3.querySelector("[data-carousel-prev]")), n3 || (n3 = this.addBtn(q)), this.prev = n3;
     }
     cleanup() {
       this.isDom || (this.prev && this.prev.remove(), this.next && this.next.remove(), this.container && this.container.remove()), this.prev = null, this.next = null, this.container = null, this.isDom = false;
@@ -14393,65 +14393,65 @@
     constructor() {
       super(...arguments), Object.defineProperty(this, "selectedIndex", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "target", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "nav", { enumerable: true, configurable: true, writable: true, value: null });
     }
-    addAsTargetFor(t2) {
-      this.target = this.instance, this.nav = t2, this.attachEvents();
+    addAsTargetFor(t3) {
+      this.target = this.instance, this.nav = t3, this.attachEvents();
     }
-    addAsNavFor(t2) {
-      this.nav = this.instance, this.target = t2, this.attachEvents();
+    addAsNavFor(t3) {
+      this.nav = this.instance, this.target = t3, this.attachEvents();
     }
     attachEvents() {
-      const { nav: t2, target: e2 } = this;
-      t2 && e2 && (t2.options.initialSlide = e2.options.initialPage, t2.state === j.Ready ? this.onNavReady(t2) : t2.on("ready", this.onNavReady), e2.state === j.Ready ? this.onTargetReady(e2) : e2.on("ready", this.onTargetReady));
+      const { nav: t3, target: e3 } = this;
+      t3 && e3 && (t3.options.initialSlide = e3.options.initialPage, t3.state === j.Ready ? this.onNavReady(t3) : t3.on("ready", this.onNavReady), e3.state === j.Ready ? this.onTargetReady(e3) : e3.on("ready", this.onTargetReady));
     }
-    onNavReady(t2) {
-      t2.on("createSlide", this.onNavCreateSlide), t2.on("Panzoom.click", this.onNavClick), t2.on("Panzoom.touchEnd", this.onNavTouch), this.onTargetChange();
+    onNavReady(t3) {
+      t3.on("createSlide", this.onNavCreateSlide), t3.on("Panzoom.click", this.onNavClick), t3.on("Panzoom.touchEnd", this.onNavTouch), this.onTargetChange();
     }
-    onTargetReady(t2) {
-      t2.on("change", this.onTargetChange), t2.on("Panzoom.refresh", this.onTargetChange), this.onTargetChange();
+    onTargetReady(t3) {
+      t3.on("change", this.onTargetChange), t3.on("Panzoom.refresh", this.onTargetChange), this.onTargetChange();
     }
-    onNavClick(t2, e2, i2) {
-      this.onNavTouch(t2, t2.panzoom, i2);
+    onNavClick(t3, e3, i3) {
+      this.onNavTouch(t3, t3.panzoom, i3);
     }
-    onNavTouch(t2, e2, i2) {
-      var n2, s2;
-      if (Math.abs(e2.dragOffset.x) > 3 || Math.abs(e2.dragOffset.y) > 3)
+    onNavTouch(t3, e3, i3) {
+      var n3, s3;
+      if (Math.abs(e3.dragOffset.x) > 3 || Math.abs(e3.dragOffset.y) > 3)
         return;
-      const o2 = i2.target, { nav: a2, target: r2 } = this;
-      if (!a2 || !r2 || !o2)
+      const o3 = i3.target, { nav: a3, target: r3 } = this;
+      if (!a3 || !r3 || !o3)
         return;
-      const l2 = o2.closest("[data-index]");
-      if (i2.stopPropagation(), i2.preventDefault(), !l2)
+      const l3 = o3.closest("[data-index]");
+      if (i3.stopPropagation(), i3.preventDefault(), !l3)
         return;
-      const c2 = parseInt(l2.dataset.index || "", 10) || 0, h2 = r2.getPageForSlide(c2), d2 = a2.getPageForSlide(c2);
-      a2.slideTo(d2), r2.slideTo(h2, { friction: (null === (s2 = null === (n2 = this.nav) || void 0 === n2 ? void 0 : n2.plugins) || void 0 === s2 ? void 0 : s2.Sync.option("friction")) || 0 }), this.markSelectedSlide(c2);
+      const c3 = parseInt(l3.dataset.index || "", 10) || 0, h3 = r3.getPageForSlide(c3), d3 = a3.getPageForSlide(c3);
+      a3.slideTo(d3), r3.slideTo(h3, { friction: (null === (s3 = null === (n3 = this.nav) || void 0 === n3 ? void 0 : n3.plugins) || void 0 === s3 ? void 0 : s3.Sync.option("friction")) || 0 }), this.markSelectedSlide(c3);
     }
-    onNavCreateSlide(t2, e2) {
-      e2.index === this.selectedIndex && this.markSelectedSlide(e2.index);
+    onNavCreateSlide(t3, e3) {
+      e3.index === this.selectedIndex && this.markSelectedSlide(e3.index);
     }
     onTargetChange() {
-      var t2, e2;
-      const { target: i2, nav: n2 } = this;
-      if (!i2 || !n2)
+      var t3, e3;
+      const { target: i3, nav: n3 } = this;
+      if (!i3 || !n3)
         return;
-      if (n2.state !== j.Ready || i2.state !== j.Ready)
+      if (n3.state !== j.Ready || i3.state !== j.Ready)
         return;
-      const s2 = null === (e2 = null === (t2 = i2.pages[i2.page]) || void 0 === t2 ? void 0 : t2.slides[0]) || void 0 === e2 ? void 0 : e2.index, o2 = n2.getPageForSlide(s2);
-      this.markSelectedSlide(s2), n2.slideTo(o2, null === n2.prevPage && null === i2.prevPage ? { friction: 0 } : void 0);
+      const s3 = null === (e3 = null === (t3 = i3.pages[i3.page]) || void 0 === t3 ? void 0 : t3.slides[0]) || void 0 === e3 ? void 0 : e3.index, o3 = n3.getPageForSlide(s3);
+      this.markSelectedSlide(s3), n3.slideTo(o3, null === n3.prevPage && null === i3.prevPage ? { friction: 0 } : void 0);
     }
-    markSelectedSlide(t2) {
-      const e2 = this.nav;
-      e2 && e2.state === j.Ready && (this.selectedIndex = t2, [...e2.slides].map((e3) => {
-        e3.el && e3.el.classList[e3.index === t2 ? "add" : "remove"]("is-nav-selected");
+    markSelectedSlide(t3) {
+      const e3 = this.nav;
+      e3 && e3.state === j.Ready && (this.selectedIndex = t3, [...e3.slides].map((e4) => {
+        e4.el && e4.el.classList[e4.index === t3 ? "add" : "remove"]("is-nav-selected");
       }));
     }
     attach() {
-      const t2 = this;
-      let e2 = t2.options.target, i2 = t2.options.nav;
-      e2 ? t2.addAsNavFor(e2) : i2 && t2.addAsTargetFor(i2);
+      const t3 = this;
+      let e3 = t3.options.target, i3 = t3.options.nav;
+      e3 ? t3.addAsNavFor(e3) : i3 && t3.addAsTargetFor(i3);
     }
     detach() {
-      const t2 = this, e2 = t2.nav, i2 = t2.target;
-      e2 && (e2.off("ready", t2.onNavReady), e2.off("createSlide", t2.onNavCreateSlide), e2.off("Panzoom.click", t2.onNavClick), e2.off("Panzoom.touchEnd", t2.onNavTouch)), t2.nav = null, i2 && (i2.off("ready", t2.onTargetReady), i2.off("refresh", t2.onTargetChange), i2.off("change", t2.onTargetChange)), t2.target = null;
+      const t3 = this, e3 = t3.nav, i3 = t3.target;
+      e3 && (e3.off("ready", t3.onNavReady), e3.off("createSlide", t3.onNavCreateSlide), e3.off("Panzoom.click", t3.onNavClick), e3.off("Panzoom.touchEnd", t3.onNavTouch)), t3.nav = null, i3 && (i3.off("ready", t3.onTargetReady), i3.off("refresh", t3.onTargetChange), i3.off("change", t3.onTargetChange)), t3.target = null;
     }
   };
   Object.defineProperty(V, "defaults", { enumerable: true, configurable: true, writable: true, value: { friction: 0.35 } });
@@ -14467,9 +14467,9 @@
       return this.state === j.Ready;
     }
     get isInfinite() {
-      let t2 = false;
-      const { contentDim: e2, viewportDim: i2, pages: n2, slides: s2 } = this, o2 = s2[0];
-      return n2.length >= 2 && o2 && e2 + o2.dim >= i2 && (t2 = this.option("infinite")), t2;
+      let t3 = false;
+      const { contentDim: e3, viewportDim: i3, pages: n3, slides: s3 } = this, o3 = s3[0];
+      return n3.length >= 2 && o3 && e3 + o3.dim >= i3 && (t3 = this.option("infinite")), t3;
     }
     get isRTL() {
       return "rtl" === this.option("direction");
@@ -14477,22 +14477,22 @@
     get isHorizontal() {
       return "x" === this.option("axis");
     }
-    constructor(t2, e2 = {}, i2 = {}) {
-      if (super(), Object.defineProperty(this, "bp", { enumerable: true, configurable: true, writable: true, value: "" }), Object.defineProperty(this, "lp", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "userOptions", { enumerable: true, configurable: true, writable: true, value: {} }), Object.defineProperty(this, "userPlugins", { enumerable: true, configurable: true, writable: true, value: {} }), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: j.Init }), Object.defineProperty(this, "page", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "prevPage", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "viewport", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "track", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "slides", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "pages", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "panzoom", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "inTransition", { enumerable: true, configurable: true, writable: true, value: /* @__PURE__ */ new Set() }), Object.defineProperty(this, "contentDim", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "viewportDim", { enumerable: true, configurable: true, writable: true, value: 0 }), "string" == typeof t2 && (t2 = document.querySelector(t2)), !t2 || !E(t2))
+    constructor(t3, e3 = {}, i3 = {}) {
+      if (super(), Object.defineProperty(this, "bp", { enumerable: true, configurable: true, writable: true, value: "" }), Object.defineProperty(this, "lp", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "userOptions", { enumerable: true, configurable: true, writable: true, value: {} }), Object.defineProperty(this, "userPlugins", { enumerable: true, configurable: true, writable: true, value: {} }), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: j.Init }), Object.defineProperty(this, "page", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "prevPage", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: void 0 }), Object.defineProperty(this, "viewport", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "track", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "slides", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "pages", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "panzoom", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "inTransition", { enumerable: true, configurable: true, writable: true, value: /* @__PURE__ */ new Set() }), Object.defineProperty(this, "contentDim", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "viewportDim", { enumerable: true, configurable: true, writable: true, value: 0 }), "string" == typeof t3 && (t3 = document.querySelector(t3)), !t3 || !E(t3))
         throw new Error("No Element found");
-      this.container = t2, this.slideNext = I(this.slideNext.bind(this), 150), this.slidePrev = I(this.slidePrev.bind(this), 150), this.userOptions = e2, this.userPlugins = i2, queueMicrotask(() => {
+      this.container = t3, this.slideNext = I(this.slideNext.bind(this), 150), this.slidePrev = I(this.slidePrev.bind(this), 150), this.userOptions = e3, this.userPlugins = i3, queueMicrotask(() => {
         this.processOptions();
       });
     }
     processOptions() {
-      var t2, e2;
-      const i2 = u({}, _J.defaults, this.userOptions);
-      let n2 = "";
-      const s2 = i2.breakpoints;
-      if (s2 && d(s2))
-        for (const [t3, e3] of Object.entries(s2))
-          window.matchMedia(t3).matches && d(e3) && (n2 += t3, u(i2, e3));
-      n2 === this.bp && this.state !== j.Init || (this.bp = n2, this.state === j.Ready && (i2.initialSlide = (null === (e2 = null === (t2 = this.pages[this.page]) || void 0 === t2 ? void 0 : t2.slides[0]) || void 0 === e2 ? void 0 : e2.index) || 0), this.state !== j.Init && this.destroy(), super.setOptions(i2), false === this.option("enabled") ? this.attachEvents() : setTimeout(() => {
+      var t3, e3;
+      const i3 = u({}, _J.defaults, this.userOptions);
+      let n3 = "";
+      const s3 = i3.breakpoints;
+      if (s3 && d(s3))
+        for (const [t4, e4] of Object.entries(s3))
+          window.matchMedia(t4).matches && d(e4) && (n3 += t4, u(i3, e4));
+      n3 === this.bp && this.state !== j.Init || (this.bp = n3, this.state === j.Ready && (i3.initialSlide = (null === (e3 = null === (t3 = this.pages[this.page]) || void 0 === t3 ? void 0 : t3.slides[0]) || void 0 === e3 ? void 0 : e3.index) || 0), this.state !== j.Init && this.destroy(), super.setOptions(i3), false === this.option("enabled") ? this.attachEvents() : setTimeout(() => {
         this.init();
       }, 0));
     }
@@ -14500,335 +14500,335 @@
       this.state = j.Init, this.emit("init"), this.attachPlugins(Object.assign(Object.assign({}, _J.Plugins), this.userPlugins)), this.emit("attachPlugins"), this.initLayout(), this.initSlides(), this.updateMetrics(), this.setInitialPosition(), this.initPanzoom(), this.attachEvents(), this.state = j.Ready, this.emit("ready");
     }
     initLayout() {
-      const { container: t2 } = this, e2 = this.option("classes");
-      P(t2, this.cn("container")), o(t2, e2.isLTR, !this.isRTL), o(t2, e2.isRTL, this.isRTL), o(t2, e2.isVertical, !this.isHorizontal), o(t2, e2.isHorizontal, this.isHorizontal);
-      let i2 = this.option("viewport") || t2.querySelector(`.${e2.viewport}`);
-      i2 || (i2 = document.createElement("div"), P(i2, e2.viewport), i2.append(...D(t2, `.${e2.slide}`)), t2.prepend(i2)), i2.addEventListener("scroll", this.onScroll);
-      let n2 = this.option("track") || t2.querySelector(`.${e2.track}`);
-      n2 || (n2 = document.createElement("div"), P(n2, e2.track), n2.append(...Array.from(i2.childNodes))), n2.setAttribute("aria-live", "polite"), i2.contains(n2) || i2.prepend(n2), this.viewport = i2, this.track = n2, this.emit("initLayout");
+      const { container: t3 } = this, e3 = this.option("classes");
+      P(t3, this.cn("container")), o(t3, e3.isLTR, !this.isRTL), o(t3, e3.isRTL, this.isRTL), o(t3, e3.isVertical, !this.isHorizontal), o(t3, e3.isHorizontal, this.isHorizontal);
+      let i3 = this.option("viewport") || t3.querySelector(`.${e3.viewport}`);
+      i3 || (i3 = document.createElement("div"), P(i3, e3.viewport), i3.append(...D(t3, `.${e3.slide}`)), t3.prepend(i3)), i3.addEventListener("scroll", this.onScroll);
+      let n3 = this.option("track") || t3.querySelector(`.${e3.track}`);
+      n3 || (n3 = document.createElement("div"), P(n3, e3.track), n3.append(...Array.from(i3.childNodes))), n3.setAttribute("aria-live", "polite"), i3.contains(n3) || i3.prepend(n3), this.viewport = i3, this.track = n3, this.emit("initLayout");
     }
     initSlides() {
-      const { track: t2 } = this;
-      if (!t2)
+      const { track: t3 } = this;
+      if (!t3)
         return;
-      const e2 = [...this.slides], i2 = [];
-      [...D(t2, `.${this.cn(K)}`)].forEach((t3) => {
-        if (E(t3)) {
-          const e3 = B({ el: t3, isDom: true, index: this.slides.length });
-          i2.push(e3);
+      const e3 = [...this.slides], i3 = [];
+      [...D(t3, `.${this.cn(K)}`)].forEach((t4) => {
+        if (E(t4)) {
+          const e4 = B({ el: t4, isDom: true, index: this.slides.length });
+          i3.push(e4);
         }
       });
-      for (let t3 of [...this.option("slides", []) || [], ...e2])
-        i2.push(B(t3));
-      this.slides = i2;
-      for (let t3 = 0; t3 < this.slides.length; t3++)
-        this.slides[t3].index = t3;
-      for (const t3 of i2)
-        this.emit("beforeInitSlide", t3, t3.index), this.emit("initSlide", t3, t3.index);
+      for (let t4 of [...this.option("slides", []) || [], ...e3])
+        i3.push(B(t4));
+      this.slides = i3;
+      for (let t4 = 0; t4 < this.slides.length; t4++)
+        this.slides[t4].index = t4;
+      for (const t4 of i3)
+        this.emit("beforeInitSlide", t4, t4.index), this.emit("initSlide", t4, t4.index);
       this.emit("initSlides");
     }
     setInitialPage() {
-      const t2 = this.option("initialSlide");
-      this.page = "number" == typeof t2 ? this.getPageForSlide(t2) : parseInt(this.option("initialPage", 0) + "", 10) || 0;
+      const t3 = this.option("initialSlide");
+      this.page = "number" == typeof t3 ? this.getPageForSlide(t3) : parseInt(this.option("initialPage", 0) + "", 10) || 0;
     }
     setInitialPosition() {
-      const { track: t2, pages: e2, isHorizontal: i2 } = this;
-      if (!t2 || !e2.length)
+      const { track: t3, pages: e3, isHorizontal: i3 } = this;
+      if (!t3 || !e3.length)
         return;
-      let n2 = this.page;
-      e2[n2] || (this.page = n2 = 0);
-      const s2 = (e2[n2].pos || 0) * (this.isRTL && i2 ? 1 : -1), o2 = i2 ? `${s2}px` : "0", a2 = i2 ? "0" : `${s2}px`;
-      t2.style.transform = `translate3d(${o2}, ${a2}, 0) scale(1)`, this.option("adaptiveHeight") && this.setViewportHeight();
+      let n3 = this.page;
+      e3[n3] || (this.page = n3 = 0);
+      const s3 = (e3[n3].pos || 0) * (this.isRTL && i3 ? 1 : -1), o3 = i3 ? `${s3}px` : "0", a3 = i3 ? "0" : `${s3}px`;
+      t3.style.transform = `translate3d(${o3}, ${a3}, 0) scale(1)`, this.option("adaptiveHeight") && this.setViewportHeight();
     }
     initPanzoom() {
       this.panzoom && (this.panzoom.destroy(), this.panzoom = null);
-      const t2 = this.option("Panzoom") || {};
-      this.panzoom = new k(this.viewport, u({}, { content: this.track, zoom: false, panOnlyZoomed: false, lockAxis: this.isHorizontal ? "x" : "y", infinite: this.isInfinite, click: false, dblClick: false, touch: (t3) => !(this.pages.length < 2 && !t3.options.infinite), bounds: () => this.getBounds(), maxVelocity: (t3) => Math.abs(t3.target[this.axis] - t3.current[this.axis]) < 2 * this.viewportDim ? 100 : 0 }, t2)), this.panzoom.on("*", (t3, e2, ...i2) => {
-        this.emit(`Panzoom.${e2}`, t3, ...i2);
+      const t3 = this.option("Panzoom") || {};
+      this.panzoom = new k(this.viewport, u({}, { content: this.track, zoom: false, panOnlyZoomed: false, lockAxis: this.isHorizontal ? "x" : "y", infinite: this.isInfinite, click: false, dblClick: false, touch: (t4) => !(this.pages.length < 2 && !t4.options.infinite), bounds: () => this.getBounds(), maxVelocity: (t4) => Math.abs(t4.target[this.axis] - t4.current[this.axis]) < 2 * this.viewportDim ? 100 : 0 }, t3)), this.panzoom.on("*", (t4, e3, ...i3) => {
+        this.emit(`Panzoom.${e3}`, t4, ...i3);
       }), this.panzoom.on("decel", this.onDecel), this.panzoom.on("refresh", this.onRefresh), this.panzoom.on("beforeTransform", this.onBeforeTransform), this.panzoom.on("endAnimation", this.onEndAnimation);
     }
     attachEvents() {
-      const t2 = this.container;
-      t2 && (t2.addEventListener("click", this.onClick, { passive: false, capture: false }), t2.addEventListener("slideTo", this.onSlideTo)), window.addEventListener("resize", this.onResize);
+      const t3 = this.container;
+      t3 && (t3.addEventListener("click", this.onClick, { passive: false, capture: false }), t3.addEventListener("slideTo", this.onSlideTo)), window.addEventListener("resize", this.onResize);
     }
     createPages() {
-      let t2 = [];
-      const { contentDim: e2, viewportDim: i2 } = this;
-      let n2 = this.option("slidesPerPage");
-      n2 = ("auto" === n2 || e2 <= i2) && false !== this.option("fill") ? 1 / 0 : parseFloat(n2 + "");
-      let s2 = 0, o2 = 0, a2 = 0;
-      for (const e3 of this.slides)
-        (!t2.length || o2 + e3.dim - i2 > 0.05 || a2 >= n2) && (t2.push(H()), s2 = t2.length - 1, o2 = 0, a2 = 0), t2[s2].slides.push(e3), o2 += e3.dim + e3.gap, a2++;
-      return t2;
+      let t3 = [];
+      const { contentDim: e3, viewportDim: i3 } = this;
+      let n3 = this.option("slidesPerPage");
+      n3 = ("auto" === n3 || e3 <= i3) && false !== this.option("fill") ? 1 / 0 : parseFloat(n3 + "");
+      let s3 = 0, o3 = 0, a3 = 0;
+      for (const e4 of this.slides)
+        (!t3.length || o3 + e4.dim - i3 > 0.05 || a3 >= n3) && (t3.push(H()), s3 = t3.length - 1, o3 = 0, a3 = 0), t3[s3].slides.push(e4), o3 += e4.dim + e4.gap, a3++;
+      return t3;
     }
     processPages() {
-      const e2 = this.pages, { contentDim: i2, viewportDim: n2, isInfinite: s2 } = this, o2 = this.option("center"), a2 = this.option("fill"), r2 = a2 && o2 && i2 > n2 && !s2;
-      if (e2.forEach((t2, e3) => {
-        var s3;
-        t2.index = e3, t2.pos = (null === (s3 = t2.slides[0]) || void 0 === s3 ? void 0 : s3.pos) || 0, t2.dim = 0;
-        for (const [e4, i3] of t2.slides.entries())
-          t2.dim += i3.dim, e4 < t2.slides.length - 1 && (t2.dim += i3.gap);
-        r2 && t2.pos + 0.5 * t2.dim < 0.5 * n2 ? t2.pos = 0 : r2 && t2.pos + 0.5 * t2.dim >= i2 - 0.5 * n2 ? t2.pos = i2 - n2 : o2 && (t2.pos += -0.5 * (n2 - t2.dim));
-      }), e2.forEach((e3) => {
-        a2 && !s2 && i2 > n2 && (e3.pos = Math.max(e3.pos, 0), e3.pos = Math.min(e3.pos, i2 - n2)), e3.pos = t(e3.pos, 1e3), e3.dim = t(e3.dim, 1e3), Math.abs(e3.pos) <= 0.1 && (e3.pos = 0);
-      }), s2)
-        return e2;
-      const l2 = [];
-      let c2;
-      return e2.forEach((t2) => {
-        const e3 = Object.assign({}, t2);
-        c2 && e3.pos === c2.pos ? (c2.dim += e3.dim, c2.slides = [...c2.slides, ...e3.slides]) : (e3.index = l2.length, c2 = e3, l2.push(e3));
-      }), l2;
+      const e3 = this.pages, { contentDim: i3, viewportDim: n3, isInfinite: s3 } = this, o3 = this.option("center"), a3 = this.option("fill"), r3 = a3 && o3 && i3 > n3 && !s3;
+      if (e3.forEach((t3, e4) => {
+        var s4;
+        t3.index = e4, t3.pos = (null === (s4 = t3.slides[0]) || void 0 === s4 ? void 0 : s4.pos) || 0, t3.dim = 0;
+        for (const [e5, i4] of t3.slides.entries())
+          t3.dim += i4.dim, e5 < t3.slides.length - 1 && (t3.dim += i4.gap);
+        r3 && t3.pos + 0.5 * t3.dim < 0.5 * n3 ? t3.pos = 0 : r3 && t3.pos + 0.5 * t3.dim >= i3 - 0.5 * n3 ? t3.pos = i3 - n3 : o3 && (t3.pos += -0.5 * (n3 - t3.dim));
+      }), e3.forEach((e4) => {
+        a3 && !s3 && i3 > n3 && (e4.pos = Math.max(e4.pos, 0), e4.pos = Math.min(e4.pos, i3 - n3)), e4.pos = t(e4.pos, 1e3), e4.dim = t(e4.dim, 1e3), Math.abs(e4.pos) <= 0.1 && (e4.pos = 0);
+      }), s3)
+        return e3;
+      const l3 = [];
+      let c3;
+      return e3.forEach((t3) => {
+        const e4 = Object.assign({}, t3);
+        c3 && e4.pos === c3.pos ? (c3.dim += e4.dim, c3.slides = [...c3.slides, ...e4.slides]) : (e4.index = l3.length, c3 = e4, l3.push(e4));
+      }), l3;
     }
-    getPageFromIndex(t2 = 0) {
-      const e2 = this.pages.length;
-      let i2;
-      return t2 = parseInt((t2 || 0).toString()) || 0, i2 = this.isInfinite ? (t2 % e2 + e2) % e2 : Math.max(Math.min(t2, e2 - 1), 0), i2;
+    getPageFromIndex(t3 = 0) {
+      const e3 = this.pages.length;
+      let i3;
+      return t3 = parseInt((t3 || 0).toString()) || 0, i3 = this.isInfinite ? (t3 % e3 + e3) % e3 : Math.max(Math.min(t3, e3 - 1), 0), i3;
     }
-    getSlideMetrics(e2) {
-      var i2, n2;
-      const s2 = this.isHorizontal ? "width" : "height";
-      let o2 = 0, a2 = 0, r2 = e2.el;
-      const l2 = !(!r2 || r2.parentNode);
-      if (r2 ? o2 = parseFloat(r2.dataset[s2] || "") || 0 : (r2 = document.createElement("div"), r2.style.visibility = "hidden", (this.track || document.body).prepend(r2)), P(r2, this.cn(K) + " " + e2.class + " " + e2.customClass), o2)
-        r2.style[s2] = `${o2}px`, r2.style["width" === s2 ? "height" : "width"] = "";
+    getSlideMetrics(e3) {
+      var i3, n3;
+      const s3 = this.isHorizontal ? "width" : "height";
+      let o3 = 0, a3 = 0, r3 = e3.el;
+      const l3 = !(!r3 || r3.parentNode);
+      if (r3 ? o3 = parseFloat(r3.dataset[s3] || "") || 0 : (r3 = document.createElement("div"), r3.style.visibility = "hidden", (this.track || document.body).prepend(r3)), P(r3, this.cn(K) + " " + e3.class + " " + e3.customClass), o3)
+        r3.style[s3] = `${o3}px`, r3.style["width" === s3 ? "height" : "width"] = "";
       else {
-        l2 && (this.track || document.body).prepend(r2), o2 = r2.getBoundingClientRect()[s2] * Math.max(1, (null === (i2 = window.visualViewport) || void 0 === i2 ? void 0 : i2.scale) || 1);
-        let t2 = r2[this.isHorizontal ? "offsetWidth" : "offsetHeight"];
-        t2 - 1 > o2 && (o2 = t2);
+        l3 && (this.track || document.body).prepend(r3), o3 = r3.getBoundingClientRect()[s3] * Math.max(1, (null === (i3 = window.visualViewport) || void 0 === i3 ? void 0 : i3.scale) || 1);
+        let t3 = r3[this.isHorizontal ? "offsetWidth" : "offsetHeight"];
+        t3 - 1 > o3 && (o3 = t3);
       }
-      const c2 = getComputedStyle(r2);
-      return "content-box" === c2.boxSizing && (this.isHorizontal ? (o2 += parseFloat(c2.paddingLeft) || 0, o2 += parseFloat(c2.paddingRight) || 0) : (o2 += parseFloat(c2.paddingTop) || 0, o2 += parseFloat(c2.paddingBottom) || 0)), a2 = parseFloat(c2[this.isHorizontal ? "marginRight" : "marginBottom"]) || 0, l2 ? null === (n2 = r2.parentElement) || void 0 === n2 || n2.removeChild(r2) : e2.el || r2.remove(), { dim: t(o2, 1e3), gap: t(a2, 1e3) };
+      const c3 = getComputedStyle(r3);
+      return "content-box" === c3.boxSizing && (this.isHorizontal ? (o3 += parseFloat(c3.paddingLeft) || 0, o3 += parseFloat(c3.paddingRight) || 0) : (o3 += parseFloat(c3.paddingTop) || 0, o3 += parseFloat(c3.paddingBottom) || 0)), a3 = parseFloat(c3[this.isHorizontal ? "marginRight" : "marginBottom"]) || 0, l3 ? null === (n3 = r3.parentElement) || void 0 === n3 || n3.removeChild(r3) : e3.el || r3.remove(), { dim: t(o3, 1e3), gap: t(a3, 1e3) };
     }
     getBounds() {
-      const { isInfinite: t2, isRTL: e2, isHorizontal: i2, pages: n2 } = this;
-      let s2 = { min: 0, max: 0 };
-      if (t2)
-        s2 = { min: -1 / 0, max: 1 / 0 };
-      else if (n2.length) {
-        const t3 = n2[0].pos, o2 = n2[n2.length - 1].pos;
-        s2 = e2 && i2 ? { min: t3, max: o2 } : { min: -1 * o2, max: -1 * t3 };
+      const { isInfinite: t3, isRTL: e3, isHorizontal: i3, pages: n3 } = this;
+      let s3 = { min: 0, max: 0 };
+      if (t3)
+        s3 = { min: -1 / 0, max: 1 / 0 };
+      else if (n3.length) {
+        const t4 = n3[0].pos, o3 = n3[n3.length - 1].pos;
+        s3 = e3 && i3 ? { min: t4, max: o3 } : { min: -1 * o3, max: -1 * t4 };
       }
-      return { x: i2 ? s2 : { min: 0, max: 0 }, y: i2 ? { min: 0, max: 0 } : s2 };
+      return { x: i3 ? s3 : { min: 0, max: 0 }, y: i3 ? { min: 0, max: 0 } : s3 };
     }
     repositionSlides() {
-      let e2, { isHorizontal: i2, isRTL: n2, isInfinite: s2, viewport: o2, viewportDim: a2, contentDim: r2, page: l2, pages: c2, slides: h2, panzoom: d2 } = this, u2 = 0, p2 = 0, f2 = 0, g2 = 0;
-      d2 ? g2 = -1 * d2.current[this.axis] : c2[l2] && (g2 = c2[l2].pos || 0), e2 = i2 ? n2 ? "right" : "left" : "top", n2 && i2 && (g2 *= -1);
-      for (const i3 of h2) {
-        const n3 = i3.el;
-        n3 ? ("top" === e2 ? (n3.style.right = "", n3.style.left = "") : n3.style.top = "", i3.index !== u2 ? n3.style[e2] = 0 === p2 ? "" : `${t(p2, 1e3)}px` : n3.style[e2] = "", f2 += i3.dim + i3.gap, u2++) : p2 += i3.dim + i3.gap;
+      let e3, { isHorizontal: i3, isRTL: n3, isInfinite: s3, viewport: o3, viewportDim: a3, contentDim: r3, page: l3, pages: c3, slides: h3, panzoom: d3 } = this, u3 = 0, p3 = 0, f3 = 0, g3 = 0;
+      d3 ? g3 = -1 * d3.current[this.axis] : c3[l3] && (g3 = c3[l3].pos || 0), e3 = i3 ? n3 ? "right" : "left" : "top", n3 && i3 && (g3 *= -1);
+      for (const i4 of h3) {
+        const n4 = i4.el;
+        n4 ? ("top" === e3 ? (n4.style.right = "", n4.style.left = "") : n4.style.top = "", i4.index !== u3 ? n4.style[e3] = 0 === p3 ? "" : `${t(p3, 1e3)}px` : n4.style[e3] = "", f3 += i4.dim + i4.gap, u3++) : p3 += i4.dim + i4.gap;
       }
-      if (s2 && f2 && o2) {
-        let n3 = getComputedStyle(o2), s3 = "padding", l3 = i2 ? "Right" : "Bottom", c3 = parseFloat(n3[s3 + (i2 ? "Left" : "Top")]);
-        g2 -= c3, a2 += c3, a2 += parseFloat(n3[s3 + l3]);
-        for (const i3 of h2)
-          i3.el && (t(i3.pos) < t(a2) && t(i3.pos + i3.dim + i3.gap) < t(g2) && t(g2) > t(r2 - a2) && (i3.el.style[e2] = `${t(p2 + f2, 1e3)}px`), t(i3.pos + i3.gap) >= t(r2 - a2) && t(i3.pos) > t(g2 + a2) && t(g2) < t(a2) && (i3.el.style[e2] = `-${t(f2, 1e3)}px`));
+      if (s3 && f3 && o3) {
+        let n4 = getComputedStyle(o3), s4 = "padding", l4 = i3 ? "Right" : "Bottom", c4 = parseFloat(n4[s4 + (i3 ? "Left" : "Top")]);
+        g3 -= c4, a3 += c4, a3 += parseFloat(n4[s4 + l4]);
+        for (const i4 of h3)
+          i4.el && (t(i4.pos) < t(a3) && t(i4.pos + i4.dim + i4.gap) < t(g3) && t(g3) > t(r3 - a3) && (i4.el.style[e3] = `${t(p3 + f3, 1e3)}px`), t(i4.pos + i4.gap) >= t(r3 - a3) && t(i4.pos) > t(g3 + a3) && t(g3) < t(a3) && (i4.el.style[e3] = `-${t(f3, 1e3)}px`));
       }
-      let m2, v2, b2 = [...this.inTransition];
-      if (b2.length > 1 && (m2 = c2[b2[0]], v2 = c2[b2[1]]), m2 && v2) {
-        let i3 = 0;
-        for (const n3 of h2)
-          n3.el ? this.inTransition.has(n3.index) && m2.slides.indexOf(n3) < 0 && (n3.el.style[e2] = `${t(i3 + (m2.pos - v2.pos), 1e3)}px`) : i3 += n3.dim + n3.gap;
+      let m3, v3, b3 = [...this.inTransition];
+      if (b3.length > 1 && (m3 = c3[b3[0]], v3 = c3[b3[1]]), m3 && v3) {
+        let i4 = 0;
+        for (const n4 of h3)
+          n4.el ? this.inTransition.has(n4.index) && m3.slides.indexOf(n4) < 0 && (n4.el.style[e3] = `${t(i4 + (m3.pos - v3.pos), 1e3)}px`) : i4 += n4.dim + n4.gap;
       }
     }
-    createSlideEl(t2) {
-      const { track: e2, slides: i2 } = this;
-      if (!e2 || !t2)
+    createSlideEl(t3) {
+      const { track: e3, slides: i3 } = this;
+      if (!e3 || !t3)
         return;
-      if (t2.el && t2.el.parentNode)
+      if (t3.el && t3.el.parentNode)
         return;
-      const n2 = t2.el || document.createElement("div");
-      P(n2, this.cn(K)), P(n2, t2.class), P(n2, t2.customClass);
-      const s2 = t2.html;
-      s2 && (s2 instanceof HTMLElement ? n2.appendChild(s2) : n2.innerHTML = t2.html + "");
-      const o2 = [];
-      i2.forEach((t3, e3) => {
-        t3.el && o2.push(e3);
+      const n3 = t3.el || document.createElement("div");
+      P(n3, this.cn(K)), P(n3, t3.class), P(n3, t3.customClass);
+      const s3 = t3.html;
+      s3 && (s3 instanceof HTMLElement ? n3.appendChild(s3) : n3.innerHTML = t3.html + "");
+      const o3 = [];
+      i3.forEach((t4, e4) => {
+        t4.el && o3.push(e4);
       });
-      const a2 = t2.index;
-      let r2 = null;
-      if (o2.length) {
-        r2 = i2[o2.reduce((t3, e3) => Math.abs(e3 - a2) < Math.abs(t3 - a2) ? e3 : t3)];
+      const a3 = t3.index;
+      let r3 = null;
+      if (o3.length) {
+        r3 = i3[o3.reduce((t4, e4) => Math.abs(e4 - a3) < Math.abs(t4 - a3) ? e4 : t4)];
       }
-      const l2 = r2 && r2.el && r2.el.parentNode ? r2.index < t2.index ? r2.el.nextSibling : r2.el : null;
-      e2.insertBefore(n2, e2.contains(l2) ? l2 : null), t2.el = n2, this.emit("createSlide", t2);
+      const l3 = r3 && r3.el && r3.el.parentNode ? r3.index < t3.index ? r3.el.nextSibling : r3.el : null;
+      e3.insertBefore(n3, e3.contains(l3) ? l3 : null), t3.el = n3, this.emit("createSlide", t3);
     }
-    removeSlideEl(t2, e2 = false) {
-      const i2 = null == t2 ? void 0 : t2.el;
-      if (!i2 || !i2.parentNode)
+    removeSlideEl(t3, e3 = false) {
+      const i3 = null == t3 ? void 0 : t3.el;
+      if (!i3 || !i3.parentNode)
         return;
-      const n2 = this.cn(G);
-      if (i2.classList.contains(n2) && (S(i2, n2), this.emit("unselectSlide", t2)), t2.isDom && !e2)
-        return i2.removeAttribute("aria-hidden"), i2.removeAttribute("data-index"), void (i2.style.left = "");
-      this.emit("removeSlide", t2);
-      const s2 = new CustomEvent(U);
-      i2.dispatchEvent(s2), t2.el && (t2.el.remove(), t2.el = null);
+      const n3 = this.cn(G);
+      if (i3.classList.contains(n3) && (S(i3, n3), this.emit("unselectSlide", t3)), t3.isDom && !e3)
+        return i3.removeAttribute("aria-hidden"), i3.removeAttribute("data-index"), void (i3.style.left = "");
+      this.emit("removeSlide", t3);
+      const s3 = new CustomEvent(U);
+      i3.dispatchEvent(s3), t3.el && (t3.el.remove(), t3.el = null);
     }
-    transitionTo(t2 = 0, e2 = this.option("transition")) {
-      var i2, n2, s2, o2;
-      if (!e2)
+    transitionTo(t3 = 0, e3 = this.option("transition")) {
+      var i3, n3, s3, o3;
+      if (!e3)
         return false;
-      const a2 = this.page, { pages: r2, panzoom: l2 } = this;
-      t2 = parseInt((t2 || 0).toString()) || 0;
-      const c2 = this.getPageFromIndex(t2);
-      if (!l2 || !r2[c2] || r2.length < 2 || Math.abs(((null === (n2 = null === (i2 = r2[a2]) || void 0 === i2 ? void 0 : i2.slides[0]) || void 0 === n2 ? void 0 : n2.dim) || 0) - this.viewportDim) > 1)
+      const a3 = this.page, { pages: r3, panzoom: l3 } = this;
+      t3 = parseInt((t3 || 0).toString()) || 0;
+      const c3 = this.getPageFromIndex(t3);
+      if (!l3 || !r3[c3] || r3.length < 2 || Math.abs(((null === (n3 = null === (i3 = r3[a3]) || void 0 === i3 ? void 0 : i3.slides[0]) || void 0 === n3 ? void 0 : n3.dim) || 0) - this.viewportDim) > 1)
         return false;
-      const h2 = t2 > a2 ? 1 : -1, d2 = r2[c2].pos * (this.isRTL ? 1 : -1);
-      if (a2 === c2 && Math.abs(d2 - l2.target[this.axis]) < 1)
+      const h3 = t3 > a3 ? 1 : -1, d3 = r3[c3].pos * (this.isRTL ? 1 : -1);
+      if (a3 === c3 && Math.abs(d3 - l3.target[this.axis]) < 1)
         return false;
       this.clearTransitions();
-      const u2 = l2.isResting;
+      const u3 = l3.isResting;
       P(this.container, this.cn("inTransition"));
-      const p2 = (null === (s2 = r2[a2]) || void 0 === s2 ? void 0 : s2.slides[0]) || null, f2 = (null === (o2 = r2[c2]) || void 0 === o2 ? void 0 : o2.slides[0]) || null;
-      this.inTransition.add(f2.index), this.createSlideEl(f2);
-      let g2 = p2.el, m2 = f2.el;
-      u2 || e2 === K || (e2 = "fadeFast", g2 = null);
-      const v2 = this.isRTL ? "next" : "prev", b2 = this.isRTL ? "prev" : "next";
-      return g2 && (this.inTransition.add(p2.index), p2.transition = e2, g2.addEventListener(U, this.onAnimationEnd), g2.classList.add(`f-${e2}Out`, `to-${h2 > 0 ? b2 : v2}`)), m2 && (f2.transition = e2, m2.addEventListener(U, this.onAnimationEnd), m2.classList.add(`f-${e2}In`, `from-${h2 > 0 ? v2 : b2}`)), l2.current[this.axis] = d2, l2.target[this.axis] = d2, l2.requestTick(), this.onChange(c2), true;
+      const p3 = (null === (s3 = r3[a3]) || void 0 === s3 ? void 0 : s3.slides[0]) || null, f3 = (null === (o3 = r3[c3]) || void 0 === o3 ? void 0 : o3.slides[0]) || null;
+      this.inTransition.add(f3.index), this.createSlideEl(f3);
+      let g3 = p3.el, m3 = f3.el;
+      u3 || e3 === K || (e3 = "fadeFast", g3 = null);
+      const v3 = this.isRTL ? "next" : "prev", b3 = this.isRTL ? "prev" : "next";
+      return g3 && (this.inTransition.add(p3.index), p3.transition = e3, g3.addEventListener(U, this.onAnimationEnd), g3.classList.add(`f-${e3}Out`, `to-${h3 > 0 ? b3 : v3}`)), m3 && (f3.transition = e3, m3.addEventListener(U, this.onAnimationEnd), m3.classList.add(`f-${e3}In`, `from-${h3 > 0 ? v3 : b3}`)), l3.current[this.axis] = d3, l3.target[this.axis] = d3, l3.requestTick(), this.onChange(c3), true;
     }
     manageSlideVisiblity() {
-      const t2 = /* @__PURE__ */ new Set(), e2 = /* @__PURE__ */ new Set(), i2 = this.getVisibleSlides(parseFloat(this.option("preload", 0) + "") || 0);
-      for (const n2 of this.slides)
-        i2.has(n2) ? t2.add(n2) : e2.add(n2);
-      for (const e3 of this.inTransition)
-        t2.add(this.slides[e3]);
-      for (const e3 of t2)
-        this.createSlideEl(e3), this.lazyLoadSlide(e3);
-      for (const i3 of e2)
-        t2.has(i3) || this.removeSlideEl(i3);
+      const t3 = /* @__PURE__ */ new Set(), e3 = /* @__PURE__ */ new Set(), i3 = this.getVisibleSlides(parseFloat(this.option("preload", 0) + "") || 0);
+      for (const n3 of this.slides)
+        i3.has(n3) ? t3.add(n3) : e3.add(n3);
+      for (const e4 of this.inTransition)
+        t3.add(this.slides[e4]);
+      for (const e4 of t3)
+        this.createSlideEl(e4), this.lazyLoadSlide(e4);
+      for (const i4 of e3)
+        t3.has(i4) || this.removeSlideEl(i4);
       this.markSelectedSlides(), this.repositionSlides();
     }
     markSelectedSlides() {
       if (!this.pages[this.page] || !this.pages[this.page].slides)
         return;
-      const t2 = "aria-hidden";
-      let e2 = this.cn(G);
-      if (e2)
-        for (const i2 of this.slides) {
-          const n2 = i2.el;
-          n2 && (n2.dataset.index = `${i2.index}`, n2.classList.contains("f-thumbs__slide") ? this.getVisibleSlides(0).has(i2) ? n2.removeAttribute(t2) : n2.setAttribute(t2, "true") : this.pages[this.page].slides.includes(i2) ? (n2.classList.contains(e2) || (P(n2, e2), this.emit("selectSlide", i2)), n2.removeAttribute(t2)) : (n2.classList.contains(e2) && (S(n2, e2), this.emit("unselectSlide", i2)), n2.setAttribute(t2, "true")));
+      const t3 = "aria-hidden";
+      let e3 = this.cn(G);
+      if (e3)
+        for (const i3 of this.slides) {
+          const n3 = i3.el;
+          n3 && (n3.dataset.index = `${i3.index}`, n3.classList.contains("f-thumbs__slide") ? this.getVisibleSlides(0).has(i3) ? n3.removeAttribute(t3) : n3.setAttribute(t3, "true") : this.pages[this.page].slides.includes(i3) ? (n3.classList.contains(e3) || (P(n3, e3), this.emit("selectSlide", i3)), n3.removeAttribute(t3)) : (n3.classList.contains(e3) && (S(n3, e3), this.emit("unselectSlide", i3)), n3.setAttribute(t3, "true")));
         }
     }
     flipInfiniteTrack() {
-      const { axis: t2, isHorizontal: e2, isInfinite: i2, isRTL: n2, viewportDim: s2, contentDim: o2 } = this, a2 = this.panzoom;
-      if (!a2 || !i2)
+      const { axis: t3, isHorizontal: e3, isInfinite: i3, isRTL: n3, viewportDim: s3, contentDim: o3 } = this, a3 = this.panzoom;
+      if (!a3 || !i3)
         return;
-      let r2 = a2.current[t2], l2 = a2.target[t2] - r2, c2 = 0, h2 = 0.5 * s2;
-      n2 && e2 ? (r2 < -h2 && (c2 = -1, r2 += o2), r2 > o2 - h2 && (c2 = 1, r2 -= o2)) : (r2 > h2 && (c2 = 1, r2 -= o2), r2 < -o2 + h2 && (c2 = -1, r2 += o2)), c2 && (a2.current[t2] = r2, a2.target[t2] = r2 + l2);
+      let r3 = a3.current[t3], l3 = a3.target[t3] - r3, c3 = 0, h3 = 0.5 * s3;
+      n3 && e3 ? (r3 < -h3 && (c3 = -1, r3 += o3), r3 > o3 - h3 && (c3 = 1, r3 -= o3)) : (r3 > h3 && (c3 = 1, r3 -= o3), r3 < -o3 + h3 && (c3 = -1, r3 += o3)), c3 && (a3.current[t3] = r3, a3.target[t3] = r3 + l3);
     }
-    lazyLoadImg(t2, e2) {
-      const i2 = this, s2 = "f-fadeIn", o2 = "is-preloading";
-      let a2 = false, r2 = null;
-      const l2 = () => {
-        a2 || (a2 = true, r2 && (r2.remove(), r2 = null), S(e2, o2), e2.complete && (P(e2, s2), setTimeout(() => {
-          S(e2, s2);
-        }, 350)), this.option("adaptiveHeight") && t2.el && this.pages[this.page].slides.indexOf(t2) > -1 && (i2.updateMetrics(), i2.setViewportHeight()), this.emit("load", t2));
+    lazyLoadImg(t3, e3) {
+      const i3 = this, s3 = "f-fadeIn", o3 = "is-preloading";
+      let a3 = false, r3 = null;
+      const l3 = () => {
+        a3 || (a3 = true, r3 && (r3.remove(), r3 = null), S(e3, o3), e3.complete && (P(e3, s3), setTimeout(() => {
+          S(e3, s3);
+        }, 350)), this.option("adaptiveHeight") && t3.el && this.pages[this.page].slides.indexOf(t3) > -1 && (i3.updateMetrics(), i3.setViewportHeight()), this.emit("load", t3));
       };
-      P(e2, o2), e2.src = e2.dataset.lazySrcset || e2.dataset.lazySrc || "", delete e2.dataset.lazySrc, delete e2.dataset.lazySrcset, e2.addEventListener("error", () => {
-        l2();
-      }), e2.addEventListener("load", () => {
-        l2();
+      P(e3, o3), e3.src = e3.dataset.lazySrcset || e3.dataset.lazySrc || "", delete e3.dataset.lazySrc, delete e3.dataset.lazySrcset, e3.addEventListener("error", () => {
+        l3();
+      }), e3.addEventListener("load", () => {
+        l3();
       }), setTimeout(() => {
-        const i3 = e2.parentNode;
-        i3 && t2.el && (e2.complete ? l2() : a2 || (r2 = n(x), i3.insertBefore(r2, e2)));
+        const i4 = e3.parentNode;
+        i4 && t3.el && (e3.complete ? l3() : a3 || (r3 = n(x), i4.insertBefore(r3, e3)));
       }, 300);
     }
-    lazyLoadSlide(t2) {
-      const e2 = t2 && t2.el;
-      if (!e2)
+    lazyLoadSlide(t3) {
+      const e3 = t3 && t3.el;
+      if (!e3)
         return;
-      const i2 = /* @__PURE__ */ new Set();
-      let n2 = Array.from(e2.querySelectorAll("[data-lazy-src],[data-lazy-srcset]"));
-      e2.dataset.lazySrc && n2.push(e2), n2.map((t3) => {
-        t3 instanceof HTMLImageElement ? i2.add(t3) : t3 instanceof HTMLElement && t3.dataset.lazySrc && (t3.style.backgroundImage = `url('${t3.dataset.lazySrc}')`, delete t3.dataset.lazySrc);
+      const i3 = /* @__PURE__ */ new Set();
+      let n3 = Array.from(e3.querySelectorAll("[data-lazy-src],[data-lazy-srcset]"));
+      e3.dataset.lazySrc && n3.push(e3), n3.map((t4) => {
+        t4 instanceof HTMLImageElement ? i3.add(t4) : t4 instanceof HTMLElement && t4.dataset.lazySrc && (t4.style.backgroundImage = `url('${t4.dataset.lazySrc}')`, delete t4.dataset.lazySrc);
       });
-      for (const e3 of i2)
-        this.lazyLoadImg(t2, e3);
+      for (const e4 of i3)
+        this.lazyLoadImg(t3, e4);
     }
-    onAnimationEnd(t2) {
-      var e2;
-      const i2 = t2.target, n2 = i2 ? parseInt(i2.dataset.index || "", 10) || 0 : -1, s2 = this.slides[n2], o2 = t2.animationName;
-      if (!i2 || !s2 || !o2)
+    onAnimationEnd(t3) {
+      var e3;
+      const i3 = t3.target, n3 = i3 ? parseInt(i3.dataset.index || "", 10) || 0 : -1, s3 = this.slides[n3], o3 = t3.animationName;
+      if (!i3 || !s3 || !o3)
         return;
-      const a2 = !!this.inTransition.has(n2) && s2.transition;
-      a2 && o2.substring(0, a2.length + 2) === `f-${a2}` && this.inTransition.delete(n2), this.inTransition.size || this.clearTransitions(), n2 === this.page && (null === (e2 = this.panzoom) || void 0 === e2 ? void 0 : e2.isResting) && this.emit("settle");
+      const a3 = !!this.inTransition.has(n3) && s3.transition;
+      a3 && o3.substring(0, a3.length + 2) === `f-${a3}` && this.inTransition.delete(n3), this.inTransition.size || this.clearTransitions(), n3 === this.page && (null === (e3 = this.panzoom) || void 0 === e3 ? void 0 : e3.isResting) && this.emit("settle");
     }
-    onDecel(t2, e2 = 0, i2 = 0, n2 = 0, s2 = 0) {
+    onDecel(t3, e3 = 0, i3 = 0, n3 = 0, s3 = 0) {
       if (this.option("dragFree"))
         return void this.setPageFromPosition();
-      const { isRTL: o2, isHorizontal: a2, axis: r2, pages: l2 } = this, c2 = l2.length, h2 = Math.abs(Math.atan2(i2, e2) / (Math.PI / 180));
-      let d2 = 0;
-      if (d2 = h2 > 45 && h2 < 135 ? a2 ? 0 : i2 : a2 ? e2 : 0, !c2)
+      const { isRTL: o3, isHorizontal: a3, axis: r3, pages: l3 } = this, c3 = l3.length, h3 = Math.abs(Math.atan2(i3, e3) / (Math.PI / 180));
+      let d3 = 0;
+      if (d3 = h3 > 45 && h3 < 135 ? a3 ? 0 : i3 : a3 ? e3 : 0, !c3)
         return;
-      let u2 = this.page, p2 = o2 && a2 ? 1 : -1;
-      const f2 = t2.current[r2] * p2;
-      let { pageIndex: g2 } = this.getPageFromPosition(f2);
-      Math.abs(d2) > 5 ? (l2[u2].dim < document.documentElement["client" + (this.isHorizontal ? "Width" : "Height")] - 1 && (u2 = g2), u2 = o2 && a2 ? d2 < 0 ? u2 - 1 : u2 + 1 : d2 < 0 ? u2 + 1 : u2 - 1) : u2 = 0 === n2 && 0 === s2 ? u2 : g2, this.slideTo(u2, { transition: false, friction: t2.option("decelFriction") });
+      let u3 = this.page, p3 = o3 && a3 ? 1 : -1;
+      const f3 = t3.current[r3] * p3;
+      let { pageIndex: g3 } = this.getPageFromPosition(f3);
+      Math.abs(d3) > 5 ? (l3[u3].dim < document.documentElement["client" + (this.isHorizontal ? "Width" : "Height")] - 1 && (u3 = g3), u3 = o3 && a3 ? d3 < 0 ? u3 - 1 : u3 + 1 : d3 < 0 ? u3 + 1 : u3 - 1) : u3 = 0 === n3 && 0 === s3 ? u3 : g3, this.slideTo(u3, { transition: false, friction: t3.option("decelFriction") });
     }
-    onClick(t2) {
-      const e2 = t2.target, i2 = e2 && E(e2) ? e2.dataset : null;
-      let n2, s2;
-      i2 && (void 0 !== i2.carouselPage ? (s2 = "slideTo", n2 = i2.carouselPage) : void 0 !== i2.carouselNext ? s2 = "slideNext" : void 0 !== i2.carouselPrev && (s2 = "slidePrev")), s2 ? (t2.preventDefault(), t2.stopPropagation(), e2 && !e2.hasAttribute("disabled") && this[s2](n2)) : this.emit("click", t2);
+    onClick(t3) {
+      const e3 = t3.target, i3 = e3 && E(e3) ? e3.dataset : null;
+      let n3, s3;
+      i3 && (void 0 !== i3.carouselPage ? (s3 = "slideTo", n3 = i3.carouselPage) : void 0 !== i3.carouselNext ? s3 = "slideNext" : void 0 !== i3.carouselPrev && (s3 = "slidePrev")), s3 ? (t3.preventDefault(), t3.stopPropagation(), e3 && !e3.hasAttribute("disabled") && this[s3](n3)) : this.emit("click", t3);
     }
-    onSlideTo(t2) {
-      const e2 = t2.detail || 0;
-      this.slideTo(this.getPageForSlide(e2), { friction: 0 });
+    onSlideTo(t3) {
+      const e3 = t3.detail || 0;
+      this.slideTo(this.getPageForSlide(e3), { friction: 0 });
     }
-    onChange(t2, e2 = 0) {
-      const i2 = this.page;
-      this.prevPage = i2, this.page = t2, this.option("adaptiveHeight") && this.setViewportHeight(), t2 !== i2 && (this.markSelectedSlides(), this.emit("change", t2, i2, e2));
+    onChange(t3, e3 = 0) {
+      const i3 = this.page;
+      this.prevPage = i3, this.page = t3, this.option("adaptiveHeight") && this.setViewportHeight(), t3 !== i3 && (this.markSelectedSlides(), this.emit("change", t3, i3, e3));
     }
     onRefresh() {
-      let t2 = this.contentDim, e2 = this.viewportDim;
-      this.updateMetrics(), this.contentDim === t2 && this.viewportDim === e2 || this.slideTo(this.page, { friction: 0, transition: false });
+      let t3 = this.contentDim, e3 = this.viewportDim;
+      this.updateMetrics(), this.contentDim === t3 && this.viewportDim === e3 || this.slideTo(this.page, { friction: 0, transition: false });
     }
     onScroll() {
-      var t2;
-      null === (t2 = this.viewport) || void 0 === t2 || t2.scroll(0, 0);
+      var t3;
+      null === (t3 = this.viewport) || void 0 === t3 || t3.scroll(0, 0);
     }
     onResize() {
       this.option("breakpoints") && this.processOptions();
     }
-    onBeforeTransform(t2) {
-      this.lp !== t2.current[this.axis] && (this.flipInfiniteTrack(), this.manageSlideVisiblity()), this.lp = t2.current.e;
+    onBeforeTransform(t3) {
+      this.lp !== t3.current[this.axis] && (this.flipInfiniteTrack(), this.manageSlideVisiblity()), this.lp = t3.current.e;
     }
     onEndAnimation() {
       this.inTransition.size || this.emit("settle");
     }
-    reInit(t2 = null, e2 = null) {
-      this.destroy(), this.state = j.Init, this.prevPage = null, this.userOptions = t2 || this.userOptions, this.userPlugins = e2 || this.userPlugins, this.processOptions();
+    reInit(t3 = null, e3 = null) {
+      this.destroy(), this.state = j.Init, this.prevPage = null, this.userOptions = t3 || this.userOptions, this.userPlugins = e3 || this.userPlugins, this.processOptions();
     }
-    slideTo(t2 = 0, { friction: e2 = this.option("friction"), transition: i2 = this.option("transition") } = {}) {
+    slideTo(t3 = 0, { friction: e3 = this.option("friction"), transition: i3 = this.option("transition") } = {}) {
       if (this.state === j.Destroy)
         return;
-      t2 = parseInt((t2 || 0).toString()) || 0;
-      const n2 = this.getPageFromIndex(t2), { axis: s2, isHorizontal: o2, isRTL: a2, pages: r2, panzoom: l2 } = this, c2 = r2.length, h2 = a2 && o2 ? 1 : -1;
-      if (!l2 || !c2)
+      t3 = parseInt((t3 || 0).toString()) || 0;
+      const n3 = this.getPageFromIndex(t3), { axis: s3, isHorizontal: o3, isRTL: a3, pages: r3, panzoom: l3 } = this, c3 = r3.length, h3 = a3 && o3 ? 1 : -1;
+      if (!l3 || !c3)
         return;
-      if (this.page !== n2) {
-        const e3 = new Event("beforeChange", { bubbles: true, cancelable: true });
-        if (this.emit("beforeChange", e3, t2), e3.defaultPrevented)
+      if (this.page !== n3) {
+        const e4 = new Event("beforeChange", { bubbles: true, cancelable: true });
+        if (this.emit("beforeChange", e4, t3), e4.defaultPrevented)
           return;
       }
-      if (this.transitionTo(t2, i2))
+      if (this.transitionTo(t3, i3))
         return;
-      let d2 = r2[n2].pos;
+      let d3 = r3[n3].pos;
       if (this.isInfinite) {
-        const e3 = this.contentDim, i3 = l2.target[s2] * h2;
-        if (2 === c2)
-          d2 += e3 * Math.floor(parseFloat(t2 + "") / 2);
+        const e4 = this.contentDim, i4 = l3.target[s3] * h3;
+        if (2 === c3)
+          d3 += e4 * Math.floor(parseFloat(t3 + "") / 2);
         else {
-          d2 = [d2, d2 - e3, d2 + e3].reduce(function(t3, e4) {
-            return Math.abs(e4 - i3) < Math.abs(t3 - i3) ? e4 : t3;
+          d3 = [d3, d3 - e4, d3 + e4].reduce(function(t4, e5) {
+            return Math.abs(e5 - i4) < Math.abs(t4 - i4) ? e5 : t4;
           });
         }
       }
-      d2 *= h2, Math.abs(l2.target[s2] - d2) < 1 || (l2.panTo({ x: o2 ? d2 : 0, y: o2 ? 0 : d2, friction: e2 }), this.onChange(n2));
+      d3 *= h3, Math.abs(l3.target[s3] - d3) < 1 || (l3.panTo({ x: o3 ? d3 : 0, y: o3 ? 0 : d3, friction: e3 }), this.onChange(n3));
     }
-    slideToClosest(t2) {
+    slideToClosest(t3) {
       if (this.panzoom) {
-        const { pageIndex: e2 } = this.getPageFromPosition();
-        this.slideTo(e2, t2);
+        const { pageIndex: e3 } = this.getPageFromPosition();
+        this.slideTo(e3, t3);
       }
     }
     slideNext() {
@@ -14839,235 +14839,235 @@
     }
     clearTransitions() {
       this.inTransition.clear(), S(this.container, this.cn("inTransition"));
-      const t2 = ["to-prev", "to-next", "from-prev", "from-next"];
-      for (const e2 of this.slides) {
-        const i2 = e2.el;
-        if (i2) {
-          i2.removeEventListener(U, this.onAnimationEnd), i2.classList.remove(...t2);
-          const n2 = e2.transition;
-          n2 && i2.classList.remove(`f-${n2}Out`, `f-${n2}In`);
+      const t3 = ["to-prev", "to-next", "from-prev", "from-next"];
+      for (const e3 of this.slides) {
+        const i3 = e3.el;
+        if (i3) {
+          i3.removeEventListener(U, this.onAnimationEnd), i3.classList.remove(...t3);
+          const n3 = e3.transition;
+          n3 && i3.classList.remove(`f-${n3}Out`, `f-${n3}In`);
         }
       }
       this.manageSlideVisiblity();
     }
-    addSlide(t2, e2) {
-      var i2, n2, s2, o2;
-      const a2 = this.panzoom, r2 = (null === (i2 = this.pages[this.page]) || void 0 === i2 ? void 0 : i2.pos) || 0, l2 = (null === (n2 = this.pages[this.page]) || void 0 === n2 ? void 0 : n2.dim) || 0, c2 = this.contentDim < this.viewportDim;
-      let h2 = Array.isArray(e2) ? e2 : [e2];
-      const d2 = [];
-      for (const t3 of h2)
-        d2.push(B(t3));
-      this.slides.splice(t2, 0, ...d2);
-      for (let t3 = 0; t3 < this.slides.length; t3++)
-        this.slides[t3].index = t3;
-      for (const t3 of d2)
-        this.emit("beforeInitSlide", t3, t3.index);
-      if (this.page >= t2 && (this.page += d2.length), this.updateMetrics(), a2) {
-        const e3 = (null === (s2 = this.pages[this.page]) || void 0 === s2 ? void 0 : s2.pos) || 0, i3 = (null === (o2 = this.pages[this.page]) || void 0 === o2 ? void 0 : o2.dim) || 0, n3 = this.pages.length || 1, h3 = this.isRTL ? l2 - i3 : i3 - l2, d3 = this.isRTL ? r2 - e3 : e3 - r2;
-        c2 && 1 === n3 ? (t2 <= this.page && (a2.current[this.axis] -= h3, a2.target[this.axis] -= h3), a2.panTo({ [this.isHorizontal ? "x" : "y"]: -1 * e3 })) : d3 && t2 <= this.page && (a2.target[this.axis] -= d3, a2.current[this.axis] -= d3, a2.requestTick());
+    addSlide(t3, e3) {
+      var i3, n3, s3, o3;
+      const a3 = this.panzoom, r3 = (null === (i3 = this.pages[this.page]) || void 0 === i3 ? void 0 : i3.pos) || 0, l3 = (null === (n3 = this.pages[this.page]) || void 0 === n3 ? void 0 : n3.dim) || 0, c3 = this.contentDim < this.viewportDim;
+      let h3 = Array.isArray(e3) ? e3 : [e3];
+      const d3 = [];
+      for (const t4 of h3)
+        d3.push(B(t4));
+      this.slides.splice(t3, 0, ...d3);
+      for (let t4 = 0; t4 < this.slides.length; t4++)
+        this.slides[t4].index = t4;
+      for (const t4 of d3)
+        this.emit("beforeInitSlide", t4, t4.index);
+      if (this.page >= t3 && (this.page += d3.length), this.updateMetrics(), a3) {
+        const e4 = (null === (s3 = this.pages[this.page]) || void 0 === s3 ? void 0 : s3.pos) || 0, i4 = (null === (o3 = this.pages[this.page]) || void 0 === o3 ? void 0 : o3.dim) || 0, n4 = this.pages.length || 1, h4 = this.isRTL ? l3 - i4 : i4 - l3, d4 = this.isRTL ? r3 - e4 : e4 - r3;
+        c3 && 1 === n4 ? (t3 <= this.page && (a3.current[this.axis] -= h4, a3.target[this.axis] -= h4), a3.panTo({ [this.isHorizontal ? "x" : "y"]: -1 * e4 })) : d4 && t3 <= this.page && (a3.target[this.axis] -= d4, a3.current[this.axis] -= d4, a3.requestTick());
       }
-      for (const t3 of d2)
-        this.emit("initSlide", t3, t3.index);
+      for (const t4 of d3)
+        this.emit("initSlide", t4, t4.index);
     }
-    prependSlide(t2) {
-      this.addSlide(0, t2);
+    prependSlide(t3) {
+      this.addSlide(0, t3);
     }
-    appendSlide(t2) {
-      this.addSlide(this.slides.length, t2);
+    appendSlide(t3) {
+      this.addSlide(this.slides.length, t3);
     }
-    removeSlide(t2) {
-      const e2 = this.slides.length;
-      t2 = (t2 % e2 + e2) % e2;
-      const i2 = this.slides[t2];
-      if (i2) {
-        this.removeSlideEl(i2, true), this.slides.splice(t2, 1);
-        for (let t3 = 0; t3 < this.slides.length; t3++)
-          this.slides[t3].index = t3;
-        this.updateMetrics(), this.slideTo(this.page, { friction: 0, transition: false }), this.emit("destroySlide", i2);
+    removeSlide(t3) {
+      const e3 = this.slides.length;
+      t3 = (t3 % e3 + e3) % e3;
+      const i3 = this.slides[t3];
+      if (i3) {
+        this.removeSlideEl(i3, true), this.slides.splice(t3, 1);
+        for (let t4 = 0; t4 < this.slides.length; t4++)
+          this.slides[t4].index = t4;
+        this.updateMetrics(), this.slideTo(this.page, { friction: 0, transition: false }), this.emit("destroySlide", i3);
       }
     }
     updateMetrics() {
-      const { panzoom: e2, viewport: i2, track: n2, slides: s2, isHorizontal: o2, isInfinite: a2 } = this;
-      if (!n2)
+      const { panzoom: e3, viewport: i3, track: n3, slides: s3, isHorizontal: o3, isInfinite: a3 } = this;
+      if (!n3)
         return;
-      const r2 = o2 ? "width" : "height", l2 = o2 ? "offsetWidth" : "offsetHeight";
-      if (i2) {
-        let e3 = Math.max(i2[l2], t(i2.getBoundingClientRect()[r2], 1e3)), n3 = getComputedStyle(i2), s3 = "padding", a3 = o2 ? "Right" : "Bottom";
-        e3 -= parseFloat(n3[s3 + (o2 ? "Left" : "Top")]) + parseFloat(n3[s3 + a3]), this.viewportDim = e3;
+      const r3 = o3 ? "width" : "height", l3 = o3 ? "offsetWidth" : "offsetHeight";
+      if (i3) {
+        let e4 = Math.max(i3[l3], t(i3.getBoundingClientRect()[r3], 1e3)), n4 = getComputedStyle(i3), s4 = "padding", a4 = o3 ? "Right" : "Bottom";
+        e4 -= parseFloat(n4[s4 + (o3 ? "Left" : "Top")]) + parseFloat(n4[s4 + a4]), this.viewportDim = e4;
       }
-      let c2, h2 = 0;
-      for (const [e3, i3] of s2.entries()) {
-        let n3 = 0, o3 = 0;
-        !i3.el && c2 ? (n3 = c2.dim, o3 = c2.gap) : ({ dim: n3, gap: o3 } = this.getSlideMetrics(i3), c2 = i3), n3 = t(n3, 1e3), o3 = t(o3, 1e3), i3.dim = n3, i3.gap = o3, i3.pos = h2, h2 += n3, (a2 || e3 < s2.length - 1) && (h2 += o3);
+      let c3, h3 = 0;
+      for (const [e4, i4] of s3.entries()) {
+        let n4 = 0, o4 = 0;
+        !i4.el && c3 ? (n4 = c3.dim, o4 = c3.gap) : ({ dim: n4, gap: o4 } = this.getSlideMetrics(i4), c3 = i4), n4 = t(n4, 1e3), o4 = t(o4, 1e3), i4.dim = n4, i4.gap = o4, i4.pos = h3, h3 += n4, (a3 || e4 < s3.length - 1) && (h3 += o4);
       }
-      h2 = t(h2, 1e3), this.contentDim = h2, e2 && (e2.contentRect[r2] = h2, e2.contentRect[o2 ? "fullWidth" : "fullHeight"] = h2), this.pages = this.createPages(), this.pages = this.processPages(), this.state === j.Init && this.setInitialPage(), this.page = Math.max(0, Math.min(this.page, this.pages.length - 1)), this.manageSlideVisiblity(), this.emit("refresh");
+      h3 = t(h3, 1e3), this.contentDim = h3, e3 && (e3.contentRect[r3] = h3, e3.contentRect[o3 ? "fullWidth" : "fullHeight"] = h3), this.pages = this.createPages(), this.pages = this.processPages(), this.state === j.Init && this.setInitialPage(), this.page = Math.max(0, Math.min(this.page, this.pages.length - 1)), this.manageSlideVisiblity(), this.emit("refresh");
     }
-    getProgress(e2, i2 = false, n2 = false) {
-      void 0 === e2 && (e2 = this.page);
-      const s2 = this, o2 = s2.panzoom, a2 = s2.contentDim, r2 = s2.pages[e2] || 0;
-      if (!r2 || !o2)
-        return e2 > this.page ? -1 : 1;
-      let l2 = -1 * o2.current.e, c2 = t((l2 - r2.pos) / (1 * r2.dim), 1e3), h2 = c2, d2 = c2;
-      this.isInfinite && true !== n2 && (h2 = t((l2 - r2.pos + a2) / (1 * r2.dim), 1e3), d2 = t((l2 - r2.pos - a2) / (1 * r2.dim), 1e3));
-      let u2 = [c2, h2, d2].reduce(function(t2, e3) {
-        return Math.abs(e3) < Math.abs(t2) ? e3 : t2;
+    getProgress(e3, i3 = false, n3 = false) {
+      void 0 === e3 && (e3 = this.page);
+      const s3 = this, o3 = s3.panzoom, a3 = s3.contentDim, r3 = s3.pages[e3] || 0;
+      if (!r3 || !o3)
+        return e3 > this.page ? -1 : 1;
+      let l3 = -1 * o3.current.e, c3 = t((l3 - r3.pos) / (1 * r3.dim), 1e3), h3 = c3, d3 = c3;
+      this.isInfinite && true !== n3 && (h3 = t((l3 - r3.pos + a3) / (1 * r3.dim), 1e3), d3 = t((l3 - r3.pos - a3) / (1 * r3.dim), 1e3));
+      let u3 = [c3, h3, d3].reduce(function(t3, e4) {
+        return Math.abs(e4) < Math.abs(t3) ? e4 : t3;
       });
-      return i2 ? u2 : u2 > 1 ? 1 : u2 < -1 ? -1 : u2;
+      return i3 ? u3 : u3 > 1 ? 1 : u3 < -1 ? -1 : u3;
     }
     setViewportHeight() {
-      const { page: t2, pages: e2, viewport: i2, isHorizontal: n2 } = this;
-      if (!i2 || !e2[t2])
+      const { page: t3, pages: e3, viewport: i3, isHorizontal: n3 } = this;
+      if (!i3 || !e3[t3])
         return;
-      let s2 = 0;
-      n2 && this.track && (this.track.style.height = "auto", e2[t2].slides.forEach((t3) => {
-        t3.el && (s2 = Math.max(s2, t3.el.offsetHeight));
-      })), i2.style.height = s2 ? `${s2}px` : "";
+      let s3 = 0;
+      n3 && this.track && (this.track.style.height = "auto", e3[t3].slides.forEach((t4) => {
+        t4.el && (s3 = Math.max(s3, t4.el.offsetHeight));
+      })), i3.style.height = s3 ? `${s3}px` : "";
     }
-    getPageForSlide(t2) {
-      for (const e2 of this.pages)
-        for (const i2 of e2.slides)
-          if (i2.index === t2)
-            return e2.index;
+    getPageForSlide(t3) {
+      for (const e3 of this.pages)
+        for (const i3 of e3.slides)
+          if (i3.index === t3)
+            return e3.index;
       return -1;
     }
-    getVisibleSlides(t2 = 0) {
-      var e2;
-      const i2 = /* @__PURE__ */ new Set();
-      let { panzoom: n2, contentDim: s2, viewportDim: o2, pages: a2, page: r2 } = this;
-      if (o2) {
-        s2 = s2 + (null === (e2 = this.slides[this.slides.length - 1]) || void 0 === e2 ? void 0 : e2.gap) || 0;
-        let l2 = 0;
-        l2 = n2 && n2.state !== m.Init && n2.state !== m.Destroy ? -1 * n2.current[this.axis] : a2[r2] && a2[r2].pos || 0, this.isInfinite && (l2 -= Math.floor(l2 / s2) * s2), this.isRTL && this.isHorizontal && (l2 *= -1);
-        const c2 = l2 - o2 * t2, h2 = l2 + o2 * (t2 + 1), d2 = this.isInfinite ? [-1, 0, 1] : [0];
-        for (const t3 of this.slides)
-          for (const e3 of d2) {
-            const n3 = t3.pos + e3 * s2, o3 = n3 + t3.dim + t3.gap;
-            n3 < h2 && o3 > c2 && i2.add(t3);
+    getVisibleSlides(t3 = 0) {
+      var e3;
+      const i3 = /* @__PURE__ */ new Set();
+      let { panzoom: n3, contentDim: s3, viewportDim: o3, pages: a3, page: r3 } = this;
+      if (o3) {
+        s3 = s3 + (null === (e3 = this.slides[this.slides.length - 1]) || void 0 === e3 ? void 0 : e3.gap) || 0;
+        let l3 = 0;
+        l3 = n3 && n3.state !== m.Init && n3.state !== m.Destroy ? -1 * n3.current[this.axis] : a3[r3] && a3[r3].pos || 0, this.isInfinite && (l3 -= Math.floor(l3 / s3) * s3), this.isRTL && this.isHorizontal && (l3 *= -1);
+        const c3 = l3 - o3 * t3, h3 = l3 + o3 * (t3 + 1), d3 = this.isInfinite ? [-1, 0, 1] : [0];
+        for (const t4 of this.slides)
+          for (const e4 of d3) {
+            const n4 = t4.pos + e4 * s3, o4 = n4 + t4.dim + t4.gap;
+            n4 < h3 && o4 > c3 && i3.add(t4);
           }
       }
-      return i2;
+      return i3;
     }
-    getPageFromPosition(t2) {
-      const { viewportDim: e2, contentDim: i2, slides: n2, pages: s2, panzoom: o2 } = this, a2 = s2.length, r2 = n2.length, l2 = n2[0], c2 = n2[r2 - 1], h2 = this.option("center");
-      let d2 = 0, u2 = 0, p2 = 0, f2 = void 0 === t2 ? -1 * ((null == o2 ? void 0 : o2.target[this.axis]) || 0) : t2;
-      h2 && (f2 += 0.5 * e2), this.isInfinite ? (f2 < l2.pos - 0.5 * c2.gap && (f2 -= i2, p2 = -1), f2 > c2.pos + c2.dim + 0.5 * c2.gap && (f2 -= i2, p2 = 1)) : f2 = Math.max(l2.pos || 0, Math.min(f2, c2.pos));
-      let g2 = c2, m2 = n2.find((t3) => {
-        const e3 = t3.pos - 0.5 * g2.gap, i3 = t3.pos + t3.dim + 0.5 * t3.gap;
-        return g2 = t3, f2 >= e3 && f2 < i3;
+    getPageFromPosition(t3) {
+      const { viewportDim: e3, contentDim: i3, slides: n3, pages: s3, panzoom: o3 } = this, a3 = s3.length, r3 = n3.length, l3 = n3[0], c3 = n3[r3 - 1], h3 = this.option("center");
+      let d3 = 0, u3 = 0, p3 = 0, f3 = void 0 === t3 ? -1 * ((null == o3 ? void 0 : o3.target[this.axis]) || 0) : t3;
+      h3 && (f3 += 0.5 * e3), this.isInfinite ? (f3 < l3.pos - 0.5 * c3.gap && (f3 -= i3, p3 = -1), f3 > c3.pos + c3.dim + 0.5 * c3.gap && (f3 -= i3, p3 = 1)) : f3 = Math.max(l3.pos || 0, Math.min(f3, c3.pos));
+      let g3 = c3, m3 = n3.find((t4) => {
+        const e4 = t4.pos - 0.5 * g3.gap, i4 = t4.pos + t4.dim + 0.5 * t4.gap;
+        return g3 = t4, f3 >= e4 && f3 < i4;
       });
-      return m2 || (m2 = c2), u2 = this.getPageForSlide(m2.index), d2 = u2 + p2 * a2, { page: d2, pageIndex: u2 };
+      return m3 || (m3 = c3), u3 = this.getPageForSlide(m3.index), d3 = u3 + p3 * a3, { page: d3, pageIndex: u3 };
     }
     setPageFromPosition() {
-      const { pageIndex: t2 } = this.getPageFromPosition();
-      this.onChange(t2);
+      const { pageIndex: t3 } = this.getPageFromPosition();
+      this.onChange(t3);
     }
     destroy() {
       if ([j.Destroy].includes(this.state))
         return;
       this.state = j.Destroy;
-      const { container: t2, viewport: e2, track: i2, slides: n2, panzoom: s2 } = this, o2 = this.option("classes");
-      t2.removeEventListener("click", this.onClick, { passive: false, capture: false }), t2.removeEventListener("slideTo", this.onSlideTo), window.removeEventListener("resize", this.onResize), s2 && (s2.destroy(), this.panzoom = null), n2 && n2.forEach((t3) => {
-        this.removeSlideEl(t3);
-      }), this.detachPlugins(), e2 && (e2.removeEventListener("scroll", this.onScroll), e2.offsetParent && i2 && i2.offsetParent && e2.replaceWith(...i2.childNodes));
-      for (const [e3, i3] of Object.entries(o2))
-        "container" !== e3 && i3 && t2.classList.remove(i3);
+      const { container: t3, viewport: e3, track: i3, slides: n3, panzoom: s3 } = this, o3 = this.option("classes");
+      t3.removeEventListener("click", this.onClick, { passive: false, capture: false }), t3.removeEventListener("slideTo", this.onSlideTo), window.removeEventListener("resize", this.onResize), s3 && (s3.destroy(), this.panzoom = null), n3 && n3.forEach((t4) => {
+        this.removeSlideEl(t4);
+      }), this.detachPlugins(), e3 && (e3.removeEventListener("scroll", this.onScroll), e3.offsetParent && i3 && i3.offsetParent && e3.replaceWith(...i3.childNodes));
+      for (const [e4, i4] of Object.entries(o3))
+        "container" !== e4 && i4 && t3.classList.remove(i4);
       this.track = null, this.viewport = null, this.page = 0, this.slides = [];
-      const a2 = this.events.get("ready");
-      this.events = /* @__PURE__ */ new Map(), a2 && this.events.set("ready", a2);
+      const a3 = this.events.get("ready");
+      this.events = /* @__PURE__ */ new Map(), a3 && this.events.set("ready", a3);
     }
   };
   Object.defineProperty(J, "Panzoom", { enumerable: true, configurable: true, writable: true, value: k }), Object.defineProperty(J, "defaults", { enumerable: true, configurable: true, writable: true, value: F }), Object.defineProperty(J, "Plugins", { enumerable: true, configurable: true, writable: true, value: Z });
-  var Q = function(t2) {
-    if (!E(t2))
+  var Q = function(t3) {
+    if (!E(t3))
       return 0;
-    const e2 = window.scrollY, i2 = window.innerHeight, n2 = e2 + i2, s2 = t2.getBoundingClientRect(), o2 = s2.y + e2, a2 = s2.height, r2 = o2 + a2;
-    if (e2 > r2 || n2 < o2)
+    const e3 = window.scrollY, i3 = window.innerHeight, n3 = e3 + i3, s3 = t3.getBoundingClientRect(), o3 = s3.y + e3, a3 = s3.height, r3 = o3 + a3;
+    if (e3 > r3 || n3 < o3)
       return 0;
-    if (e2 < o2 && n2 > r2)
+    if (e3 < o3 && n3 > r3)
       return 100;
-    if (o2 < e2 && r2 > n2)
+    if (o3 < e3 && r3 > n3)
       return 100;
-    let l2 = a2;
-    o2 < e2 && (l2 -= e2 - o2), r2 > n2 && (l2 -= r2 - n2);
-    const c2 = l2 / i2 * 100;
-    return Math.round(c2);
+    let l3 = a3;
+    o3 < e3 && (l3 -= e3 - o3), r3 > n3 && (l3 -= r3 - n3);
+    const c3 = l3 / i3 * 100;
+    return Math.round(c3);
   };
   var tt = !("undefined" == typeof window || !window.document || !window.document.createElement);
   var et;
   var it = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden]):not(.fancybox-focus-guard)", "iframe", "object", "embed", "video", "audio", "[contenteditable]", '[tabindex]:not([tabindex^="-"]):not([disabled]):not([aria-hidden])'].join(",");
-  var nt = (t2) => {
-    if (t2 && tt) {
+  var nt = (t3) => {
+    if (t3 && tt) {
       void 0 === et && document.createElement("div").focus({ get preventScroll() {
         return et = true, false;
       } });
       try {
         if (et)
-          t2.focus({ preventScroll: true });
+          t3.focus({ preventScroll: true });
         else {
-          const e2 = window.scrollY || document.body.scrollTop, i2 = window.scrollX || document.body.scrollLeft;
-          t2.focus(), document.body.scrollTo({ top: e2, left: i2, behavior: "auto" });
+          const e3 = window.scrollY || document.body.scrollTop, i3 = window.scrollX || document.body.scrollLeft;
+          t3.focus(), document.body.scrollTo({ top: e3, left: i3, behavior: "auto" });
         }
-      } catch (t3) {
+      } catch (t4) {
       }
     }
   };
   var st = () => {
-    const t2 = document;
-    let e2, i2 = "", n2 = "", s2 = "";
-    return t2.fullscreenEnabled ? (i2 = "requestFullscreen", n2 = "exitFullscreen", s2 = "fullscreenElement") : t2.webkitFullscreenEnabled && (i2 = "webkitRequestFullscreen", n2 = "webkitExitFullscreen", s2 = "webkitFullscreenElement"), i2 && (e2 = { request: function(e3 = t2.documentElement) {
-      return "webkitRequestFullscreen" === i2 ? e3[i2](Element.ALLOW_KEYBOARD_INPUT) : e3[i2]();
+    const t3 = document;
+    let e3, i3 = "", n3 = "", s3 = "";
+    return t3.fullscreenEnabled ? (i3 = "requestFullscreen", n3 = "exitFullscreen", s3 = "fullscreenElement") : t3.webkitFullscreenEnabled && (i3 = "webkitRequestFullscreen", n3 = "webkitExitFullscreen", s3 = "webkitFullscreenElement"), i3 && (e3 = { request: function(e4 = t3.documentElement) {
+      return "webkitRequestFullscreen" === i3 ? e4[i3](Element.ALLOW_KEYBOARD_INPUT) : e4[i3]();
     }, exit: function() {
-      return t2[s2] && t2[n2]();
+      return t3[s3] && t3[n3]();
     }, isFullscreen: function() {
-      return t2[s2];
-    } }), e2;
+      return t3[s3];
+    } }), e3;
   };
   var ot = { dragToClose: true, hideScrollbar: true, Carousel: { classes: { container: "fancybox__carousel", viewport: "fancybox__viewport", track: "fancybox__track", slide: "fancybox__slide" } }, contentClick: "toggleZoom", contentDblClick: false, backdropClick: "close", animated: true, idle: 3500, showClass: "f-zoomInUp", hideClass: "f-fadeOut", commonCaption: false, parentEl: null, startIndex: 0, l10n: Object.assign(Object.assign({}, b), { CLOSE: "Close", NEXT: "Next", PREV: "Previous", MODAL: "You can close this modal content with the ESC key", ERROR: "Something Went Wrong, Please Try Again Later", IMAGE_ERROR: "Image Not Found", ELEMENT_NOT_FOUND: "HTML Element Not Found", AJAX_NOT_FOUND: "Error Loading AJAX : Not Found", AJAX_FORBIDDEN: "Error Loading AJAX : Forbidden", IFRAME_ERROR: "Error Loading Page", TOGGLE_ZOOM: "Toggle zoom level", TOGGLE_THUMBS: "Toggle thumbnails", TOGGLE_SLIDESHOW: "Toggle slideshow", TOGGLE_FULLSCREEN: "Toggle full-screen mode", DOWNLOAD: "Download" }), tpl: { closeButton: '<button data-fancybox-close class="f-button is-close-btn" title="{{CLOSE}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M20 20L4 4m16 0L4 20"/></svg></button>', main: '<div class="fancybox__container" role="dialog" aria-modal="true" aria-label="{{MODAL}}" tabindex="-1">\n    <div class="fancybox__backdrop"></div>\n    <div class="fancybox__carousel"></div>\n    <div class="fancybox__footer"></div>\n  </div>' }, groupAll: false, groupAttr: "data-fancybox", defaultType: "image", defaultDisplay: "block", autoFocus: true, trapFocus: true, placeFocusBack: true, closeButton: "auto", keyboard: { Escape: "close", Delete: "close", Backspace: "close", PageUp: "next", PageDown: "prev", ArrowUp: "prev", ArrowDown: "next", ArrowRight: "next", ArrowLeft: "prev" }, Fullscreen: { autoStart: false }, compact: () => window.matchMedia("(max-width: 578px), (max-height: 578px)").matches, wheel: "zoom" };
   var at;
   var rt;
-  !function(t2) {
-    t2[t2.Init = 0] = "Init", t2[t2.Ready = 1] = "Ready", t2[t2.Closing = 2] = "Closing", t2[t2.CustomClosing = 3] = "CustomClosing", t2[t2.Destroy = 4] = "Destroy";
-  }(at || (at = {})), function(t2) {
-    t2[t2.Loading = 0] = "Loading", t2[t2.Opening = 1] = "Opening", t2[t2.Ready = 2] = "Ready", t2[t2.Closing = 3] = "Closing";
+  !function(t3) {
+    t3[t3.Init = 0] = "Init", t3[t3.Ready = 1] = "Ready", t3[t3.Closing = 2] = "Closing", t3[t3.CustomClosing = 3] = "CustomClosing", t3[t3.Destroy = 4] = "Destroy";
+  }(at || (at = {})), function(t3) {
+    t3[t3.Loading = 0] = "Loading", t3[t3.Opening = 1] = "Opening", t3[t3.Ready = 2] = "Ready", t3[t3.Closing = 3] = "Closing";
   }(rt || (rt = {}));
   var lt = "";
   var ct = false;
   var ht = false;
   var dt = null;
   var ut = () => {
-    let t2 = "", e2 = "";
-    const i2 = Ce.getInstance();
-    if (i2) {
-      const n2 = i2.carousel, s2 = i2.getSlide();
-      if (n2 && s2) {
-        let o2 = s2.slug || void 0, a2 = s2.triggerEl || void 0;
-        e2 = o2 || (i2.option("slug") || ""), !e2 && a2 && a2.dataset && (e2 = a2.dataset.fancybox || ""), e2 && "true" !== e2 && (t2 = "#" + e2 + (!o2 && n2.slides.length > 1 ? "-" + (s2.index + 1) : ""));
+    let t3 = "", e3 = "";
+    const i3 = Ce.getInstance();
+    if (i3) {
+      const n3 = i3.carousel, s3 = i3.getSlide();
+      if (n3 && s3) {
+        let o3 = s3.slug || void 0, a3 = s3.triggerEl || void 0;
+        e3 = o3 || (i3.option("slug") || ""), !e3 && a3 && a3.dataset && (e3 = a3.dataset.fancybox || ""), e3 && "true" !== e3 && (t3 = "#" + e3 + (!o3 && n3.slides.length > 1 ? "-" + (s3.index + 1) : ""));
       }
     }
-    return { hash: t2, slug: e2, index: 1 };
+    return { hash: t3, slug: e3, index: 1 };
   };
   var pt = () => {
-    const t2 = new URL(document.URL).hash, e2 = t2.slice(1).split("-"), i2 = e2[e2.length - 1], n2 = i2 && /^\+?\d+$/.test(i2) && parseInt(e2.pop() || "1", 10) || 1;
-    return { hash: t2, slug: e2.join("-"), index: n2 };
+    const t3 = new URL(document.URL).hash, e3 = t3.slice(1).split("-"), i3 = e3[e3.length - 1], n3 = i3 && /^\+?\d+$/.test(i3) && parseInt(e3.pop() || "1", 10) || 1;
+    return { hash: t3, slug: e3.join("-"), index: n3 };
   };
   var ft = () => {
-    const { slug: t2, index: e2 } = pt();
-    if (!t2)
+    const { slug: t3, index: e3 } = pt();
+    if (!t3)
       return;
-    let i2 = document.querySelector(`[data-slug="${t2}"]`);
-    if (i2 && i2.dispatchEvent(new CustomEvent("click", { bubbles: true, cancelable: true })), Ce.getInstance())
+    let i3 = document.querySelector(`[data-slug="${t3}"]`);
+    if (i3 && i3.dispatchEvent(new CustomEvent("click", { bubbles: true, cancelable: true })), Ce.getInstance())
       return;
-    const n2 = document.querySelectorAll(`[data-fancybox="${t2}"]`);
-    n2.length && (i2 = n2[e2 - 1], i2 && i2.dispatchEvent(new CustomEvent("click", { bubbles: true, cancelable: true })));
+    const n3 = document.querySelectorAll(`[data-fancybox="${t3}"]`);
+    n3.length && (i3 = n3[e3 - 1], i3 && i3.dispatchEvent(new CustomEvent("click", { bubbles: true, cancelable: true })));
   };
   var gt = () => {
     if (false === Ce.defaults.Hash)
       return;
-    const t2 = Ce.getInstance();
-    if (false === (null == t2 ? void 0 : t2.options.Hash))
+    const t3 = Ce.getInstance();
+    if (false === (null == t3 ? void 0 : t3.options.Hash))
       return;
-    const { slug: e2, index: i2 } = pt(), { slug: n2 } = ut();
-    t2 && (e2 === n2 ? t2.jumpTo(i2 - 1) : (ct = true, t2.close())), ft();
+    const { slug: e3, index: i3 } = pt(), { slug: n3 } = ut();
+    t3 && (e3 === n3 ? t3.jumpTo(i3 - 1) : (ct = true, t3.close())), ft();
   };
   var mt = () => {
     dt && clearTimeout(dt), queueMicrotask(() => {
@@ -15082,179 +15082,179 @@
   tt && (/complete|interactive|loaded/.test(document.readyState) ? vt() : document.addEventListener("DOMContentLoaded", vt));
   var bt = "is-zooming-in";
   var yt = class extends N {
-    onCreateSlide(t2, e2, i2) {
-      const n2 = this.instance.optionFor(i2, "src") || "";
-      i2.el && "image" === i2.type && "string" == typeof n2 && this.setImage(i2, n2);
+    onCreateSlide(t3, e3, i3) {
+      const n3 = this.instance.optionFor(i3, "src") || "";
+      i3.el && "image" === i3.type && "string" == typeof n3 && this.setImage(i3, n3);
     }
-    onRemoveSlide(t2, e2, i2) {
-      i2.panzoom && i2.panzoom.destroy(), i2.panzoom = void 0, i2.imageEl = void 0;
+    onRemoveSlide(t3, e3, i3) {
+      i3.panzoom && i3.panzoom.destroy(), i3.panzoom = void 0, i3.imageEl = void 0;
     }
-    onChange(t2, e2, i2, n2) {
+    onChange(t3, e3, i3, n3) {
       S(this.instance.container, bt);
-      for (const t3 of e2.slides) {
-        const e3 = t3.panzoom;
-        e3 && t3.index !== i2 && e3.reset(0.35);
+      for (const t4 of e3.slides) {
+        const e4 = t4.panzoom;
+        e4 && t4.index !== i3 && e4.reset(0.35);
       }
     }
     onClose() {
-      var t2;
-      const e2 = this.instance, i2 = e2.container, n2 = e2.getSlide();
-      if (!i2 || !i2.parentElement || !n2)
+      var t3;
+      const e3 = this.instance, i3 = e3.container, n3 = e3.getSlide();
+      if (!i3 || !i3.parentElement || !n3)
         return;
-      const { el: s2, contentEl: o2, panzoom: a2, thumbElSrc: r2 } = n2;
-      if (!s2 || !r2 || !o2 || !a2 || a2.isContentLoading || a2.state === m.Init || a2.state === m.Destroy)
+      const { el: s3, contentEl: o3, panzoom: a3, thumbElSrc: r3 } = n3;
+      if (!s3 || !r3 || !o3 || !a3 || a3.isContentLoading || a3.state === m.Init || a3.state === m.Destroy)
         return;
-      a2.updateMetrics();
-      let l2 = this.getZoomInfo(n2);
-      if (!l2)
+      a3.updateMetrics();
+      let l3 = this.getZoomInfo(n3);
+      if (!l3)
         return;
-      this.instance.state = at.CustomClosing, i2.classList.remove(bt), i2.classList.add("is-zooming-out"), o2.style.backgroundImage = `url('${r2}')`;
-      const c2 = i2.getBoundingClientRect();
-      1 === ((null === (t2 = window.visualViewport) || void 0 === t2 ? void 0 : t2.scale) || 1) && Object.assign(i2.style, { position: "absolute", top: `${i2.offsetTop + window.scrollY}px`, left: `${i2.offsetLeft + window.scrollX}px`, bottom: "auto", right: "auto", width: `${c2.width}px`, height: `${c2.height}px`, overflow: "hidden" });
-      const { x: h2, y: d2, scale: u2, opacity: p2 } = l2;
-      if (p2) {
-        const t3 = ((t4, e3, i3, n3) => {
-          const s3 = e3 - t4, o3 = n3 - i3;
-          return (e4) => i3 + ((e4 - t4) / s3 * o3 || 0);
-        })(a2.scale, u2, 1, 0);
-        a2.on("afterTransform", () => {
-          o2.style.opacity = t3(a2.scale) + "";
+      this.instance.state = at.CustomClosing, i3.classList.remove(bt), i3.classList.add("is-zooming-out"), o3.style.backgroundImage = `url('${r3}')`;
+      const c3 = i3.getBoundingClientRect();
+      1 === ((null === (t3 = window.visualViewport) || void 0 === t3 ? void 0 : t3.scale) || 1) && Object.assign(i3.style, { position: "absolute", top: `${i3.offsetTop + window.scrollY}px`, left: `${i3.offsetLeft + window.scrollX}px`, bottom: "auto", right: "auto", width: `${c3.width}px`, height: `${c3.height}px`, overflow: "hidden" });
+      const { x: h3, y: d3, scale: u3, opacity: p3 } = l3;
+      if (p3) {
+        const t4 = ((t5, e4, i4, n4) => {
+          const s4 = e4 - t5, o4 = n4 - i4;
+          return (e5) => i4 + ((e5 - t5) / s4 * o4 || 0);
+        })(a3.scale, u3, 1, 0);
+        a3.on("afterTransform", () => {
+          o3.style.opacity = t4(a3.scale) + "";
         });
       }
-      a2.on("endAnimation", () => {
-        e2.destroy();
-      }), a2.target.a = u2, a2.target.b = 0, a2.target.c = 0, a2.target.d = u2, a2.panTo({ x: h2, y: d2, scale: u2, friction: p2 ? 0.2 : 0.33, ignoreBounds: true }), a2.isResting && e2.destroy();
+      a3.on("endAnimation", () => {
+        e3.destroy();
+      }), a3.target.a = u3, a3.target.b = 0, a3.target.c = 0, a3.target.d = u3, a3.panTo({ x: h3, y: d3, scale: u3, friction: p3 ? 0.2 : 0.33, ignoreBounds: true }), a3.isResting && e3.destroy();
     }
-    setImage(t2, e2) {
-      const i2 = this.instance;
-      t2.src = e2, this.process(t2, e2).then((e3) => {
-        const { contentEl: n2, imageEl: s2, thumbElSrc: o2, el: a2 } = t2;
-        if (i2.isClosing() || !n2 || !s2)
+    setImage(t3, e3) {
+      const i3 = this.instance;
+      t3.src = e3, this.process(t3, e3).then((e4) => {
+        const { contentEl: n3, imageEl: s3, thumbElSrc: o3, el: a3 } = t3;
+        if (i3.isClosing() || !n3 || !s3)
           return;
-        n2.offsetHeight;
-        const r2 = !!i2.isOpeningSlide(t2) && this.getZoomInfo(t2);
-        if (this.option("protected") && a2) {
-          a2.addEventListener("contextmenu", (t4) => {
-            t4.preventDefault();
+        n3.offsetHeight;
+        const r3 = !!i3.isOpeningSlide(t3) && this.getZoomInfo(t3);
+        if (this.option("protected") && a3) {
+          a3.addEventListener("contextmenu", (t5) => {
+            t5.preventDefault();
           });
-          const t3 = document.createElement("div");
-          P(t3, "fancybox-protected"), n2.appendChild(t3);
+          const t4 = document.createElement("div");
+          P(t4, "fancybox-protected"), n3.appendChild(t4);
         }
-        if (o2 && r2) {
-          const s3 = e3.contentRect, a3 = Math.max(s3.fullWidth, s3.fullHeight);
-          let c2 = null;
-          !r2.opacity && a3 > 1200 && (c2 = document.createElement("img"), P(c2, "fancybox-ghost"), c2.src = o2, n2.appendChild(c2));
-          const h2 = () => {
-            c2 && (P(c2, "f-fadeFastOut"), setTimeout(() => {
-              c2 && (c2.remove(), c2 = null);
+        if (o3 && r3) {
+          const s4 = e4.contentRect, a4 = Math.max(s4.fullWidth, s4.fullHeight);
+          let c3 = null;
+          !r3.opacity && a4 > 1200 && (c3 = document.createElement("img"), P(c3, "fancybox-ghost"), c3.src = o3, n3.appendChild(c3));
+          const h3 = () => {
+            c3 && (P(c3, "f-fadeFastOut"), setTimeout(() => {
+              c3 && (c3.remove(), c3 = null);
             }, 200));
           };
-          (l2 = o2, new Promise((t3, e4) => {
-            const i3 = new Image();
-            i3.onload = t3, i3.onerror = e4, i3.src = l2;
+          (l3 = o3, new Promise((t4, e5) => {
+            const i4 = new Image();
+            i4.onload = t4, i4.onerror = e5, i4.src = l3;
           })).then(() => {
-            i2.hideLoading(t2), t2.state = rt.Opening, this.instance.emit("reveal", t2), this.zoomIn(t2).then(() => {
-              h2(), this.instance.done(t2);
+            i3.hideLoading(t3), t3.state = rt.Opening, this.instance.emit("reveal", t3), this.zoomIn(t3).then(() => {
+              h3(), this.instance.done(t3);
             }, () => {
-            }), c2 && setTimeout(() => {
-              h2();
-            }, a3 > 2500 ? 800 : 200);
+            }), c3 && setTimeout(() => {
+              h3();
+            }, a4 > 2500 ? 800 : 200);
           }, () => {
-            i2.hideLoading(t2), i2.revealContent(t2);
+            i3.hideLoading(t3), i3.revealContent(t3);
           });
         } else {
-          const n3 = this.optionFor(t2, "initialSize"), s3 = this.optionFor(t2, "zoom"), o3 = { event: i2.prevMouseMoveEvent || i2.options.event, friction: s3 ? 0.12 : 0 };
-          let a3 = i2.optionFor(t2, "showClass") || void 0, r3 = true;
-          i2.isOpeningSlide(t2) && ("full" === n3 ? e3.zoomToFull(o3) : "cover" === n3 ? e3.zoomToCover(o3) : "max" === n3 ? e3.zoomToMax(o3) : r3 = false, e3.stop("current")), r3 && a3 && (a3 = e3.isDragging ? "f-fadeIn" : ""), i2.hideLoading(t2), i2.revealContent(t2, a3);
+          const n4 = this.optionFor(t3, "initialSize"), s4 = this.optionFor(t3, "zoom"), o4 = { event: i3.prevMouseMoveEvent || i3.options.event, friction: s4 ? 0.12 : 0 };
+          let a4 = i3.optionFor(t3, "showClass") || void 0, r4 = true;
+          i3.isOpeningSlide(t3) && ("full" === n4 ? e4.zoomToFull(o4) : "cover" === n4 ? e4.zoomToCover(o4) : "max" === n4 ? e4.zoomToMax(o4) : r4 = false, e4.stop("current")), r4 && a4 && (a4 = e4.isDragging ? "f-fadeIn" : ""), i3.hideLoading(t3), i3.revealContent(t3, a4);
         }
-        var l2;
+        var l3;
       }, () => {
-        i2.setError(t2, "{{IMAGE_ERROR}}");
+        i3.setError(t3, "{{IMAGE_ERROR}}");
       });
     }
-    process(t2, e2) {
-      return new Promise((i2, s2) => {
-        var o2;
-        const a2 = this.instance, r2 = t2.el;
-        a2.clearContent(t2), a2.showLoading(t2);
-        let l2 = this.optionFor(t2, "content");
-        if ("string" == typeof l2 && (l2 = n(l2)), !l2 || !E(l2)) {
-          if (l2 = document.createElement("img"), l2 instanceof HTMLImageElement) {
-            let i3 = "", n2 = t2.caption;
-            i3 = "string" == typeof n2 && n2 ? n2.replace(/<[^>]+>/gi, "").substring(0, 1e3) : `Image ${t2.index + 1} of ${(null === (o2 = a2.carousel) || void 0 === o2 ? void 0 : o2.pages.length) || 1}`, l2.src = e2 || "", l2.alt = i3, l2.draggable = false, t2.srcset && l2.setAttribute("srcset", t2.srcset), this.instance.isOpeningSlide(t2) && (l2.fetchPriority = "high");
+    process(t3, e3) {
+      return new Promise((i3, s3) => {
+        var o3;
+        const a3 = this.instance, r3 = t3.el;
+        a3.clearContent(t3), a3.showLoading(t3);
+        let l3 = this.optionFor(t3, "content");
+        if ("string" == typeof l3 && (l3 = n(l3)), !l3 || !E(l3)) {
+          if (l3 = document.createElement("img"), l3 instanceof HTMLImageElement) {
+            let i4 = "", n3 = t3.caption;
+            i4 = "string" == typeof n3 && n3 ? n3.replace(/<[^>]+>/gi, "").substring(0, 1e3) : `Image ${t3.index + 1} of ${(null === (o3 = a3.carousel) || void 0 === o3 ? void 0 : o3.pages.length) || 1}`, l3.src = e3 || "", l3.alt = i4, l3.draggable = false, t3.srcset && l3.setAttribute("srcset", t3.srcset), this.instance.isOpeningSlide(t3) && (l3.fetchPriority = "high");
           }
-          t2.sizes && l2.setAttribute("sizes", t2.sizes);
+          t3.sizes && l3.setAttribute("sizes", t3.sizes);
         }
-        P(l2, "fancybox-image"), t2.imageEl = l2, a2.setContent(t2, l2, false);
-        t2.panzoom = new k(r2, u({ transformParent: true }, this.option("Panzoom") || {}, { content: l2, width: a2.optionFor(t2, "width", "auto"), height: a2.optionFor(t2, "height", "auto"), wheel: () => {
-          const t3 = a2.option("wheel");
-          return ("zoom" === t3 || "pan" == t3) && t3;
-        }, click: (e3, i3) => {
-          var n2, s3;
-          if (a2.isCompact || a2.isClosing())
+        P(l3, "fancybox-image"), t3.imageEl = l3, a3.setContent(t3, l3, false);
+        t3.panzoom = new k(r3, u({ transformParent: true }, this.option("Panzoom") || {}, { content: l3, width: a3.optionFor(t3, "width", "auto"), height: a3.optionFor(t3, "height", "auto"), wheel: () => {
+          const t4 = a3.option("wheel");
+          return ("zoom" === t4 || "pan" == t4) && t4;
+        }, click: (e4, i4) => {
+          var n3, s4;
+          if (a3.isCompact || a3.isClosing())
             return false;
-          if (t2.index !== (null === (n2 = a2.getSlide()) || void 0 === n2 ? void 0 : n2.index))
+          if (t3.index !== (null === (n3 = a3.getSlide()) || void 0 === n3 ? void 0 : n3.index))
             return false;
-          if (i3) {
-            const t3 = i3.composedPath()[0];
-            if (["A", "BUTTON", "TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].includes(t3.nodeName))
+          if (i4) {
+            const t4 = i4.composedPath()[0];
+            if (["A", "BUTTON", "TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].includes(t4.nodeName))
               return false;
           }
-          let o3 = !i3 || i3.target && (null === (s3 = t2.contentEl) || void 0 === s3 ? void 0 : s3.contains(i3.target));
-          return a2.option(o3 ? "contentClick" : "backdropClick") || false;
-        }, dblClick: () => a2.isCompact ? "toggleZoom" : a2.option("contentDblClick") || false, spinner: false, panOnlyZoomed: true, wheelLimit: 1 / 0, on: { ready: (t3) => {
-          i2(t3);
+          let o4 = !i4 || i4.target && (null === (s4 = t3.contentEl) || void 0 === s4 ? void 0 : s4.contains(i4.target));
+          return a3.option(o4 ? "contentClick" : "backdropClick") || false;
+        }, dblClick: () => a3.isCompact ? "toggleZoom" : a3.option("contentDblClick") || false, spinner: false, panOnlyZoomed: true, wheelLimit: 1 / 0, on: { ready: (t4) => {
+          i3(t4);
         }, error: () => {
-          s2();
+          s3();
         }, destroy: () => {
-          s2();
+          s3();
         } } }));
       });
     }
-    zoomIn(t2) {
-      return new Promise((e2, i2) => {
-        const n2 = this.instance, s2 = n2.container, { panzoom: o2, contentEl: a2, el: r2 } = t2;
-        o2 && o2.updateMetrics();
-        const l2 = this.getZoomInfo(t2);
-        if (!(l2 && r2 && a2 && o2 && s2))
-          return void i2();
-        const { x: c2, y: h2, scale: d2, opacity: u2 } = l2, p2 = () => {
-          t2.state !== rt.Closing && (u2 && (a2.style.opacity = Math.max(Math.min(1, 1 - (1 - o2.scale) / (1 - d2)), 0) + ""), o2.scale >= 1 && o2.scale > o2.targetScale - 0.1 && e2(o2));
-        }, f2 = (t3) => {
-          (t3.scale < 0.99 || t3.scale > 1.01) && !t3.isDragging || (S(s2, bt), a2.style.opacity = "", t3.off("endAnimation", f2), t3.off("touchStart", f2), t3.off("afterTransform", p2), e2(t3));
+    zoomIn(t3) {
+      return new Promise((e3, i3) => {
+        const n3 = this.instance, s3 = n3.container, { panzoom: o3, contentEl: a3, el: r3 } = t3;
+        o3 && o3.updateMetrics();
+        const l3 = this.getZoomInfo(t3);
+        if (!(l3 && r3 && a3 && o3 && s3))
+          return void i3();
+        const { x: c3, y: h3, scale: d3, opacity: u3 } = l3, p3 = () => {
+          t3.state !== rt.Closing && (u3 && (a3.style.opacity = Math.max(Math.min(1, 1 - (1 - o3.scale) / (1 - d3)), 0) + ""), o3.scale >= 1 && o3.scale > o3.targetScale - 0.1 && e3(o3));
+        }, f3 = (t4) => {
+          (t4.scale < 0.99 || t4.scale > 1.01) && !t4.isDragging || (S(s3, bt), a3.style.opacity = "", t4.off("endAnimation", f3), t4.off("touchStart", f3), t4.off("afterTransform", p3), e3(t4));
         };
-        o2.on("endAnimation", f2), o2.on("touchStart", f2), o2.on("afterTransform", p2), o2.on(["error", "destroy"], () => {
-          i2();
-        }), o2.panTo({ x: c2, y: h2, scale: d2, friction: 0, ignoreBounds: true }), o2.stop("current");
-        const g2 = { event: "mousemove" === o2.panMode ? n2.prevMouseMoveEvent || n2.options.event : void 0 }, m2 = this.optionFor(t2, "initialSize");
-        P(s2, bt), n2.hideLoading(t2), "full" === m2 ? o2.zoomToFull(g2) : "cover" === m2 ? o2.zoomToCover(g2) : "max" === m2 ? o2.zoomToMax(g2) : o2.reset(0.172);
+        o3.on("endAnimation", f3), o3.on("touchStart", f3), o3.on("afterTransform", p3), o3.on(["error", "destroy"], () => {
+          i3();
+        }), o3.panTo({ x: c3, y: h3, scale: d3, friction: 0, ignoreBounds: true }), o3.stop("current");
+        const g3 = { event: "mousemove" === o3.panMode ? n3.prevMouseMoveEvent || n3.options.event : void 0 }, m3 = this.optionFor(t3, "initialSize");
+        P(s3, bt), n3.hideLoading(t3), "full" === m3 ? o3.zoomToFull(g3) : "cover" === m3 ? o3.zoomToCover(g3) : "max" === m3 ? o3.zoomToMax(g3) : o3.reset(0.172);
       });
     }
-    getZoomInfo(t2) {
-      const { el: e2, imageEl: i2, thumbEl: n2, panzoom: s2 } = t2, o2 = this.instance, a2 = o2.container;
-      if (!e2 || !i2 || !n2 || !s2 || Q(n2) < 3 || !this.optionFor(t2, "zoom") || !a2 || o2.state === at.Destroy)
+    getZoomInfo(t3) {
+      const { el: e3, imageEl: i3, thumbEl: n3, panzoom: s3 } = t3, o3 = this.instance, a3 = o3.container;
+      if (!e3 || !i3 || !n3 || !s3 || Q(n3) < 3 || !this.optionFor(t3, "zoom") || !a3 || o3.state === at.Destroy)
         return false;
-      if ("0" === getComputedStyle(a2).getPropertyValue("--f-images-zoom"))
+      if ("0" === getComputedStyle(a3).getPropertyValue("--f-images-zoom"))
         return false;
-      const r2 = window.visualViewport || null;
-      if (1 !== (r2 ? r2.scale : 1))
+      const r3 = window.visualViewport || null;
+      if (1 !== (r3 ? r3.scale : 1))
         return false;
-      let { top: l2, left: c2, width: h2, height: d2 } = n2.getBoundingClientRect(), { top: u2, left: p2, fitWidth: f2, fitHeight: g2 } = s2.contentRect;
-      if (!(h2 && d2 && f2 && g2))
+      let { top: l3, left: c3, width: h3, height: d3 } = n3.getBoundingClientRect(), { top: u3, left: p3, fitWidth: f3, fitHeight: g3 } = s3.contentRect;
+      if (!(h3 && d3 && f3 && g3))
         return false;
-      const m2 = s2.container.getBoundingClientRect();
-      p2 += m2.left, u2 += m2.top;
-      const v2 = -1 * (p2 + 0.5 * f2 - (c2 + 0.5 * h2)), b2 = -1 * (u2 + 0.5 * g2 - (l2 + 0.5 * d2)), y2 = h2 / f2;
-      let w2 = this.option("zoomOpacity") || false;
-      return "auto" === w2 && (w2 = Math.abs(h2 / d2 - f2 / g2) > 0.1), { x: v2, y: b2, scale: y2, opacity: w2 };
+      const m3 = s3.container.getBoundingClientRect();
+      p3 += m3.left, u3 += m3.top;
+      const v3 = -1 * (p3 + 0.5 * f3 - (c3 + 0.5 * h3)), b3 = -1 * (u3 + 0.5 * g3 - (l3 + 0.5 * d3)), y3 = h3 / f3;
+      let w3 = this.option("zoomOpacity") || false;
+      return "auto" === w3 && (w3 = Math.abs(h3 / d3 - f3 / g3) > 0.1), { x: v3, y: b3, scale: y3, opacity: w3 };
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.on("Carousel.change", t2.onChange), e2.on("Carousel.createSlide", t2.onCreateSlide), e2.on("Carousel.removeSlide", t2.onRemoveSlide), e2.on("close", t2.onClose);
+      const t3 = this, e3 = t3.instance;
+      e3.on("Carousel.change", t3.onChange), e3.on("Carousel.createSlide", t3.onCreateSlide), e3.on("Carousel.removeSlide", t3.onRemoveSlide), e3.on("close", t3.onClose);
     }
     detach() {
-      const t2 = this, e2 = t2.instance;
-      e2.off("Carousel.change", t2.onChange), e2.off("Carousel.createSlide", t2.onCreateSlide), e2.off("Carousel.removeSlide", t2.onRemoveSlide), e2.off("close", t2.onClose);
+      const t3 = this, e3 = t3.instance;
+      e3.off("Carousel.change", t3.onChange), e3.off("Carousel.createSlide", t3.onCreateSlide), e3.off("Carousel.removeSlide", t3.onRemoveSlide), e3.off("close", t3.onClose);
     }
   };
   Object.defineProperty(yt, "defaults", { enumerable: true, configurable: true, writable: true, value: { initialSize: "fit", Panzoom: { maxScale: 1 }, protected: false, zoom: true, zoomOpacity: "auto" } }), "function" == typeof SuppressedError && SuppressedError;
@@ -15264,275 +15264,275 @@
   var St = "youtube";
   var Pt = "vimeo";
   var Ct = "html5video";
-  var Tt = (t2, e2 = {}) => {
-    const i2 = new URL(t2), n2 = new URLSearchParams(i2.search), s2 = new URLSearchParams();
-    for (const [t3, i3] of [...n2, ...Object.entries(e2)]) {
-      let e3 = i3 + "";
-      if ("t" === t3) {
-        let t4 = e3.match(/((\d*)m)?(\d*)s?/);
-        t4 && s2.set("start", 60 * parseInt(t4[2] || "0") + parseInt(t4[3] || "0") + "");
+  var Tt = (t3, e3 = {}) => {
+    const i3 = new URL(t3), n3 = new URLSearchParams(i3.search), s3 = new URLSearchParams();
+    for (const [t4, i4] of [...n3, ...Object.entries(e3)]) {
+      let e4 = i4 + "";
+      if ("t" === t4) {
+        let t5 = e4.match(/((\d*)m)?(\d*)s?/);
+        t5 && s3.set("start", 60 * parseInt(t5[2] || "0") + parseInt(t5[3] || "0") + "");
       } else
-        s2.set(t3, e3);
+        s3.set(t4, e4);
     }
-    let o2 = s2 + "", a2 = t2.match(/#t=((.*)?\d+s)/);
-    return a2 && (o2 += `#t=${a2[1]}`), o2;
+    let o3 = s3 + "", a3 = t3.match(/#t=((.*)?\d+s)/);
+    return a3 && (o3 += `#t=${a3[1]}`), o3;
   };
   var Mt = { ajax: null, autoSize: true, iframeAttr: { allow: "autoplay; fullscreen", scrolling: "auto" }, preload: true, videoAutoplay: true, videoRatio: 16 / 9, videoTpl: `<video class="fancybox__html5video" playsinline controls controlsList="nodownload" poster="{{poster}}">
   <source src="{{src}}" type="{{format}}" />Sorry, your browser doesn't support embedded videos.</video>`, videoFormat: "", vimeo: { byline: 1, color: "00adef", controls: 1, dnt: 1, muted: 0 }, youtube: { controls: 1, enablejsapi: 1, nocookie: 1, rel: 0, fs: 1 } };
   var Ot = ["image", "html", "ajax", "inline", "clone", "iframe", "map", "pdf", "html5video", "youtube", "vimeo"];
   var At = class extends N {
-    onBeforeInitSlide(t2, e2, i2) {
-      this.processType(i2);
+    onBeforeInitSlide(t3, e3, i3) {
+      this.processType(i3);
     }
-    onCreateSlide(t2, e2, i2) {
-      this.setContent(i2);
+    onCreateSlide(t3, e3, i3) {
+      this.setContent(i3);
     }
-    onClearContent(t2, e2) {
-      e2.xhr && (e2.xhr.abort(), e2.xhr = null);
-      const i2 = e2.iframeEl;
-      i2 && (i2.onload = i2.onerror = null, i2.src = "//about:blank", e2.iframeEl = null);
-      const n2 = e2.contentEl, s2 = e2.placeholderEl;
-      if ("inline" === e2.type && n2 && s2)
-        n2.classList.remove("fancybox__content"), "none" !== n2.style.display && (n2.style.display = "none"), s2.parentNode && s2.parentNode.insertBefore(n2, s2), s2.remove(), e2.contentEl = void 0, e2.placeholderEl = void 0;
+    onClearContent(t3, e3) {
+      e3.xhr && (e3.xhr.abort(), e3.xhr = null);
+      const i3 = e3.iframeEl;
+      i3 && (i3.onload = i3.onerror = null, i3.src = "//about:blank", e3.iframeEl = null);
+      const n3 = e3.contentEl, s3 = e3.placeholderEl;
+      if ("inline" === e3.type && n3 && s3)
+        n3.classList.remove("fancybox__content"), "none" !== n3.style.display && (n3.style.display = "none"), s3.parentNode && s3.parentNode.insertBefore(n3, s3), s3.remove(), e3.contentEl = void 0, e3.placeholderEl = void 0;
       else
-        for (; e2.el && e2.el.firstChild; )
-          e2.el.removeChild(e2.el.firstChild);
+        for (; e3.el && e3.el.firstChild; )
+          e3.el.removeChild(e3.el.firstChild);
     }
-    onSelectSlide(t2, e2, i2) {
-      i2.state === rt.Ready && this.playVideo();
+    onSelectSlide(t3, e3, i3) {
+      i3.state === rt.Ready && this.playVideo();
     }
-    onUnselectSlide(t2, e2, i2) {
-      var n2, s2;
-      if (i2.type === Ct) {
+    onUnselectSlide(t3, e3, i3) {
+      var n3, s3;
+      if (i3.type === Ct) {
         try {
-          null === (s2 = null === (n2 = i2.el) || void 0 === n2 ? void 0 : n2.querySelector("video")) || void 0 === s2 || s2.pause();
-        } catch (t3) {
+          null === (s3 = null === (n3 = i3.el) || void 0 === n3 ? void 0 : n3.querySelector("video")) || void 0 === s3 || s3.pause();
+        } catch (t4) {
         }
         return;
       }
-      let o2;
-      i2.type === Pt ? o2 = { method: "pause", value: "true" } : i2.type === St && (o2 = { event: "command", func: "pauseVideo" }), o2 && i2.iframeEl && i2.iframeEl.contentWindow && i2.iframeEl.contentWindow.postMessage(JSON.stringify(o2), "*"), i2.poller && clearTimeout(i2.poller);
+      let o3;
+      i3.type === Pt ? o3 = { method: "pause", value: "true" } : i3.type === St && (o3 = { event: "command", func: "pauseVideo" }), o3 && i3.iframeEl && i3.iframeEl.contentWindow && i3.iframeEl.contentWindow.postMessage(JSON.stringify(o3), "*"), i3.poller && clearTimeout(i3.poller);
     }
-    onDone(t2, e2) {
-      t2.isCurrentSlide(e2) && !t2.isClosing() && this.playVideo();
+    onDone(t3, e3) {
+      t3.isCurrentSlide(e3) && !t3.isClosing() && this.playVideo();
     }
-    onRefresh(t2, e2) {
-      e2.slides.forEach((t3) => {
-        t3.el && (this.resizeIframe(t3), this.setAspectRatio(t3));
+    onRefresh(t3, e3) {
+      e3.slides.forEach((t4) => {
+        t4.el && (this.resizeIframe(t4), this.setAspectRatio(t4));
       });
     }
-    onMessage(t2) {
+    onMessage(t3) {
       try {
-        let e2 = JSON.parse(t2.data);
-        if ("https://player.vimeo.com" === t2.origin) {
-          if ("ready" === e2.event)
-            for (let e3 of Array.from(document.getElementsByClassName("fancybox__iframe")))
-              e3 instanceof HTMLIFrameElement && e3.contentWindow === t2.source && (e3.dataset.ready = "true");
-        } else if (t2.origin.match(/^https:\/\/(www.)?youtube(-nocookie)?.com$/) && "onReady" === e2.event) {
-          const t3 = document.getElementById(e2.id);
-          t3 && (t3.dataset.ready = "true");
+        let e3 = JSON.parse(t3.data);
+        if ("https://player.vimeo.com" === t3.origin) {
+          if ("ready" === e3.event)
+            for (let e4 of Array.from(document.getElementsByClassName("fancybox__iframe")))
+              e4 instanceof HTMLIFrameElement && e4.contentWindow === t3.source && (e4.dataset.ready = "true");
+        } else if (t3.origin.match(/^https:\/\/(www.)?youtube(-nocookie)?.com$/) && "onReady" === e3.event) {
+          const t4 = document.getElementById(e3.id);
+          t4 && (t4.dataset.ready = "true");
         }
-      } catch (t3) {
+      } catch (t4) {
       }
     }
-    loadAjaxContent(t2) {
-      const e2 = this.instance.optionFor(t2, "src") || "";
-      this.instance.showLoading(t2);
-      const i2 = this.instance, n2 = new XMLHttpRequest();
-      i2.showLoading(t2), n2.onreadystatechange = function() {
-        n2.readyState === XMLHttpRequest.DONE && i2.state === at.Ready && (i2.hideLoading(t2), 200 === n2.status ? i2.setContent(t2, n2.responseText) : i2.setError(t2, 404 === n2.status ? "{{AJAX_NOT_FOUND}}" : "{{AJAX_FORBIDDEN}}"));
+    loadAjaxContent(t3) {
+      const e3 = this.instance.optionFor(t3, "src") || "";
+      this.instance.showLoading(t3);
+      const i3 = this.instance, n3 = new XMLHttpRequest();
+      i3.showLoading(t3), n3.onreadystatechange = function() {
+        n3.readyState === XMLHttpRequest.DONE && i3.state === at.Ready && (i3.hideLoading(t3), 200 === n3.status ? i3.setContent(t3, n3.responseText) : i3.setError(t3, 404 === n3.status ? "{{AJAX_NOT_FOUND}}" : "{{AJAX_FORBIDDEN}}"));
       };
-      const s2 = t2.ajax || null;
-      n2.open(s2 ? "POST" : "GET", e2 + ""), n2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"), n2.setRequestHeader("X-Requested-With", "XMLHttpRequest"), n2.send(s2), t2.xhr = n2;
+      const s3 = t3.ajax || null;
+      n3.open(s3 ? "POST" : "GET", e3 + ""), n3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"), n3.setRequestHeader("X-Requested-With", "XMLHttpRequest"), n3.send(s3), t3.xhr = n3;
     }
-    setInlineContent(t2) {
-      let e2 = null;
-      if (E(t2.src))
-        e2 = t2.src;
-      else if ("string" == typeof t2.src) {
-        const i2 = t2.src.split("#", 2).pop();
-        e2 = i2 ? document.getElementById(i2) : null;
+    setInlineContent(t3) {
+      let e3 = null;
+      if (E(t3.src))
+        e3 = t3.src;
+      else if ("string" == typeof t3.src) {
+        const i3 = t3.src.split("#", 2).pop();
+        e3 = i3 ? document.getElementById(i3) : null;
       }
-      if (e2) {
-        if ("clone" === t2.type || e2.closest(".fancybox__slide")) {
-          e2 = e2.cloneNode(true);
-          const i2 = e2.dataset.animationName;
-          i2 && (e2.classList.remove(i2), delete e2.dataset.animationName);
-          let n2 = e2.getAttribute("id");
-          n2 = n2 ? `${n2}--clone` : `clone-${this.instance.id}-${t2.index}`, e2.setAttribute("id", n2);
-        } else if (e2.parentNode) {
-          const i2 = document.createElement("div");
-          i2.classList.add("fancybox-placeholder"), e2.parentNode.insertBefore(i2, e2), t2.placeholderEl = i2;
+      if (e3) {
+        if ("clone" === t3.type || e3.closest(".fancybox__slide")) {
+          e3 = e3.cloneNode(true);
+          const i3 = e3.dataset.animationName;
+          i3 && (e3.classList.remove(i3), delete e3.dataset.animationName);
+          let n3 = e3.getAttribute("id");
+          n3 = n3 ? `${n3}--clone` : `clone-${this.instance.id}-${t3.index}`, e3.setAttribute("id", n3);
+        } else if (e3.parentNode) {
+          const i3 = document.createElement("div");
+          i3.classList.add("fancybox-placeholder"), e3.parentNode.insertBefore(i3, e3), t3.placeholderEl = i3;
         }
-        this.instance.setContent(t2, e2);
+        this.instance.setContent(t3, e3);
       } else
-        this.instance.setError(t2, "{{ELEMENT_NOT_FOUND}}");
+        this.instance.setError(t3, "{{ELEMENT_NOT_FOUND}}");
     }
-    setIframeContent(t2) {
-      const { src: e2, el: i2 } = t2;
-      if (!e2 || "string" != typeof e2 || !i2)
+    setIframeContent(t3) {
+      const { src: e3, el: i3 } = t3;
+      if (!e3 || "string" != typeof e3 || !i3)
         return;
-      i2.classList.add("is-loading");
-      const n2 = this.instance, s2 = document.createElement("iframe");
-      s2.className = "fancybox__iframe", s2.setAttribute("id", `fancybox__iframe_${n2.id}_${t2.index}`);
-      for (const [e3, i3] of Object.entries(this.optionFor(t2, "iframeAttr") || {}))
-        s2.setAttribute(e3, i3);
-      s2.onerror = () => {
-        n2.setError(t2, "{{IFRAME_ERROR}}");
-      }, t2.iframeEl = s2;
-      const o2 = this.optionFor(t2, "preload");
-      if ("iframe" !== t2.type || false === o2)
-        return s2.setAttribute("src", t2.src + ""), n2.setContent(t2, s2, false), this.resizeIframe(t2), void n2.revealContent(t2);
-      n2.showLoading(t2), s2.onload = () => {
-        if (!s2.src.length)
+      i3.classList.add("is-loading");
+      const n3 = this.instance, s3 = document.createElement("iframe");
+      s3.className = "fancybox__iframe", s3.setAttribute("id", `fancybox__iframe_${n3.id}_${t3.index}`);
+      for (const [e4, i4] of Object.entries(this.optionFor(t3, "iframeAttr") || {}))
+        s3.setAttribute(e4, i4);
+      s3.onerror = () => {
+        n3.setError(t3, "{{IFRAME_ERROR}}");
+      }, t3.iframeEl = s3;
+      const o3 = this.optionFor(t3, "preload");
+      if ("iframe" !== t3.type || false === o3)
+        return s3.setAttribute("src", t3.src + ""), n3.setContent(t3, s3, false), this.resizeIframe(t3), void n3.revealContent(t3);
+      n3.showLoading(t3), s3.onload = () => {
+        if (!s3.src.length)
           return;
-        const e3 = "true" !== s2.dataset.ready;
-        s2.dataset.ready = "true", this.resizeIframe(t2), e3 ? n2.revealContent(t2) : n2.hideLoading(t2);
-      }, s2.setAttribute("src", e2), n2.setContent(t2, s2, false);
+        const e4 = "true" !== s3.dataset.ready;
+        s3.dataset.ready = "true", this.resizeIframe(t3), e4 ? n3.revealContent(t3) : n3.hideLoading(t3);
+      }, s3.setAttribute("src", e3), n3.setContent(t3, s3, false);
     }
-    resizeIframe(t2) {
-      const { type: e2, iframeEl: i2 } = t2;
-      if (e2 === St || e2 === Pt)
+    resizeIframe(t3) {
+      const { type: e3, iframeEl: i3 } = t3;
+      if (e3 === St || e3 === Pt)
         return;
-      const n2 = null == i2 ? void 0 : i2.parentElement;
-      if (!i2 || !n2)
+      const n3 = null == i3 ? void 0 : i3.parentElement;
+      if (!i3 || !n3)
         return;
-      let s2 = t2.autoSize;
-      void 0 === s2 && (s2 = this.optionFor(t2, "autoSize"));
-      let o2 = t2.width || 0, a2 = t2.height || 0;
-      o2 && a2 && (s2 = false);
-      const r2 = n2 && n2.style;
-      if (false !== t2.preload && false !== s2 && r2)
+      let s3 = t3.autoSize;
+      void 0 === s3 && (s3 = this.optionFor(t3, "autoSize"));
+      let o3 = t3.width || 0, a3 = t3.height || 0;
+      o3 && a3 && (s3 = false);
+      const r3 = n3 && n3.style;
+      if (false !== t3.preload && false !== s3 && r3)
         try {
-          const t3 = window.getComputedStyle(n2), e3 = parseFloat(t3.paddingLeft) + parseFloat(t3.paddingRight), s3 = parseFloat(t3.paddingTop) + parseFloat(t3.paddingBottom), l2 = i2.contentWindow;
-          if (l2) {
-            const t4 = l2.document, i3 = t4.getElementsByTagName(wt)[0], n3 = t4.body;
-            r2.width = "", n3.style.overflow = "hidden", o2 = o2 || i3.scrollWidth + e3, r2.width = `${o2}px`, n3.style.overflow = "", r2.flex = "0 0 auto", r2.height = `${n3.scrollHeight}px`, a2 = i3.scrollHeight + s3;
+          const t4 = window.getComputedStyle(n3), e4 = parseFloat(t4.paddingLeft) + parseFloat(t4.paddingRight), s4 = parseFloat(t4.paddingTop) + parseFloat(t4.paddingBottom), l3 = i3.contentWindow;
+          if (l3) {
+            const t5 = l3.document, i4 = t5.getElementsByTagName(wt)[0], n4 = t5.body;
+            r3.width = "", n4.style.overflow = "hidden", o3 = o3 || i4.scrollWidth + e4, r3.width = `${o3}px`, n4.style.overflow = "", r3.flex = "0 0 auto", r3.height = `${n4.scrollHeight}px`, a3 = i4.scrollHeight + s4;
           }
-        } catch (t3) {
+        } catch (t4) {
         }
-      if (o2 || a2) {
-        const t3 = { flex: "0 1 auto", width: "", height: "" };
-        o2 && "auto" !== o2 && (t3.width = `${o2}px`), a2 && "auto" !== a2 && (t3.height = `${a2}px`), Object.assign(r2, t3);
+      if (o3 || a3) {
+        const t4 = { flex: "0 1 auto", width: "", height: "" };
+        o3 && "auto" !== o3 && (t4.width = `${o3}px`), a3 && "auto" !== a3 && (t4.height = `${a3}px`), Object.assign(r3, t4);
       }
     }
     playVideo() {
-      const t2 = this.instance.getSlide();
-      if (!t2)
+      const t3 = this.instance.getSlide();
+      if (!t3)
         return;
-      const { el: e2 } = t2;
-      if (!e2 || !e2.offsetParent)
+      const { el: e3 } = t3;
+      if (!e3 || !e3.offsetParent)
         return;
-      if (!this.optionFor(t2, "videoAutoplay"))
+      if (!this.optionFor(t3, "videoAutoplay"))
         return;
-      if (t2.type === Ct)
+      if (t3.type === Ct)
         try {
-          const t3 = e2.querySelector("video");
-          if (t3) {
-            const e3 = t3.play();
-            void 0 !== e3 && e3.then(() => {
-            }).catch((e4) => {
-              t3.muted = true, t3.play();
+          const t4 = e3.querySelector("video");
+          if (t4) {
+            const e4 = t4.play();
+            void 0 !== e4 && e4.then(() => {
+            }).catch((e5) => {
+              t4.muted = true, t4.play();
             });
           }
-        } catch (t3) {
+        } catch (t4) {
         }
-      if (t2.type !== St && t2.type !== Pt)
+      if (t3.type !== St && t3.type !== Pt)
         return;
-      const i2 = () => {
-        if (t2.iframeEl && t2.iframeEl.contentWindow) {
-          let e3;
-          if ("true" === t2.iframeEl.dataset.ready)
-            return e3 = t2.type === St ? { event: "command", func: "playVideo" } : { method: "play", value: "true" }, e3 && t2.iframeEl.contentWindow.postMessage(JSON.stringify(e3), "*"), void (t2.poller = void 0);
-          t2.type === St && (e3 = { event: "listening", id: t2.iframeEl.getAttribute("id") }, t2.iframeEl.contentWindow.postMessage(JSON.stringify(e3), "*"));
+      const i3 = () => {
+        if (t3.iframeEl && t3.iframeEl.contentWindow) {
+          let e4;
+          if ("true" === t3.iframeEl.dataset.ready)
+            return e4 = t3.type === St ? { event: "command", func: "playVideo" } : { method: "play", value: "true" }, e4 && t3.iframeEl.contentWindow.postMessage(JSON.stringify(e4), "*"), void (t3.poller = void 0);
+          t3.type === St && (e4 = { event: "listening", id: t3.iframeEl.getAttribute("id") }, t3.iframeEl.contentWindow.postMessage(JSON.stringify(e4), "*"));
         }
-        t2.poller = setTimeout(i2, 250);
+        t3.poller = setTimeout(i3, 250);
       };
-      i2();
+      i3();
     }
-    processType(t2) {
-      if (t2.html)
-        return t2.type = wt, t2.src = t2.html, void (t2.html = "");
-      const e2 = this.instance.optionFor(t2, "src", "");
-      if (!e2 || "string" != typeof e2)
+    processType(t3) {
+      if (t3.html)
+        return t3.type = wt, t3.src = t3.html, void (t3.html = "");
+      const e3 = this.instance.optionFor(t3, "src", "");
+      if (!e3 || "string" != typeof e3)
         return;
-      let i2 = t2.type, n2 = null;
-      if (n2 = e2.match(/(youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(?:watch\?(?:.*&)?v=|v\/|u\/|shorts\/|embed\/?)?(videoseries\?list=(?:.*)|[\w-]{11}|\?listType=(?:.*)&list=(?:.*))(?:.*)/i)) {
-        const s2 = this.optionFor(t2, St), { nocookie: o2 } = s2, a2 = function(t3, e3) {
-          var i3 = {};
-          for (var n3 in t3)
-            Object.prototype.hasOwnProperty.call(t3, n3) && e3.indexOf(n3) < 0 && (i3[n3] = t3[n3]);
-          if (null != t3 && "function" == typeof Object.getOwnPropertySymbols) {
-            var s3 = 0;
-            for (n3 = Object.getOwnPropertySymbols(t3); s3 < n3.length; s3++)
-              e3.indexOf(n3[s3]) < 0 && Object.prototype.propertyIsEnumerable.call(t3, n3[s3]) && (i3[n3[s3]] = t3[n3[s3]]);
+      let i3 = t3.type, n3 = null;
+      if (n3 = e3.match(/(youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(?:watch\?(?:.*&)?v=|v\/|u\/|shorts\/|embed\/?)?(videoseries\?list=(?:.*)|[\w-]{11}|\?listType=(?:.*)&list=(?:.*))(?:.*)/i)) {
+        const s3 = this.optionFor(t3, St), { nocookie: o3 } = s3, a3 = function(t4, e4) {
+          var i4 = {};
+          for (var n4 in t4)
+            Object.prototype.hasOwnProperty.call(t4, n4) && e4.indexOf(n4) < 0 && (i4[n4] = t4[n4]);
+          if (null != t4 && "function" == typeof Object.getOwnPropertySymbols) {
+            var s4 = 0;
+            for (n4 = Object.getOwnPropertySymbols(t4); s4 < n4.length; s4++)
+              e4.indexOf(n4[s4]) < 0 && Object.prototype.propertyIsEnumerable.call(t4, n4[s4]) && (i4[n4[s4]] = t4[n4[s4]]);
           }
-          return i3;
-        }(s2, ["nocookie"]), r2 = `www.youtube${o2 ? "-nocookie" : ""}.com`, l2 = Tt(e2, a2), c2 = encodeURIComponent(n2[2]);
-        t2.videoId = c2, t2.src = `https://${r2}/embed/${c2}?${l2}`, t2.thumbSrc = t2.thumbSrc || `https://i.ytimg.com/vi/${c2}/mqdefault.jpg`, i2 = St;
-      } else if (n2 = e2.match(/^.+vimeo.com\/(?:\/)?([\d]+)((\/|\?h=)([a-z0-9]+))?(.*)?/)) {
-        const s2 = Tt(e2, this.optionFor(t2, Pt)), o2 = encodeURIComponent(n2[1]), a2 = n2[4] || "";
-        t2.videoId = o2, t2.src = `https://player.vimeo.com/video/${o2}?${a2 ? `h=${a2}${s2 ? "&" : ""}` : ""}${s2}`, i2 = Pt;
+          return i4;
+        }(s3, ["nocookie"]), r3 = `www.youtube${o3 ? "-nocookie" : ""}.com`, l3 = Tt(e3, a3), c3 = encodeURIComponent(n3[2]);
+        t3.videoId = c3, t3.src = `https://${r3}/embed/${c3}?${l3}`, t3.thumbSrc = t3.thumbSrc || `https://i.ytimg.com/vi/${c3}/mqdefault.jpg`, i3 = St;
+      } else if (n3 = e3.match(/^.+vimeo.com\/(?:\/)?([\d]+)((\/|\?h=)([a-z0-9]+))?(.*)?/)) {
+        const s3 = Tt(e3, this.optionFor(t3, Pt)), o3 = encodeURIComponent(n3[1]), a3 = n3[4] || "";
+        t3.videoId = o3, t3.src = `https://player.vimeo.com/video/${o3}?${a3 ? `h=${a3}${s3 ? "&" : ""}` : ""}${s3}`, i3 = Pt;
       }
-      if (!i2 && t2.triggerEl) {
-        const e3 = t2.triggerEl.dataset.type;
-        Ot.includes(e3) && (i2 = e3);
+      if (!i3 && t3.triggerEl) {
+        const e4 = t3.triggerEl.dataset.type;
+        Ot.includes(e4) && (i3 = e4);
       }
-      i2 || "string" == typeof e2 && ("#" === e2.charAt(0) ? i2 = "inline" : (n2 = e2.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) ? (i2 = Ct, t2.videoFormat = t2.videoFormat || "video/" + ("ogv" === n2[1] ? "ogg" : n2[1])) : e2.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i) ? i2 = xt : e2.match(/\.(pdf)((\?|#).*)?$/i) && (i2 = "pdf")), (n2 = e2.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i)) ? (t2.src = `https://maps.google.${n2[1]}/?ll=${(n2[2] ? n2[2] + "&z=" + Math.floor(parseFloat(n2[3])) + (n2[4] ? n2[4].replace(/^\//, "&") : "") : n2[4] + "").replace(/\?/, "&")}&output=${n2[4] && n2[4].indexOf("layer=c") > 0 ? "svembed" : "embed"}`, i2 = Et) : (n2 = e2.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i)) && (t2.src = `https://maps.google.${n2[1]}/maps?q=${n2[2].replace("query=", "q=").replace("api=1", "")}&output=embed`, i2 = Et), i2 = i2 || this.instance.option("defaultType"), t2.type = i2, i2 === xt && (t2.thumbSrc = t2.thumbSrc || t2.src);
+      i3 || "string" == typeof e3 && ("#" === e3.charAt(0) ? i3 = "inline" : (n3 = e3.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) ? (i3 = Ct, t3.videoFormat = t3.videoFormat || "video/" + ("ogv" === n3[1] ? "ogg" : n3[1])) : e3.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i) ? i3 = xt : e3.match(/\.(pdf)((\?|#).*)?$/i) && (i3 = "pdf")), (n3 = e3.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i)) ? (t3.src = `https://maps.google.${n3[1]}/?ll=${(n3[2] ? n3[2] + "&z=" + Math.floor(parseFloat(n3[3])) + (n3[4] ? n3[4].replace(/^\//, "&") : "") : n3[4] + "").replace(/\?/, "&")}&output=${n3[4] && n3[4].indexOf("layer=c") > 0 ? "svembed" : "embed"}`, i3 = Et) : (n3 = e3.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i)) && (t3.src = `https://maps.google.${n3[1]}/maps?q=${n3[2].replace("query=", "q=").replace("api=1", "")}&output=embed`, i3 = Et), i3 = i3 || this.instance.option("defaultType"), t3.type = i3, i3 === xt && (t3.thumbSrc = t3.thumbSrc || t3.src);
     }
-    setContent(t2) {
-      const e2 = this.instance.optionFor(t2, "src") || "";
-      if (t2 && t2.type && e2) {
-        switch (t2.type) {
+    setContent(t3) {
+      const e3 = this.instance.optionFor(t3, "src") || "";
+      if (t3 && t3.type && e3) {
+        switch (t3.type) {
           case wt:
-            this.instance.setContent(t2, e2);
+            this.instance.setContent(t3, e3);
             break;
           case Ct:
-            const i2 = this.option("videoTpl");
-            i2 && this.instance.setContent(t2, i2.replace(/\{\{src\}\}/gi, e2 + "").replace(/\{\{format\}\}/gi, this.optionFor(t2, "videoFormat") || "").replace(/\{\{poster\}\}/gi, t2.poster || t2.thumbSrc || ""));
+            const i3 = this.option("videoTpl");
+            i3 && this.instance.setContent(t3, i3.replace(/\{\{src\}\}/gi, e3 + "").replace(/\{\{format\}\}/gi, this.optionFor(t3, "videoFormat") || "").replace(/\{\{poster\}\}/gi, t3.poster || t3.thumbSrc || ""));
             break;
           case "inline":
           case "clone":
-            this.setInlineContent(t2);
+            this.setInlineContent(t3);
             break;
           case "ajax":
-            this.loadAjaxContent(t2);
+            this.loadAjaxContent(t3);
             break;
           case "pdf":
           case Et:
           case St:
           case Pt:
-            t2.preload = false;
+            t3.preload = false;
           case "iframe":
-            this.setIframeContent(t2);
+            this.setIframeContent(t3);
         }
-        this.setAspectRatio(t2);
+        this.setAspectRatio(t3);
       }
     }
-    setAspectRatio(t2) {
-      const e2 = t2.contentEl;
-      if (!(t2.el && e2 && t2.type && [St, Pt, Ct].includes(t2.type)))
+    setAspectRatio(t3) {
+      const e3 = t3.contentEl;
+      if (!(t3.el && e3 && t3.type && [St, Pt, Ct].includes(t3.type)))
         return;
-      let i2, n2 = t2.width || "auto", s2 = t2.height || "auto";
-      if ("auto" === n2 || "auto" === s2) {
-        i2 = this.optionFor(t2, "videoRatio");
-        const e3 = (i2 + "").match(/(\d+)\s*\/\s?(\d+)/);
-        i2 = e3 && e3.length > 2 ? parseFloat(e3[1]) / parseFloat(e3[2]) : parseFloat(i2 + "");
+      let i3, n3 = t3.width || "auto", s3 = t3.height || "auto";
+      if ("auto" === n3 || "auto" === s3) {
+        i3 = this.optionFor(t3, "videoRatio");
+        const e4 = (i3 + "").match(/(\d+)\s*\/\s?(\d+)/);
+        i3 = e4 && e4.length > 2 ? parseFloat(e4[1]) / parseFloat(e4[2]) : parseFloat(i3 + "");
       } else
-        n2 && s2 && (i2 = n2 / s2);
-      if (!i2)
+        n3 && s3 && (i3 = n3 / s3);
+      if (!i3)
         return;
-      e2.style.aspectRatio = "", e2.style.width = "", e2.style.height = "", e2.offsetHeight;
-      const o2 = e2.getBoundingClientRect(), a2 = o2.width || 1, r2 = o2.height || 1;
-      e2.style.aspectRatio = i2 + "", i2 < a2 / r2 ? (s2 = "auto" === s2 ? r2 : Math.min(r2, s2), e2.style.width = "auto", e2.style.height = `${s2}px`) : (n2 = "auto" === n2 ? a2 : Math.min(a2, n2), e2.style.width = `${n2}px`, e2.style.height = "auto");
+      e3.style.aspectRatio = "", e3.style.width = "", e3.style.height = "", e3.offsetHeight;
+      const o3 = e3.getBoundingClientRect(), a3 = o3.width || 1, r3 = o3.height || 1;
+      e3.style.aspectRatio = i3 + "", i3 < a3 / r3 ? (s3 = "auto" === s3 ? r3 : Math.min(r3, s3), e3.style.width = "auto", e3.style.height = `${s3}px`) : (n3 = "auto" === n3 ? a3 : Math.min(a3, n3), e3.style.width = `${n3}px`, e3.style.height = "auto");
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.on("Carousel.beforeInitSlide", t2.onBeforeInitSlide), e2.on("Carousel.createSlide", t2.onCreateSlide), e2.on("Carousel.selectSlide", t2.onSelectSlide), e2.on("Carousel.unselectSlide", t2.onUnselectSlide), e2.on("Carousel.Panzoom.refresh", t2.onRefresh), e2.on("done", t2.onDone), e2.on("clearContent", t2.onClearContent), window.addEventListener("message", t2.onMessage);
+      const t3 = this, e3 = t3.instance;
+      e3.on("Carousel.beforeInitSlide", t3.onBeforeInitSlide), e3.on("Carousel.createSlide", t3.onCreateSlide), e3.on("Carousel.selectSlide", t3.onSelectSlide), e3.on("Carousel.unselectSlide", t3.onUnselectSlide), e3.on("Carousel.Panzoom.refresh", t3.onRefresh), e3.on("done", t3.onDone), e3.on("clearContent", t3.onClearContent), window.addEventListener("message", t3.onMessage);
     }
     detach() {
-      const t2 = this, e2 = t2.instance;
-      e2.off("Carousel.beforeInitSlide", t2.onBeforeInitSlide), e2.off("Carousel.createSlide", t2.onCreateSlide), e2.off("Carousel.selectSlide", t2.onSelectSlide), e2.off("Carousel.unselectSlide", t2.onUnselectSlide), e2.off("Carousel.Panzoom.refresh", t2.onRefresh), e2.off("done", t2.onDone), e2.off("clearContent", t2.onClearContent), window.removeEventListener("message", t2.onMessage);
+      const t3 = this, e3 = t3.instance;
+      e3.off("Carousel.beforeInitSlide", t3.onBeforeInitSlide), e3.off("Carousel.createSlide", t3.onCreateSlide), e3.off("Carousel.selectSlide", t3.onSelectSlide), e3.off("Carousel.unselectSlide", t3.onUnselectSlide), e3.off("Carousel.Panzoom.refresh", t3.onRefresh), e3.off("done", t3.onDone), e3.off("clearContent", t3.onClearContent), window.removeEventListener("message", t3.onMessage);
     }
   };
   Object.defineProperty(At, "defaults", { enumerable: true, configurable: true, writable: true, value: Mt });
@@ -15546,8 +15546,8 @@
     get isActive() {
       return this.state !== Rt;
     }
-    onReady(t2) {
-      this.option("autoStart") && (t2.isInfinite || t2.page < t2.pages.length - 1) && this.start();
+    onReady(t3) {
+      this.option("autoStart") && (t3.isInfinite || t3.page < t3.pages.length - 1) && this.start();
     }
     onChange() {
       this.removeProgressBar(), this.pause();
@@ -15562,86 +15562,86 @@
       this.inHover = true, this.pause();
     }
     onMouseLeave() {
-      var t2;
-      this.inHover = false, (null === (t2 = this.instance.panzoom) || void 0 === t2 ? void 0 : t2.isResting) && this.resume();
+      var t3;
+      this.inHover = false, (null === (t3 = this.instance.panzoom) || void 0 === t3 ? void 0 : t3.isResting) && this.resume();
     }
     onTimerEnd() {
-      const t2 = this.instance;
-      "play" === this.state && (t2.isInfinite || t2.page !== t2.pages.length - 1 ? t2.slideNext() : t2.slideTo(0));
+      const t3 = this.instance;
+      "play" === this.state && (t3.isInfinite || t3.page !== t3.pages.length - 1 ? t3.slideNext() : t3.slideTo(0));
     }
     removeProgressBar() {
       this.progressBar && (this.progressBar.remove(), this.progressBar = null);
     }
     createProgressBar() {
-      var t2;
+      var t3;
       if (!this.option("showProgress"))
         return null;
       this.removeProgressBar();
-      const e2 = this.instance, i2 = (null === (t2 = e2.pages[e2.page]) || void 0 === t2 ? void 0 : t2.slides) || [];
-      let n2 = this.option("progressParentEl");
-      if (n2 || (n2 = (1 === i2.length ? i2[0].el : null) || e2.viewport), !n2)
+      const e3 = this.instance, i3 = (null === (t3 = e3.pages[e3.page]) || void 0 === t3 ? void 0 : t3.slides) || [];
+      let n3 = this.option("progressParentEl");
+      if (n3 || (n3 = (1 === i3.length ? i3[0].el : null) || e3.viewport), !n3)
         return null;
-      const s2 = document.createElement("div");
-      return P(s2, "f-progress"), n2.prepend(s2), this.progressBar = s2, s2.offsetHeight, s2;
+      const s3 = document.createElement("div");
+      return P(s3, "f-progress"), n3.prepend(s3), this.progressBar = s3, s3.offsetHeight, s3;
     }
     set() {
-      const t2 = this, e2 = t2.instance;
-      if (e2.pages.length < 2)
+      const t3 = this, e3 = t3.instance;
+      if (e3.pages.length < 2)
         return;
-      if (t2.timer)
+      if (t3.timer)
         return;
-      const i2 = t2.option("timeout");
-      t2.state = Lt, P(e2.container, "has-autoplay");
-      let n2 = t2.createProgressBar();
-      n2 && (n2.style.transitionDuration = `${i2}ms`, n2.style.transform = "scaleX(1)"), t2.timer = setTimeout(() => {
-        t2.timer = null, t2.inHover || t2.onTimerEnd();
-      }, i2), t2.emit("set");
+      const i3 = t3.option("timeout");
+      t3.state = Lt, P(e3.container, "has-autoplay");
+      let n3 = t3.createProgressBar();
+      n3 && (n3.style.transitionDuration = `${i3}ms`, n3.style.transform = "scaleX(1)"), t3.timer = setTimeout(() => {
+        t3.timer = null, t3.inHover || t3.onTimerEnd();
+      }, i3), t3.emit("set");
     }
     clear() {
-      const t2 = this;
-      t2.timer && (clearTimeout(t2.timer), t2.timer = null), t2.removeProgressBar();
+      const t3 = this;
+      t3.timer && (clearTimeout(t3.timer), t3.timer = null), t3.removeProgressBar();
     }
     start() {
-      const t2 = this;
-      if (t2.set(), t2.state !== Rt) {
-        if (t2.option("pauseOnHover")) {
-          const e2 = t2.instance.container;
-          e2.addEventListener("mouseenter", t2.onMouseEnter, false), e2.addEventListener("mouseleave", t2.onMouseLeave, false);
+      const t3 = this;
+      if (t3.set(), t3.state !== Rt) {
+        if (t3.option("pauseOnHover")) {
+          const e3 = t3.instance.container;
+          e3.addEventListener("mouseenter", t3.onMouseEnter, false), e3.addEventListener("mouseleave", t3.onMouseLeave, false);
         }
-        document.addEventListener("visibilitychange", t2.onVisibilityChange, false), t2.emit("start");
+        document.addEventListener("visibilitychange", t3.onVisibilityChange, false), t3.emit("start");
       }
     }
     stop() {
-      const t2 = this, e2 = t2.state, i2 = t2.instance.container;
-      t2.clear(), t2.state = Rt, i2.removeEventListener("mouseenter", t2.onMouseEnter, false), i2.removeEventListener("mouseleave", t2.onMouseLeave, false), document.removeEventListener("visibilitychange", t2.onVisibilityChange, false), S(i2, "has-autoplay"), e2 !== Rt && t2.emit("stop");
+      const t3 = this, e3 = t3.state, i3 = t3.instance.container;
+      t3.clear(), t3.state = Rt, i3.removeEventListener("mouseenter", t3.onMouseEnter, false), i3.removeEventListener("mouseleave", t3.onMouseLeave, false), document.removeEventListener("visibilitychange", t3.onVisibilityChange, false), S(i3, "has-autoplay"), e3 !== Rt && t3.emit("stop");
     }
     pause() {
-      const t2 = this;
-      t2.state === Lt && (t2.state = zt, t2.clear(), t2.emit(zt));
+      const t3 = this;
+      t3.state === Lt && (t3.state = zt, t3.clear(), t3.emit(zt));
     }
     resume() {
-      const t2 = this, e2 = t2.instance;
-      if (e2.isInfinite || e2.page !== e2.pages.length - 1)
-        if (t2.state !== Lt) {
-          if (t2.state === zt && !t2.inHover) {
-            const e3 = new Event("resume", { bubbles: true, cancelable: true });
-            t2.emit("resume", e3), e3.defaultPrevented || t2.set();
+      const t3 = this, e3 = t3.instance;
+      if (e3.isInfinite || e3.page !== e3.pages.length - 1)
+        if (t3.state !== Lt) {
+          if (t3.state === zt && !t3.inHover) {
+            const e4 = new Event("resume", { bubbles: true, cancelable: true });
+            t3.emit("resume", e4), e4.defaultPrevented || t3.set();
           }
         } else
-          t2.set();
+          t3.set();
       else
-        t2.stop();
+        t3.stop();
     }
     toggle() {
       this.state === Lt || this.state === zt ? this.stop() : this.start();
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.on("ready", t2.onReady), e2.on("Panzoom.startAnimation", t2.onChange), e2.on("Panzoom.endAnimation", t2.onSettle), e2.on("Panzoom.touchMove", t2.onChange);
+      const t3 = this, e3 = t3.instance;
+      e3.on("ready", t3.onReady), e3.on("Panzoom.startAnimation", t3.onChange), e3.on("Panzoom.endAnimation", t3.onSettle), e3.on("Panzoom.touchMove", t3.onChange);
     }
     detach() {
-      const t2 = this, e2 = t2.instance;
-      e2.off("ready", t2.onReady), e2.off("Panzoom.startAnimation", t2.onChange), e2.off("Panzoom.endAnimation", t2.onSettle), e2.off("Panzoom.touchMove", t2.onChange), t2.stop();
+      const t3 = this, e3 = t3.instance;
+      e3.off("ready", t3.onReady), e3.off("Panzoom.startAnimation", t3.onChange), e3.off("Panzoom.endAnimation", t3.onSettle), e3.off("Panzoom.touchMove", t3.onChange), t3.stop();
     }
   };
   Object.defineProperty(kt, "defaults", { enumerable: true, configurable: true, writable: true, value: { autoStart: true, pauseOnHover: true, progressParentEl: null, showProgress: true, timeout: 3e3 } });
@@ -15649,58 +15649,58 @@
     constructor() {
       super(...arguments), Object.defineProperty(this, "ref", { enumerable: true, configurable: true, writable: true, value: null });
     }
-    onPrepare(t2) {
-      const e2 = t2.carousel;
-      if (!e2)
+    onPrepare(t3) {
+      const e3 = t3.carousel;
+      if (!e3)
         return;
-      const i2 = t2.container;
-      i2 && (e2.options.Autoplay = u({ autoStart: false }, this.option("Autoplay") || {}, { pauseOnHover: false, timeout: this.option("timeout"), progressParentEl: () => this.option("progressParentEl") || null, on: { start: () => {
-        t2.emit("startSlideshow");
-      }, set: (e3) => {
-        var n2;
-        i2.classList.add("has-slideshow"), (null === (n2 = t2.getSlide()) || void 0 === n2 ? void 0 : n2.state) !== rt.Ready && e3.pause();
+      const i3 = t3.container;
+      i3 && (e3.options.Autoplay = u({ autoStart: false }, this.option("Autoplay") || {}, { pauseOnHover: false, timeout: this.option("timeout"), progressParentEl: () => this.option("progressParentEl") || null, on: { start: () => {
+        t3.emit("startSlideshow");
+      }, set: (e4) => {
+        var n3;
+        i3.classList.add("has-slideshow"), (null === (n3 = t3.getSlide()) || void 0 === n3 ? void 0 : n3.state) !== rt.Ready && e4.pause();
       }, stop: () => {
-        i2.classList.remove("has-slideshow"), t2.isCompact || t2.endIdle(), t2.emit("endSlideshow");
-      }, resume: (e3, i3) => {
-        var n2, s2, o2;
-        !i3 || !i3.cancelable || (null === (n2 = t2.getSlide()) || void 0 === n2 ? void 0 : n2.state) === rt.Ready && (null === (o2 = null === (s2 = t2.carousel) || void 0 === s2 ? void 0 : s2.panzoom) || void 0 === o2 ? void 0 : o2.isResting) || i3.preventDefault();
-      } } }), e2.attachPlugins({ Autoplay: kt }), this.ref = e2.plugins.Autoplay);
+        i3.classList.remove("has-slideshow"), t3.isCompact || t3.endIdle(), t3.emit("endSlideshow");
+      }, resume: (e4, i4) => {
+        var n3, s3, o3;
+        !i4 || !i4.cancelable || (null === (n3 = t3.getSlide()) || void 0 === n3 ? void 0 : n3.state) === rt.Ready && (null === (o3 = null === (s3 = t3.carousel) || void 0 === s3 ? void 0 : s3.panzoom) || void 0 === o3 ? void 0 : o3.isResting) || i4.preventDefault();
+      } } }), e3.attachPlugins({ Autoplay: kt }), this.ref = e3.plugins.Autoplay);
     }
-    onReady(t2) {
-      const e2 = t2.carousel, i2 = this.ref;
-      i2 && e2 && this.option("playOnStart") && (e2.isInfinite || e2.page < e2.pages.length - 1) && i2.start();
+    onReady(t3) {
+      const e3 = t3.carousel, i3 = this.ref;
+      i3 && e3 && this.option("playOnStart") && (e3.isInfinite || e3.page < e3.pages.length - 1) && i3.start();
     }
-    onDone(t2, e2) {
-      const i2 = this.ref, n2 = t2.carousel;
-      if (!i2 || !n2)
+    onDone(t3, e3) {
+      const i3 = this.ref, n3 = t3.carousel;
+      if (!i3 || !n3)
         return;
-      const s2 = e2.panzoom;
-      s2 && s2.on("startAnimation", () => {
-        t2.isCurrentSlide(e2) && i2.stop();
-      }), t2.isCurrentSlide(e2) && i2.resume();
+      const s3 = e3.panzoom;
+      s3 && s3.on("startAnimation", () => {
+        t3.isCurrentSlide(e3) && i3.stop();
+      }), t3.isCurrentSlide(e3) && i3.resume();
     }
-    onKeydown(t2, e2) {
-      var i2;
-      const n2 = this.ref;
-      n2 && e2 === this.option("key") && "BUTTON" !== (null === (i2 = document.activeElement) || void 0 === i2 ? void 0 : i2.nodeName) && n2.toggle();
+    onKeydown(t3, e3) {
+      var i3;
+      const n3 = this.ref;
+      n3 && e3 === this.option("key") && "BUTTON" !== (null === (i3 = document.activeElement) || void 0 === i3 ? void 0 : i3.nodeName) && n3.toggle();
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.on("Carousel.init", t2.onPrepare), e2.on("Carousel.ready", t2.onReady), e2.on("done", t2.onDone), e2.on("keydown", t2.onKeydown);
+      const t3 = this, e3 = t3.instance;
+      e3.on("Carousel.init", t3.onPrepare), e3.on("Carousel.ready", t3.onReady), e3.on("done", t3.onDone), e3.on("keydown", t3.onKeydown);
     }
     detach() {
-      const t2 = this, e2 = t2.instance;
-      e2.off("Carousel.init", t2.onPrepare), e2.off("Carousel.ready", t2.onReady), e2.off("done", t2.onDone), e2.off("keydown", t2.onKeydown);
+      const t3 = this, e3 = t3.instance;
+      e3.off("Carousel.init", t3.onPrepare), e3.off("Carousel.ready", t3.onReady), e3.off("done", t3.onDone), e3.off("keydown", t3.onKeydown);
     }
   };
-  Object.defineProperty(It, "defaults", { enumerable: true, configurable: true, writable: true, value: { key: " ", playOnStart: false, progressParentEl: (t2) => {
-    var e2;
-    return (null === (e2 = t2.instance.container) || void 0 === e2 ? void 0 : e2.querySelector(".fancybox__toolbar [data-fancybox-toggle-slideshow]")) || t2.instance.container;
+  Object.defineProperty(It, "defaults", { enumerable: true, configurable: true, writable: true, value: { key: " ", playOnStart: false, progressParentEl: (t3) => {
+    var e3;
+    return (null === (e3 = t3.instance.container) || void 0 === e3 ? void 0 : e3.querySelector(".fancybox__toolbar [data-fancybox-toggle-slideshow]")) || t3.instance.container;
   }, timeout: 3e3 } });
   var Dt = { classes: { container: "f-thumbs f-carousel__thumbs", viewport: "f-thumbs__viewport", track: "f-thumbs__track", slide: "f-thumbs__slide", isResting: "is-resting", isSelected: "is-selected", isLoading: "is-loading", hasThumbs: "has-thumbs" }, minCount: 2, parentEl: null, thumbTpl: '<button class="f-thumbs__slide__button" tabindex="0" type="button" aria-label="{{GOTO}}" data-carousel-index="%i"><img class="f-thumbs__slide__img" data-lazy-src="{{%s}}" alt="" /></button>', type: "modern" };
   var Ft;
-  !function(t2) {
-    t2[t2.Init = 0] = "Init", t2[t2.Ready = 1] = "Ready", t2[t2.Hidden = 2] = "Hidden";
+  !function(t3) {
+    t3[t3.Init = 0] = "Init", t3[t3.Ready = 1] = "Ready", t3[t3.Hidden = 2] = "Hidden";
   }(Ft || (Ft = {}));
   var jt = "isResting";
   var Bt = "thumbWidth";
@@ -15713,169 +15713,169 @@
     get isModern() {
       return "modern" === this.type;
     }
-    onInitSlide(t2, e2) {
-      const i2 = e2.el ? e2.el.dataset : void 0;
-      i2 && (e2.thumbSrc = i2.thumbSrc || e2.thumbSrc || "", e2[Nt] = parseFloat(i2[Nt] || "") || e2[Nt] || 0, e2[Ht] = parseFloat(i2.thumbHeight || "") || e2[Ht] || 0), this.addSlide(e2);
+    onInitSlide(t3, e3) {
+      const i3 = e3.el ? e3.el.dataset : void 0;
+      i3 && (e3.thumbSrc = i3.thumbSrc || e3.thumbSrc || "", e3[Nt] = parseFloat(i3[Nt] || "") || e3[Nt] || 0, e3[Ht] = parseFloat(i3.thumbHeight || "") || e3[Ht] || 0), this.addSlide(e3);
     }
     onInitSlides() {
       this.build();
     }
     onChange() {
-      var t2;
+      var t3;
       if (!this.isModern)
         return;
-      const e2 = this.container, i2 = this.instance, n2 = i2.panzoom, s2 = this.carousel, a2 = s2 ? s2.panzoom : null, r2 = i2.page;
-      if (n2 && s2 && a2) {
-        if (n2.isDragging) {
-          S(e2, this.cn(jt));
-          let n3 = (null === (t2 = s2.pages[r2]) || void 0 === t2 ? void 0 : t2.pos) || 0;
-          n3 += i2.getProgress(r2) * (this[Nt] + this.thumbGap);
-          let o2 = a2.getBounds();
-          -1 * n3 > o2.x.min && -1 * n3 < o2.x.max && a2.panTo({ x: -1 * n3, friction: 0.12 });
+      const e3 = this.container, i3 = this.instance, n3 = i3.panzoom, s3 = this.carousel, a3 = s3 ? s3.panzoom : null, r3 = i3.page;
+      if (n3 && s3 && a3) {
+        if (n3.isDragging) {
+          S(e3, this.cn(jt));
+          let n4 = (null === (t3 = s3.pages[r3]) || void 0 === t3 ? void 0 : t3.pos) || 0;
+          n4 += i3.getProgress(r3) * (this[Nt] + this.thumbGap);
+          let o3 = a3.getBounds();
+          -1 * n4 > o3.x.min && -1 * n4 < o3.x.max && a3.panTo({ x: -1 * n4, friction: 0.12 });
         } else
-          o(e2, this.cn(jt), n2.isResting);
+          o(e3, this.cn(jt), n3.isResting);
         this.shiftModern();
       }
     }
     onRefresh() {
       this.updateProps();
-      for (const t2 of this.instance.slides || [])
-        this.resizeModernSlide(t2);
+      for (const t3 of this.instance.slides || [])
+        this.resizeModernSlide(t3);
       this.shiftModern();
     }
     isDisabled() {
-      const t2 = this.option("minCount") || 0;
-      if (t2) {
-        const e3 = this.instance;
-        let i2 = 0;
-        for (const t3 of e3.slides || [])
-          t3.thumbSrc && i2++;
-        if (i2 < t2)
+      const t3 = this.option("minCount") || 0;
+      if (t3) {
+        const e4 = this.instance;
+        let i3 = 0;
+        for (const t4 of e4.slides || [])
+          t4.thumbSrc && i3++;
+        if (i3 < t3)
           return true;
       }
-      const e2 = this.option("type");
-      return ["modern", "classic"].indexOf(e2) < 0;
+      const e3 = this.option("type");
+      return ["modern", "classic"].indexOf(e3) < 0;
     }
-    getThumb(t2) {
-      const e2 = this.option("thumbTpl") || "";
-      return { html: this.instance.localize(e2, [["%i", t2.index], ["%d", t2.index + 1], ["%s", t2.thumbSrc || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"]]) };
+    getThumb(t3) {
+      const e3 = this.option("thumbTpl") || "";
+      return { html: this.instance.localize(e3, [["%i", t3.index], ["%d", t3.index + 1], ["%s", t3.thumbSrc || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"]]) };
     }
-    addSlide(t2) {
-      const e2 = this.carousel;
-      e2 && e2.addSlide(t2.index, this.getThumb(t2));
+    addSlide(t3) {
+      const e3 = this.carousel;
+      e3 && e3.addSlide(t3.index, this.getThumb(t3));
     }
     getSlides() {
-      const t2 = [];
-      for (const e2 of this.instance.slides || [])
-        t2.push(this.getThumb(e2));
-      return t2;
+      const t3 = [];
+      for (const e3 of this.instance.slides || [])
+        t3.push(this.getThumb(e3));
+      return t3;
     }
-    resizeModernSlide(t2) {
-      this.isModern && (t2[Bt] = t2[Nt] && t2[Ht] ? Math.round(this[Ht] * (t2[Nt] / t2[Ht])) : this[Bt]);
+    resizeModernSlide(t3) {
+      this.isModern && (t3[Bt] = t3[Nt] && t3[Ht] ? Math.round(this[Ht] * (t3[Nt] / t3[Ht])) : this[Bt]);
     }
     updateProps() {
-      const t2 = this.container;
-      if (!t2)
+      const t3 = this.container;
+      if (!t3)
         return;
-      const e2 = (e3) => parseFloat(getComputedStyle(t2).getPropertyValue("--f-thumb-" + e3)) || 0;
-      this.thumbGap = e2("gap"), this.thumbExtraGap = e2("extra-gap"), this[Bt] = e2("width") || 40, this[Nt] = e2("clip-width") || 40, this[Ht] = e2("height") || 40;
+      const e3 = (e4) => parseFloat(getComputedStyle(t3).getPropertyValue("--f-thumb-" + e4)) || 0;
+      this.thumbGap = e3("gap"), this.thumbExtraGap = e3("extra-gap"), this[Bt] = e3("width") || 40, this[Nt] = e3("clip-width") || 40, this[Ht] = e3("height") || 40;
     }
     build() {
-      const t2 = this;
-      if (t2.state !== Ft.Init)
+      const t3 = this;
+      if (t3.state !== Ft.Init)
         return;
-      if (t2.isDisabled())
-        return void t2.emit("disabled");
-      const e2 = t2.instance, i2 = e2.container, n2 = t2.getSlides(), s2 = t2.option("type");
-      t2.type = s2;
-      const o2 = t2.option("parentEl"), a2 = t2.cn("container"), r2 = t2.cn("track");
-      let l2 = null == o2 ? void 0 : o2.querySelector("." + a2);
-      l2 || (l2 = document.createElement("div"), P(l2, a2), o2 ? o2.appendChild(l2) : i2.after(l2)), P(l2, `is-${s2}`), P(i2, t2.cn("hasThumbs")), t2.container = l2, t2.updateProps();
-      let c2 = l2.querySelector("." + r2);
-      c2 || (c2 = document.createElement("div"), P(c2, t2.cn("track")), l2.appendChild(c2)), t2.track = c2;
-      const h2 = u({}, { track: c2, infinite: false, center: true, fill: "classic" === s2, dragFree: true, slidesPerPage: 1, transition: false, preload: 0.25, friction: 0.12, Panzoom: { maxVelocity: 0 }, Dots: false, Navigation: false, classes: { container: "f-thumbs", viewport: "f-thumbs__viewport", track: "f-thumbs__track", slide: "f-thumbs__slide" } }, t2.option("Carousel") || {}, { Sync: { target: e2 }, slides: n2 }), d2 = new e2.constructor(l2, h2);
-      d2.on("createSlide", (e3, i3) => {
-        t2.setProps(i3.index), t2.emit("createSlide", i3, i3.el);
-      }), d2.on("ready", () => {
-        t2.shiftModern(), t2.emit("ready");
-      }), d2.on("refresh", () => {
-        t2.shiftModern();
-      }), d2.on("Panzoom.click", (e3, i3, n3) => {
-        t2.onClick(n3);
-      }), t2.carousel = d2, t2.state = Ft.Ready;
+      if (t3.isDisabled())
+        return void t3.emit("disabled");
+      const e3 = t3.instance, i3 = e3.container, n3 = t3.getSlides(), s3 = t3.option("type");
+      t3.type = s3;
+      const o3 = t3.option("parentEl"), a3 = t3.cn("container"), r3 = t3.cn("track");
+      let l3 = null == o3 ? void 0 : o3.querySelector("." + a3);
+      l3 || (l3 = document.createElement("div"), P(l3, a3), o3 ? o3.appendChild(l3) : i3.after(l3)), P(l3, `is-${s3}`), P(i3, t3.cn("hasThumbs")), t3.container = l3, t3.updateProps();
+      let c3 = l3.querySelector("." + r3);
+      c3 || (c3 = document.createElement("div"), P(c3, t3.cn("track")), l3.appendChild(c3)), t3.track = c3;
+      const h3 = u({}, { track: c3, infinite: false, center: true, fill: "classic" === s3, dragFree: true, slidesPerPage: 1, transition: false, preload: 0.25, friction: 0.12, Panzoom: { maxVelocity: 0 }, Dots: false, Navigation: false, classes: { container: "f-thumbs", viewport: "f-thumbs__viewport", track: "f-thumbs__track", slide: "f-thumbs__slide" } }, t3.option("Carousel") || {}, { Sync: { target: e3 }, slides: n3 }), d3 = new e3.constructor(l3, h3);
+      d3.on("createSlide", (e4, i4) => {
+        t3.setProps(i4.index), t3.emit("createSlide", i4, i4.el);
+      }), d3.on("ready", () => {
+        t3.shiftModern(), t3.emit("ready");
+      }), d3.on("refresh", () => {
+        t3.shiftModern();
+      }), d3.on("Panzoom.click", (e4, i4, n4) => {
+        t3.onClick(n4);
+      }), t3.carousel = d3, t3.state = Ft.Ready;
     }
-    onClick(t2) {
-      t2.preventDefault(), t2.stopPropagation();
-      const e2 = this.instance, { pages: i2, page: n2 } = e2, s2 = (t3) => {
-        if (t3) {
-          const e3 = t3.closest("[data-carousel-index]");
-          if (e3)
-            return [parseInt(e3.dataset.carouselIndex || "", 10) || 0, e3];
+    onClick(t3) {
+      t3.preventDefault(), t3.stopPropagation();
+      const e3 = this.instance, { pages: i3, page: n3 } = e3, s3 = (t4) => {
+        if (t4) {
+          const e4 = t4.closest("[data-carousel-index]");
+          if (e4)
+            return [parseInt(e4.dataset.carouselIndex || "", 10) || 0, e4];
         }
         return [-1, void 0];
-      }, o2 = (t3, e3) => {
-        const i3 = document.elementFromPoint(t3, e3);
-        return i3 ? s2(i3) : [-1, void 0];
+      }, o3 = (t4, e4) => {
+        const i4 = document.elementFromPoint(t4, e4);
+        return i4 ? s3(i4) : [-1, void 0];
       };
-      let [a2, r2] = s2(t2.target);
-      if (a2 > -1)
+      let [a3, r3] = s3(t3.target);
+      if (a3 > -1)
         return;
-      const l2 = this[Nt], c2 = t2.clientX, h2 = t2.clientY;
-      let [d2, u2] = o2(c2 - l2, h2), [p2, f2] = o2(c2 + l2, h2);
-      u2 && f2 ? (a2 = Math.abs(c2 - u2.getBoundingClientRect().right) < Math.abs(c2 - f2.getBoundingClientRect().left) ? d2 : p2, a2 === n2 && (a2 = a2 === d2 ? p2 : d2)) : u2 ? a2 = d2 : f2 && (a2 = p2), a2 > -1 && i2[a2] && e2.slideTo(a2);
+      const l3 = this[Nt], c3 = t3.clientX, h3 = t3.clientY;
+      let [d3, u3] = o3(c3 - l3, h3), [p3, f3] = o3(c3 + l3, h3);
+      u3 && f3 ? (a3 = Math.abs(c3 - u3.getBoundingClientRect().right) < Math.abs(c3 - f3.getBoundingClientRect().left) ? d3 : p3, a3 === n3 && (a3 = a3 === d3 ? p3 : d3)) : u3 ? a3 = d3 : f3 && (a3 = p3), a3 > -1 && i3[a3] && e3.slideTo(a3);
     }
-    getShift(t2) {
-      var e2;
-      const i2 = this, { instance: n2 } = i2, s2 = i2.carousel;
-      if (!n2 || !s2)
+    getShift(t3) {
+      var e3;
+      const i3 = this, { instance: n3 } = i3, s3 = i3.carousel;
+      if (!n3 || !s3)
         return 0;
-      const o2 = i2[Bt], a2 = i2[Nt], r2 = i2.thumbGap, l2 = i2.thumbExtraGap;
-      if (!(null === (e2 = s2.slides[t2]) || void 0 === e2 ? void 0 : e2.el))
+      const o3 = i3[Bt], a3 = i3[Nt], r3 = i3.thumbGap, l3 = i3.thumbExtraGap;
+      if (!(null === (e3 = s3.slides[t3]) || void 0 === e3 ? void 0 : e3.el))
         return 0;
-      const c2 = 0.5 * (o2 - a2), h2 = n2.pages.length - 1;
-      let d2 = n2.getProgress(0), u2 = n2.getProgress(h2), p2 = n2.getProgress(t2, false, true), f2 = 0, g2 = c2 + l2 + r2;
-      const m2 = d2 < 0 && d2 > -1, v2 = u2 > 0 && u2 < 1;
-      return 0 === t2 ? (f2 = g2 * Math.abs(d2), v2 && 1 === d2 && (f2 -= g2 * Math.abs(u2))) : t2 === h2 ? (f2 = g2 * Math.abs(u2) * -1, m2 && -1 === u2 && (f2 += g2 * Math.abs(d2))) : m2 || v2 ? (f2 = -1 * g2, f2 += g2 * Math.abs(d2), f2 += g2 * (1 - Math.abs(u2))) : f2 = g2 * p2, f2;
+      const c3 = 0.5 * (o3 - a3), h3 = n3.pages.length - 1;
+      let d3 = n3.getProgress(0), u3 = n3.getProgress(h3), p3 = n3.getProgress(t3, false, true), f3 = 0, g3 = c3 + l3 + r3;
+      const m3 = d3 < 0 && d3 > -1, v3 = u3 > 0 && u3 < 1;
+      return 0 === t3 ? (f3 = g3 * Math.abs(d3), v3 && 1 === d3 && (f3 -= g3 * Math.abs(u3))) : t3 === h3 ? (f3 = g3 * Math.abs(u3) * -1, m3 && -1 === u3 && (f3 += g3 * Math.abs(d3))) : m3 || v3 ? (f3 = -1 * g3, f3 += g3 * Math.abs(d3), f3 += g3 * (1 - Math.abs(u3))) : f3 = g3 * p3, f3;
     }
-    setProps(e2) {
-      var i2;
-      const n2 = this;
-      if (!n2.isModern)
+    setProps(e3) {
+      var i3;
+      const n3 = this;
+      if (!n3.isModern)
         return;
-      const { instance: s2 } = n2, o2 = n2.carousel;
-      if (s2 && o2) {
-        const a2 = null === (i2 = o2.slides[e2]) || void 0 === i2 ? void 0 : i2.el;
-        if (a2 && a2.childNodes.length) {
-          let i3 = t(1 - Math.abs(s2.getProgress(e2))), o3 = t(n2.getShift(e2));
-          a2.style.setProperty("--progress", i3 ? i3 + "" : ""), a2.style.setProperty("--shift", o3 + "");
+      const { instance: s3 } = n3, o3 = n3.carousel;
+      if (s3 && o3) {
+        const a3 = null === (i3 = o3.slides[e3]) || void 0 === i3 ? void 0 : i3.el;
+        if (a3 && a3.childNodes.length) {
+          let i4 = t(1 - Math.abs(s3.getProgress(e3))), o4 = t(n3.getShift(e3));
+          a3.style.setProperty("--progress", i4 ? i4 + "" : ""), a3.style.setProperty("--shift", o4 + "");
         }
       }
     }
     shiftModern() {
-      const t2 = this;
-      if (!t2.isModern)
+      const t3 = this;
+      if (!t3.isModern)
         return;
-      const { instance: e2, track: i2 } = t2, n2 = e2.panzoom, s2 = t2.carousel;
-      if (!(e2 && i2 && n2 && s2))
+      const { instance: e3, track: i3 } = t3, n3 = e3.panzoom, s3 = t3.carousel;
+      if (!(e3 && i3 && n3 && s3))
         return;
-      if (n2.state === m.Init || n2.state === m.Destroy)
+      if (n3.state === m.Init || n3.state === m.Destroy)
         return;
-      for (const i3 of e2.slides)
-        t2.setProps(i3.index);
-      let o2 = (t2[Nt] + t2.thumbGap) * (s2.slides.length || 0);
-      i2.style.setProperty("--width", o2 + "");
+      for (const i4 of e3.slides)
+        t3.setProps(i4.index);
+      let o3 = (t3[Nt] + t3.thumbGap) * (s3.slides.length || 0);
+      i3.style.setProperty("--width", o3 + "");
     }
     cleanup() {
-      const t2 = this;
-      t2.carousel && t2.carousel.destroy(), t2.carousel = null, t2.container && t2.container.remove(), t2.container = null, t2.track && t2.track.remove(), t2.track = null, t2.state = Ft.Init, S(t2.instance.container, t2.cn("hasThumbs"));
+      const t3 = this;
+      t3.carousel && t3.carousel.destroy(), t3.carousel = null, t3.container && t3.container.remove(), t3.container = null, t3.track && t3.track.remove(), t3.track = null, t3.state = Ft.Init, S(t3.instance.container, t3.cn("hasThumbs"));
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.on("initSlide", t2.onInitSlide), e2.state === j.Init ? e2.on("initSlides", t2.onInitSlides) : t2.onInitSlides(), e2.on(["change", "Panzoom.afterTransform"], t2.onChange), e2.on("Panzoom.refresh", t2.onRefresh);
+      const t3 = this, e3 = t3.instance;
+      e3.on("initSlide", t3.onInitSlide), e3.state === j.Init ? e3.on("initSlides", t3.onInitSlides) : t3.onInitSlides(), e3.on(["change", "Panzoom.afterTransform"], t3.onChange), e3.on("Panzoom.refresh", t3.onRefresh);
     }
     detach() {
-      const t2 = this, e2 = t2.instance;
-      e2.off("initSlide", t2.onInitSlide), e2.off("initSlides", t2.onInitSlides), e2.off(["change", "Panzoom.afterTransform"], t2.onChange), e2.off("Panzoom.refresh", t2.onRefresh), t2.cleanup();
+      const t3 = this, e3 = t3.instance;
+      e3.off("initSlide", t3.onInitSlide), e3.off("initSlides", t3.onInitSlides), e3.off(["change", "Panzoom.afterTransform"], t3.onChange), e3.off("Panzoom.refresh", t3.onRefresh), t3.cleanup();
     }
   };
   Object.defineProperty(_t, "defaults", { enumerable: true, configurable: true, writable: true, value: Dt });
@@ -15887,86 +15887,86 @@
       super(...arguments), Object.defineProperty(this, "ref", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "hidden", { enumerable: true, configurable: true, writable: true, value: false });
     }
     get isEnabled() {
-      const t2 = this.ref;
-      return t2 && !t2.isDisabled();
+      const t3 = this.ref;
+      return t3 && !t3.isDisabled();
     }
     get isHidden() {
       return this.hidden;
     }
-    onClick(t2, e2) {
-      e2.stopPropagation();
+    onClick(t3, e3) {
+      e3.stopPropagation();
     }
-    onCreateSlide(t2, e2) {
-      var i2, n2, s2;
-      const o2 = (null === (s2 = null === (n2 = null === (i2 = this.instance) || void 0 === i2 ? void 0 : i2.carousel) || void 0 === n2 ? void 0 : n2.slides[e2.index]) || void 0 === s2 ? void 0 : s2.type) || "", a2 = e2.el;
-      if (a2 && o2) {
-        let t3 = `for-${o2}`;
-        ["video", "youtube", "vimeo", "html5video"].includes(o2) && (t3 += " for-video"), P(a2, t3);
+    onCreateSlide(t3, e3) {
+      var i3, n3, s3;
+      const o3 = (null === (s3 = null === (n3 = null === (i3 = this.instance) || void 0 === i3 ? void 0 : i3.carousel) || void 0 === n3 ? void 0 : n3.slides[e3.index]) || void 0 === s3 ? void 0 : s3.type) || "", a3 = e3.el;
+      if (a3 && o3) {
+        let t4 = `for-${o3}`;
+        ["video", "youtube", "vimeo", "html5video"].includes(o3) && (t4 += " for-video"), P(a3, t4);
       }
     }
     onInit() {
-      var t2;
-      const e2 = this, i2 = e2.instance, n2 = i2.carousel;
-      if (e2.ref || !n2)
+      var t3;
+      const e3 = this, i3 = e3.instance, n3 = i3.carousel;
+      if (e3.ref || !n3)
         return;
-      const s2 = e2.option("parentEl") || i2.footer || i2.container;
-      if (!s2)
+      const s3 = e3.option("parentEl") || i3.footer || i3.container;
+      if (!s3)
         return;
-      const o2 = u({}, e2.options, { parentEl: s2, classes: { container: "f-thumbs fancybox__thumbs" }, Carousel: { Sync: { friction: i2.option("Carousel.friction") || 0 } }, on: { ready: (t3) => {
-        const i3 = t3.container;
-        i3 && this.hidden && (e2.refresh(), i3.style.transition = "none", e2.hide(), i3.offsetHeight, queueMicrotask(() => {
-          i3.style.transition = "", e2.show();
+      const o3 = u({}, e3.options, { parentEl: s3, classes: { container: "f-thumbs fancybox__thumbs" }, Carousel: { Sync: { friction: i3.option("Carousel.friction") || 0 } }, on: { ready: (t4) => {
+        const i4 = t4.container;
+        i4 && this.hidden && (e3.refresh(), i4.style.transition = "none", e3.hide(), i4.offsetHeight, queueMicrotask(() => {
+          i4.style.transition = "", e3.show();
         }));
       } } });
-      o2.Carousel = o2.Carousel || {}, o2.Carousel.on = u((null === (t2 = e2.options.Carousel) || void 0 === t2 ? void 0 : t2.on) || {}, { click: this.onClick, createSlide: this.onCreateSlide }), n2.options.Thumbs = o2, n2.attachPlugins({ Thumbs: _t }), e2.ref = n2.plugins.Thumbs, e2.option("showOnStart") || (e2.ref.state = Ft.Hidden, e2.hidden = true);
+      o3.Carousel = o3.Carousel || {}, o3.Carousel.on = u((null === (t3 = e3.options.Carousel) || void 0 === t3 ? void 0 : t3.on) || {}, { click: this.onClick, createSlide: this.onCreateSlide }), n3.options.Thumbs = o3, n3.attachPlugins({ Thumbs: _t }), e3.ref = n3.plugins.Thumbs, e3.option("showOnStart") || (e3.ref.state = Ft.Hidden, e3.hidden = true);
     }
     onResize() {
-      var t2;
-      const e2 = null === (t2 = this.ref) || void 0 === t2 ? void 0 : t2.container;
-      e2 && (e2.style.maxHeight = "");
+      var t3;
+      const e3 = null === (t3 = this.ref) || void 0 === t3 ? void 0 : t3.container;
+      e3 && (e3.style.maxHeight = "");
     }
-    onKeydown(t2, e2) {
-      const i2 = this.option("key");
-      i2 && i2 === e2 && this.toggle();
+    onKeydown(t3, e3) {
+      const i3 = this.option("key");
+      i3 && i3 === e3 && this.toggle();
     }
     toggle() {
-      const t2 = this.ref;
-      if (t2 && !t2.isDisabled())
-        return t2.state === Ft.Hidden ? (t2.state = Ft.Init, void t2.build()) : void (this.hidden ? this.show() : this.hide());
+      const t3 = this.ref;
+      if (t3 && !t3.isDisabled())
+        return t3.state === Ft.Hidden ? (t3.state = Ft.Init, void t3.build()) : void (this.hidden ? this.show() : this.hide());
     }
     show() {
-      const t2 = this.ref;
-      if (!t2 || t2.isDisabled())
+      const t3 = this.ref;
+      if (!t3 || t3.isDisabled())
         return;
-      const e2 = t2.container;
-      e2 && (this.refresh(), e2.offsetHeight, e2.removeAttribute(Xt), e2.classList.remove(Wt), this.hidden = false);
+      const e3 = t3.container;
+      e3 && (this.refresh(), e3.offsetHeight, e3.removeAttribute(Xt), e3.classList.remove(Wt), this.hidden = false);
     }
     hide() {
-      const t2 = this.ref, e2 = t2 && t2.container;
-      e2 && (this.refresh(), e2.offsetHeight, e2.classList.add(Wt), e2.setAttribute(Xt, "true")), this.hidden = true;
+      const t3 = this.ref, e3 = t3 && t3.container;
+      e3 && (this.refresh(), e3.offsetHeight, e3.classList.add(Wt), e3.setAttribute(Xt, "true")), this.hidden = true;
     }
     refresh() {
-      const t2 = this.ref;
-      if (!t2 || !t2.state)
+      const t3 = this.ref;
+      if (!t3 || !t3.state)
         return;
-      const e2 = t2.container, i2 = (null == e2 ? void 0 : e2.firstChild) || null;
-      e2 && i2 && i2.childNodes.length && (e2.style.maxHeight = `${i2.getBoundingClientRect().height}px`);
+      const e3 = t3.container, i3 = (null == e3 ? void 0 : e3.firstChild) || null;
+      e3 && i3 && i3.childNodes.length && (e3.style.maxHeight = `${i3.getBoundingClientRect().height}px`);
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.state === at.Init ? e2.on("Carousel.init", t2.onInit) : t2.onInit(), e2.on("resize", t2.onResize), e2.on("keydown", t2.onKeydown);
+      const t3 = this, e3 = t3.instance;
+      e3.state === at.Init ? e3.on("Carousel.init", t3.onInit) : t3.onInit(), e3.on("resize", t3.onResize), e3.on("keydown", t3.onKeydown);
     }
     detach() {
-      var t2;
-      const e2 = this, i2 = e2.instance;
-      i2.off("Carousel.init", e2.onInit), i2.off("resize", e2.onResize), i2.off("keydown", e2.onKeydown), null === (t2 = i2.carousel) || void 0 === t2 || t2.detachPlugins(["Thumbs"]), e2.ref = null;
+      var t3;
+      const e3 = this, i3 = e3.instance;
+      i3.off("Carousel.init", e3.onInit), i3.off("resize", e3.onResize), i3.off("keydown", e3.onKeydown), null === (t3 = i3.carousel) || void 0 === t3 || t3.detachPlugins(["Thumbs"]), e3.ref = null;
     }
   };
   Object.defineProperty(qt, "defaults", { enumerable: true, configurable: true, writable: true, value: $t });
   var Yt = { panLeft: { icon: '<svg><path d="M5 12h14M5 12l6 6M5 12l6-6"/></svg>', change: { panX: -100 } }, panRight: { icon: '<svg><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg>', change: { panX: 100 } }, panUp: { icon: '<svg><path d="M12 5v14M18 11l-6-6M6 11l6-6"/></svg>', change: { panY: -100 } }, panDown: { icon: '<svg><path d="M12 5v14M18 13l-6 6M6 13l6 6"/></svg>', change: { panY: 100 } }, zoomIn: { icon: '<svg><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>', action: "zoomIn" }, zoomOut: { icon: '<svg><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>', action: "zoomOut" }, toggle1to1: { icon: '<svg><path d="M3.51 3.07c5.74.02 11.48-.02 17.22.02 1.37.1 2.34 1.64 2.18 3.13 0 4.08.02 8.16 0 12.23-.1 1.54-1.47 2.64-2.79 2.46-5.61-.01-11.24.02-16.86-.01-1.36-.12-2.33-1.65-2.17-3.14 0-4.07-.02-8.16 0-12.23.1-1.36 1.22-2.48 2.42-2.46Z"/><path d="M5.65 8.54h1.49v6.92m8.94-6.92h1.49v6.92M11.5 9.4v.02m0 5.18v0"/></svg>', action: "toggleZoom" }, toggleZoom: { icon: '<svg><g><line x1="11" y1="8" x2="11" y2="14"></line></g><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>', action: "toggleZoom" }, iterateZoom: { icon: '<svg><g><line x1="11" y1="8" x2="11" y2="14"></line></g><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>', action: "iterateZoom" }, rotateCCW: { icon: '<svg><path d="M15 4.55a8 8 0 0 0-6 14.9M9 15v5H4M18.37 7.16v.01M13 19.94v.01M16.84 18.37v.01M19.37 15.1v.01M19.94 11v.01"/></svg>', action: "rotateCCW" }, rotateCW: { icon: '<svg><path d="M9 4.55a8 8 0 0 1 6 14.9M15 15v5h5M5.63 7.16v.01M4.06 11v.01M4.63 15.1v.01M7.16 18.37v.01M11 19.94v.01"/></svg>', action: "rotateCW" }, flipX: { icon: '<svg style="stroke-width: 1.3"><path d="M12 3v18M16 7v10h5L16 7M8 7v10H3L8 7"/></svg>', action: "flipX" }, flipY: { icon: '<svg style="stroke-width: 1.3"><path d="M3 12h18M7 16h10L7 21v-5M7 8h10L7 3v5"/></svg>', action: "flipY" }, fitX: { icon: '<svg><path d="M4 12V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6M10 18H3M21 18h-7M6 15l-3 3 3 3M18 15l3 3-3 3"/></svg>', action: "fitX" }, fitY: { icon: '<svg><path d="M12 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M18 14v7M18 3v7M15 18l3 3 3-3M15 6l3-3 3 3"/></svg>', action: "fitY" }, reset: { icon: '<svg><path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>', action: "reset" }, toggleFS: { icon: '<svg><g><path d="M14.5 9.5 21 3m0 0h-6m6 0v6M3 21l6.5-6.5M3 21v-6m0 6h6"/></g><g><path d="m14 10 7-7m-7 7h6m-6 0V4M3 21l7-7m0 0v6m0-6H4"/></g></svg>', action: "toggleFS" } };
   var Vt;
-  !function(t2) {
-    t2[t2.Init = 0] = "Init", t2[t2.Ready = 1] = "Ready", t2[t2.Disabled = 2] = "Disabled";
+  !function(t3) {
+    t3[t3.Init = 0] = "Init", t3[t3.Ready = 1] = "Ready", t3[t3.Disabled = 2] = "Disabled";
   }(Vt || (Vt = {}));
   var Zt = { absolute: "auto", display: { left: ["infobar"], middle: [], right: ["iterateZoom", "slideshow", "fullscreen", "thumbs", "close"] }, enabled: "auto", items: { infobar: { tpl: '<div class="fancybox__infobar" tabindex="-1"><span data-fancybox-current-index></span>/<span data-fancybox-count></span></div>' }, download: { tpl: '<a class="f-button" title="{{DOWNLOAD}}" data-fancybox-download href="javasript:;"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></a>' }, prev: { tpl: '<button class="f-button" title="{{PREV}}" data-fancybox-prev><svg><path d="m15 6-6 6 6 6"/></svg></button>' }, next: { tpl: '<button class="f-button" title="{{NEXT}}" data-fancybox-next><svg><path d="m9 6 6 6-6 6"/></svg></button>' }, slideshow: { tpl: '<button class="f-button" title="{{TOGGLE_SLIDESHOW}}" data-fancybox-toggle-slideshow><svg><g><path d="M8 4v16l13 -8z"></path></g><g><path d="M8 4v15M17 4v15"/></g></svg></button>' }, fullscreen: { tpl: '<button class="f-button" title="{{TOGGLE_FULLSCREEN}}" data-fancybox-toggle-fullscreen><svg><g><path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/></g><g><path d="M15 19v-2a2 2 0 0 1 2-2h2M15 5v2a2 2 0 0 0 2 2h2M5 15h2a2 2 0 0 1 2 2v2M5 9h2a2 2 0 0 0 2-2V5"/></g></svg></button>' }, thumbs: { tpl: '<button class="f-button" title="{{TOGGLE_THUMBS}}" data-fancybox-toggle-thumbs><svg><circle cx="5.5" cy="5.5" r="1"/><circle cx="12" cy="5.5" r="1"/><circle cx="18.5" cy="5.5" r="1"/><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/><circle cx="5.5" cy="18.5" r="1"/><circle cx="12" cy="18.5" r="1"/><circle cx="18.5" cy="18.5" r="1"/></svg></button>' }, close: { tpl: '<button class="f-button" title="{{CLOSE}}" data-fancybox-close><svg><path d="m19.5 4.5-15 15M4.5 4.5l15 15"/></svg></button>' } }, parentEl: null };
   var Ut = { tabindex: "-1", width: "24", height: "24", viewBox: "0 0 24 24", xmlns: "http://www.w3.org/2000/svg" };
@@ -15976,66 +15976,66 @@
     constructor() {
       super(...arguments), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: Vt.Init }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: null });
     }
-    onReady(t2) {
-      var e2;
-      if (!t2.carousel)
+    onReady(t3) {
+      var e3;
+      if (!t3.carousel)
         return;
-      let i2 = this.option("display"), n2 = this.option("absolute"), s2 = this.option("enabled");
-      if ("auto" === s2) {
-        const t3 = this.instance.carousel;
-        let e3 = 0;
-        if (t3)
-          for (const i3 of t3.slides)
-            (i3.panzoom || "image" === i3.type) && e3++;
-        e3 || (s2 = false);
+      let i3 = this.option("display"), n3 = this.option("absolute"), s3 = this.option("enabled");
+      if ("auto" === s3) {
+        const t4 = this.instance.carousel;
+        let e4 = 0;
+        if (t4)
+          for (const i4 of t4.slides)
+            (i4.panzoom || "image" === i4.type) && e4++;
+        e4 || (s3 = false);
       }
-      s2 || (i2 = void 0);
-      let o2 = 0;
-      const a2 = { left: [], middle: [], right: [] };
-      if (i2)
-        for (const t3 of ["left", "middle", "right"])
-          for (const n3 of i2[t3]) {
-            const i3 = this.createEl(n3);
-            i3 && (null === (e2 = a2[t3]) || void 0 === e2 || e2.push(i3), o2++);
+      s3 || (i3 = void 0);
+      let o3 = 0;
+      const a3 = { left: [], middle: [], right: [] };
+      if (i3)
+        for (const t4 of ["left", "middle", "right"])
+          for (const n4 of i3[t4]) {
+            const i4 = this.createEl(n4);
+            i4 && (null === (e3 = a3[t4]) || void 0 === e3 || e3.push(i4), o3++);
           }
-      let r2 = null;
-      if (o2 && (r2 = this.createContainer()), r2) {
-        for (const [t3, e3] of Object.entries(a2)) {
-          const i3 = document.createElement("div");
-          P(i3, Kt + "__column is-" + t3);
-          for (const t4 of e3)
-            i3.appendChild(t4);
-          "auto" !== n2 || "middle" !== t3 || e3.length || (n2 = true), r2.appendChild(i3);
+      let r3 = null;
+      if (o3 && (r3 = this.createContainer()), r3) {
+        for (const [t4, e4] of Object.entries(a3)) {
+          const i4 = document.createElement("div");
+          P(i4, Kt + "__column is-" + t4);
+          for (const t5 of e4)
+            i4.appendChild(t5);
+          "auto" !== n3 || "middle" !== t4 || e4.length || (n3 = true), r3.appendChild(i4);
         }
-        true === n2 && P(r2, "is-absolute"), this.state = Vt.Ready, this.onRefresh();
+        true === n3 && P(r3, "is-absolute"), this.state = Vt.Ready, this.onRefresh();
       } else
         this.state = Vt.Disabled;
     }
-    onClick(t2) {
-      var e2, i2;
-      const n2 = this.instance, s2 = n2.getSlide(), o2 = null == s2 ? void 0 : s2.panzoom, a2 = t2.target, r2 = a2 && E(a2) ? a2.dataset : null;
-      if (!r2)
+    onClick(t3) {
+      var e3, i3;
+      const n3 = this.instance, s3 = n3.getSlide(), o3 = null == s3 ? void 0 : s3.panzoom, a3 = t3.target, r3 = a3 && E(a3) ? a3.dataset : null;
+      if (!r3)
         return;
-      if (void 0 !== r2.fancyboxToggleThumbs)
-        return t2.preventDefault(), t2.stopPropagation(), void (null === (e2 = n2.plugins.Thumbs) || void 0 === e2 || e2.toggle());
-      if (void 0 !== r2.fancyboxToggleFullscreen)
-        return t2.preventDefault(), t2.stopPropagation(), void this.instance.toggleFullscreen();
-      if (void 0 !== r2.fancyboxToggleSlideshow) {
-        t2.preventDefault(), t2.stopPropagation();
-        const e3 = null === (i2 = n2.carousel) || void 0 === i2 ? void 0 : i2.plugins.Autoplay;
-        let s3 = e3.isActive;
-        return o2 && "mousemove" === o2.panMode && !s3 && o2.reset(), void (s3 ? e3.stop() : e3.start());
+      if (void 0 !== r3.fancyboxToggleThumbs)
+        return t3.preventDefault(), t3.stopPropagation(), void (null === (e3 = n3.plugins.Thumbs) || void 0 === e3 || e3.toggle());
+      if (void 0 !== r3.fancyboxToggleFullscreen)
+        return t3.preventDefault(), t3.stopPropagation(), void this.instance.toggleFullscreen();
+      if (void 0 !== r3.fancyboxToggleSlideshow) {
+        t3.preventDefault(), t3.stopPropagation();
+        const e4 = null === (i3 = n3.carousel) || void 0 === i3 ? void 0 : i3.plugins.Autoplay;
+        let s4 = e4.isActive;
+        return o3 && "mousemove" === o3.panMode && !s4 && o3.reset(), void (s4 ? e4.stop() : e4.start());
       }
-      const l2 = r2.panzoomAction, c2 = r2.panzoomChange;
-      if ((c2 || l2) && (t2.preventDefault(), t2.stopPropagation()), c2) {
-        let t3 = {};
+      const l3 = r3.panzoomAction, c3 = r3.panzoomChange;
+      if ((c3 || l3) && (t3.preventDefault(), t3.stopPropagation()), c3) {
+        let t4 = {};
         try {
-          t3 = JSON.parse(c2);
-        } catch (t4) {
+          t4 = JSON.parse(c3);
+        } catch (t5) {
         }
-        o2 && o2.applyChange(t3);
+        o3 && o3.applyChange(t4);
       } else
-        l2 && o2 && o2[l2] && o2[l2]();
+        l3 && o3 && o3[l3] && o3[l3]();
     }
     onChange() {
       this.onRefresh();
@@ -16043,96 +16043,96 @@
     onRefresh() {
       if (this.instance.isClosing())
         return;
-      const t2 = this.container;
-      if (!t2)
+      const t3 = this.container;
+      if (!t3)
         return;
-      const e2 = this.instance.getSlide();
-      if (!e2 || e2.state !== rt.Ready)
+      const e3 = this.instance.getSlide();
+      if (!e3 || e3.state !== rt.Ready)
         return;
-      const i2 = e2 && !e2.error && e2.panzoom;
-      for (const e3 of t2.querySelectorAll("[data-panzoom-action]"))
-        i2 ? (e3.removeAttribute("disabled"), e3.removeAttribute("tabindex")) : (e3.setAttribute("disabled", ""), e3.setAttribute("tabindex", "-1"));
-      let n2 = i2 && i2.canZoomIn(), s2 = i2 && i2.canZoomOut();
-      for (const e3 of t2.querySelectorAll('[data-panzoom-action="zoomIn"]'))
-        n2 ? (e3.removeAttribute("disabled"), e3.removeAttribute("tabindex")) : (e3.setAttribute("disabled", ""), e3.setAttribute("tabindex", "-1"));
-      for (const e3 of t2.querySelectorAll('[data-panzoom-action="zoomOut"]'))
-        s2 ? (e3.removeAttribute("disabled"), e3.removeAttribute("tabindex")) : (e3.setAttribute("disabled", ""), e3.setAttribute("tabindex", "-1"));
-      for (const e3 of t2.querySelectorAll('[data-panzoom-action="toggleZoom"],[data-panzoom-action="iterateZoom"]')) {
-        s2 || n2 ? (e3.removeAttribute("disabled"), e3.removeAttribute("tabindex")) : (e3.setAttribute("disabled", ""), e3.setAttribute("tabindex", "-1"));
-        const t3 = e3.querySelector("g");
-        t3 && (t3.style.display = n2 ? "" : "none");
+      const i3 = e3 && !e3.error && e3.panzoom;
+      for (const e4 of t3.querySelectorAll("[data-panzoom-action]"))
+        i3 ? (e4.removeAttribute("disabled"), e4.removeAttribute("tabindex")) : (e4.setAttribute("disabled", ""), e4.setAttribute("tabindex", "-1"));
+      let n3 = i3 && i3.canZoomIn(), s3 = i3 && i3.canZoomOut();
+      for (const e4 of t3.querySelectorAll('[data-panzoom-action="zoomIn"]'))
+        n3 ? (e4.removeAttribute("disabled"), e4.removeAttribute("tabindex")) : (e4.setAttribute("disabled", ""), e4.setAttribute("tabindex", "-1"));
+      for (const e4 of t3.querySelectorAll('[data-panzoom-action="zoomOut"]'))
+        s3 ? (e4.removeAttribute("disabled"), e4.removeAttribute("tabindex")) : (e4.setAttribute("disabled", ""), e4.setAttribute("tabindex", "-1"));
+      for (const e4 of t3.querySelectorAll('[data-panzoom-action="toggleZoom"],[data-panzoom-action="iterateZoom"]')) {
+        s3 || n3 ? (e4.removeAttribute("disabled"), e4.removeAttribute("tabindex")) : (e4.setAttribute("disabled", ""), e4.setAttribute("tabindex", "-1"));
+        const t4 = e4.querySelector("g");
+        t4 && (t4.style.display = n3 ? "" : "none");
       }
     }
-    onDone(t2, e2) {
-      var i2;
-      null === (i2 = e2.panzoom) || void 0 === i2 || i2.on("afterTransform", () => {
-        this.instance.isCurrentSlide(e2) && this.onRefresh();
-      }), this.instance.isCurrentSlide(e2) && this.onRefresh();
+    onDone(t3, e3) {
+      var i3;
+      null === (i3 = e3.panzoom) || void 0 === i3 || i3.on("afterTransform", () => {
+        this.instance.isCurrentSlide(e3) && this.onRefresh();
+      }), this.instance.isCurrentSlide(e3) && this.onRefresh();
     }
     createContainer() {
-      const t2 = this.instance.container;
-      if (!t2)
+      const t3 = this.instance.container;
+      if (!t3)
         return null;
-      const e2 = this.option("parentEl") || t2;
-      let i2 = e2.querySelector("." + Kt);
-      return i2 || (i2 = document.createElement("div"), P(i2, Kt), e2.prepend(i2)), i2.addEventListener("click", this.onClick, { passive: false, capture: true }), t2 && P(t2, Gt), this.container = i2, i2;
+      const e3 = this.option("parentEl") || t3;
+      let i3 = e3.querySelector("." + Kt);
+      return i3 || (i3 = document.createElement("div"), P(i3, Kt), e3.prepend(i3)), i3.addEventListener("click", this.onClick, { passive: false, capture: true }), t3 && P(t3, Gt), this.container = i3, i3;
     }
-    createEl(t2) {
-      const e2 = this.instance, i2 = e2.carousel;
-      if (!i2)
+    createEl(t3) {
+      const e3 = this.instance, i3 = e3.carousel;
+      if (!i3)
         return null;
-      if ("toggleFS" === t2)
+      if ("toggleFS" === t3)
         return null;
-      if ("fullscreen" === t2 && !st())
+      if ("fullscreen" === t3 && !st())
         return null;
-      let s2 = null;
-      const o2 = i2.slides.length || 0;
-      let a2 = 0, r2 = 0;
-      for (const t3 of i2.slides)
-        (t3.panzoom || "image" === t3.type) && a2++, ("image" === t3.type || t3.downloadSrc) && r2++;
-      if (o2 < 2 && ["infobar", "prev", "next"].includes(t2))
-        return s2;
-      if (void 0 !== Yt[t2] && !a2)
+      let s3 = null;
+      const o3 = i3.slides.length || 0;
+      let a3 = 0, r3 = 0;
+      for (const t4 of i3.slides)
+        (t4.panzoom || "image" === t4.type) && a3++, ("image" === t4.type || t4.downloadSrc) && r3++;
+      if (o3 < 2 && ["infobar", "prev", "next"].includes(t3))
+        return s3;
+      if (void 0 !== Yt[t3] && !a3)
         return null;
-      if ("download" === t2 && !r2)
+      if ("download" === t3 && !r3)
         return null;
-      if ("thumbs" === t2) {
-        const t3 = e2.plugins.Thumbs;
-        if (!t3 || !t3.isEnabled)
+      if ("thumbs" === t3) {
+        const t4 = e3.plugins.Thumbs;
+        if (!t4 || !t4.isEnabled)
           return null;
       }
-      if ("slideshow" === t2) {
-        if (!i2.plugins.Autoplay || o2 < 2)
+      if ("slideshow" === t3) {
+        if (!i3.plugins.Autoplay || o3 < 2)
           return null;
       }
-      if (void 0 !== Yt[t2]) {
-        const e3 = Yt[t2];
-        s2 = document.createElement("button"), s2.setAttribute("title", this.instance.localize(`{{${t2.toUpperCase()}}}`)), P(s2, "f-button"), e3.action && (s2.dataset.panzoomAction = e3.action), e3.change && (s2.dataset.panzoomChange = JSON.stringify(e3.change)), s2.appendChild(n(this.instance.localize(e3.icon)));
+      if (void 0 !== Yt[t3]) {
+        const e4 = Yt[t3];
+        s3 = document.createElement("button"), s3.setAttribute("title", this.instance.localize(`{{${t3.toUpperCase()}}}`)), P(s3, "f-button"), e4.action && (s3.dataset.panzoomAction = e4.action), e4.change && (s3.dataset.panzoomChange = JSON.stringify(e4.change)), s3.appendChild(n(this.instance.localize(e4.icon)));
       } else {
-        const e3 = (this.option("items") || [])[t2];
-        e3 && (s2 = n(this.instance.localize(e3.tpl)), "function" == typeof e3.click && s2.addEventListener("click", (t3) => {
-          t3.preventDefault(), t3.stopPropagation(), "function" == typeof e3.click && e3.click.call(this, this, t3);
+        const e4 = (this.option("items") || [])[t3];
+        e4 && (s3 = n(this.instance.localize(e4.tpl)), "function" == typeof e4.click && s3.addEventListener("click", (t4) => {
+          t4.preventDefault(), t4.stopPropagation(), "function" == typeof e4.click && e4.click.call(this, this, t4);
         }));
       }
-      const l2 = null == s2 ? void 0 : s2.querySelector("svg");
-      if (l2)
-        for (const [t3, e3] of Object.entries(Ut))
-          l2.getAttribute(t3) || l2.setAttribute(t3, String(e3));
-      return s2;
+      const l3 = null == s3 ? void 0 : s3.querySelector("svg");
+      if (l3)
+        for (const [t4, e4] of Object.entries(Ut))
+          l3.getAttribute(t4) || l3.setAttribute(t4, String(e4));
+      return s3;
     }
     removeContainer() {
-      const t2 = this.container;
-      t2 && t2.remove(), this.container = null, this.state = Vt.Disabled;
-      const e2 = this.instance.container;
-      e2 && S(e2, Gt);
+      const t3 = this.container;
+      t3 && t3.remove(), this.container = null, this.state = Vt.Disabled;
+      const e3 = this.instance.container;
+      e3 && S(e3, Gt);
     }
     attach() {
-      const t2 = this, e2 = t2.instance;
-      e2.on("Carousel.initSlides", t2.onReady), e2.on("done", t2.onDone), e2.on(["reveal", "Carousel.change"], t2.onChange), t2.onReady(t2.instance);
+      const t3 = this, e3 = t3.instance;
+      e3.on("Carousel.initSlides", t3.onReady), e3.on("done", t3.onDone), e3.on(["reveal", "Carousel.change"], t3.onChange), t3.onReady(t3.instance);
     }
     detach() {
-      const t2 = this, e2 = t2.instance;
-      e2.off("Carousel.initSlides", t2.onReady), e2.off("done", t2.onDone), e2.off(["reveal", "Carousel.change"], t2.onChange), t2.removeContainer();
+      const t3 = this, e3 = t3.instance;
+      e3.off("Carousel.initSlides", t3.onReady), e3.off("done", t3.onDone), e3.off(["reveal", "Carousel.change"], t3.onChange), t3.removeContainer();
     }
   };
   Object.defineProperty(Jt, "defaults", { enumerable: true, configurable: true, writable: true, value: Zt });
@@ -16140,35 +16140,35 @@
     onReady() {
       ct = false;
     }
-    onChange(t2) {
+    onChange(t3) {
       dt && clearTimeout(dt);
-      const { hash: e2 } = ut(), { hash: i2 } = pt(), n2 = t2.isOpeningSlide(t2.getSlide());
-      n2 && (lt = i2 === e2 ? "" : i2), e2 && e2 !== i2 && (dt = setTimeout(() => {
+      const { hash: e3 } = ut(), { hash: i3 } = pt(), n3 = t3.isOpeningSlide(t3.getSlide());
+      n3 && (lt = i3 === e3 ? "" : i3), e3 && e3 !== i3 && (dt = setTimeout(() => {
         try {
-          if (t2.state === at.Ready) {
-            let t3 = "replaceState";
-            n2 && !ht && (t3 = "pushState", ht = true), window.history[t3]({}, document.title, window.location.pathname + window.location.search + e2);
+          if (t3.state === at.Ready) {
+            let t4 = "replaceState";
+            n3 && !ht && (t4 = "pushState", ht = true), window.history[t4]({}, document.title, window.location.pathname + window.location.search + e3);
           }
-        } catch (t3) {
+        } catch (t4) {
         }
       }, 300));
     }
-    onClose(t2) {
+    onClose(t3) {
       if (dt && clearTimeout(dt), !ct && ht)
         return ht = false, ct = false, void window.history.back();
       if (!ct)
         try {
           window.history.replaceState({}, document.title, window.location.pathname + window.location.search + (lt || ""));
-        } catch (t3) {
+        } catch (t4) {
         }
     }
     attach() {
-      const t2 = this.instance;
-      t2.on("ready", this.onReady), t2.on(["Carousel.ready", "Carousel.change"], this.onChange), t2.on("close", this.onClose);
+      const t3 = this.instance;
+      t3.on("ready", this.onReady), t3.on(["Carousel.ready", "Carousel.change"], this.onChange), t3.on("close", this.onClose);
     }
     detach() {
-      const t2 = this.instance;
-      t2.off("ready", this.onReady), t2.off(["Carousel.ready", "Carousel.change"], this.onChange), t2.off("close", this.onClose);
+      const t3 = this.instance;
+      t3.off("ready", this.onReady), t3.off(["Carousel.ready", "Carousel.change"], this.onChange), t3.off("close", this.onClose);
     }
     static parseURL() {
       return pt();
@@ -16196,10 +16196,10 @@
   var pe = "download";
   var fe = "href";
   var ge = "src";
-  var me = (t2) => "string" == typeof t2;
+  var me = (t3) => "string" == typeof t3;
   var ve = function() {
-    var t2 = window.getSelection();
-    return !!t2 && "Range" === t2.type;
+    var t3 = window.getSelection();
+    return !!t3 && "Range" === t3.type;
   };
   var be;
   var ye = null;
@@ -16215,8 +16215,8 @@
     get isCompact() {
       return this.option("compact");
     }
-    constructor(t2 = [], e2 = {}, i2 = {}) {
-      super(e2), Object.defineProperty(this, "userSlides", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "userPlugins", { enumerable: true, configurable: true, writable: true, value: {} }), Object.defineProperty(this, "idle", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "idleTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "clickTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "pwt", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "ignoreFocusChange", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "startedFs", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: at.Init }), Object.defineProperty(this, "id", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "caption", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "footer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "carousel", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "lastFocus", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "prevMouseMoveEvent", { enumerable: true, configurable: true, writable: true, value: void 0 }), be || (be = st()), this.id = e2.id || ++Pe, Se.set(this.id, this), this.userSlides = t2, this.userPlugins = i2, queueMicrotask(() => {
+    constructor(t3 = [], e3 = {}, i3 = {}) {
+      super(e3), Object.defineProperty(this, "userSlides", { enumerable: true, configurable: true, writable: true, value: [] }), Object.defineProperty(this, "userPlugins", { enumerable: true, configurable: true, writable: true, value: {} }), Object.defineProperty(this, "idle", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "idleTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "clickTimer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "pwt", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "ignoreFocusChange", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "startedFs", { enumerable: true, configurable: true, writable: true, value: false }), Object.defineProperty(this, "state", { enumerable: true, configurable: true, writable: true, value: at.Init }), Object.defineProperty(this, "id", { enumerable: true, configurable: true, writable: true, value: 0 }), Object.defineProperty(this, "container", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "caption", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "footer", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "carousel", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "lastFocus", { enumerable: true, configurable: true, writable: true, value: null }), Object.defineProperty(this, "prevMouseMoveEvent", { enumerable: true, configurable: true, writable: true, value: void 0 }), be || (be = st()), this.id = e3.id || ++Pe, Se.set(this.id, this), this.userSlides = t3, this.userPlugins = i3, queueMicrotask(() => {
         this.init();
       });
     }
@@ -16226,421 +16226,421 @@
       this.state = at.Init, this.attachPlugins(Object.assign(Object.assign({}, _Ce.Plugins), this.userPlugins)), this.emit("init"), this.emit("attachPlugins"), true === this.option("hideScrollbar") && (() => {
         if (!tt)
           return;
-        const t3 = document, e2 = t3.body, i2 = t3.documentElement;
-        if (e2.classList.contains(ee))
+        const t4 = document, e3 = t4.body, i3 = t4.documentElement;
+        if (e3.classList.contains(ee))
           return;
-        let n2 = window.innerWidth - i2.getBoundingClientRect().width;
-        const s2 = parseFloat(window.getComputedStyle(e2).marginRight);
-        n2 < 0 && (n2 = 0), i2.style.setProperty(ie, `${n2}px`), s2 && e2.style.setProperty(ne, `${s2}px`), e2.classList.add(ee);
+        let n3 = window.innerWidth - i3.getBoundingClientRect().width;
+        const s3 = parseFloat(window.getComputedStyle(e3).marginRight);
+        n3 < 0 && (n3 = 0), i3.style.setProperty(ie, `${n3}px`), s3 && e3.style.setProperty(ne, `${s3}px`), e3.classList.add(ee);
       })(), this.initLayout(), this.scale();
-      const t2 = () => {
+      const t3 = () => {
         this.initCarousel(this.userSlides), this.state = at.Ready, this.attachEvents(), this.emit("ready"), setTimeout(() => {
           this.container && this.container.setAttribute(se, "false");
         }, 16);
       };
       this.option("Fullscreen.autoStart") && be && !be.isFullscreen() ? be.request().then(() => {
-        this.startedFs = true, t2();
-      }).catch(() => t2()) : t2();
+        this.startedFs = true, t3();
+      }).catch(() => t3()) : t3();
     }
     initLayout() {
-      var t2, e2;
-      const i2 = this.option("parentEl") || document.body, s2 = n(this.localize(this.option("tpl.main") || ""));
-      s2 && (s2.setAttribute("id", `fancybox-${this.id}`), s2.setAttribute("aria-label", this.localize("{{MODAL}}")), s2.classList.toggle(re, this.isCompact), P(s2, this.option("mainClass") || ""), P(s2, ce), this.container = s2, this.footer = s2.querySelector(".fancybox__footer"), i2.appendChild(s2), P(document.documentElement, te), ye && we || (ye = document.createElement("span"), P(ye, "fancybox-focus-guard"), ye.setAttribute(ue, "0"), ye.setAttribute(se, "true"), ye.setAttribute("aria-label", "Focus guard"), we = ye.cloneNode(), null === (t2 = s2.parentElement) || void 0 === t2 || t2.insertBefore(ye, s2), null === (e2 = s2.parentElement) || void 0 === e2 || e2.append(we)), s2.addEventListener("mousedown", (t3) => {
-        xe = t3.pageX, Ee = t3.pageY, S(s2, oe);
-      }), this.option("animated") && (P(s2, ae), setTimeout(() => {
-        this.isClosing() || S(s2, ae);
+      var t3, e3;
+      const i3 = this.option("parentEl") || document.body, s3 = n(this.localize(this.option("tpl.main") || ""));
+      s3 && (s3.setAttribute("id", `fancybox-${this.id}`), s3.setAttribute("aria-label", this.localize("{{MODAL}}")), s3.classList.toggle(re, this.isCompact), P(s3, this.option("mainClass") || ""), P(s3, ce), this.container = s3, this.footer = s3.querySelector(".fancybox__footer"), i3.appendChild(s3), P(document.documentElement, te), ye && we || (ye = document.createElement("span"), P(ye, "fancybox-focus-guard"), ye.setAttribute(ue, "0"), ye.setAttribute(se, "true"), ye.setAttribute("aria-label", "Focus guard"), we = ye.cloneNode(), null === (t3 = s3.parentElement) || void 0 === t3 || t3.insertBefore(ye, s3), null === (e3 = s3.parentElement) || void 0 === e3 || e3.append(we)), s3.addEventListener("mousedown", (t4) => {
+        xe = t4.pageX, Ee = t4.pageY, S(s3, oe);
+      }), this.option("animated") && (P(s3, ae), setTimeout(() => {
+        this.isClosing() || S(s3, ae);
       }, 350)), this.emit("initLayout"));
     }
-    initCarousel(t2) {
-      const i2 = this.container;
-      if (!i2)
+    initCarousel(t3) {
+      const i3 = this.container;
+      if (!i3)
         return;
-      const n2 = i2.querySelector(".fancybox__carousel");
-      if (!n2)
+      const n3 = i3.querySelector(".fancybox__carousel");
+      if (!n3)
         return;
-      const s2 = this.carousel = new J(n2, u({}, { slides: t2, transition: "fade", Panzoom: { lockAxis: this.option("dragToClose") ? "xy" : "x", infinite: !!this.option("dragToClose") && "y" }, Dots: false, Navigation: { classes: { container: "fancybox__nav", button: "f-button", isNext: "is-next", isPrev: "is-prev" } }, initialPage: this.option("startIndex"), l10n: this.option("l10n") }, this.option("Carousel") || {}));
-      s2.on("*", (t3, e2, ...i3) => {
-        this.emit(`Carousel.${e2}`, t3, ...i3);
-      }), s2.on(["ready", "change"], () => {
+      const s3 = this.carousel = new J(n3, u({}, { slides: t3, transition: "fade", Panzoom: { lockAxis: this.option("dragToClose") ? "xy" : "x", infinite: !!this.option("dragToClose") && "y" }, Dots: false, Navigation: { classes: { container: "fancybox__nav", button: "f-button", isNext: "is-next", isPrev: "is-prev" } }, initialPage: this.option("startIndex"), l10n: this.option("l10n") }, this.option("Carousel") || {}));
+      s3.on("*", (t4, e3, ...i4) => {
+        this.emit(`Carousel.${e3}`, t4, ...i4);
+      }), s3.on(["ready", "change"], () => {
         this.manageCaption();
-      }), this.on("Carousel.removeSlide", (t3, e2, i3) => {
-        this.clearContent(i3), i3.state = void 0;
-      }), s2.on("Panzoom.touchStart", () => {
-        var t3, e2;
-        this.isCompact || this.endIdle(), (null === (t3 = document.activeElement) || void 0 === t3 ? void 0 : t3.closest(".f-thumbs")) && (null === (e2 = this.container) || void 0 === e2 || e2.focus());
-      }), s2.on("settle", () => {
+      }), this.on("Carousel.removeSlide", (t4, e3, i4) => {
+        this.clearContent(i4), i4.state = void 0;
+      }), s3.on("Panzoom.touchStart", () => {
+        var t4, e3;
+        this.isCompact || this.endIdle(), (null === (t4 = document.activeElement) || void 0 === t4 ? void 0 : t4.closest(".f-thumbs")) && (null === (e3 = this.container) || void 0 === e3 || e3.focus());
+      }), s3.on("settle", () => {
         this.idleTimer || this.isCompact || !this.option("idle") || this.setIdle(), this.option("autoFocus") && !this.isClosing && this.checkFocus();
-      }), this.option("dragToClose") && (s2.on("Panzoom.afterTransform", (t3, i3) => {
-        const n3 = this.getSlide();
-        if (n3 && e(n3.el))
+      }), this.option("dragToClose") && (s3.on("Panzoom.afterTransform", (t4, i4) => {
+        const n4 = this.getSlide();
+        if (n4 && e(n4.el))
           return;
-        const s3 = this.container;
-        if (s3) {
-          const t4 = Math.abs(i3.current.f), e2 = t4 < 1 ? "" : Math.max(0.5, Math.min(1, 1 - t4 / i3.contentRect.fitHeight * 1.5));
-          s3.style.setProperty("--fancybox-ts", e2 ? "0s" : ""), s3.style.setProperty("--fancybox-opacity", e2 + "");
+        const s4 = this.container;
+        if (s4) {
+          const t5 = Math.abs(i4.current.f), e3 = t5 < 1 ? "" : Math.max(0.5, Math.min(1, 1 - t5 / i4.contentRect.fitHeight * 1.5));
+          s4.style.setProperty("--fancybox-ts", e3 ? "0s" : ""), s4.style.setProperty("--fancybox-opacity", e3 + "");
         }
-      }), s2.on("Panzoom.touchEnd", (t3, i3, n3) => {
-        var s3;
-        const o2 = this.getSlide();
-        if (o2 && e(o2.el))
+      }), s3.on("Panzoom.touchEnd", (t4, i4, n4) => {
+        var s4;
+        const o3 = this.getSlide();
+        if (o3 && e(o3.el))
           return;
-        if (i3.isMobile && document.activeElement && -1 !== ["TEXTAREA", "INPUT"].indexOf(null === (s3 = document.activeElement) || void 0 === s3 ? void 0 : s3.nodeName))
+        if (i4.isMobile && document.activeElement && -1 !== ["TEXTAREA", "INPUT"].indexOf(null === (s4 = document.activeElement) || void 0 === s4 ? void 0 : s4.nodeName))
           return;
-        const a2 = Math.abs(i3.dragOffset.y);
-        "y" === i3.lockedAxis && (a2 >= 200 || a2 >= 50 && i3.dragOffset.time < 300) && (n3 && n3.cancelable && n3.preventDefault(), this.close(n3, "f-throwOut" + (i3.current.f < 0 ? "Up" : "Down")));
-      })), s2.on("change", (t3) => {
-        var e2;
-        let i3 = null === (e2 = this.getSlide()) || void 0 === e2 ? void 0 : e2.triggerEl;
-        if (i3) {
-          const e3 = new CustomEvent("slideTo", { bubbles: true, cancelable: true, detail: t3.page });
-          i3.dispatchEvent(e3);
+        const a3 = Math.abs(i4.dragOffset.y);
+        "y" === i4.lockedAxis && (a3 >= 200 || a3 >= 50 && i4.dragOffset.time < 300) && (n4 && n4.cancelable && n4.preventDefault(), this.close(n4, "f-throwOut" + (i4.current.f < 0 ? "Up" : "Down")));
+      })), s3.on("change", (t4) => {
+        var e3;
+        let i4 = null === (e3 = this.getSlide()) || void 0 === e3 ? void 0 : e3.triggerEl;
+        if (i4) {
+          const e4 = new CustomEvent("slideTo", { bubbles: true, cancelable: true, detail: t4.page });
+          i4.dispatchEvent(e4);
         }
-      }), s2.on(["refresh", "change"], (t3) => {
-        const e2 = this.container;
-        if (!e2)
+      }), s3.on(["refresh", "change"], (t4) => {
+        const e3 = this.container;
+        if (!e3)
           return;
-        for (const i4 of e2.querySelectorAll("[data-fancybox-current-index]"))
-          i4.innerHTML = t3.page + 1;
-        for (const i4 of e2.querySelectorAll("[data-fancybox-count]"))
-          i4.innerHTML = t3.pages.length;
-        if (!t3.isInfinite) {
-          for (const i4 of e2.querySelectorAll("[data-fancybox-next]"))
-            t3.page < t3.pages.length - 1 ? (i4.removeAttribute(de), i4.removeAttribute(ue)) : (i4.setAttribute(de, ""), i4.setAttribute(ue, "-1"));
-          for (const i4 of e2.querySelectorAll("[data-fancybox-prev]"))
-            t3.page > 0 ? (i4.removeAttribute(de), i4.removeAttribute(ue)) : (i4.setAttribute(de, ""), i4.setAttribute(ue, "-1"));
+        for (const i5 of e3.querySelectorAll("[data-fancybox-current-index]"))
+          i5.innerHTML = t4.page + 1;
+        for (const i5 of e3.querySelectorAll("[data-fancybox-count]"))
+          i5.innerHTML = t4.pages.length;
+        if (!t4.isInfinite) {
+          for (const i5 of e3.querySelectorAll("[data-fancybox-next]"))
+            t4.page < t4.pages.length - 1 ? (i5.removeAttribute(de), i5.removeAttribute(ue)) : (i5.setAttribute(de, ""), i5.setAttribute(ue, "-1"));
+          for (const i5 of e3.querySelectorAll("[data-fancybox-prev]"))
+            t4.page > 0 ? (i5.removeAttribute(de), i5.removeAttribute(ue)) : (i5.setAttribute(de, ""), i5.setAttribute(ue, "-1"));
         }
-        const i3 = this.getSlide();
-        if (!i3)
+        const i4 = this.getSlide();
+        if (!i4)
           return;
-        let n3 = i3.downloadSrc || "";
-        n3 || "image" !== i3.type || i3.error || !me(i3[ge]) || (n3 = i3[ge]);
-        for (const t4 of e2.querySelectorAll("[data-fancybox-download]")) {
-          const e3 = i3.downloadFilename;
-          n3 ? (t4.removeAttribute(de), t4.removeAttribute(ue), t4.setAttribute(fe, n3), t4.setAttribute(pe, e3 || n3), t4.setAttribute("target", "_blank")) : (t4.setAttribute(de, ""), t4.setAttribute(ue, "-1"), t4.removeAttribute(fe), t4.removeAttribute(pe));
+        let n4 = i4.downloadSrc || "";
+        n4 || "image" !== i4.type || i4.error || !me(i4[ge]) || (n4 = i4[ge]);
+        for (const t5 of e3.querySelectorAll("[data-fancybox-download]")) {
+          const e4 = i4.downloadFilename;
+          n4 ? (t5.removeAttribute(de), t5.removeAttribute(ue), t5.setAttribute(fe, n4), t5.setAttribute(pe, e4 || n4), t5.setAttribute("target", "_blank")) : (t5.setAttribute(de, ""), t5.setAttribute(ue, "-1"), t5.removeAttribute(fe), t5.removeAttribute(pe));
         }
       }), this.emit("initCarousel");
     }
     attachEvents() {
-      const t2 = this, e2 = t2.container;
-      if (!e2)
+      const t3 = this, e3 = t3.container;
+      if (!e3)
         return;
-      e2.addEventListener("click", t2.onClick, { passive: false, capture: false }), e2.addEventListener("wheel", t2.onWheel, { passive: false, capture: false }), document.addEventListener("keydown", t2.onKeydown, { passive: false, capture: true }), document.addEventListener("visibilitychange", t2.onVisibilityChange, false), document.addEventListener("mousemove", t2.onMousemove), t2.option("trapFocus") && document.addEventListener("focus", t2.onFocus, true), window.addEventListener("resize", t2.onResize);
-      const i2 = window.visualViewport;
-      i2 && (i2.addEventListener("scroll", t2.onResize), i2.addEventListener("resize", t2.onResize));
+      e3.addEventListener("click", t3.onClick, { passive: false, capture: false }), e3.addEventListener("wheel", t3.onWheel, { passive: false, capture: false }), document.addEventListener("keydown", t3.onKeydown, { passive: false, capture: true }), document.addEventListener("visibilitychange", t3.onVisibilityChange, false), document.addEventListener("mousemove", t3.onMousemove), t3.option("trapFocus") && document.addEventListener("focus", t3.onFocus, true), window.addEventListener("resize", t3.onResize);
+      const i3 = window.visualViewport;
+      i3 && (i3.addEventListener("scroll", t3.onResize), i3.addEventListener("resize", t3.onResize));
     }
     detachEvents() {
-      const t2 = this, e2 = t2.container;
-      if (!e2)
+      const t3 = this, e3 = t3.container;
+      if (!e3)
         return;
-      document.removeEventListener("keydown", t2.onKeydown, { passive: false, capture: true }), e2.removeEventListener("wheel", t2.onWheel, { passive: false, capture: false }), e2.removeEventListener("click", t2.onClick, { passive: false, capture: false }), document.removeEventListener("mousemove", t2.onMousemove), window.removeEventListener("resize", t2.onResize);
-      const i2 = window.visualViewport;
-      i2 && (i2.removeEventListener("resize", t2.onResize), i2.removeEventListener("scroll", t2.onResize)), document.removeEventListener("visibilitychange", t2.onVisibilityChange, false), document.removeEventListener("focus", t2.onFocus, true);
+      document.removeEventListener("keydown", t3.onKeydown, { passive: false, capture: true }), e3.removeEventListener("wheel", t3.onWheel, { passive: false, capture: false }), e3.removeEventListener("click", t3.onClick, { passive: false, capture: false }), document.removeEventListener("mousemove", t3.onMousemove), window.removeEventListener("resize", t3.onResize);
+      const i3 = window.visualViewport;
+      i3 && (i3.removeEventListener("resize", t3.onResize), i3.removeEventListener("scroll", t3.onResize)), document.removeEventListener("visibilitychange", t3.onVisibilityChange, false), document.removeEventListener("focus", t3.onFocus, true);
     }
     scale() {
-      const t2 = this.container;
-      if (!t2)
+      const t3 = this.container;
+      if (!t3)
         return;
-      const e2 = window.visualViewport, i2 = Math.max(1, (null == e2 ? void 0 : e2.scale) || 1);
-      let n2 = "", s2 = "", o2 = "";
-      if (e2 && i2 > 1) {
-        let t3 = `${e2.offsetLeft}px`, a2 = `${e2.offsetTop}px`;
-        n2 = e2.width * i2 + "px", s2 = e2.height * i2 + "px", o2 = `translate3d(${t3}, ${a2}, 0) scale(${1 / i2})`;
+      const e3 = window.visualViewport, i3 = Math.max(1, (null == e3 ? void 0 : e3.scale) || 1);
+      let n3 = "", s3 = "", o3 = "";
+      if (e3 && i3 > 1) {
+        let t4 = `${e3.offsetLeft}px`, a3 = `${e3.offsetTop}px`;
+        n3 = e3.width * i3 + "px", s3 = e3.height * i3 + "px", o3 = `translate3d(${t4}, ${a3}, 0) scale(${1 / i3})`;
       }
-      t2.style.transform = o2, t2.style.width = n2, t2.style.height = s2;
+      t3.style.transform = o3, t3.style.width = n3, t3.style.height = s3;
     }
-    onClick(t2) {
-      var e2;
-      const { container: i2, isCompact: n2 } = this;
-      if (!i2 || this.isClosing())
+    onClick(t3) {
+      var e3;
+      const { container: i3, isCompact: n3 } = this;
+      if (!i3 || this.isClosing())
         return;
-      !n2 && this.option("idle") && this.resetIdle();
-      const s2 = t2.composedPath()[0];
-      if (s2.closest(".fancybox-spinner") || s2.closest("[data-fancybox-close]"))
-        return t2.preventDefault(), void this.close(t2);
-      if (s2.closest("[data-fancybox-prev]"))
-        return t2.preventDefault(), void this.prev();
-      if (s2.closest("[data-fancybox-next]"))
-        return t2.preventDefault(), void this.next();
-      if ("click" === t2.type && 0 === t2.detail)
+      !n3 && this.option("idle") && this.resetIdle();
+      const s3 = t3.composedPath()[0];
+      if (s3.closest(".fancybox-spinner") || s3.closest("[data-fancybox-close]"))
+        return t3.preventDefault(), void this.close(t3);
+      if (s3.closest("[data-fancybox-prev]"))
+        return t3.preventDefault(), void this.prev();
+      if (s3.closest("[data-fancybox-next]"))
+        return t3.preventDefault(), void this.next();
+      if ("click" === t3.type && 0 === t3.detail)
         return;
-      if (Math.abs(t2.pageX - xe) > 30 || Math.abs(t2.pageY - Ee) > 30)
+      if (Math.abs(t3.pageX - xe) > 30 || Math.abs(t3.pageY - Ee) > 30)
         return;
-      const o2 = document.activeElement;
-      if (ve() && o2 && i2.contains(o2))
+      const o3 = document.activeElement;
+      if (ve() && o3 && i3.contains(o3))
         return;
-      if (n2 && "image" === (null === (e2 = this.getSlide()) || void 0 === e2 ? void 0 : e2.type))
+      if (n3 && "image" === (null === (e3 = this.getSlide()) || void 0 === e3 ? void 0 : e3.type))
         return void (this.clickTimer ? (clearTimeout(this.clickTimer), this.clickTimer = null) : this.clickTimer = setTimeout(() => {
           this.toggleIdle(), this.clickTimer = null;
         }, 350));
-      if (this.emit("click", t2), t2.defaultPrevented)
+      if (this.emit("click", t3), t3.defaultPrevented)
         return;
-      let a2 = false;
-      if (s2.closest(".fancybox__content")) {
-        if (o2) {
-          if (o2.closest("[contenteditable]"))
+      let a3 = false;
+      if (s3.closest(".fancybox__content")) {
+        if (o3) {
+          if (o3.closest("[contenteditable]"))
             return;
-          s2.matches(it) || o2.blur();
+          s3.matches(it) || o3.blur();
         }
         if (ve())
           return;
-        a2 = this.option("contentClick");
+        a3 = this.option("contentClick");
       } else
-        s2.closest(".fancybox__carousel") && !s2.matches(it) && (a2 = this.option("backdropClick"));
-      "close" === a2 ? (t2.preventDefault(), this.close(t2)) : "next" === a2 ? (t2.preventDefault(), this.next()) : "prev" === a2 && (t2.preventDefault(), this.prev());
+        s3.closest(".fancybox__carousel") && !s3.matches(it) && (a3 = this.option("backdropClick"));
+      "close" === a3 ? (t3.preventDefault(), this.close(t3)) : "next" === a3 ? (t3.preventDefault(), this.next()) : "prev" === a3 && (t3.preventDefault(), this.prev());
     }
-    onWheel(t2) {
-      const e2 = t2.target;
-      let n2 = this.option("wheel", t2);
-      e2.closest(".fancybox__thumbs") && (n2 = "slide");
-      const s2 = "slide" === n2, o2 = [-t2.deltaX || 0, -t2.deltaY || 0, -t2.detail || 0].reduce(function(t3, e3) {
-        return Math.abs(e3) > Math.abs(t3) ? e3 : t3;
-      }), a2 = Math.max(-1, Math.min(1, o2)), r2 = Date.now();
-      this.pwt && r2 - this.pwt < 300 ? s2 && t2.preventDefault() : (this.pwt = r2, this.emit("wheel", t2, a2), t2.defaultPrevented || ("close" === n2 ? (t2.preventDefault(), this.close(t2)) : "slide" === n2 && (i(e2) || (t2.preventDefault(), this[a2 > 0 ? "prev" : "next"]()))));
+    onWheel(t3) {
+      const e3 = t3.target;
+      let n3 = this.option("wheel", t3);
+      e3.closest(".fancybox__thumbs") && (n3 = "slide");
+      const s3 = "slide" === n3, o3 = [-t3.deltaX || 0, -t3.deltaY || 0, -t3.detail || 0].reduce(function(t4, e4) {
+        return Math.abs(e4) > Math.abs(t4) ? e4 : t4;
+      }), a3 = Math.max(-1, Math.min(1, o3)), r3 = Date.now();
+      this.pwt && r3 - this.pwt < 300 ? s3 && t3.preventDefault() : (this.pwt = r3, this.emit("wheel", t3, a3), t3.defaultPrevented || ("close" === n3 ? (t3.preventDefault(), this.close(t3)) : "slide" === n3 && (i(e3) || (t3.preventDefault(), this[a3 > 0 ? "prev" : "next"]()))));
     }
-    onKeydown(t2) {
+    onKeydown(t3) {
       if (!this.isTopmost())
         return;
       this.isCompact || !this.option("idle") || this.isClosing() || this.resetIdle();
-      const e2 = t2.key, i2 = this.option("keyboard");
-      if (!i2)
+      const e3 = t3.key, i3 = this.option("keyboard");
+      if (!i3)
         return;
-      const n2 = t2.composedPath()[0], s2 = document.activeElement && document.activeElement.classList, o2 = s2 && s2.contains("f-button") || n2.dataset.carouselPage || n2.dataset.carouselIndex;
-      if ("Escape" !== e2 && !o2 && E(n2)) {
-        if (n2.isContentEditable || -1 !== ["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].indexOf(n2.nodeName))
+      const n3 = t3.composedPath()[0], s3 = document.activeElement && document.activeElement.classList, o3 = s3 && s3.contains("f-button") || n3.dataset.carouselPage || n3.dataset.carouselIndex;
+      if ("Escape" !== e3 && !o3 && E(n3)) {
+        if (n3.isContentEditable || -1 !== ["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].indexOf(n3.nodeName))
           return;
       }
-      if ("Tab" === t2.key ? P(this.container, oe) : S(this.container, oe), t2.ctrlKey || t2.altKey || t2.shiftKey)
+      if ("Tab" === t3.key ? P(this.container, oe) : S(this.container, oe), t3.ctrlKey || t3.altKey || t3.shiftKey)
         return;
-      this.emit("keydown", e2, t2);
-      const a2 = i2[e2];
-      a2 && "function" == typeof this[a2] && (t2.preventDefault(), this[a2]());
+      this.emit("keydown", e3, t3);
+      const a3 = i3[e3];
+      a3 && "function" == typeof this[a3] && (t3.preventDefault(), this[a3]());
     }
     onResize() {
-      const t2 = this.container;
-      if (!t2)
+      const t3 = this.container;
+      if (!t3)
         return;
-      const e2 = this.isCompact;
-      t2.classList.toggle(re, e2), this.manageCaption(this.getSlide()), this.isCompact ? this.clearIdle() : this.endIdle(), this.scale(), this.emit("resize");
+      const e3 = this.isCompact;
+      t3.classList.toggle(re, e3), this.manageCaption(this.getSlide()), this.isCompact ? this.clearIdle() : this.endIdle(), this.scale(), this.emit("resize");
     }
-    onFocus(t2) {
-      this.isTopmost() && this.checkFocus(t2);
+    onFocus(t3) {
+      this.isTopmost() && this.checkFocus(t3);
     }
-    onMousemove(t2) {
-      this.prevMouseMoveEvent = t2, !this.isCompact && this.option("idle") && this.resetIdle();
+    onMousemove(t3) {
+      this.prevMouseMoveEvent = t3, !this.isCompact && this.option("idle") && this.resetIdle();
     }
     onVisibilityChange() {
       "visible" === document.visibilityState ? this.checkFocus() : this.endIdle();
     }
-    manageCloseBtn(t2) {
-      const e2 = this.optionFor(t2, "closeButton") || false;
-      if ("auto" === e2) {
-        const t3 = this.plugins.Toolbar;
-        if (t3 && t3.state === Vt.Ready)
+    manageCloseBtn(t3) {
+      const e3 = this.optionFor(t3, "closeButton") || false;
+      if ("auto" === e3) {
+        const t4 = this.plugins.Toolbar;
+        if (t4 && t4.state === Vt.Ready)
           return;
       }
-      if (!e2)
+      if (!e3)
         return;
-      if (!t2.contentEl || t2.closeBtnEl)
+      if (!t3.contentEl || t3.closeBtnEl)
         return;
-      const i2 = this.option("tpl.closeButton");
-      if (i2) {
-        const e3 = n(this.localize(i2));
-        t2.closeBtnEl = t2.contentEl.appendChild(e3), t2.el && P(t2.el, "has-close-btn");
+      const i3 = this.option("tpl.closeButton");
+      if (i3) {
+        const e4 = n(this.localize(i3));
+        t3.closeBtnEl = t3.contentEl.appendChild(e4), t3.el && P(t3.el, "has-close-btn");
       }
     }
-    manageCaption(t2 = void 0) {
-      var e2, i2;
-      const n2 = "fancybox__caption", s2 = this.container;
-      if (!s2)
+    manageCaption(t3 = void 0) {
+      var e3, i3;
+      const n3 = "fancybox__caption", s3 = this.container;
+      if (!s3)
         return;
-      S(s2, he);
-      const o2 = this.isCompact || this.option("commonCaption"), a2 = !o2;
-      if (this.caption && this.stop(this.caption), a2 && this.caption && (this.caption.remove(), this.caption = null), o2 && !this.caption)
-        for (const t3 of (null === (e2 = this.carousel) || void 0 === e2 ? void 0 : e2.slides) || [])
-          t3.captionEl && (t3.captionEl.remove(), t3.captionEl = void 0, S(t3.el, he), null === (i2 = t3.el) || void 0 === i2 || i2.removeAttribute("aria-labelledby"));
-      if (t2 || (t2 = this.getSlide()), !t2 || o2 && !this.isCurrentSlide(t2))
+      S(s3, he);
+      const o3 = this.isCompact || this.option("commonCaption"), a3 = !o3;
+      if (this.caption && this.stop(this.caption), a3 && this.caption && (this.caption.remove(), this.caption = null), o3 && !this.caption)
+        for (const t4 of (null === (e3 = this.carousel) || void 0 === e3 ? void 0 : e3.slides) || [])
+          t4.captionEl && (t4.captionEl.remove(), t4.captionEl = void 0, S(t4.el, he), null === (i3 = t4.el) || void 0 === i3 || i3.removeAttribute("aria-labelledby"));
+      if (t3 || (t3 = this.getSlide()), !t3 || o3 && !this.isCurrentSlide(t3))
         return;
-      const r2 = t2.el;
-      let l2 = this.optionFor(t2, "caption", "");
-      if (!l2)
-        return void (o2 && this.caption && this.animate(this.caption, "f-fadeOut", () => {
+      const r3 = t3.el;
+      let l3 = this.optionFor(t3, "caption", "");
+      if (!l3)
+        return void (o3 && this.caption && this.animate(this.caption, "f-fadeOut", () => {
           this.caption && (this.caption.innerHTML = "");
         }));
-      let c2 = null;
-      if (a2) {
-        if (c2 = t2.captionEl || null, r2 && !c2) {
-          const e3 = n2 + `_${this.id}_${t2.index}`;
-          c2 = document.createElement("div"), P(c2, n2), c2.setAttribute("id", e3), t2.captionEl = r2.appendChild(c2), P(r2, he), r2.setAttribute("aria-labelledby", e3);
+      let c3 = null;
+      if (a3) {
+        if (c3 = t3.captionEl || null, r3 && !c3) {
+          const e4 = n3 + `_${this.id}_${t3.index}`;
+          c3 = document.createElement("div"), P(c3, n3), c3.setAttribute("id", e4), t3.captionEl = r3.appendChild(c3), P(r3, he), r3.setAttribute("aria-labelledby", e4);
         }
       } else {
-        if (c2 = this.caption, c2 || (c2 = s2.querySelector("." + n2)), !c2) {
-          c2 = document.createElement("div"), c2.dataset.fancyboxCaption = "", P(c2, n2);
-          (this.footer || s2).prepend(c2);
+        if (c3 = this.caption, c3 || (c3 = s3.querySelector("." + n3)), !c3) {
+          c3 = document.createElement("div"), c3.dataset.fancyboxCaption = "", P(c3, n3);
+          (this.footer || s3).prepend(c3);
         }
-        P(s2, he), this.caption = c2;
+        P(s3, he), this.caption = c3;
       }
-      c2 && (c2.innerHTML = "", me(l2) || "number" == typeof l2 ? c2.innerHTML = l2 + "" : l2 instanceof HTMLElement && c2.appendChild(l2));
+      c3 && (c3.innerHTML = "", me(l3) || "number" == typeof l3 ? c3.innerHTML = l3 + "" : l3 instanceof HTMLElement && c3.appendChild(l3));
     }
-    checkFocus(t2) {
-      this.focus(t2);
+    checkFocus(t3) {
+      this.focus(t3);
     }
-    focus(t2) {
-      var e2;
+    focus(t3) {
+      var e3;
       if (this.ignoreFocusChange)
         return;
-      const i2 = document.activeElement || null, n2 = (null == t2 ? void 0 : t2.target) || null, s2 = this.container, o2 = null === (e2 = this.carousel) || void 0 === e2 ? void 0 : e2.viewport;
-      if (!s2 || !o2)
+      const i3 = document.activeElement || null, n3 = (null == t3 ? void 0 : t3.target) || null, s3 = this.container, o3 = null === (e3 = this.carousel) || void 0 === e3 ? void 0 : e3.viewport;
+      if (!s3 || !o3)
         return;
-      if (!t2 && i2 && s2.contains(i2))
+      if (!t3 && i3 && s3.contains(i3))
         return;
-      const a2 = this.getSlide(), r2 = a2 && a2.state === rt.Ready ? a2.el : null;
-      if (!r2 || r2.contains(i2) || s2 === i2)
+      const a3 = this.getSlide(), r3 = a3 && a3.state === rt.Ready ? a3.el : null;
+      if (!r3 || r3.contains(i3) || s3 === i3)
         return;
-      t2 && t2.cancelable && t2.preventDefault(), this.ignoreFocusChange = true;
-      const l2 = Array.from(s2.querySelectorAll(it));
-      let c2 = [], h2 = null;
-      for (let t3 of l2) {
-        const e3 = !t3.offsetParent || !!t3.closest('[aria-hidden="true"]'), i3 = r2 && r2.contains(t3), n3 = !o2.contains(t3);
-        if (t3 === s2 || (i3 || n3) && !e3) {
-          c2.push(t3);
-          const e4 = t3.dataset.origTabindex;
-          void 0 !== e4 && e4 && (t3.tabIndex = parseFloat(e4)), t3.removeAttribute("data-orig-tabindex"), !t3.hasAttribute("autoFocus") && h2 || (h2 = t3);
+      t3 && t3.cancelable && t3.preventDefault(), this.ignoreFocusChange = true;
+      const l3 = Array.from(s3.querySelectorAll(it));
+      let c3 = [], h3 = null;
+      for (let t4 of l3) {
+        const e4 = !t4.offsetParent || !!t4.closest('[aria-hidden="true"]'), i4 = r3 && r3.contains(t4), n4 = !o3.contains(t4);
+        if (t4 === s3 || (i4 || n4) && !e4) {
+          c3.push(t4);
+          const e5 = t4.dataset.origTabindex;
+          void 0 !== e5 && e5 && (t4.tabIndex = parseFloat(e5)), t4.removeAttribute("data-orig-tabindex"), !t4.hasAttribute("autoFocus") && h3 || (h3 = t4);
         } else {
-          const e4 = void 0 === t3.dataset.origTabindex ? t3.getAttribute("tabindex") || "" : t3.dataset.origTabindex;
-          e4 && (t3.dataset.origTabindex = e4), t3.tabIndex = -1;
+          const e5 = void 0 === t4.dataset.origTabindex ? t4.getAttribute("tabindex") || "" : t4.dataset.origTabindex;
+          e5 && (t4.dataset.origTabindex = e5), t4.tabIndex = -1;
         }
       }
-      let d2 = null;
-      t2 ? (!n2 || c2.indexOf(n2) < 0) && (d2 = h2 || s2, c2.length && (i2 === we ? d2 = c2[0] : this.lastFocus !== s2 && i2 !== ye || (d2 = c2[c2.length - 1]))) : d2 = a2 && "image" === a2.type ? s2 : h2 || s2, d2 && nt(d2), this.lastFocus = document.activeElement, this.ignoreFocusChange = false;
+      let d3 = null;
+      t3 ? (!n3 || c3.indexOf(n3) < 0) && (d3 = h3 || s3, c3.length && (i3 === we ? d3 = c3[0] : this.lastFocus !== s3 && i3 !== ye || (d3 = c3[c3.length - 1]))) : d3 = a3 && "image" === a3.type ? s3 : h3 || s3, d3 && nt(d3), this.lastFocus = document.activeElement, this.ignoreFocusChange = false;
     }
     next() {
-      const t2 = this.carousel;
-      t2 && t2.pages.length > 1 && t2.slideNext();
+      const t3 = this.carousel;
+      t3 && t3.pages.length > 1 && t3.slideNext();
     }
     prev() {
-      const t2 = this.carousel;
-      t2 && t2.pages.length > 1 && t2.slidePrev();
+      const t3 = this.carousel;
+      t3 && t3.pages.length > 1 && t3.slidePrev();
     }
-    jumpTo(...t2) {
-      this.carousel && this.carousel.slideTo(...t2);
+    jumpTo(...t3) {
+      this.carousel && this.carousel.slideTo(...t3);
     }
     isTopmost() {
-      var t2;
-      return (null === (t2 = _Ce.getInstance()) || void 0 === t2 ? void 0 : t2.id) == this.id;
+      var t3;
+      return (null === (t3 = _Ce.getInstance()) || void 0 === t3 ? void 0 : t3.id) == this.id;
     }
-    animate(t2 = null, e2 = "", i2) {
-      if (!t2 || !e2)
-        return void (i2 && i2());
-      this.stop(t2);
-      const n2 = (s2) => {
-        s2.target === t2 && t2.dataset.animationName && (t2.removeEventListener("animationend", n2), delete t2.dataset.animationName, i2 && i2(), S(t2, e2));
+    animate(t3 = null, e3 = "", i3) {
+      if (!t3 || !e3)
+        return void (i3 && i3());
+      this.stop(t3);
+      const n3 = (s3) => {
+        s3.target === t3 && t3.dataset.animationName && (t3.removeEventListener("animationend", n3), delete t3.dataset.animationName, i3 && i3(), S(t3, e3));
       };
-      t2.dataset.animationName = e2, t2.addEventListener("animationend", n2), P(t2, e2);
+      t3.dataset.animationName = e3, t3.addEventListener("animationend", n3), P(t3, e3);
     }
-    stop(t2) {
-      t2 && t2.dispatchEvent(new CustomEvent("animationend", { bubbles: false, cancelable: true, currentTarget: t2 }));
+    stop(t3) {
+      t3 && t3.dispatchEvent(new CustomEvent("animationend", { bubbles: false, cancelable: true, currentTarget: t3 }));
     }
-    setContent(t2, e2 = "", i2 = true) {
+    setContent(t3, e3 = "", i3 = true) {
       if (this.isClosing())
         return;
-      const s2 = t2.el;
-      if (!s2)
+      const s3 = t3.el;
+      if (!s3)
         return;
-      let o2 = null;
-      if (E(e2) ? o2 = e2 : (o2 = n(e2 + ""), E(o2) || (o2 = document.createElement("div"), o2.innerHTML = e2 + "")), ["img", "picture", "iframe", "video", "audio"].includes(o2.nodeName.toLowerCase())) {
-        const t3 = document.createElement("div");
-        t3.appendChild(o2), o2 = t3;
+      let o3 = null;
+      if (E(e3) ? o3 = e3 : (o3 = n(e3 + ""), E(o3) || (o3 = document.createElement("div"), o3.innerHTML = e3 + "")), ["img", "picture", "iframe", "video", "audio"].includes(o3.nodeName.toLowerCase())) {
+        const t4 = document.createElement("div");
+        t4.appendChild(o3), o3 = t4;
       }
-      E(o2) && t2.filter && !t2.error && (o2 = o2.querySelector(t2.filter)), o2 && E(o2) ? (P(o2, "fancybox__content"), t2.id && o2.setAttribute("id", t2.id), "none" !== o2.style.display && "none" !== getComputedStyle(o2).getPropertyValue("display") || (o2.style.display = t2.display || this.option("defaultDisplay") || "flex"), s2.classList.add(`has-${t2.error ? "error" : t2.type || "unknown"}`), s2.prepend(o2), t2.contentEl = o2, i2 && this.revealContent(t2), this.manageCloseBtn(t2), this.manageCaption(t2)) : this.setError(t2, "{{ELEMENT_NOT_FOUND}}");
+      E(o3) && t3.filter && !t3.error && (o3 = o3.querySelector(t3.filter)), o3 && E(o3) ? (P(o3, "fancybox__content"), t3.id && o3.setAttribute("id", t3.id), "none" !== o3.style.display && "none" !== getComputedStyle(o3).getPropertyValue("display") || (o3.style.display = t3.display || this.option("defaultDisplay") || "flex"), s3.classList.add(`has-${t3.error ? "error" : t3.type || "unknown"}`), s3.prepend(o3), t3.contentEl = o3, i3 && this.revealContent(t3), this.manageCloseBtn(t3), this.manageCaption(t3)) : this.setError(t3, "{{ELEMENT_NOT_FOUND}}");
     }
-    revealContent(t2, e2) {
-      const i2 = t2.el, n2 = t2.contentEl;
-      i2 && n2 && (this.emit("reveal", t2), this.hideLoading(t2), t2.state = rt.Opening, (e2 = this.isOpeningSlide(t2) ? void 0 === e2 ? this.optionFor(t2, "showClass") : e2 : "f-fadeIn") ? this.animate(n2, e2, () => {
-        this.done(t2);
-      }) : this.done(t2));
+    revealContent(t3, e3) {
+      const i3 = t3.el, n3 = t3.contentEl;
+      i3 && n3 && (this.emit("reveal", t3), this.hideLoading(t3), t3.state = rt.Opening, (e3 = this.isOpeningSlide(t3) ? void 0 === e3 ? this.optionFor(t3, "showClass") : e3 : "f-fadeIn") ? this.animate(n3, e3, () => {
+        this.done(t3);
+      }) : this.done(t3));
     }
-    done(t2) {
-      this.isClosing() || (t2.state = rt.Ready, this.emit("done", t2), P(t2.el, "is-done"), this.isCurrentSlide(t2) && this.option("autoFocus") && queueMicrotask(() => {
-        var e2;
-        null === (e2 = t2.panzoom) || void 0 === e2 || e2.updateControls(), this.option("autoFocus") && this.focus();
-      }), this.isOpeningSlide(t2) && (S(this.container, ce), !this.isCompact && this.option("idle") && this.setIdle()));
+    done(t3) {
+      this.isClosing() || (t3.state = rt.Ready, this.emit("done", t3), P(t3.el, "is-done"), this.isCurrentSlide(t3) && this.option("autoFocus") && queueMicrotask(() => {
+        var e3;
+        null === (e3 = t3.panzoom) || void 0 === e3 || e3.updateControls(), this.option("autoFocus") && this.focus();
+      }), this.isOpeningSlide(t3) && (S(this.container, ce), !this.isCompact && this.option("idle") && this.setIdle()));
     }
-    isCurrentSlide(t2) {
-      const e2 = this.getSlide();
-      return !(!t2 || !e2) && e2.index === t2.index;
+    isCurrentSlide(t3) {
+      const e3 = this.getSlide();
+      return !(!t3 || !e3) && e3.index === t3.index;
     }
-    isOpeningSlide(t2) {
-      var e2, i2;
-      return null === (null === (e2 = this.carousel) || void 0 === e2 ? void 0 : e2.prevPage) && t2 && t2.index === (null === (i2 = this.getSlide()) || void 0 === i2 ? void 0 : i2.index);
+    isOpeningSlide(t3) {
+      var e3, i3;
+      return null === (null === (e3 = this.carousel) || void 0 === e3 ? void 0 : e3.prevPage) && t3 && t3.index === (null === (i3 = this.getSlide()) || void 0 === i3 ? void 0 : i3.index);
     }
-    showLoading(t2) {
-      t2.state = rt.Loading;
-      const e2 = t2.el;
-      if (!e2)
+    showLoading(t3) {
+      t3.state = rt.Loading;
+      const e3 = t3.el;
+      if (!e3)
         return;
-      P(e2, le), this.emit("loading", t2), t2.spinnerEl || setTimeout(() => {
-        if (!this.isClosing() && !t2.spinnerEl && t2.state === rt.Loading) {
-          let i2 = n(x);
-          P(i2, "fancybox-spinner"), t2.spinnerEl = i2, e2.prepend(i2), this.animate(i2, "f-fadeIn");
+      P(e3, le), this.emit("loading", t3), t3.spinnerEl || setTimeout(() => {
+        if (!this.isClosing() && !t3.spinnerEl && t3.state === rt.Loading) {
+          let i3 = n(x);
+          P(i3, "fancybox-spinner"), t3.spinnerEl = i3, e3.prepend(i3), this.animate(i3, "f-fadeIn");
         }
       }, 250);
     }
-    hideLoading(t2) {
-      const e2 = t2.el;
-      if (!e2)
+    hideLoading(t3) {
+      const e3 = t3.el;
+      if (!e3)
         return;
-      const i2 = t2.spinnerEl;
-      this.isClosing() ? null == i2 || i2.remove() : (S(e2, le), i2 && this.animate(i2, "f-fadeOut", () => {
-        i2.remove();
-      }), t2.state === rt.Loading && (this.emit("loaded", t2), t2.state = rt.Ready));
+      const i3 = t3.spinnerEl;
+      this.isClosing() ? null == i3 || i3.remove() : (S(e3, le), i3 && this.animate(i3, "f-fadeOut", () => {
+        i3.remove();
+      }), t3.state === rt.Loading && (this.emit("loaded", t3), t3.state = rt.Ready));
     }
-    setError(t2, e2) {
+    setError(t3, e3) {
       if (this.isClosing())
         return;
-      const i2 = new Event("error", { bubbles: true, cancelable: true });
-      if (this.emit("error", i2, t2), i2.defaultPrevented)
+      const i3 = new Event("error", { bubbles: true, cancelable: true });
+      if (this.emit("error", i3, t3), i3.defaultPrevented)
         return;
-      t2.error = e2, this.hideLoading(t2), this.clearContent(t2);
-      const n2 = document.createElement("div");
-      n2.classList.add("fancybox-error"), n2.innerHTML = this.localize(e2 || "<p>{{ERROR}}</p>"), this.setContent(t2, n2);
+      t3.error = e3, this.hideLoading(t3), this.clearContent(t3);
+      const n3 = document.createElement("div");
+      n3.classList.add("fancybox-error"), n3.innerHTML = this.localize(e3 || "<p>{{ERROR}}</p>"), this.setContent(t3, n3);
     }
-    clearContent(t2) {
-      if (void 0 === t2.state)
+    clearContent(t3) {
+      if (void 0 === t3.state)
         return;
-      this.emit("clearContent", t2), t2.contentEl && (t2.contentEl.remove(), t2.contentEl = void 0);
-      const e2 = t2.el;
-      e2 && (S(e2, "has-error"), S(e2, "has-unknown"), S(e2, `has-${t2.type || "unknown"}`)), t2.closeBtnEl && t2.closeBtnEl.remove(), t2.closeBtnEl = void 0, t2.captionEl && t2.captionEl.remove(), t2.captionEl = void 0, t2.spinnerEl && t2.spinnerEl.remove(), t2.spinnerEl = void 0;
+      this.emit("clearContent", t3), t3.contentEl && (t3.contentEl.remove(), t3.contentEl = void 0);
+      const e3 = t3.el;
+      e3 && (S(e3, "has-error"), S(e3, "has-unknown"), S(e3, `has-${t3.type || "unknown"}`)), t3.closeBtnEl && t3.closeBtnEl.remove(), t3.closeBtnEl = void 0, t3.captionEl && t3.captionEl.remove(), t3.captionEl = void 0, t3.spinnerEl && t3.spinnerEl.remove(), t3.spinnerEl = void 0;
     }
     getSlide() {
-      var t2;
-      const e2 = this.carousel;
-      return (null === (t2 = null == e2 ? void 0 : e2.pages[null == e2 ? void 0 : e2.page]) || void 0 === t2 ? void 0 : t2.slides[0]) || void 0;
+      var t3;
+      const e3 = this.carousel;
+      return (null === (t3 = null == e3 ? void 0 : e3.pages[null == e3 ? void 0 : e3.page]) || void 0 === t3 ? void 0 : t3.slides[0]) || void 0;
     }
-    close(t2, e2) {
+    close(t3, e3) {
       if (this.isClosing())
         return;
-      const i2 = new Event("shouldClose", { bubbles: true, cancelable: true });
-      if (this.emit("shouldClose", i2, t2), i2.defaultPrevented)
+      const i3 = new Event("shouldClose", { bubbles: true, cancelable: true });
+      if (this.emit("shouldClose", i3, t3), i3.defaultPrevented)
         return;
-      t2 && t2.cancelable && (t2.preventDefault(), t2.stopPropagation());
-      const n2 = () => {
-        this.proceedClose(t2, e2);
+      t3 && t3.cancelable && (t3.preventDefault(), t3.stopPropagation());
+      const n3 = () => {
+        this.proceedClose(t3, e3);
       };
-      this.startedFs && be && be.isFullscreen() ? Promise.resolve(be.exit()).then(() => n2()) : n2();
+      this.startedFs && be && be.isFullscreen() ? Promise.resolve(be.exit()).then(() => n3()) : n3();
     }
     clearIdle() {
       this.idleTimer && clearTimeout(this.idleTimer), this.idleTimer = null;
     }
-    setIdle(t2 = false) {
-      const e2 = () => {
+    setIdle(t3 = false) {
+      const e3 = () => {
         this.clearIdle(), this.idle = true, P(this.container, "is-idle"), this.emit("setIdle");
       };
       if (this.clearIdle(), !this.isClosing())
-        if (t2)
-          e2();
+        if (t3)
+          e3();
         else {
-          const t3 = this.option("idle");
-          t3 && (this.idleTimer = setTimeout(e2, t3));
+          const t4 = this.option("idle");
+          t4 && (this.idleTimer = setTimeout(e3, t4));
         }
     }
     endIdle() {
@@ -16660,22 +16660,22 @@
     isClosing() {
       return [at.Closing, at.CustomClosing, at.Destroy].includes(this.state);
     }
-    proceedClose(t2, e2) {
-      var i2, n2;
+    proceedClose(t3, e3) {
+      var i3, n3;
       this.state = at.Closing, this.clearIdle(), this.detachEvents();
-      const s2 = this.container, o2 = this.carousel, a2 = this.getSlide(), r2 = a2 && this.option("placeFocusBack") ? a2.triggerEl || this.option("triggerEl") : null;
-      if (r2 && (Q(r2) ? nt(r2) : r2.focus()), s2 && (S(s2, ce), P(s2, "is-closing"), s2.setAttribute(se, "true"), this.option("animated") && P(s2, ae), s2.style.pointerEvents = "none"), o2) {
-        o2.clearTransitions(), null === (i2 = o2.panzoom) || void 0 === i2 || i2.destroy(), null === (n2 = o2.plugins.Navigation) || void 0 === n2 || n2.detach();
-        for (const t3 of o2.slides) {
-          t3.state = rt.Closing, this.hideLoading(t3);
-          const e3 = t3.contentEl;
-          e3 && this.stop(e3);
-          const i3 = null == t3 ? void 0 : t3.panzoom;
-          i3 && (i3.stop(), i3.detachEvents(), i3.detachObserver()), this.isCurrentSlide(t3) || o2.emit("removeSlide", t3);
+      const s3 = this.container, o3 = this.carousel, a3 = this.getSlide(), r3 = a3 && this.option("placeFocusBack") ? a3.triggerEl || this.option("triggerEl") : null;
+      if (r3 && (Q(r3) ? nt(r3) : r3.focus()), s3 && (S(s3, ce), P(s3, "is-closing"), s3.setAttribute(se, "true"), this.option("animated") && P(s3, ae), s3.style.pointerEvents = "none"), o3) {
+        o3.clearTransitions(), null === (i3 = o3.panzoom) || void 0 === i3 || i3.destroy(), null === (n3 = o3.plugins.Navigation) || void 0 === n3 || n3.detach();
+        for (const t4 of o3.slides) {
+          t4.state = rt.Closing, this.hideLoading(t4);
+          const e4 = t4.contentEl;
+          e4 && this.stop(e4);
+          const i4 = null == t4 ? void 0 : t4.panzoom;
+          i4 && (i4.stop(), i4.detachEvents(), i4.detachObserver()), this.isCurrentSlide(t4) || o3.emit("removeSlide", t4);
         }
       }
-      this.emit("close", t2), this.state !== at.CustomClosing ? (void 0 === e2 && a2 && (e2 = this.optionFor(a2, "hideClass")), e2 && a2 ? (this.animate(a2.contentEl, e2, () => {
-        o2 && o2.emit("removeSlide", a2);
+      this.emit("close", t3), this.state !== at.CustomClosing ? (void 0 === e3 && a3 && (e3 = this.optionFor(a3, "hideClass")), e3 && a3 ? (this.animate(a3.contentEl, e3, () => {
+        o3 && o3.emit("removeSlide", a3);
       }), setTimeout(() => {
         this.destroy();
       }, 500)) : this.destroy()) : setTimeout(() => {
@@ -16683,127 +16683,127 @@
       }, 500);
     }
     destroy() {
-      var t2;
+      var t3;
       if (this.state === at.Destroy)
         return;
-      this.state = at.Destroy, null === (t2 = this.carousel) || void 0 === t2 || t2.destroy();
-      const e2 = this.container;
-      e2 && e2.remove(), Se.delete(this.id);
-      const i2 = _Ce.getInstance();
-      i2 ? i2.focus() : (ye && (ye.remove(), ye = null), we && (we.remove(), we = null), S(document.documentElement, te), (() => {
+      this.state = at.Destroy, null === (t3 = this.carousel) || void 0 === t3 || t3.destroy();
+      const e3 = this.container;
+      e3 && e3.remove(), Se.delete(this.id);
+      const i3 = _Ce.getInstance();
+      i3 ? i3.focus() : (ye && (ye.remove(), ye = null), we && (we.remove(), we = null), S(document.documentElement, te), (() => {
         if (!tt)
           return;
-        const t3 = document, e3 = t3.body;
-        e3.classList.remove(ee), e3.style.setProperty(ne, ""), t3.documentElement.style.setProperty(ie, "");
+        const t4 = document, e4 = t4.body;
+        e4.classList.remove(ee), e4.style.setProperty(ne, ""), t4.documentElement.style.setProperty(ie, "");
       })(), this.emit("destroy"));
     }
-    static bind(t2, e2, i2) {
+    static bind(t3, e3, i3) {
       if (!tt)
         return;
-      let n2, s2 = "", o2 = {};
-      if (void 0 === t2 ? n2 = document.body : me(t2) ? (n2 = document.body, s2 = t2, "object" == typeof e2 && (o2 = e2 || {})) : (n2 = t2, me(e2) && (s2 = e2), "object" == typeof i2 && (o2 = i2 || {})), !n2 || !E(n2))
+      let n3, s3 = "", o3 = {};
+      if (void 0 === t3 ? n3 = document.body : me(t3) ? (n3 = document.body, s3 = t3, "object" == typeof e3 && (o3 = e3 || {})) : (n3 = t3, me(e3) && (s3 = e3), "object" == typeof i3 && (o3 = i3 || {})), !n3 || !E(n3))
         return;
-      s2 = s2 || "[data-fancybox]";
-      const a2 = _Ce.openers.get(n2) || /* @__PURE__ */ new Map();
-      a2.set(s2, o2), _Ce.openers.set(n2, a2), 1 === a2.size && n2.addEventListener("click", _Ce.fromEvent);
+      s3 = s3 || "[data-fancybox]";
+      const a3 = _Ce.openers.get(n3) || /* @__PURE__ */ new Map();
+      a3.set(s3, o3), _Ce.openers.set(n3, a3), 1 === a3.size && n3.addEventListener("click", _Ce.fromEvent);
     }
-    static unbind(t2, e2) {
-      let i2, n2 = "";
-      if (me(t2) ? (i2 = document.body, n2 = t2) : (i2 = t2, me(e2) && (n2 = e2)), !i2)
+    static unbind(t3, e3) {
+      let i3, n3 = "";
+      if (me(t3) ? (i3 = document.body, n3 = t3) : (i3 = t3, me(e3) && (n3 = e3)), !i3)
         return;
-      const s2 = _Ce.openers.get(i2);
-      s2 && n2 && s2.delete(n2), n2 && s2 || (_Ce.openers.delete(i2), i2.removeEventListener("click", _Ce.fromEvent));
+      const s3 = _Ce.openers.get(i3);
+      s3 && n3 && s3.delete(n3), n3 && s3 || (_Ce.openers.delete(i3), i3.removeEventListener("click", _Ce.fromEvent));
     }
     static destroy() {
-      let t2;
-      for (; t2 = _Ce.getInstance(); )
-        t2.destroy();
-      for (const t3 of _Ce.openers.keys())
-        t3.removeEventListener("click", _Ce.fromEvent);
+      let t3;
+      for (; t3 = _Ce.getInstance(); )
+        t3.destroy();
+      for (const t4 of _Ce.openers.keys())
+        t4.removeEventListener("click", _Ce.fromEvent);
       _Ce.openers = /* @__PURE__ */ new Map();
     }
-    static fromEvent(t2) {
-      if (t2.defaultPrevented)
+    static fromEvent(t3) {
+      if (t3.defaultPrevented)
         return;
-      if (t2.button && 0 !== t2.button)
+      if (t3.button && 0 !== t3.button)
         return;
-      if (t2.ctrlKey || t2.metaKey || t2.shiftKey)
+      if (t3.ctrlKey || t3.metaKey || t3.shiftKey)
         return;
-      let e2 = t2.composedPath()[0];
-      const i2 = e2.closest("[data-fancybox-trigger]");
-      if (i2) {
-        const t3 = i2.dataset.fancyboxTrigger || "", n3 = document.querySelectorAll(`[data-fancybox="${t3}"]`), s3 = parseInt(i2.dataset.fancyboxIndex || "", 10) || 0;
-        e2 = n3[s3] || e2;
+      let e3 = t3.composedPath()[0];
+      const i3 = e3.closest("[data-fancybox-trigger]");
+      if (i3) {
+        const t4 = i3.dataset.fancyboxTrigger || "", n4 = document.querySelectorAll(`[data-fancybox="${t4}"]`), s4 = parseInt(i3.dataset.fancyboxIndex || "", 10) || 0;
+        e3 = n4[s4] || e3;
       }
-      if (!(e2 && e2 instanceof Element))
+      if (!(e3 && e3 instanceof Element))
         return;
-      let n2, s2, o2, a2;
-      if ([..._Ce.openers].reverse().find(([t3, i3]) => !(!t3.contains(e2) || ![...i3].reverse().find(([i4, r3]) => {
-        let l3 = e2.closest(i4);
-        return !!l3 && (n2 = t3, s2 = i4, o2 = l3, a2 = r3, true);
-      }))), !n2 || !s2 || !o2)
+      let n3, s3, o3, a3;
+      if ([..._Ce.openers].reverse().find(([t4, i4]) => !(!t4.contains(e3) || ![...i4].reverse().find(([i5, r4]) => {
+        let l4 = e3.closest(i5);
+        return !!l4 && (n3 = t4, s3 = i5, o3 = l4, a3 = r4, true);
+      }))), !n3 || !s3 || !o3)
         return;
-      a2 = a2 || {}, t2.preventDefault(), e2 = o2;
-      let r2 = [], l2 = u({}, ot, a2);
-      l2.event = t2, l2.triggerEl = e2, l2.delegate = i2;
-      const c2 = l2.groupAll, h2 = l2.groupAttr, d2 = h2 && e2 ? e2.getAttribute(`${h2}`) : "";
-      if ((!e2 || d2 || c2) && (r2 = [].slice.call(n2.querySelectorAll(s2))), e2 && !c2 && (r2 = d2 ? r2.filter((t3) => t3.getAttribute(`${h2}`) === d2) : [e2]), !r2.length)
+      a3 = a3 || {}, t3.preventDefault(), e3 = o3;
+      let r3 = [], l3 = u({}, ot, a3);
+      l3.event = t3, l3.triggerEl = e3, l3.delegate = i3;
+      const c3 = l3.groupAll, h3 = l3.groupAttr, d3 = h3 && e3 ? e3.getAttribute(`${h3}`) : "";
+      if ((!e3 || d3 || c3) && (r3 = [].slice.call(n3.querySelectorAll(s3))), e3 && !c3 && (r3 = d3 ? r3.filter((t4) => t4.getAttribute(`${h3}`) === d3) : [e3]), !r3.length)
         return;
-      const p2 = _Ce.getInstance();
-      return p2 && p2.options.triggerEl && r2.indexOf(p2.options.triggerEl) > -1 ? void 0 : (e2 && (l2.startIndex = r2.indexOf(e2)), _Ce.fromNodes(r2, l2));
+      const p3 = _Ce.getInstance();
+      return p3 && p3.options.triggerEl && r3.indexOf(p3.options.triggerEl) > -1 ? void 0 : (e3 && (l3.startIndex = r3.indexOf(e3)), _Ce.fromNodes(r3, l3));
     }
-    static fromSelector(t2, e2, i2) {
-      let n2 = null, s2 = "", o2 = {};
-      if (me(t2) ? (n2 = document.body, s2 = t2, "object" == typeof e2 && (o2 = e2 || {})) : t2 instanceof HTMLElement && me(e2) && (n2 = t2, s2 = e2, "object" == typeof i2 && (o2 = i2 || {})), !n2 || !s2)
+    static fromSelector(t3, e3, i3) {
+      let n3 = null, s3 = "", o3 = {};
+      if (me(t3) ? (n3 = document.body, s3 = t3, "object" == typeof e3 && (o3 = e3 || {})) : t3 instanceof HTMLElement && me(e3) && (n3 = t3, s3 = e3, "object" == typeof i3 && (o3 = i3 || {})), !n3 || !s3)
         return false;
-      const a2 = _Ce.openers.get(n2);
-      return !!a2 && (o2 = u({}, a2.get(s2) || {}, o2), !!o2 && _Ce.fromNodes(Array.from(n2.querySelectorAll(s2)), o2));
+      const a3 = _Ce.openers.get(n3);
+      return !!a3 && (o3 = u({}, a3.get(s3) || {}, o3), !!o3 && _Ce.fromNodes(Array.from(n3.querySelectorAll(s3)), o3));
     }
-    static fromNodes(t2, e2) {
-      e2 = u({}, ot, e2 || {});
-      const i2 = [];
-      for (const n2 of t2) {
-        const t3 = n2.dataset || {}, s2 = t3[ge] || n2.getAttribute(fe) || n2.getAttribute("currentSrc") || n2.getAttribute(ge) || void 0;
-        let o2;
-        const a2 = e2.delegate;
-        let r2;
-        a2 && i2.length === e2.startIndex && (o2 = a2 instanceof HTMLImageElement ? a2 : a2.querySelector("img:not([aria-hidden])")), o2 || (o2 = n2 instanceof HTMLImageElement ? n2 : n2.querySelector("img:not([aria-hidden])")), o2 && (r2 = o2.currentSrc || o2[ge] || void 0, !r2 && o2.dataset && (r2 = o2.dataset.lazySrc || o2.dataset[ge] || void 0));
-        const l2 = { src: s2, triggerEl: n2, thumbEl: o2, thumbElSrc: r2, thumbSrc: r2 };
-        for (const e3 in t3) {
-          let i3 = t3[e3] + "";
-          i3 = "false" !== i3 && ("true" === i3 || i3), l2[e3] = i3;
+    static fromNodes(t3, e3) {
+      e3 = u({}, ot, e3 || {});
+      const i3 = [];
+      for (const n3 of t3) {
+        const t4 = n3.dataset || {}, s3 = t4[ge] || n3.getAttribute(fe) || n3.getAttribute("currentSrc") || n3.getAttribute(ge) || void 0;
+        let o3;
+        const a3 = e3.delegate;
+        let r3;
+        a3 && i3.length === e3.startIndex && (o3 = a3 instanceof HTMLImageElement ? a3 : a3.querySelector("img:not([aria-hidden])")), o3 || (o3 = n3 instanceof HTMLImageElement ? n3 : n3.querySelector("img:not([aria-hidden])")), o3 && (r3 = o3.currentSrc || o3[ge] || void 0, !r3 && o3.dataset && (r3 = o3.dataset.lazySrc || o3.dataset[ge] || void 0));
+        const l3 = { src: s3, triggerEl: n3, thumbEl: o3, thumbElSrc: r3, thumbSrc: r3 };
+        for (const e4 in t4) {
+          let i4 = t4[e4] + "";
+          i4 = "false" !== i4 && ("true" === i4 || i4), l3[e4] = i4;
         }
-        i2.push(l2);
+        i3.push(l3);
       }
-      return new _Ce(i2, e2);
+      return new _Ce(i3, e3);
     }
-    static getInstance(t2) {
-      if (t2)
-        return Se.get(t2);
-      return Array.from(Se.values()).reverse().find((t3) => !t3.isClosing() && t3) || null;
+    static getInstance(t3) {
+      if (t3)
+        return Se.get(t3);
+      return Array.from(Se.values()).reverse().find((t4) => !t4.isClosing() && t4) || null;
     }
     static getSlide() {
-      var t2;
-      return (null === (t2 = _Ce.getInstance()) || void 0 === t2 ? void 0 : t2.getSlide()) || null;
+      var t3;
+      return (null === (t3 = _Ce.getInstance()) || void 0 === t3 ? void 0 : t3.getSlide()) || null;
     }
-    static show(t2 = [], e2 = {}) {
-      return new _Ce(t2, e2);
+    static show(t3 = [], e3 = {}) {
+      return new _Ce(t3, e3);
     }
     static next() {
-      const t2 = _Ce.getInstance();
-      t2 && t2.next();
+      const t3 = _Ce.getInstance();
+      t3 && t3.next();
     }
     static prev() {
-      const t2 = _Ce.getInstance();
-      t2 && t2.prev();
+      const t3 = _Ce.getInstance();
+      t3 && t3.prev();
     }
-    static close(t2 = true, ...e2) {
-      if (t2)
-        for (const t3 of Se.values())
-          t3.close(...e2);
+    static close(t3 = true, ...e3) {
+      if (t3)
+        for (const t4 of Se.values())
+          t4.close(...e3);
       else {
-        const t3 = _Ce.getInstance();
-        t3 && t3.close(...e2);
+        const t4 = _Ce.getInstance();
+        t4 && t4.close(...e3);
       }
     }
   };
@@ -16818,22 +16818,22 @@
 
   // app/javascript/others/pagy.mjs
   var Pagy = (() => {
-    const rjsObserver = new ResizeObserver((entries) => entries.forEach((e2) => e2.target.querySelectorAll(".pagy-rjs").forEach((el) => el.pagyRender())));
+    const rjsObserver = new ResizeObserver((entries) => entries.forEach((e3) => e3.target.querySelectorAll(".pagy-rjs").forEach((el) => el.pagyRender())));
     const initNav = (el, [tokens, sequels, labelSequels, trimParam]) => {
       const container = el.parentElement ?? el;
-      const widths = Object.keys(sequels).map((w2) => parseInt(w2)).sort((a2, b2) => b2 - a2);
+      const widths = Object.keys(sequels).map((w3) => parseInt(w3)).sort((a3, b3) => b3 - a3);
       let lastWidth = -1;
-      const fillIn = (a2, page, label) => a2.replace(/__pagy_page__/g, page).replace(/__pagy_label__/g, label);
+      const fillIn = (a3, page, label) => a3.replace(/__pagy_page__/g, page).replace(/__pagy_label__/g, label);
       (el.pagyRender = function() {
-        const width = widths.find((w2) => w2 < container.clientWidth) || 0;
+        const width = widths.find((w3) => w3 < container.clientWidth) || 0;
         if (width === lastWidth) {
           return;
         }
         let html = tokens.before;
         const series = sequels[width.toString()];
-        const labels = labelSequels?.[width.toString()] ?? series.map((l2) => l2.toString());
-        series.forEach((item, i2) => {
-          const label = labels[i2];
+        const labels = labelSequels?.[width.toString()] ?? series.map((l3) => l3.toString());
+        series.forEach((item, i3) => {
+          const label = labels[i3];
           let filled;
           if (typeof item === "number") {
             filled = fillIn(tokens.a, item.toString(), label);
@@ -16869,7 +16869,7 @@
         if (input.value === initial) {
           return;
         }
-        const [min, val, max] = [input.min, input.value, input.max].map((n2) => parseInt(n2) || 0);
+        const [min, val, max] = [input.min, input.value, input.max].map((n3) => parseInt(n3) || 0);
         if (val < min || val > max) {
           input.value = initial;
           input.select();
@@ -16882,15 +16882,15 @@
         link.href = url;
         link.click();
       };
-      ["change", "focus"].forEach((e2) => input.addEventListener(e2, () => input.select()));
+      ["change", "focus"].forEach((e3) => input.addEventListener(e3, () => input.select()));
       input.addEventListener("focusout", action);
-      input.addEventListener("keypress", (e2) => {
-        if (e2.key === "Enter") {
+      input.addEventListener("keypress", (e3) => {
+        if (e3.key === "Enter") {
           action();
         }
       });
     };
-    const trim = (a2, param) => a2.replace(new RegExp(`[?&]${param}=1\\b(?!&)|\\b${param}=1&`), "");
+    const trim = (a3, param) => a3.replace(new RegExp(`[?&]${param}=1\\b(?!&)|\\b${param}=1&`), "");
     return {
       version: "8.6.3",
       init(arg) {
@@ -16898,7 +16898,7 @@
         const elements = target.querySelectorAll("[data-pagy]");
         for (const el of elements) {
           try {
-            const uint8array = Uint8Array.from(atob(el.getAttribute("data-pagy")), (c2) => c2.charCodeAt(0));
+            const uint8array = Uint8Array.from(atob(el.getAttribute("data-pagy")), (c3) => c3.charCodeAt(0));
             const [keyword, ...args] = JSON.parse(new TextDecoder().decode(uint8array));
             if (keyword === "nav") {
               initNav(el, args);
@@ -17120,18 +17120,18 @@
     if (classes2 === void 0) {
       classes2 = "";
     }
-    return classes2.trim().split(" ").filter((c2) => !!c2.trim());
+    return classes2.trim().split(" ").filter((c3) => !!c3.trim());
   }
   function deleteProps(obj) {
     const object = obj;
     Object.keys(object).forEach((key) => {
       try {
         object[key] = null;
-      } catch (e2) {
+      } catch (e3) {
       }
       try {
         delete object[key];
-      } catch (e2) {
+      } catch (e3) {
       }
     });
   }
@@ -17170,7 +17170,7 @@
     if (window2.WebKitCSSMatrix) {
       curTransform = curStyle.transform || curStyle.webkitTransform;
       if (curTransform.split(",").length > 6) {
-        curTransform = curTransform.split(", ").map((a2) => a2.replace(",", ".")).join(", ");
+        curTransform = curTransform.split(", ").map((a3) => a3.replace(",", ".")).join(", ");
       }
       transformMatrix = new window2.WebKitCSSMatrix(curTransform === "none" ? "" : curTransform);
     } else {
@@ -17195,8 +17195,8 @@
     }
     return curTransform || 0;
   }
-  function isObject2(o2) {
-    return typeof o2 === "object" && o2 !== null && o2.constructor && Object.prototype.toString.call(o2).slice(8, -1) === "Object";
+  function isObject2(o3) {
+    return typeof o3 === "object" && o3 !== null && o3.constructor && Object.prototype.toString.call(o3).slice(8, -1) === "Object";
   }
   function isNode(node) {
     if (typeof window !== "undefined" && typeof window.HTMLElement !== "undefined") {
@@ -17207,8 +17207,8 @@
   function extend4() {
     const to = Object(arguments.length <= 0 ? void 0 : arguments[0]);
     const noExtend = ["__proto__", "constructor", "prototype"];
-    for (let i2 = 1; i2 < arguments.length; i2 += 1) {
-      const nextSource = i2 < 0 || arguments.length <= i2 ? void 0 : arguments[i2];
+    for (let i3 = 1; i3 < arguments.length; i3 += 1) {
+      const nextSource = i3 < 0 || arguments.length <= i3 ? void 0 : arguments[i3];
       if (nextSource !== void 0 && nextSource !== null && !isNode(nextSource)) {
         const keysArray = Object.keys(Object(nextSource)).filter((key) => noExtend.indexOf(key) < 0);
         for (let nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex += 1) {
@@ -17340,14 +17340,14 @@
   }
   function elementIndex(el) {
     let child = el;
-    let i2;
+    let i3;
     if (child) {
-      i2 = 0;
+      i3 = 0;
       while ((child = child.previousSibling) !== null) {
         if (child.nodeType === 1)
-          i2 += 1;
+          i3 += 1;
       }
-      return i2;
+      return i3;
     }
     return void 0;
   }
@@ -17373,7 +17373,7 @@
     return el.offsetWidth;
   }
   function makeElementsArray(el) {
-    return (Array.isArray(el) ? el : [el]).filter((e2) => !!e2);
+    return (Array.isArray(el) ? el : [el]).filter((e3) => !!e3);
   }
 
   // node_modules/swiper/shared/swiper-core.mjs
@@ -17474,7 +17474,7 @@
   function Resize(_ref) {
     let {
       swiper,
-      on,
+      on: on2,
       emit
     } = _ref;
     const window2 = getWindow();
@@ -17529,7 +17529,7 @@
         return;
       emit("orientationchange");
     };
-    on("init", () => {
+    on2("init", () => {
       if (swiper.params.resizeObserver && typeof window2.ResizeObserver !== "undefined") {
         createObserver();
         return;
@@ -17537,7 +17537,7 @@
       window2.addEventListener("resize", resizeHandler);
       window2.addEventListener("orientationchange", orientationChangeHandler);
     });
-    on("destroy", () => {
+    on2("destroy", () => {
       removeObserver();
       window2.removeEventListener("resize", resizeHandler);
       window2.removeEventListener("orientationchange", orientationChangeHandler);
@@ -17547,7 +17547,7 @@
     let {
       swiper,
       extendParams,
-      on,
+      on: on2,
       emit
     } = _ref;
     const observers = [];
@@ -17585,8 +17585,8 @@
         return;
       if (swiper.params.observeParents) {
         const containerParents = elementParents(swiper.hostEl);
-        for (let i2 = 0; i2 < containerParents.length; i2 += 1) {
-          attach(containerParents[i2]);
+        for (let i3 = 0; i3 < containerParents.length; i3 += 1) {
+          attach(containerParents[i3]);
         }
       }
       attach(swiper.hostEl, {
@@ -17607,8 +17607,8 @@
       observeParents: false,
       observeSlideChildren: false
     });
-    on("init", init);
-    on("destroy", destroy);
+    on2("init", init);
+    on2("destroy", destroy);
   }
   var eventsEmitter = {
     on(events2, handler, priority) {
@@ -17821,19 +17821,19 @@
     const shouldResetSlideSize = params.slidesPerView === "auto" && params.breakpoints && Object.keys(params.breakpoints).filter((key) => {
       return typeof params.breakpoints[key].slidesPerView !== "undefined";
     }).length > 0;
-    for (let i2 = 0; i2 < slidesLength; i2 += 1) {
+    for (let i3 = 0; i3 < slidesLength; i3 += 1) {
       slideSize = 0;
       let slide2;
-      if (slides[i2])
-        slide2 = slides[i2];
+      if (slides[i3])
+        slide2 = slides[i3];
       if (gridEnabled) {
-        swiper.grid.updateSlide(i2, slide2, slides);
+        swiper.grid.updateSlide(i3, slide2, slides);
       }
-      if (slides[i2] && elementStyle(slide2, "display") === "none")
+      if (slides[i3] && elementStyle(slide2, "display") === "none")
         continue;
       if (params.slidesPerView === "auto") {
         if (shouldResetSlideSize) {
-          slides[i2].style[swiper.getDirectionLabel("width")] = ``;
+          slides[i3].style[swiper.getDirectionLabel("width")] = ``;
         }
         const slideStyles = getComputedStyle(slide2);
         const currentTransform = slide2.style.transform;
@@ -17875,19 +17875,19 @@
         slideSize = (swiperSize - (params.slidesPerView - 1) * spaceBetween) / params.slidesPerView;
         if (params.roundLengths)
           slideSize = Math.floor(slideSize);
-        if (slides[i2]) {
-          slides[i2].style[swiper.getDirectionLabel("width")] = `${slideSize}px`;
+        if (slides[i3]) {
+          slides[i3].style[swiper.getDirectionLabel("width")] = `${slideSize}px`;
         }
       }
-      if (slides[i2]) {
-        slides[i2].swiperSlideSize = slideSize;
+      if (slides[i3]) {
+        slides[i3].swiperSlideSize = slideSize;
       }
       slidesSizesGrid.push(slideSize);
       if (params.centeredSlides) {
         slidePosition = slidePosition + slideSize / 2 + prevSlideSize / 2 + spaceBetween;
-        if (prevSlideSize === 0 && i2 !== 0)
+        if (prevSlideSize === 0 && i3 !== 0)
           slidePosition = slidePosition - swiperSize / 2 - spaceBetween;
-        if (i2 === 0)
+        if (i3 === 0)
           slidePosition = slidePosition - swiperSize / 2 - spaceBetween;
         if (Math.abs(slidePosition) < 1 / 1e3)
           slidePosition = 0;
@@ -17920,11 +17920,11 @@
     }
     if (!params.centeredSlides) {
       const newSlidesGrid = [];
-      for (let i2 = 0; i2 < snapGrid.length; i2 += 1) {
-        let slidesGridItem = snapGrid[i2];
+      for (let i3 = 0; i3 < snapGrid.length; i3 += 1) {
+        let slidesGridItem = snapGrid[i3];
         if (params.roundLengths)
           slidesGridItem = Math.floor(slidesGridItem);
-        if (snapGrid[i2] <= swiper.virtualSize - swiperSize) {
+        if (snapGrid[i3] <= swiper.virtualSize - swiperSize) {
           newSlidesGrid.push(slidesGridItem);
         }
       }
@@ -17938,11 +17938,11 @@
       if (params.slidesPerGroup > 1) {
         const groups = Math.ceil((swiper.virtual.slidesBefore + swiper.virtual.slidesAfter) / params.slidesPerGroup);
         const groupSize = size * params.slidesPerGroup;
-        for (let i2 = 0; i2 < groups; i2 += 1) {
+        for (let i3 = 0; i3 < groups; i3 += 1) {
           snapGrid.push(snapGrid[snapGrid.length - 1] + groupSize);
         }
       }
-      for (let i2 = 0; i2 < swiper.virtual.slidesBefore + swiper.virtual.slidesAfter; i2 += 1) {
+      for (let i3 = 0; i3 < swiper.virtual.slidesBefore + swiper.virtual.slidesAfter; i3 += 1) {
         if (params.slidesPerGroup === 1) {
           snapGrid.push(snapGrid[snapGrid.length - 1] + size);
         }
@@ -17954,7 +17954,7 @@
       snapGrid = [0];
     if (spaceBetween !== 0) {
       const key = swiper.isHorizontal() && rtl ? "marginLeft" : swiper.getDirectionLabel("marginRight");
-      slides.filter((_2, slideIndex) => {
+      slides.filter((_3, slideIndex) => {
         if (!params.cssMode || params.loop)
           return true;
         if (slideIndex === slides.length - 1) {
@@ -18008,8 +18008,8 @@
       setCSSProperty(wrapperEl, "--swiper-centered-offset-after", `${swiper.size / 2 - slidesSizesGrid[slidesSizesGrid.length - 1] / 2}px`);
       const addToSnapGrid = -swiper.snapGrid[0];
       const addToSlidesGrid = -swiper.slidesGrid[0];
-      swiper.snapGrid = swiper.snapGrid.map((v2) => v2 + addToSnapGrid);
-      swiper.slidesGrid = swiper.slidesGrid.map((v2) => v2 + addToSlidesGrid);
+      swiper.snapGrid = swiper.snapGrid.map((v3) => v3 + addToSnapGrid);
+      swiper.slidesGrid = swiper.slidesGrid.map((v3) => v3 + addToSlidesGrid);
     }
     if (slidesLength !== previousSlidesLength) {
       swiper.emit("slidesLengthChange");
@@ -18042,7 +18042,7 @@
     const activeSlides = [];
     const isVirtual = swiper.virtual && swiper.params.virtual.enabled;
     let newHeight = 0;
-    let i2;
+    let i3;
     if (typeof speed === "number") {
       swiper.setTransition(speed);
     } else if (speed === true) {
@@ -18060,8 +18060,8 @@
           activeSlides.push(slide2);
         });
       } else {
-        for (i2 = 0; i2 < Math.ceil(swiper.params.slidesPerView); i2 += 1) {
-          const index = swiper.activeIndex + i2;
+        for (i3 = 0; i3 < Math.ceil(swiper.params.slidesPerView); i3 += 1) {
+          const index = swiper.activeIndex + i3;
           if (index > swiper.slides.length && !isVirtual)
             break;
           activeSlides.push(getSlideByIndex(index));
@@ -18070,9 +18070,9 @@
     } else {
       activeSlides.push(getSlideByIndex(swiper.activeIndex));
     }
-    for (i2 = 0; i2 < activeSlides.length; i2 += 1) {
-      if (typeof activeSlides[i2] !== "undefined") {
-        const height = activeSlides[i2].offsetHeight;
+    for (i3 = 0; i3 < activeSlides.length; i3 += 1) {
+      if (typeof activeSlides[i3] !== "undefined") {
+        const height = activeSlides[i3].offsetHeight;
         newHeight = height > newHeight ? height : newHeight;
       }
     }
@@ -18083,8 +18083,8 @@
     const swiper = this;
     const slides = swiper.slides;
     const minusOffset = swiper.isElement ? swiper.isHorizontal() ? swiper.wrapperEl.offsetLeft : swiper.wrapperEl.offsetTop : 0;
-    for (let i2 = 0; i2 < slides.length; i2 += 1) {
-      slides[i2].swiperSlideOffset = (swiper.isHorizontal() ? slides[i2].offsetLeft : slides[i2].offsetTop) - minusOffset - swiper.cssOverflowAdjustment();
+    for (let i3 = 0; i3 < slides.length; i3 += 1) {
+      slides[i3].swiperSlideOffset = (swiper.isHorizontal() ? slides[i3].offsetLeft : slides[i3].offsetTop) - minusOffset - swiper.cssOverflowAdjustment();
     }
   }
   var toggleSlideClasses$1 = (slideEl, condition, className) => {
@@ -18120,8 +18120,8 @@
     } else if (typeof spaceBetween === "string") {
       spaceBetween = parseFloat(spaceBetween);
     }
-    for (let i2 = 0; i2 < slides.length; i2 += 1) {
-      const slide2 = slides[i2];
+    for (let i3 = 0; i3 < slides.length; i3 += 1) {
+      const slide2 = slides[i3];
       let slideOffset = slide2.swiperSlideOffset;
       if (params.cssMode && params.centeredSlides) {
         slideOffset -= slides[0].swiperSlideOffset;
@@ -18129,12 +18129,12 @@
       const slideProgress = (offsetCenter + (params.centeredSlides ? swiper.minTranslate() : 0) - slideOffset) / (slide2.swiperSlideSize + spaceBetween);
       const originalSlideProgress = (offsetCenter - snapGrid[0] + (params.centeredSlides ? swiper.minTranslate() : 0) - slideOffset) / (slide2.swiperSlideSize + spaceBetween);
       const slideBefore = -(offsetCenter - slideOffset);
-      const slideAfter = slideBefore + swiper.slidesSizesGrid[i2];
-      const isFullyVisible = slideBefore >= 0 && slideBefore <= swiper.size - swiper.slidesSizesGrid[i2];
+      const slideAfter = slideBefore + swiper.slidesSizesGrid[i3];
+      const isFullyVisible = slideBefore >= 0 && slideBefore <= swiper.size - swiper.slidesSizesGrid[i3];
       const isVisible = slideBefore >= 0 && slideBefore < swiper.size - 1 || slideAfter > 1 && slideAfter <= swiper.size || slideBefore <= 0 && slideAfter >= swiper.size;
       if (isVisible) {
         swiper.visibleSlides.push(slide2);
-        swiper.visibleSlidesIndexes.push(i2);
+        swiper.visibleSlidesIndexes.push(i3);
       }
       toggleSlideClasses$1(slide2, isVisible, params.slideVisibleClass);
       toggleSlideClasses$1(slide2, isFullyVisible, params.slideFullyVisibleClass);
@@ -18315,26 +18315,26 @@
       const preloadColumns = [activeColumn - amount];
       preloadColumns.push(...Array.from({
         length: amount
-      }).map((_2, i2) => {
-        return activeColumn + slidesPerView + i2;
+      }).map((_3, i3) => {
+        return activeColumn + slidesPerView + i3;
       }));
-      swiper.slides.forEach((slideEl, i2) => {
+      swiper.slides.forEach((slideEl, i3) => {
         if (preloadColumns.includes(slideEl.column))
-          unlazy(swiper, i2);
+          unlazy(swiper, i3);
       });
       return;
     }
     const slideIndexLastInView = activeIndex + slidesPerView - 1;
     if (swiper.params.rewind || swiper.params.loop) {
-      for (let i2 = activeIndex - amount; i2 <= slideIndexLastInView + amount; i2 += 1) {
-        const realIndex = (i2 % len + len) % len;
+      for (let i3 = activeIndex - amount; i3 <= slideIndexLastInView + amount; i3 += 1) {
+        const realIndex = (i3 % len + len) % len;
         if (realIndex < activeIndex || realIndex > slideIndexLastInView)
           unlazy(swiper, realIndex);
       }
     } else {
-      for (let i2 = Math.max(activeIndex - amount, 0); i2 <= Math.min(slideIndexLastInView + amount, len - 1); i2 += 1) {
-        if (i2 !== activeIndex && (i2 > slideIndexLastInView || i2 < activeIndex)) {
-          unlazy(swiper, i2);
+      for (let i3 = Math.max(activeIndex - amount, 0); i3 <= Math.min(slideIndexLastInView + amount, len - 1); i3 += 1) {
+        if (i3 !== activeIndex && (i3 > slideIndexLastInView || i3 < activeIndex)) {
+          unlazy(swiper, i3);
         }
       }
     }
@@ -18346,15 +18346,15 @@
     } = swiper;
     const translate2 = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
     let activeIndex;
-    for (let i2 = 0; i2 < slidesGrid.length; i2 += 1) {
-      if (typeof slidesGrid[i2 + 1] !== "undefined") {
-        if (translate2 >= slidesGrid[i2] && translate2 < slidesGrid[i2 + 1] - (slidesGrid[i2 + 1] - slidesGrid[i2]) / 2) {
-          activeIndex = i2;
-        } else if (translate2 >= slidesGrid[i2] && translate2 < slidesGrid[i2 + 1]) {
-          activeIndex = i2 + 1;
+    for (let i3 = 0; i3 < slidesGrid.length; i3 += 1) {
+      if (typeof slidesGrid[i3 + 1] !== "undefined") {
+        if (translate2 >= slidesGrid[i3] && translate2 < slidesGrid[i3 + 1] - (slidesGrid[i3 + 1] - slidesGrid[i3]) / 2) {
+          activeIndex = i3;
+        } else if (translate2 >= slidesGrid[i3] && translate2 < slidesGrid[i3 + 1]) {
+          activeIndex = i3 + 1;
         }
-      } else if (translate2 >= slidesGrid[i2]) {
-        activeIndex = i2;
+      } else if (translate2 >= slidesGrid[i3]) {
+        activeIndex = i3;
       }
     }
     if (params.normalizeSlideIndex) {
@@ -18462,10 +18462,10 @@
     let slideFound = false;
     let slideIndex;
     if (slide2) {
-      for (let i2 = 0; i2 < swiper.slides.length; i2 += 1) {
-        if (swiper.slides[i2] === slide2) {
+      for (let i3 = 0; i3 < swiper.slides.length; i3 += 1) {
+        if (swiper.slides[i3] === slide2) {
           slideFound = true;
-          slideIndex = i2;
+          slideIndex = i3;
           break;
         }
       }
@@ -18528,29 +18528,29 @@
       wrapperEl,
       progress
     } = swiper;
-    let x2 = 0;
-    let y2 = 0;
-    const z2 = 0;
+    let x3 = 0;
+    let y3 = 0;
+    const z3 = 0;
     if (swiper.isHorizontal()) {
-      x2 = rtl ? -translate2 : translate2;
+      x3 = rtl ? -translate2 : translate2;
     } else {
-      y2 = translate2;
+      y3 = translate2;
     }
     if (params.roundLengths) {
-      x2 = Math.floor(x2);
-      y2 = Math.floor(y2);
+      x3 = Math.floor(x3);
+      y3 = Math.floor(y3);
     }
     swiper.previousTranslate = swiper.translate;
-    swiper.translate = swiper.isHorizontal() ? x2 : y2;
+    swiper.translate = swiper.isHorizontal() ? x3 : y3;
     if (params.cssMode) {
-      wrapperEl[swiper.isHorizontal() ? "scrollLeft" : "scrollTop"] = swiper.isHorizontal() ? -x2 : -y2;
+      wrapperEl[swiper.isHorizontal() ? "scrollLeft" : "scrollTop"] = swiper.isHorizontal() ? -x3 : -y3;
     } else if (!params.virtualTranslate) {
       if (swiper.isHorizontal()) {
-        x2 -= swiper.cssOverflowAdjustment();
+        x3 -= swiper.cssOverflowAdjustment();
       } else {
-        y2 -= swiper.cssOverflowAdjustment();
+        y3 -= swiper.cssOverflowAdjustment();
       }
-      wrapperEl.style.transform = `translate3d(${x2}px, ${y2}px, ${z2}px)`;
+      wrapperEl.style.transform = `translate3d(${x3}px, ${y3}px, ${z3}px)`;
     }
     let newProgress;
     const translatesDiff = swiper.maxTranslate() - swiper.minTranslate();
@@ -18638,10 +18638,10 @@
       if (!swiper.animating) {
         swiper.animating = true;
         if (!swiper.onTranslateToWrapperTransitionEnd) {
-          swiper.onTranslateToWrapperTransitionEnd = function transitionEnd2(e2) {
+          swiper.onTranslateToWrapperTransitionEnd = function transitionEnd2(e3) {
             if (!swiper || swiper.destroyed)
               return;
-            if (e2.target !== this)
+            if (e3.target !== this)
               return;
             swiper.wrapperEl.removeEventListener("transitionend", swiper.onTranslateToWrapperTransitionEnd);
             swiper.onTranslateToWrapperTransitionEnd = null;
@@ -18786,18 +18786,18 @@
       snapIndex = snapGrid.length - 1;
     const translate2 = -snapGrid[snapIndex];
     if (params.normalizeSlideIndex) {
-      for (let i2 = 0; i2 < slidesGrid.length; i2 += 1) {
+      for (let i3 = 0; i3 < slidesGrid.length; i3 += 1) {
         const normalizedTranslate = -Math.floor(translate2 * 100);
-        const normalizedGrid = Math.floor(slidesGrid[i2] * 100);
-        const normalizedGridNext = Math.floor(slidesGrid[i2 + 1] * 100);
-        if (typeof slidesGrid[i2 + 1] !== "undefined") {
+        const normalizedGrid = Math.floor(slidesGrid[i3] * 100);
+        const normalizedGridNext = Math.floor(slidesGrid[i3 + 1] * 100);
+        if (typeof slidesGrid[i3 + 1] !== "undefined") {
           if (normalizedTranslate >= normalizedGrid && normalizedTranslate < normalizedGridNext - (normalizedGridNext - normalizedGrid) / 2) {
-            slideIndex = i2;
+            slideIndex = i3;
           } else if (normalizedTranslate >= normalizedGrid && normalizedTranslate < normalizedGridNext) {
-            slideIndex = i2 + 1;
+            slideIndex = i3 + 1;
           }
         } else if (normalizedTranslate >= normalizedGrid) {
-          slideIndex = i2;
+          slideIndex = i3;
         }
       }
     }
@@ -18839,7 +18839,7 @@
     }
     if (params.cssMode) {
       const isH = swiper.isHorizontal();
-      const t2 = rtl ? translate2 : -translate2;
+      const t3 = rtl ? translate2 : -translate2;
       if (speed === 0) {
         const isVirtual = swiper.virtual && swiper.params.virtual.enabled;
         if (isVirtual) {
@@ -18849,10 +18849,10 @@
         if (isVirtual && !swiper._cssModeVirtualInitialSet && swiper.params.initialSlide > 0) {
           swiper._cssModeVirtualInitialSet = true;
           requestAnimationFrame(() => {
-            wrapperEl[isH ? "scrollLeft" : "scrollTop"] = t2;
+            wrapperEl[isH ? "scrollLeft" : "scrollTop"] = t3;
           });
         } else {
-          wrapperEl[isH ? "scrollLeft" : "scrollTop"] = t2;
+          wrapperEl[isH ? "scrollLeft" : "scrollTop"] = t3;
         }
         if (isVirtual) {
           requestAnimationFrame(() => {
@@ -18864,13 +18864,13 @@
         if (!swiper.support.smoothScroll) {
           animateCSSModeScroll({
             swiper,
-            targetPosition: t2,
+            targetPosition: t3,
             side: isH ? "left" : "top"
           });
           return true;
         }
         wrapperEl.scrollTo({
-          [isH ? "left" : "top"]: t2,
+          [isH ? "left" : "top"]: t3,
           behavior: "smooth"
         });
       }
@@ -18887,10 +18887,10 @@
     } else if (!swiper.animating) {
       swiper.animating = true;
       if (!swiper.onSlideToWrapperTransitionEnd) {
-        swiper.onSlideToWrapperTransitionEnd = function transitionEnd2(e2) {
+        swiper.onSlideToWrapperTransitionEnd = function transitionEnd2(e3) {
           if (!swiper || swiper.destroyed)
             return;
-          if (e2.target !== this)
+          if (e3.target !== this)
             return;
           swiper.wrapperEl.removeEventListener("transitionend", swiper.onSlideToWrapperTransitionEnd);
           swiper.onSlideToWrapperTransitionEnd = null;
@@ -19195,7 +19195,7 @@
     const shouldFillGroup = swiper.slides.length % slidesPerGroup !== 0;
     const shouldFillGrid = gridEnabled && swiper.slides.length % params.grid.rows !== 0;
     const addBlankSlides = (amountOfSlides) => {
-      for (let i2 = 0; i2 < amountOfSlides; i2 += 1) {
+      for (let i3 = 0; i3 < amountOfSlides; i3 += 1) {
         const slideEl = swiper.isElement ? createElement("swiper-slide", [params.slideBlankClass]) : createElement("div", [params.slideClass, params.slideBlankClass]);
         swiper.slidesEl.append(slideEl);
       }
@@ -19308,13 +19308,13 @@
     const activeColIndexWithShift = activeColIndex + (centeredSlides && typeof setTranslate2 === "undefined" ? -slidesPerView / 2 + 0.5 : 0);
     if (activeColIndexWithShift < loopedSlides) {
       slidesPrepended = Math.max(loopedSlides - activeColIndexWithShift, slidesPerGroup);
-      for (let i2 = 0; i2 < loopedSlides - activeColIndexWithShift; i2 += 1) {
-        const index = i2 - Math.floor(i2 / cols) * cols;
+      for (let i3 = 0; i3 < loopedSlides - activeColIndexWithShift; i3 += 1) {
+        const index = i3 - Math.floor(i3 / cols) * cols;
         if (gridEnabled) {
           const colIndexToPrepend = cols - index - 1;
-          for (let i3 = slides.length - 1; i3 >= 0; i3 -= 1) {
-            if (slides[i3].column === colIndexToPrepend)
-              prependSlidesIndexes.push(i3);
+          for (let i4 = slides.length - 1; i4 >= 0; i4 -= 1) {
+            if (slides[i4].column === colIndexToPrepend)
+              prependSlidesIndexes.push(i4);
           }
         } else {
           prependSlidesIndexes.push(cols - index - 1);
@@ -19322,8 +19322,8 @@
       }
     } else if (activeColIndexWithShift + slidesPerView > cols - loopedSlides) {
       slidesAppended = Math.max(activeColIndexWithShift - (cols - loopedSlides * 2), slidesPerGroup);
-      for (let i2 = 0; i2 < slidesAppended; i2 += 1) {
-        const index = i2 - Math.floor(i2 / cols) * cols;
+      for (let i3 = 0; i3 < slidesAppended; i3 += 1) {
+        const index = i3 - Math.floor(i3 / cols) * cols;
         if (gridEnabled) {
           slides.forEach((slide2, slideIndex) => {
             if (slide2.column === index)
@@ -19416,11 +19416,11 @@
         byController: true
       };
       if (Array.isArray(swiper.controller.control)) {
-        swiper.controller.control.forEach((c2) => {
-          if (!c2.destroyed && c2.params.loop)
-            c2.loopFix({
+        swiper.controller.control.forEach((c3) => {
+          if (!c3.destroyed && c3.params.loop)
+            c3.loopFix({
               ...loopParams,
-              slideTo: c2.params.slidesPerView === params.slidesPerView ? slideTo2 : false
+              slideTo: c3.params.slidesPerView === params.slidesPerView ? slideTo2 : false
             });
         });
       } else if (swiper.controller.control instanceof swiper.constructor && swiper.controller.control.params.loop) {
@@ -19531,20 +19531,20 @@
   function onTouchStart(event2) {
     const swiper = this;
     const document2 = getDocument();
-    let e2 = event2;
-    if (e2.originalEvent)
-      e2 = e2.originalEvent;
+    let e3 = event2;
+    if (e3.originalEvent)
+      e3 = e3.originalEvent;
     const data = swiper.touchEventsData;
-    if (e2.type === "pointerdown") {
-      if (data.pointerId !== null && data.pointerId !== e2.pointerId) {
+    if (e3.type === "pointerdown") {
+      if (data.pointerId !== null && data.pointerId !== e3.pointerId) {
         return;
       }
-      data.pointerId = e2.pointerId;
-    } else if (e2.type === "touchstart" && e2.targetTouches.length === 1) {
-      data.touchId = e2.targetTouches[0].identifier;
+      data.pointerId = e3.pointerId;
+    } else if (e3.type === "touchstart" && e3.targetTouches.length === 1) {
+      data.touchId = e3.targetTouches[0].identifier;
     }
-    if (e2.type === "touchstart") {
-      preventEdgeSwipe(swiper, e2, e2.targetTouches[0].pageX);
+    if (e3.type === "touchstart") {
+      preventEdgeSwipe(swiper, e3, e3.targetTouches[0].pageX);
       return;
     }
     const {
@@ -19554,7 +19554,7 @@
     } = swiper;
     if (!enabled)
       return;
-    if (!params.simulateTouch && e2.pointerType === "mouse")
+    if (!params.simulateTouch && e3.pointerType === "mouse")
       return;
     if (swiper.animating && params.preventInteractionOnTransition) {
       return;
@@ -19562,24 +19562,24 @@
     if (!swiper.animating && params.cssMode && params.loop) {
       swiper.loopFix();
     }
-    let targetEl = e2.target;
+    let targetEl = e3.target;
     if (params.touchEventsTarget === "wrapper") {
       if (!swiper.wrapperEl.contains(targetEl))
         return;
     }
-    if ("which" in e2 && e2.which === 3)
+    if ("which" in e3 && e3.which === 3)
       return;
-    if ("button" in e2 && e2.button > 0)
+    if ("button" in e3 && e3.button > 0)
       return;
     if (data.isTouched && data.isMoved)
       return;
     const swipingClassHasValue = !!params.noSwipingClass && params.noSwipingClass !== "";
-    const eventPath = e2.composedPath ? e2.composedPath() : e2.path;
-    if (swipingClassHasValue && e2.target && e2.target.shadowRoot && eventPath) {
+    const eventPath = e3.composedPath ? e3.composedPath() : e3.path;
+    if (swipingClassHasValue && e3.target && e3.target.shadowRoot && eventPath) {
       targetEl = eventPath[0];
     }
     const noSwipingSelector = params.noSwipingSelector ? params.noSwipingSelector : `.${params.noSwipingClass}`;
-    const isTargetShadow = !!(e2.target && e2.target.shadowRoot);
+    const isTargetShadow = !!(e3.target && e3.target.shadowRoot);
     if (params.noSwiping && (isTargetShadow ? closestElement(noSwipingSelector, targetEl) : targetEl.closest(noSwipingSelector))) {
       swiper.allowClick = true;
       return;
@@ -19588,11 +19588,11 @@
       if (!targetEl.closest(params.swipeHandler))
         return;
     }
-    touches.currentX = e2.pageX;
-    touches.currentY = e2.pageY;
+    touches.currentX = e3.pageX;
+    touches.currentY = e3.pageY;
     const startX = touches.currentX;
     const startY = touches.currentY;
-    if (!preventEdgeSwipe(swiper, e2, startX)) {
+    if (!preventEdgeSwipe(swiper, e3, startX)) {
       return;
     }
     Object.assign(data, {
@@ -19622,12 +19622,12 @@
     }
     const shouldPreventDefault = preventDefault && swiper.allowTouchMove && params.touchStartPreventDefault;
     if ((params.touchStartForcePreventDefault || shouldPreventDefault) && !targetEl.isContentEditable) {
-      e2.preventDefault();
+      e3.preventDefault();
     }
     if (params.freeMode && params.freeMode.enabled && swiper.freeMode && swiper.animating && !params.cssMode) {
       swiper.freeMode.onTouchStart();
     }
-    swiper.emit("touchStart", e2);
+    swiper.emit("touchStart", e3);
   }
   function onTouchMove(event2) {
     const document2 = getDocument();
@@ -19643,39 +19643,39 @@
       return;
     if (!params.simulateTouch && event2.pointerType === "mouse")
       return;
-    let e2 = event2;
-    if (e2.originalEvent)
-      e2 = e2.originalEvent;
-    if (e2.type === "pointermove") {
+    let e3 = event2;
+    if (e3.originalEvent)
+      e3 = e3.originalEvent;
+    if (e3.type === "pointermove") {
       if (data.touchId !== null)
         return;
-      const id = e2.pointerId;
+      const id = e3.pointerId;
       if (id !== data.pointerId)
         return;
     }
     let targetTouch;
-    if (e2.type === "touchmove") {
-      targetTouch = [...e2.changedTouches].filter((t2) => t2.identifier === data.touchId)[0];
+    if (e3.type === "touchmove") {
+      targetTouch = [...e3.changedTouches].filter((t3) => t3.identifier === data.touchId)[0];
       if (!targetTouch || targetTouch.identifier !== data.touchId)
         return;
     } else {
-      targetTouch = e2;
+      targetTouch = e3;
     }
     if (!data.isTouched) {
       if (data.startMoving && data.isScrolling) {
-        swiper.emit("touchMoveOpposite", e2);
+        swiper.emit("touchMoveOpposite", e3);
       }
       return;
     }
     const pageX = targetTouch.pageX;
     const pageY = targetTouch.pageY;
-    if (e2.preventedByNestedSwiper) {
+    if (e3.preventedByNestedSwiper) {
       touches.startX = pageX;
       touches.startY = pageY;
       return;
     }
     if (!swiper.allowTouchMove) {
-      if (!e2.target.matches(data.focusableElements)) {
+      if (!e3.target.matches(data.focusableElements)) {
         swiper.allowClick = false;
       }
       if (data.isTouched) {
@@ -19701,14 +19701,14 @@
       }
     }
     if (document2.activeElement) {
-      if (e2.target === document2.activeElement && e2.target.matches(data.focusableElements)) {
+      if (e3.target === document2.activeElement && e3.target.matches(data.focusableElements)) {
         data.isMoved = true;
         swiper.allowClick = false;
         return;
       }
     }
     if (data.allowTouchCallbacks) {
-      swiper.emit("touchMove", e2);
+      swiper.emit("touchMove", e3);
     }
     touches.previousX = touches.currentX;
     touches.previousY = touches.currentY;
@@ -19730,14 +19730,14 @@
       }
     }
     if (data.isScrolling) {
-      swiper.emit("touchMoveOpposite", e2);
+      swiper.emit("touchMoveOpposite", e3);
     }
     if (typeof data.startMoving === "undefined") {
       if (touches.currentX !== touches.startX || touches.currentY !== touches.startY) {
         data.startMoving = true;
       }
     }
-    if (data.isScrolling || e2.type === "touchmove" && data.preventTouchMoveFromPointerMove) {
+    if (data.isScrolling || e3.type === "touchmove" && data.preventTouchMoveFromPointerMove) {
       data.isTouched = false;
       return;
     }
@@ -19745,11 +19745,11 @@
       return;
     }
     swiper.allowClick = false;
-    if (!params.cssMode && e2.cancelable) {
-      e2.preventDefault();
+    if (!params.cssMode && e3.cancelable) {
+      e3.preventDefault();
     }
     if (params.touchMoveStopPropagation && !params.nested) {
-      e2.stopPropagation();
+      e3.stopPropagation();
     }
     let diff = swiper.isHorizontal() ? diffX : diffY;
     let touchesDiff = swiper.isHorizontal() ? touches.currentX - touches.previousX : touches.currentY - touches.previousY;
@@ -19790,7 +19790,7 @@
       if (params.grabCursor && (swiper.allowSlideNext === true || swiper.allowSlidePrev === true)) {
         swiper.setGrabCursor(true);
       }
-      swiper.emit("sliderFirstMove", e2);
+      swiper.emit("sliderFirstMove", e3);
     }
     let loopFixed;
     (/* @__PURE__ */ new Date()).getTime();
@@ -19806,7 +19806,7 @@
       data.startTranslate = data.currentTranslate;
       return;
     }
-    swiper.emit("sliderMove", e2);
+    swiper.emit("sliderMove", e3);
     data.isMoved = true;
     data.currentTranslate = diff + data.startTranslate;
     let disableParentSwiper = true;
@@ -19844,7 +19844,7 @@
       }
     }
     if (disableParentSwiper) {
-      e2.preventedByNestedSwiper = true;
+      e3.preventedByNestedSwiper = true;
     }
     if (!swiper.allowSlideNext && swiper.swipeDirection === "next" && data.currentTranslate < data.startTranslate) {
       data.currentTranslate = data.startTranslate;
@@ -19885,24 +19885,24 @@
   function onTouchEnd(event2) {
     const swiper = this;
     const data = swiper.touchEventsData;
-    let e2 = event2;
-    if (e2.originalEvent)
-      e2 = e2.originalEvent;
+    let e3 = event2;
+    if (e3.originalEvent)
+      e3 = e3.originalEvent;
     let targetTouch;
-    const isTouchEvent = e2.type === "touchend" || e2.type === "touchcancel";
+    const isTouchEvent = e3.type === "touchend" || e3.type === "touchcancel";
     if (!isTouchEvent) {
       if (data.touchId !== null)
         return;
-      if (e2.pointerId !== data.pointerId)
+      if (e3.pointerId !== data.pointerId)
         return;
-      targetTouch = e2;
+      targetTouch = e3;
     } else {
-      targetTouch = [...e2.changedTouches].filter((t2) => t2.identifier === data.touchId)[0];
+      targetTouch = [...e3.changedTouches].filter((t3) => t3.identifier === data.touchId)[0];
       if (!targetTouch || targetTouch.identifier !== data.touchId)
         return;
     }
-    if (["pointercancel", "pointerout", "pointerleave", "contextmenu"].includes(e2.type)) {
-      const proceed = ["pointercancel", "contextmenu"].includes(e2.type) && (swiper.browser.isSafari || swiper.browser.isWebView);
+    if (["pointercancel", "pointerout", "pointerleave", "contextmenu"].includes(e3.type)) {
+      const proceed = ["pointercancel", "contextmenu"].includes(e3.type) && (swiper.browser.isSafari || swiper.browser.isWebView);
       if (!proceed) {
         return;
       }
@@ -19918,10 +19918,10 @@
     } = swiper;
     if (!enabled)
       return;
-    if (!params.simulateTouch && e2.pointerType === "mouse")
+    if (!params.simulateTouch && e3.pointerType === "mouse")
       return;
     if (data.allowTouchCallbacks) {
-      swiper.emit("touchEnd", e2);
+      swiper.emit("touchEnd", e3);
     }
     data.allowTouchCallbacks = false;
     if (!data.isTouched) {
@@ -19938,11 +19938,11 @@
     const touchEndTime = now2();
     const timeDiff = touchEndTime - data.touchStartTime;
     if (swiper.allowClick) {
-      const pathTree = e2.path || e2.composedPath && e2.composedPath();
-      swiper.updateClickedSlide(pathTree && pathTree[0] || e2.target, pathTree);
-      swiper.emit("tap click", e2);
+      const pathTree = e3.path || e3.composedPath && e3.composedPath();
+      swiper.updateClickedSlide(pathTree && pathTree[0] || e3.target, pathTree);
+      swiper.emit("tap click", e3);
       if (timeDiff < 300 && touchEndTime - data.lastClickTime < 300) {
-        swiper.emit("doubleTap doubleClick", e2);
+        swiper.emit("doubleTap doubleClick", e3);
       }
     }
     data.lastClickTime = now2();
@@ -19977,15 +19977,15 @@
     const swipeToLast = currentPos >= -swiper.maxTranslate() && !swiper.params.loop;
     let stopIndex = 0;
     let groupSize = swiper.slidesSizesGrid[0];
-    for (let i2 = 0; i2 < slidesGrid.length; i2 += i2 < params.slidesPerGroupSkip ? 1 : params.slidesPerGroup) {
-      const increment2 = i2 < params.slidesPerGroupSkip - 1 ? 1 : params.slidesPerGroup;
-      if (typeof slidesGrid[i2 + increment2] !== "undefined") {
-        if (swipeToLast || currentPos >= slidesGrid[i2] && currentPos < slidesGrid[i2 + increment2]) {
-          stopIndex = i2;
-          groupSize = slidesGrid[i2 + increment2] - slidesGrid[i2];
+    for (let i3 = 0; i3 < slidesGrid.length; i3 += i3 < params.slidesPerGroupSkip ? 1 : params.slidesPerGroup) {
+      const increment2 = i3 < params.slidesPerGroupSkip - 1 ? 1 : params.slidesPerGroup;
+      if (typeof slidesGrid[i3 + increment2] !== "undefined") {
+        if (swipeToLast || currentPos >= slidesGrid[i3] && currentPos < slidesGrid[i3 + increment2]) {
+          stopIndex = i3;
+          groupSize = slidesGrid[i3 + increment2] - slidesGrid[i3];
         }
-      } else if (swipeToLast || currentPos >= slidesGrid[i2]) {
-        stopIndex = i2;
+      } else if (swipeToLast || currentPos >= slidesGrid[i3]) {
+        stopIndex = i3;
         groupSize = slidesGrid[slidesGrid.length - 1] - slidesGrid[slidesGrid.length - 2];
       }
     }
@@ -20025,7 +20025,7 @@
         swiper.slideTo(swiper.activeIndex);
         return;
       }
-      const isNavButtonTarget = swiper.navigation && (e2.target === swiper.navigation.nextEl || e2.target === swiper.navigation.prevEl);
+      const isNavButtonTarget = swiper.navigation && (e3.target === swiper.navigation.nextEl || e3.target === swiper.navigation.prevEl);
       if (!isNavButtonTarget) {
         if (swiper.swipeDirection === "next") {
           swiper.slideTo(rewindFirstIndex !== null ? rewindFirstIndex : stopIndex + increment);
@@ -20033,7 +20033,7 @@
         if (swiper.swipeDirection === "prev") {
           swiper.slideTo(rewindLastIndex !== null ? rewindLastIndex : stopIndex);
         }
-      } else if (e2.target === swiper.navigation.nextEl) {
+      } else if (e3.target === swiper.navigation.nextEl) {
         swiper.slideTo(stopIndex + increment);
       } else {
         swiper.slideTo(stopIndex);
@@ -20086,16 +20086,16 @@
       swiper.checkOverflow();
     }
   }
-  function onClick(e2) {
+  function onClick(e3) {
     const swiper = this;
     if (!swiper.enabled)
       return;
     if (!swiper.allowClick) {
       if (swiper.params.preventClicks)
-        e2.preventDefault();
+        e3.preventDefault();
       if (swiper.params.preventClicksPropagation && swiper.animating) {
-        e2.stopPropagation();
-        e2.stopImmediatePropagation();
+        e3.stopPropagation();
+        e3.stopImmediatePropagation();
       }
     }
   }
@@ -20130,9 +20130,9 @@
     }
     swiper.emit("setTranslate", swiper.translate, false);
   }
-  function onLoad(e2) {
+  function onLoad(e3) {
     const swiper = this;
-    processLazyPreloader(swiper, e2.target);
+    processLazyPreloader(swiper, e3.target);
     if (swiper.params.cssMode || swiper.params.slidesPerView !== "auto" && !swiper.params.autoHeight) {
       return;
     }
@@ -20347,12 +20347,12 @@
         point
       };
     });
-    points.sort((a2, b2) => parseInt(a2.value, 10) - parseInt(b2.value, 10));
-    for (let i2 = 0; i2 < points.length; i2 += 1) {
+    points.sort((a3, b3) => parseInt(a3.value, 10) - parseInt(b3.value, 10));
+    for (let i3 = 0; i3 < points.length; i3 += 1) {
       const {
         point,
         value
-      } = points[i2];
+      } = points[i3];
       if (base === "window") {
         if (window2.matchMedia(`(min-width: ${value}px)`).matches) {
           breakpoint = point;
@@ -20896,17 +20896,17 @@
       if (params.centeredSlides) {
         let slideSize = slides[activeIndex] ? Math.ceil(slides[activeIndex].swiperSlideSize) : 0;
         let breakLoop;
-        for (let i2 = activeIndex + 1; i2 < slides.length; i2 += 1) {
-          if (slides[i2] && !breakLoop) {
-            slideSize += Math.ceil(slides[i2].swiperSlideSize);
+        for (let i3 = activeIndex + 1; i3 < slides.length; i3 += 1) {
+          if (slides[i3] && !breakLoop) {
+            slideSize += Math.ceil(slides[i3].swiperSlideSize);
             spv += 1;
             if (slideSize > swiperSize)
               breakLoop = true;
           }
         }
-        for (let i2 = activeIndex - 1; i2 >= 0; i2 -= 1) {
-          if (slides[i2] && !breakLoop) {
-            slideSize += slides[i2].swiperSlideSize;
+        for (let i3 = activeIndex - 1; i3 >= 0; i3 -= 1) {
+          if (slides[i3] && !breakLoop) {
+            slideSize += slides[i3].swiperSlideSize;
             spv += 1;
             if (slideSize > swiperSize)
               breakLoop = true;
@@ -20914,15 +20914,15 @@
         }
       } else {
         if (view === "current") {
-          for (let i2 = activeIndex + 1; i2 < slides.length; i2 += 1) {
-            const slideInView = exact ? slidesGrid[i2] + slidesSizesGrid[i2] - slidesGrid[activeIndex] < swiperSize : slidesGrid[i2] - slidesGrid[activeIndex] < swiperSize;
+          for (let i3 = activeIndex + 1; i3 < slides.length; i3 += 1) {
+            const slideInView = exact ? slidesGrid[i3] + slidesSizesGrid[i3] - slidesGrid[activeIndex] < swiperSize : slidesGrid[i3] - slidesGrid[activeIndex] < swiperSize;
             if (slideInView) {
               spv += 1;
             }
           }
         } else {
-          for (let i2 = activeIndex - 1; i2 >= 0; i2 -= 1) {
-            const slideInView = slidesGrid[activeIndex] - slidesGrid[i2] < swiperSize;
+          for (let i3 = activeIndex - 1; i3 >= 0; i3 -= 1) {
+            const slideInView = slidesGrid[activeIndex] - slidesGrid[i3] < swiperSize;
             if (slideInView) {
               spv += 1;
             }
@@ -21106,8 +21106,8 @@
         if (imageEl.complete) {
           processLazyPreloader(swiper, imageEl);
         } else {
-          imageEl.addEventListener("load", (e2) => {
-            processLazyPreloader(swiper, e2.target);
+          imageEl.addEventListener("load", (e3) => {
+            processLazyPreloader(swiper, e3.target);
           });
         }
       });
@@ -21189,7 +21189,7 @@
     }
     static use(module) {
       if (Array.isArray(module)) {
-        module.forEach((m2) => _Swiper.installModule(m2));
+        module.forEach((m3) => _Swiper.installModule(m3));
         return _Swiper;
       }
       _Swiper.installModule(module);
@@ -21227,7 +21227,7 @@
     let {
       swiper,
       extendParams,
-      on,
+      on: on2,
       emit
     } = _ref;
     extendParams({
@@ -21292,15 +21292,15 @@
       toggleEl(prevEl, swiper.isBeginning && !swiper.params.rewind);
       toggleEl(nextEl, swiper.isEnd && !swiper.params.rewind);
     }
-    function onPrevClick(e2) {
-      e2.preventDefault();
+    function onPrevClick(e3) {
+      e3.preventDefault();
       if (swiper.isBeginning && !swiper.params.loop && !swiper.params.rewind)
         return;
       swiper.slidePrev();
       emit("navigationPrev");
     }
-    function onNextClick(e2) {
-      e2.preventDefault();
+    function onNextClick(e3) {
+      e3.preventDefault();
       if (swiper.isEnd && !swiper.params.loop && !swiper.params.rewind)
         return;
       swiper.slideNext();
@@ -21347,7 +21347,7 @@
       nextEl.forEach((el) => destroyButton(el, "next"));
       prevEl.forEach((el) => destroyButton(el, "prev"));
     }
-    on("init", () => {
+    on2("init", () => {
       if (swiper.params.navigation.enabled === false) {
         disable();
       } else {
@@ -21355,13 +21355,13 @@
         update2();
       }
     });
-    on("toEdge fromEdge lock unlock", () => {
+    on2("toEdge fromEdge lock unlock", () => {
       update2();
     });
-    on("destroy", () => {
+    on2("destroy", () => {
       destroy();
     });
-    on("enable disable", () => {
+    on2("enable disable", () => {
       let {
         nextEl,
         prevEl
@@ -21374,17 +21374,17 @@
       }
       [...nextEl, ...prevEl].filter((el) => !!el).forEach((el) => el.classList.add(swiper.params.navigation.lockClass));
     });
-    on("click", (_s, e2) => {
+    on2("click", (_s, e3) => {
       let {
         nextEl,
         prevEl
       } = swiper.navigation;
       nextEl = makeElementsArray(nextEl);
       prevEl = makeElementsArray(prevEl);
-      const targetEl = e2.target;
+      const targetEl = e3.target;
       let targetIsButton = prevEl.includes(targetEl) || nextEl.includes(targetEl);
       if (swiper.isElement && !targetIsButton) {
-        const path = e2.path || e2.composedPath && e2.composedPath();
+        const path = e3.path || e3.composedPath && e3.composedPath();
         if (path) {
           targetIsButton = path.find((pathEl) => nextEl.includes(pathEl) || prevEl.includes(pathEl));
         }
@@ -21429,7 +21429,7 @@
     let {
       swiper,
       extendParams,
-      on,
+      on: on2,
       emit,
       params
     } = _ref;
@@ -21462,13 +21462,13 @@
     let slideChanged;
     let pausedByInteraction;
     let pausedByPointerEnter;
-    function onTransitionEnd(e2) {
+    function onTransitionEnd(e3) {
       if (!swiper || swiper.destroyed || !swiper.wrapperEl)
         return;
-      if (e2.target !== swiper.wrapperEl)
+      if (e3.target !== swiper.wrapperEl)
         return;
       swiper.wrapperEl.removeEventListener("transitionend", onTransitionEnd);
-      if (pausedByPointerEnter || e2.detail && e2.detail.bySwiperTouchMove) {
+      if (pausedByPointerEnter || e3.detail && e3.detail.bySwiperTouchMove) {
         return;
       }
       resume();
@@ -21625,8 +21625,8 @@
         resume();
       }
     };
-    const onPointerEnter = (e2) => {
-      if (e2.pointerType !== "mouse")
+    const onPointerEnter = (e3) => {
+      if (e3.pointerType !== "mouse")
         return;
       pausedByInteraction = true;
       pausedByPointerEnter = true;
@@ -21634,8 +21634,8 @@
         return;
       pause(true);
     };
-    const onPointerLeave = (e2) => {
-      if (e2.pointerType !== "mouse")
+    const onPointerLeave = (e3) => {
+      if (e3.pointerType !== "mouse")
         return;
       pausedByPointerEnter = false;
       if (swiper.autoplay.paused) {
@@ -21662,33 +21662,33 @@
       const document2 = getDocument();
       document2.removeEventListener("visibilitychange", onVisibilityChange);
     };
-    on("init", () => {
+    on2("init", () => {
       if (swiper.params.autoplay.enabled) {
         attachMouseEvents();
         attachDocumentEvents();
         start2();
       }
     });
-    on("destroy", () => {
+    on2("destroy", () => {
       detachMouseEvents();
       detachDocumentEvents();
       if (swiper.autoplay.running) {
         stop();
       }
     });
-    on("_freeModeStaticRelease", () => {
+    on2("_freeModeStaticRelease", () => {
       if (pausedByTouch || pausedByInteraction) {
         resume();
       }
     });
-    on("_freeModeNoMomentumRelease", () => {
+    on2("_freeModeNoMomentumRelease", () => {
       if (!swiper.params.autoplay.disableOnInteraction) {
         pause(true, true);
       } else {
         stop();
       }
     });
-    on("beforeTransitionStart", (_s, speed, internal) => {
+    on2("beforeTransitionStart", (_s, speed, internal) => {
       if (swiper.destroyed || !swiper.autoplay.running)
         return;
       if (internal || !swiper.params.autoplay.disableOnInteraction) {
@@ -21697,7 +21697,7 @@
         stop();
       }
     });
-    on("sliderFirstMove", () => {
+    on2("sliderFirstMove", () => {
       if (swiper.destroyed || !swiper.autoplay.running)
         return;
       if (swiper.params.autoplay.disableOnInteraction) {
@@ -21713,7 +21713,7 @@
         pause(true);
       }, 200);
     });
-    on("touchEnd", () => {
+    on2("touchEnd", () => {
       if (swiper.destroyed || !swiper.autoplay.running || !isTouched)
         return;
       clearTimeout(touchStartTimeout);
@@ -21728,7 +21728,7 @@
       pausedByTouch = false;
       isTouched = false;
     });
-    on("slideChange", () => {
+    on2("slideChange", () => {
       if (swiper.destroyed || !swiper.autoplay.running)
         return;
       slideChanged = true;
@@ -21820,7 +21820,7 @@
 
   // app/javascript/controllers/collapse_controller.js
   var collapse_controller_default = class extends Controller {
-    call(e2) {
+    call(e3) {
       console.log("Hell");
       this.element.classList.toggle("collapse-bar");
     }
@@ -21840,6 +21840,6214 @@
 
   // app/javascript/application.js
   var import_bootstrap = __toESM(require_bootstrap());
+
+  // node_modules/trix/dist/trix.esm.min.js
+  var t2 = "2.1.3";
+  var e2 = "[data-trix-attachment]";
+  var i2 = { preview: { presentation: "gallery", caption: { name: true, size: true } }, file: { caption: { size: true } } };
+  var n2 = { default: { tagName: "div", parse: false }, quote: { tagName: "blockquote", nestable: true }, heading1: { tagName: "h1", terminal: true, breakOnReturn: true, group: false }, code: { tagName: "pre", terminal: true, htmlAttributes: ["language"], text: { plaintext: true } }, bulletList: { tagName: "ul", parse: false }, bullet: { tagName: "li", listAttribute: "bulletList", group: false, nestable: true, test(t3) {
+    return r2(t3.parentNode) === n2[this.listAttribute].tagName;
+  } }, numberList: { tagName: "ol", parse: false }, number: { tagName: "li", listAttribute: "numberList", group: false, nestable: true, test(t3) {
+    return r2(t3.parentNode) === n2[this.listAttribute].tagName;
+  } }, attachmentGallery: { tagName: "div", exclusive: true, terminal: true, parse: false, group: false } };
+  var r2 = (t3) => {
+    var e3;
+    return null == t3 || null === (e3 = t3.tagName) || void 0 === e3 ? void 0 : e3.toLowerCase();
+  };
+  var o2 = navigator.userAgent.match(/android\s([0-9]+.*Chrome)/i);
+  var s2 = o2 && parseInt(o2[1]);
+  var a2 = { composesExistingText: /Android.*Chrome/.test(navigator.userAgent), recentAndroid: s2 && s2 > 12, samsungAndroid: s2 && navigator.userAgent.match(/Android.*SM-/), forcesObjectResizing: /Trident.*rv:11/.test(navigator.userAgent), supportsInputEvents: "undefined" != typeof InputEvent && ["data", "getTargetRanges", "inputType"].every((t3) => t3 in InputEvent.prototype) };
+  var l2 = { attachFiles: "Attach Files", bold: "Bold", bullets: "Bullets", byte: "Byte", bytes: "Bytes", captionPlaceholder: "Add a caption\u2026", code: "Code", heading1: "Heading", indent: "Increase Level", italic: "Italic", link: "Link", numbers: "Numbers", outdent: "Decrease Level", quote: "Quote", redo: "Redo", remove: "Remove", strike: "Strikethrough", undo: "Undo", unlink: "Unlink", url: "URL", urlPlaceholder: "Enter a URL\u2026", GB: "GB", KB: "KB", MB: "MB", PB: "PB", TB: "TB" };
+  var c2 = [l2.bytes, l2.KB, l2.MB, l2.GB, l2.TB, l2.PB];
+  var u2 = { prefix: "IEC", precision: 2, formatter(t3) {
+    switch (t3) {
+      case 0:
+        return "0 ".concat(l2.bytes);
+      case 1:
+        return "1 ".concat(l2.byte);
+      default:
+        let e3;
+        "SI" === this.prefix ? e3 = 1e3 : "IEC" === this.prefix && (e3 = 1024);
+        const i3 = Math.floor(Math.log(t3) / Math.log(e3)), n3 = (t3 / Math.pow(e3, i3)).toFixed(this.precision).replace(/0*$/, "").replace(/\.$/, "");
+        return "".concat(n3, " ").concat(c2[i3]);
+    }
+  } };
+  var h2 = "\uFEFF";
+  var d2 = "\xA0";
+  var g2 = function(t3) {
+    for (const e3 in t3) {
+      const i3 = t3[e3];
+      this[e3] = i3;
+    }
+    return this;
+  };
+  var m2 = document.documentElement;
+  var p2 = m2.matches;
+  var f2 = function(t3) {
+    let { onElement: e3, matchingSelector: i3, withCallback: n3, inPhase: r3, preventDefault: o3, times: s3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    const a3 = e3 || m2, l3 = i3, c3 = "capturing" === r3, u3 = function(t4) {
+      null != s3 && 0 == --s3 && u3.destroy();
+      const e4 = A2(t4.target, { matchingSelector: l3 });
+      null != e4 && (null == n3 || n3.call(e4, t4, e4), o3 && t4.preventDefault());
+    };
+    return u3.destroy = () => a3.removeEventListener(t3, u3, c3), a3.addEventListener(t3, u3, c3), u3;
+  };
+  var b2 = function(t3) {
+    let { onElement: e3, bubbles: i3, cancelable: n3, attributes: r3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    const o3 = null != e3 ? e3 : m2;
+    i3 = false !== i3, n3 = false !== n3;
+    const s3 = document.createEvent("Events");
+    return s3.initEvent(t3, i3, n3), null != r3 && g2.call(s3, r3), o3.dispatchEvent(s3);
+  };
+  var v2 = function(t3, e3) {
+    if (1 === (null == t3 ? void 0 : t3.nodeType))
+      return p2.call(t3, e3);
+  };
+  var A2 = function(t3) {
+    let { matchingSelector: e3, untilNode: i3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    for (; t3 && t3.nodeType !== Node.ELEMENT_NODE; )
+      t3 = t3.parentNode;
+    if (null != t3) {
+      if (null == e3)
+        return t3;
+      if (t3.closest && null == i3)
+        return t3.closest(e3);
+      for (; t3 && t3 !== i3; ) {
+        if (v2(t3, e3))
+          return t3;
+        t3 = t3.parentNode;
+      }
+    }
+  };
+  var x2 = (t3) => document.activeElement !== t3 && y2(t3, document.activeElement);
+  var y2 = function(t3, e3) {
+    if (t3 && e3)
+      for (; e3; ) {
+        if (e3 === t3)
+          return true;
+        e3 = e3.parentNode;
+      }
+  };
+  var C2 = function(t3) {
+    var e3;
+    if (null === (e3 = t3) || void 0 === e3 || !e3.parentNode)
+      return;
+    let i3 = 0;
+    for (t3 = t3.previousSibling; t3; )
+      i3++, t3 = t3.previousSibling;
+    return i3;
+  };
+  var k2 = (t3) => {
+    var e3;
+    return null == t3 || null === (e3 = t3.parentNode) || void 0 === e3 ? void 0 : e3.removeChild(t3);
+  };
+  var R2 = function(t3) {
+    let { onlyNodesOfType: e3, usingFilter: i3, expandEntityReferences: n3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    const r3 = (() => {
+      switch (e3) {
+        case "element":
+          return NodeFilter.SHOW_ELEMENT;
+        case "text":
+          return NodeFilter.SHOW_TEXT;
+        case "comment":
+          return NodeFilter.SHOW_COMMENT;
+        default:
+          return NodeFilter.SHOW_ALL;
+      }
+    })();
+    return document.createTreeWalker(t3, r3, null != i3 ? i3 : null, true === n3);
+  };
+  var E2 = (t3) => {
+    var e3;
+    return null == t3 || null === (e3 = t3.tagName) || void 0 === e3 ? void 0 : e3.toLowerCase();
+  };
+  var S2 = function(t3) {
+    let e3, i3, n3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    "object" == typeof t3 ? (n3 = t3, t3 = n3.tagName) : n3 = { attributes: n3 };
+    const r3 = document.createElement(t3);
+    if (null != n3.editable && (null == n3.attributes && (n3.attributes = {}), n3.attributes.contenteditable = n3.editable), n3.attributes)
+      for (e3 in n3.attributes)
+        i3 = n3.attributes[e3], r3.setAttribute(e3, i3);
+    if (n3.style)
+      for (e3 in n3.style)
+        i3 = n3.style[e3], r3.style[e3] = i3;
+    if (n3.data)
+      for (e3 in n3.data)
+        i3 = n3.data[e3], r3.dataset[e3] = i3;
+    return n3.className && n3.className.split(" ").forEach((t4) => {
+      r3.classList.add(t4);
+    }), n3.textContent && (r3.textContent = n3.textContent), n3.childNodes && [].concat(n3.childNodes).forEach((t4) => {
+      r3.appendChild(t4);
+    }), r3;
+  };
+  var L2;
+  var D2 = function() {
+    if (null != L2)
+      return L2;
+    L2 = [];
+    for (const t3 in n2) {
+      const e3 = n2[t3];
+      e3.tagName && L2.push(e3.tagName);
+    }
+    return L2;
+  };
+  var w2 = (t3) => B2(null == t3 ? void 0 : t3.firstChild);
+  var T2 = function(t3) {
+    let { strict: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { strict: true };
+    return e3 ? B2(t3) : B2(t3) || !B2(t3.firstChild) && function(t4) {
+      return D2().includes(E2(t4)) && !D2().includes(E2(t4.firstChild));
+    }(t3);
+  };
+  var B2 = (t3) => F2(t3) && "block" === (null == t3 ? void 0 : t3.data);
+  var F2 = (t3) => (null == t3 ? void 0 : t3.nodeType) === Node.COMMENT_NODE;
+  var P2 = function(t3) {
+    let { name: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    if (t3)
+      return O2(t3) ? t3.data === h2 ? !e3 || t3.parentNode.dataset.trixCursorTarget === e3 : void 0 : P2(t3.firstChild);
+  };
+  var I2 = (t3) => v2(t3, e2);
+  var N2 = (t3) => O2(t3) && "" === (null == t3 ? void 0 : t3.data);
+  var O2 = (t3) => (null == t3 ? void 0 : t3.nodeType) === Node.TEXT_NODE;
+  var M2 = { level2Enabled: true, getLevel() {
+    return this.level2Enabled && a2.supportsInputEvents ? 2 : 0;
+  }, pickFiles(t3) {
+    const e3 = S2("input", { type: "file", multiple: true, hidden: true, id: this.fileInputId });
+    e3.addEventListener("change", () => {
+      t3(e3.files), k2(e3);
+    }), k2(document.getElementById(this.fileInputId)), document.body.appendChild(e3), e3.click();
+  } };
+  var j2 = { removeBlankTableCells: false, tableCellSeparator: " | ", tableRowSeparator: "\n" };
+  var W2 = { bold: { tagName: "strong", inheritable: true, parser(t3) {
+    const e3 = window.getComputedStyle(t3);
+    return "bold" === e3.fontWeight || e3.fontWeight >= 600;
+  } }, italic: { tagName: "em", inheritable: true, parser: (t3) => "italic" === window.getComputedStyle(t3).fontStyle }, href: { groupTagName: "a", parser(t3) {
+    const i3 = "a:not(".concat(e2, ")"), n3 = t3.closest(i3);
+    if (n3)
+      return n3.getAttribute("href");
+  } }, strike: { tagName: "del", inheritable: true }, frozen: { style: { backgroundColor: "highlight" } } };
+  var U2 = { getDefaultHTML: () => '<div class="trix-button-row">\n      <span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" data-trix-key="b" title="'.concat(l2.bold, '" tabindex="-1">').concat(l2.bold, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" data-trix-key="i" title="').concat(l2.italic, '" tabindex="-1">').concat(l2.italic, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" title="').concat(l2.strike, '" tabindex="-1">').concat(l2.strike, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" data-trix-key="k" title="').concat(l2.link, '" tabindex="-1">').concat(l2.link, '</button>\n      </span>\n\n      <span class="trix-button-group trix-button-group--block-tools" data-trix-button-group="block-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="').concat(l2.heading1, '" tabindex="-1">').concat(l2.heading1, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" title="').concat(l2.quote, '" tabindex="-1">').concat(l2.quote, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" title="').concat(l2.code, '" tabindex="-1">').concat(l2.code, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" title="').concat(l2.bullets, '" tabindex="-1">').concat(l2.bullets, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" title="').concat(l2.numbers, '" tabindex="-1">').concat(l2.numbers, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-decrease-nesting-level" data-trix-action="decreaseNestingLevel" title="').concat(l2.outdent, '" tabindex="-1">').concat(l2.outdent, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-increase-nesting-level" data-trix-action="increaseNestingLevel" title="').concat(l2.indent, '" tabindex="-1">').concat(l2.indent, '</button>\n      </span>\n\n      <span class="trix-button-group trix-button-group--file-tools" data-trix-button-group="file-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-attach" data-trix-action="attachFiles" title="').concat(l2.attachFiles, '" tabindex="-1">').concat(l2.attachFiles, '</button>\n      </span>\n\n      <span class="trix-button-group-spacer"></span>\n\n      <span class="trix-button-group trix-button-group--history-tools" data-trix-button-group="history-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-undo" data-trix-action="undo" data-trix-key="z" title="').concat(l2.undo, '" tabindex="-1">').concat(l2.undo, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-redo" data-trix-action="redo" data-trix-key="shift+z" title="').concat(l2.redo, '" tabindex="-1">').concat(l2.redo, '</button>\n      </span>\n    </div>\n\n    <div class="trix-dialogs" data-trix-dialogs>\n      <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">\n        <div class="trix-dialog__link-fields">\n          <input type="url" name="href" class="trix-input trix-input--dialog" placeholder="').concat(l2.urlPlaceholder, '" aria-label="').concat(l2.url, '" required data-trix-input>\n          <div class="trix-button-group">\n            <input type="button" class="trix-button trix-button--dialog" value="').concat(l2.link, '" data-trix-method="setAttribute">\n            <input type="button" class="trix-button trix-button--dialog" value="').concat(l2.unlink, '" data-trix-method="removeAttribute">\n          </div>\n        </div>\n      </div>\n    </div>') };
+  var q2 = { interval: 5e3 };
+  var V2 = Object.freeze({ __proto__: null, attachments: i2, blockAttributes: n2, browser: a2, css: { attachment: "attachment", attachmentCaption: "attachment__caption", attachmentCaptionEditor: "attachment__caption-editor", attachmentMetadata: "attachment__metadata", attachmentMetadataContainer: "attachment__metadata-container", attachmentName: "attachment__name", attachmentProgress: "attachment__progress", attachmentSize: "attachment__size", attachmentToolbar: "attachment__toolbar", attachmentGallery: "attachment-gallery" }, fileSize: u2, input: M2, keyNames: { 8: "backspace", 9: "tab", 13: "return", 27: "escape", 37: "left", 39: "right", 46: "delete", 68: "d", 72: "h", 79: "o" }, lang: l2, parser: j2, textAttributes: W2, toolbar: U2, undo: q2 });
+  var H2 = class {
+    static proxyMethod(t3) {
+      const { name: e3, toMethod: i3, toProperty: n3, optional: r3 } = z2(t3);
+      this.prototype[e3] = function() {
+        let t4, o3;
+        var s3, a3;
+        i3 ? o3 = r3 ? null === (s3 = this[i3]) || void 0 === s3 ? void 0 : s3.call(this) : this[i3]() : n3 && (o3 = this[n3]);
+        return r3 ? (t4 = null === (a3 = o3) || void 0 === a3 ? void 0 : a3[e3], t4 ? _2.call(t4, o3, arguments) : void 0) : (t4 = o3[e3], _2.call(t4, o3, arguments));
+      };
+    }
+  };
+  var z2 = function(t3) {
+    const e3 = t3.match(J2);
+    if (!e3)
+      throw new Error("can't parse @proxyMethod expression: ".concat(t3));
+    const i3 = { name: e3[4] };
+    return null != e3[2] ? i3.toMethod = e3[1] : i3.toProperty = e3[1], null != e3[3] && (i3.optional = true), i3;
+  };
+  var { apply: _2 } = Function.prototype;
+  var J2 = new RegExp("^(.+?)(\\(\\))?(\\?)?\\.(.+?)$");
+  var K2;
+  var G2;
+  var $2;
+  var X2 = class extends H2 {
+    static box() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "";
+      return t3 instanceof this ? t3 : this.fromUCS2String(null == t3 ? void 0 : t3.toString());
+    }
+    static fromUCS2String(t3) {
+      return new this(t3, tt2(t3));
+    }
+    static fromCodepoints(t3) {
+      return new this(et2(t3), t3);
+    }
+    constructor(t3, e3) {
+      super(...arguments), this.ucs2String = t3, this.codepoints = e3, this.length = this.codepoints.length, this.ucs2Length = this.ucs2String.length;
+    }
+    offsetToUCS2Offset(t3) {
+      return et2(this.codepoints.slice(0, Math.max(0, t3))).length;
+    }
+    offsetFromUCS2Offset(t3) {
+      return tt2(this.ucs2String.slice(0, Math.max(0, t3))).length;
+    }
+    slice() {
+      return this.constructor.fromCodepoints(this.codepoints.slice(...arguments));
+    }
+    charAt(t3) {
+      return this.slice(t3, t3 + 1);
+    }
+    isEqualTo(t3) {
+      return this.constructor.box(t3).ucs2String === this.ucs2String;
+    }
+    toJSON() {
+      return this.ucs2String;
+    }
+    getCacheKey() {
+      return this.ucs2String;
+    }
+    toString() {
+      return this.ucs2String;
+    }
+  };
+  var Y2 = 1 === (null === (K2 = Array.from) || void 0 === K2 ? void 0 : K2.call(Array, "\u{1F47C}").length);
+  var Q2 = null != (null === (G2 = " ".codePointAt) || void 0 === G2 ? void 0 : G2.call(" ", 0));
+  var Z2 = " \u{1F47C}" === (null === ($2 = String.fromCodePoint) || void 0 === $2 ? void 0 : $2.call(String, 32, 128124));
+  var tt2;
+  var et2;
+  tt2 = Y2 && Q2 ? (t3) => Array.from(t3).map((t4) => t4.codePointAt(0)) : function(t3) {
+    const e3 = [];
+    let i3 = 0;
+    const { length: n3 } = t3;
+    for (; i3 < n3; ) {
+      let r3 = t3.charCodeAt(i3++);
+      if (55296 <= r3 && r3 <= 56319 && i3 < n3) {
+        const e4 = t3.charCodeAt(i3++);
+        56320 == (64512 & e4) ? r3 = ((1023 & r3) << 10) + (1023 & e4) + 65536 : i3--;
+      }
+      e3.push(r3);
+    }
+    return e3;
+  }, et2 = Z2 ? (t3) => String.fromCodePoint(...Array.from(t3 || [])) : function(t3) {
+    return (() => {
+      const e3 = [];
+      return Array.from(t3).forEach((t4) => {
+        let i3 = "";
+        t4 > 65535 && (t4 -= 65536, i3 += String.fromCharCode(t4 >>> 10 & 1023 | 55296), t4 = 56320 | 1023 & t4), e3.push(i3 + String.fromCharCode(t4));
+      }), e3;
+    })().join("");
+  };
+  var it2 = 0;
+  var nt2 = class extends H2 {
+    static fromJSONString(t3) {
+      return this.fromJSON(JSON.parse(t3));
+    }
+    constructor() {
+      super(...arguments), this.id = ++it2;
+    }
+    hasSameConstructorAs(t3) {
+      return this.constructor === (null == t3 ? void 0 : t3.constructor);
+    }
+    isEqualTo(t3) {
+      return this === t3;
+    }
+    inspect() {
+      const t3 = [], e3 = this.contentsForInspection() || {};
+      for (const i3 in e3) {
+        const n3 = e3[i3];
+        t3.push("".concat(i3, "=").concat(n3));
+      }
+      return "#<".concat(this.constructor.name, ":").concat(this.id).concat(t3.length ? " ".concat(t3.join(", ")) : "", ">");
+    }
+    contentsForInspection() {
+    }
+    toJSONString() {
+      return JSON.stringify(this);
+    }
+    toUTF16String() {
+      return X2.box(this);
+    }
+    getCacheKey() {
+      return this.id.toString();
+    }
+  };
+  var rt2 = function() {
+    let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [], e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];
+    if (t3.length !== e3.length)
+      return false;
+    for (let i3 = 0; i3 < t3.length; i3++) {
+      if (t3[i3] !== e3[i3])
+        return false;
+    }
+    return true;
+  };
+  var ot2 = function(t3) {
+    const e3 = t3.slice(0);
+    for (var i3 = arguments.length, n3 = new Array(i3 > 1 ? i3 - 1 : 0), r3 = 1; r3 < i3; r3++)
+      n3[r3 - 1] = arguments[r3];
+    return e3.splice(...n3), e3;
+  };
+  var st2 = /[\u05BE\u05C0\u05C3\u05D0-\u05EA\u05F0-\u05F4\u061B\u061F\u0621-\u063A\u0640-\u064A\u066D\u0671-\u06B7\u06BA-\u06BE\u06C0-\u06CE\u06D0-\u06D5\u06E5\u06E6\u200F\u202B\u202E\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE72\uFE74\uFE76-\uFEFC]/;
+  var at2 = function() {
+    const t3 = S2("input", { dir: "auto", name: "x", dirName: "x.dir" }), e3 = S2("textarea", { dir: "auto", name: "y", dirName: "y.dir" }), i3 = S2("form");
+    i3.appendChild(t3), i3.appendChild(e3);
+    const n3 = function() {
+      try {
+        return new FormData(i3).has(e3.dirName);
+      } catch (t4) {
+        return false;
+      }
+    }(), r3 = function() {
+      try {
+        return t3.matches(":dir(ltr),:dir(rtl)");
+      } catch (t4) {
+        return false;
+      }
+    }();
+    return n3 ? function(t4) {
+      return e3.value = t4, new FormData(i3).get(e3.dirName);
+    } : r3 ? function(e4) {
+      return t3.value = e4, t3.matches(":dir(rtl)") ? "rtl" : "ltr";
+    } : function(t4) {
+      const e4 = t4.trim().charAt(0);
+      return st2.test(e4) ? "rtl" : "ltr";
+    };
+  }();
+  var lt2 = null;
+  var ct2 = null;
+  var ut2 = null;
+  var ht2 = null;
+  var dt2 = () => (lt2 || (lt2 = ft2().concat(mt2())), lt2);
+  var gt2 = (t3) => n2[t3];
+  var mt2 = () => (ct2 || (ct2 = Object.keys(n2)), ct2);
+  var pt2 = (t3) => W2[t3];
+  var ft2 = () => (ut2 || (ut2 = Object.keys(W2)), ut2);
+  var bt2 = function(t3, e3) {
+    vt2(t3).textContent = e3.replace(/%t/g, t3);
+  };
+  var vt2 = function(t3) {
+    const e3 = document.createElement("style");
+    e3.setAttribute("type", "text/css"), e3.setAttribute("data-tag-name", t3.toLowerCase());
+    const i3 = At2();
+    return i3 && e3.setAttribute("nonce", i3), document.head.insertBefore(e3, document.head.firstChild), e3;
+  };
+  var At2 = function() {
+    const t3 = xt2("trix-csp-nonce") || xt2("csp-nonce");
+    if (t3)
+      return t3.getAttribute("content");
+  };
+  var xt2 = (t3) => document.head.querySelector("meta[name=".concat(t3, "]"));
+  var yt2 = { "application/x-trix-feature-detection": "test" };
+  var Ct2 = function(t3) {
+    const e3 = t3.getData("text/plain"), i3 = t3.getData("text/html");
+    if (!e3 || !i3)
+      return null == e3 ? void 0 : e3.length;
+    {
+      const { body: t4 } = new DOMParser().parseFromString(i3, "text/html");
+      if (t4.textContent === e3)
+        return !t4.querySelector("*");
+    }
+  };
+  var kt2 = /Mac|^iP/.test(navigator.platform) ? (t3) => t3.metaKey : (t3) => t3.ctrlKey;
+  var Rt2 = (t3) => setTimeout(t3, 1);
+  var Et2 = function() {
+    let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+    const e3 = {};
+    for (const i3 in t3) {
+      const n3 = t3[i3];
+      e3[i3] = n3;
+    }
+    return e3;
+  };
+  var St2 = function() {
+    let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    if (Object.keys(t3).length !== Object.keys(e3).length)
+      return false;
+    for (const i3 in t3) {
+      if (t3[i3] !== e3[i3])
+        return false;
+    }
+    return true;
+  };
+  var Lt2 = function(t3) {
+    if (null != t3)
+      return Array.isArray(t3) || (t3 = [t3, t3]), [Tt2(t3[0]), Tt2(null != t3[1] ? t3[1] : t3[0])];
+  };
+  var Dt2 = function(t3) {
+    if (null == t3)
+      return;
+    const [e3, i3] = Lt2(t3);
+    return Bt2(e3, i3);
+  };
+  var wt2 = function(t3, e3) {
+    if (null == t3 || null == e3)
+      return;
+    const [i3, n3] = Lt2(t3), [r3, o3] = Lt2(e3);
+    return Bt2(i3, r3) && Bt2(n3, o3);
+  };
+  var Tt2 = function(t3) {
+    return "number" == typeof t3 ? t3 : Et2(t3);
+  };
+  var Bt2 = function(t3, e3) {
+    return "number" == typeof t3 ? t3 === e3 : St2(t3, e3);
+  };
+  var Ft2 = class extends H2 {
+    constructor() {
+      super(...arguments), this.update = this.update.bind(this), this.selectionManagers = [];
+    }
+    start() {
+      this.started || (this.started = true, document.addEventListener("selectionchange", this.update, true));
+    }
+    stop() {
+      if (this.started)
+        return this.started = false, document.removeEventListener("selectionchange", this.update, true);
+    }
+    registerSelectionManager(t3) {
+      if (!this.selectionManagers.includes(t3))
+        return this.selectionManagers.push(t3), this.start();
+    }
+    unregisterSelectionManager(t3) {
+      if (this.selectionManagers = this.selectionManagers.filter((e3) => e3 !== t3), 0 === this.selectionManagers.length)
+        return this.stop();
+    }
+    notifySelectionManagersOfSelectionChange() {
+      return this.selectionManagers.map((t3) => t3.selectionDidChange());
+    }
+    update() {
+      this.notifySelectionManagersOfSelectionChange();
+    }
+    reset() {
+      this.update();
+    }
+  };
+  var Pt2 = new Ft2();
+  var It2 = function() {
+    const t3 = window.getSelection();
+    if (t3.rangeCount > 0)
+      return t3;
+  };
+  var Nt2 = function() {
+    var t3;
+    const e3 = null === (t3 = It2()) || void 0 === t3 ? void 0 : t3.getRangeAt(0);
+    if (e3 && !Mt2(e3))
+      return e3;
+  };
+  var Ot2 = function(t3) {
+    const e3 = window.getSelection();
+    return e3.removeAllRanges(), e3.addRange(t3), Pt2.update();
+  };
+  var Mt2 = (t3) => jt2(t3.startContainer) || jt2(t3.endContainer);
+  var jt2 = (t3) => !Object.getPrototypeOf(t3);
+  var Wt2 = (t3) => t3.replace(new RegExp("".concat(h2), "g"), "").replace(new RegExp("".concat(d2), "g"), " ");
+  var Ut2 = new RegExp("[^\\S".concat(d2, "]"));
+  var qt2 = (t3) => t3.replace(new RegExp("".concat(Ut2.source), "g"), " ").replace(/\ {2,}/g, " ");
+  var Vt2 = function(t3, e3) {
+    if (t3.isEqualTo(e3))
+      return ["", ""];
+    const i3 = Ht2(t3, e3), { length: n3 } = i3.utf16String;
+    let r3;
+    if (n3) {
+      const { offset: o3 } = i3, s3 = t3.codepoints.slice(0, o3).concat(t3.codepoints.slice(o3 + n3));
+      r3 = Ht2(e3, X2.fromCodepoints(s3));
+    } else
+      r3 = Ht2(e3, t3);
+    return [i3.utf16String.toString(), r3.utf16String.toString()];
+  };
+  var Ht2 = function(t3, e3) {
+    let i3 = 0, n3 = t3.length, r3 = e3.length;
+    for (; i3 < n3 && t3.charAt(i3).isEqualTo(e3.charAt(i3)); )
+      i3++;
+    for (; n3 > i3 + 1 && t3.charAt(n3 - 1).isEqualTo(e3.charAt(r3 - 1)); )
+      n3--, r3--;
+    return { utf16String: t3.slice(i3, n3), offset: i3 };
+  };
+  var zt2 = class _zt extends nt2 {
+    static fromCommonAttributesOfObjects() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      if (!t3.length)
+        return new this();
+      let e3 = Gt2(t3[0]), i3 = e3.getKeys();
+      return t3.slice(1).forEach((t4) => {
+        i3 = e3.getKeysCommonToHash(Gt2(t4)), e3 = e3.slice(i3);
+      }), e3;
+    }
+    static box(t3) {
+      return Gt2(t3);
+    }
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+      super(...arguments), this.values = Kt2(t3);
+    }
+    add(t3, e3) {
+      return this.merge(_t2(t3, e3));
+    }
+    remove(t3) {
+      return new _zt(Kt2(this.values, t3));
+    }
+    get(t3) {
+      return this.values[t3];
+    }
+    has(t3) {
+      return t3 in this.values;
+    }
+    merge(t3) {
+      return new _zt(Jt2(this.values, $t2(t3)));
+    }
+    slice(t3) {
+      const e3 = {};
+      return Array.from(t3).forEach((t4) => {
+        this.has(t4) && (e3[t4] = this.values[t4]);
+      }), new _zt(e3);
+    }
+    getKeys() {
+      return Object.keys(this.values);
+    }
+    getKeysCommonToHash(t3) {
+      return t3 = Gt2(t3), this.getKeys().filter((e3) => this.values[e3] === t3.values[e3]);
+    }
+    isEqualTo(t3) {
+      return rt2(this.toArray(), Gt2(t3).toArray());
+    }
+    isEmpty() {
+      return 0 === this.getKeys().length;
+    }
+    toArray() {
+      if (!this.array) {
+        const t3 = [];
+        for (const e3 in this.values) {
+          const i3 = this.values[e3];
+          t3.push(t3.push(e3, i3));
+        }
+        this.array = t3.slice(0);
+      }
+      return this.array;
+    }
+    toObject() {
+      return Kt2(this.values);
+    }
+    toJSON() {
+      return this.toObject();
+    }
+    contentsForInspection() {
+      return { values: JSON.stringify(this.values) };
+    }
+  };
+  var _t2 = function(t3, e3) {
+    const i3 = {};
+    return i3[t3] = e3, i3;
+  };
+  var Jt2 = function(t3, e3) {
+    const i3 = Kt2(t3);
+    for (const t4 in e3) {
+      const n3 = e3[t4];
+      i3[t4] = n3;
+    }
+    return i3;
+  };
+  var Kt2 = function(t3, e3) {
+    const i3 = {};
+    return Object.keys(t3).sort().forEach((n3) => {
+      n3 !== e3 && (i3[n3] = t3[n3]);
+    }), i3;
+  };
+  var Gt2 = function(t3) {
+    return t3 instanceof zt2 ? t3 : new zt2(t3);
+  };
+  var $t2 = function(t3) {
+    return t3 instanceof zt2 ? t3.values : t3;
+  };
+  var Xt2 = class {
+    static groupObjects() {
+      let t3, e3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [], { depth: i3, asTree: n3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      n3 && null == i3 && (i3 = 0);
+      const r3 = [];
+      return Array.from(e3).forEach((e4) => {
+        var o3;
+        if (t3) {
+          var s3, a3, l3;
+          if (null !== (s3 = e4.canBeGrouped) && void 0 !== s3 && s3.call(e4, i3) && null !== (a3 = (l3 = t3[t3.length - 1]).canBeGroupedWith) && void 0 !== a3 && a3.call(l3, e4, i3))
+            return void t3.push(e4);
+          r3.push(new this(t3, { depth: i3, asTree: n3 })), t3 = null;
+        }
+        null !== (o3 = e4.canBeGrouped) && void 0 !== o3 && o3.call(e4, i3) ? t3 = [e4] : r3.push(e4);
+      }), t3 && r3.push(new this(t3, { depth: i3, asTree: n3 })), r3;
+    }
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [], { depth: e3, asTree: i3 } = arguments.length > 1 ? arguments[1] : void 0;
+      this.objects = t3, i3 && (this.depth = e3, this.objects = this.constructor.groupObjects(this.objects, { asTree: i3, depth: this.depth + 1 }));
+    }
+    getObjects() {
+      return this.objects;
+    }
+    getDepth() {
+      return this.depth;
+    }
+    getCacheKey() {
+      const t3 = ["objectGroup"];
+      return Array.from(this.getObjects()).forEach((e3) => {
+        t3.push(e3.getCacheKey());
+      }), t3.join("/");
+    }
+  };
+  var Yt2 = class extends H2 {
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      super(...arguments), this.objects = {}, Array.from(t3).forEach((t4) => {
+        const e3 = JSON.stringify(t4);
+        null == this.objects[e3] && (this.objects[e3] = t4);
+      });
+    }
+    find(t3) {
+      const e3 = JSON.stringify(t3);
+      return this.objects[e3];
+    }
+  };
+  var Qt2 = class {
+    constructor(t3) {
+      this.reset(t3);
+    }
+    add(t3) {
+      const e3 = Zt2(t3);
+      this.elements[e3] = t3;
+    }
+    remove(t3) {
+      const e3 = Zt2(t3), i3 = this.elements[e3];
+      if (i3)
+        return delete this.elements[e3], i3;
+    }
+    reset() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      return this.elements = {}, Array.from(t3).forEach((t4) => {
+        this.add(t4);
+      }), t3;
+    }
+  };
+  var Zt2 = (t3) => t3.dataset.trixStoreKey;
+  var te2 = class extends H2 {
+    isPerforming() {
+      return true === this.performing;
+    }
+    hasPerformed() {
+      return true === this.performed;
+    }
+    hasSucceeded() {
+      return this.performed && this.succeeded;
+    }
+    hasFailed() {
+      return this.performed && !this.succeeded;
+    }
+    getPromise() {
+      return this.promise || (this.promise = new Promise((t3, e3) => (this.performing = true, this.perform((i3, n3) => {
+        this.succeeded = i3, this.performing = false, this.performed = true, this.succeeded ? t3(n3) : e3(n3);
+      })))), this.promise;
+    }
+    perform(t3) {
+      return t3(false);
+    }
+    release() {
+      var t3, e3;
+      null === (t3 = this.promise) || void 0 === t3 || null === (e3 = t3.cancel) || void 0 === e3 || e3.call(t3), this.promise = null, this.performing = null, this.performed = null, this.succeeded = null;
+    }
+  };
+  te2.proxyMethod("getPromise().then"), te2.proxyMethod("getPromise().catch");
+  var ee2 = class extends H2 {
+    constructor(t3) {
+      let e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      super(...arguments), this.object = t3, this.options = e3, this.childViews = [], this.rootView = this;
+    }
+    getNodes() {
+      return this.nodes || (this.nodes = this.createNodes()), this.nodes.map((t3) => t3.cloneNode(true));
+    }
+    invalidate() {
+      var t3;
+      return this.nodes = null, this.childViews = [], null === (t3 = this.parentView) || void 0 === t3 ? void 0 : t3.invalidate();
+    }
+    invalidateViewForObject(t3) {
+      var e3;
+      return null === (e3 = this.findViewForObject(t3)) || void 0 === e3 ? void 0 : e3.invalidate();
+    }
+    findOrCreateCachedChildView(t3, e3, i3) {
+      let n3 = this.getCachedViewForObject(e3);
+      return n3 ? this.recordChildView(n3) : (n3 = this.createChildView(...arguments), this.cacheViewForObject(n3, e3)), n3;
+    }
+    createChildView(t3, e3) {
+      let i3 = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {};
+      e3 instanceof Xt2 && (i3.viewClass = t3, t3 = ie2);
+      const n3 = new t3(e3, i3);
+      return this.recordChildView(n3);
+    }
+    recordChildView(t3) {
+      return t3.parentView = this, t3.rootView = this.rootView, this.childViews.push(t3), t3;
+    }
+    getAllChildViews() {
+      let t3 = [];
+      return this.childViews.forEach((e3) => {
+        t3.push(e3), t3 = t3.concat(e3.getAllChildViews());
+      }), t3;
+    }
+    findElement() {
+      return this.findElementForObject(this.object);
+    }
+    findElementForObject(t3) {
+      const e3 = null == t3 ? void 0 : t3.id;
+      if (e3)
+        return this.rootView.element.querySelector("[data-trix-id='".concat(e3, "']"));
+    }
+    findViewForObject(t3) {
+      for (const e3 of this.getAllChildViews())
+        if (e3.object === t3)
+          return e3;
+    }
+    getViewCache() {
+      return this.rootView !== this ? this.rootView.getViewCache() : this.isViewCachingEnabled() ? (this.viewCache || (this.viewCache = {}), this.viewCache) : void 0;
+    }
+    isViewCachingEnabled() {
+      return false !== this.shouldCacheViews;
+    }
+    enableViewCaching() {
+      this.shouldCacheViews = true;
+    }
+    disableViewCaching() {
+      this.shouldCacheViews = false;
+    }
+    getCachedViewForObject(t3) {
+      var e3;
+      return null === (e3 = this.getViewCache()) || void 0 === e3 ? void 0 : e3[t3.getCacheKey()];
+    }
+    cacheViewForObject(t3, e3) {
+      const i3 = this.getViewCache();
+      i3 && (i3[e3.getCacheKey()] = t3);
+    }
+    garbageCollectCachedViews() {
+      const t3 = this.getViewCache();
+      if (t3) {
+        const e3 = this.getAllChildViews().concat(this).map((t4) => t4.object.getCacheKey());
+        for (const i3 in t3)
+          e3.includes(i3) || delete t3[i3];
+      }
+    }
+  };
+  var ie2 = class extends ee2 {
+    constructor() {
+      super(...arguments), this.objectGroup = this.object, this.viewClass = this.options.viewClass, delete this.options.viewClass;
+    }
+    getChildViews() {
+      return this.childViews.length || Array.from(this.objectGroup.getObjects()).forEach((t3) => {
+        this.findOrCreateCachedChildView(this.viewClass, t3, this.options);
+      }), this.childViews;
+    }
+    createNodes() {
+      const t3 = this.createContainerElement();
+      return this.getChildViews().forEach((e3) => {
+        Array.from(e3.getNodes()).forEach((e4) => {
+          t3.appendChild(e4);
+        });
+      }), [t3];
+    }
+    createContainerElement() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.objectGroup.getDepth();
+      return this.getChildViews()[0].createContainerElement(t3);
+    }
+  };
+  var { css: ne2 } = V2;
+  var re2 = class extends ee2 {
+    constructor() {
+      super(...arguments), this.attachment = this.object, this.attachment.uploadProgressDelegate = this, this.attachmentPiece = this.options.piece;
+    }
+    createContentNodes() {
+      return [];
+    }
+    createNodes() {
+      let t3;
+      const e3 = t3 = S2({ tagName: "figure", className: this.getClassName(), data: this.getData(), editable: false }), i3 = this.getHref();
+      return i3 && (t3 = S2({ tagName: "a", editable: false, attributes: { href: i3, tabindex: -1 } }), e3.appendChild(t3)), this.attachment.hasContent() ? t3.innerHTML = this.attachment.getContent() : this.createContentNodes().forEach((e4) => {
+        t3.appendChild(e4);
+      }), t3.appendChild(this.createCaptionElement()), this.attachment.isPending() && (this.progressElement = S2({ tagName: "progress", attributes: { class: ne2.attachmentProgress, value: this.attachment.getUploadProgress(), max: 100 }, data: { trixMutable: true, trixStoreKey: ["progressElement", this.attachment.id].join("/") } }), e3.appendChild(this.progressElement)), [oe2("left"), e3, oe2("right")];
+    }
+    createCaptionElement() {
+      const t3 = S2({ tagName: "figcaption", className: ne2.attachmentCaption }), e3 = this.attachmentPiece.getCaption();
+      if (e3)
+        t3.classList.add("".concat(ne2.attachmentCaption, "--edited")), t3.textContent = e3;
+      else {
+        let e4, i3;
+        const n3 = this.getCaptionConfig();
+        if (n3.name && (e4 = this.attachment.getFilename()), n3.size && (i3 = this.attachment.getFormattedFilesize()), e4) {
+          const i4 = S2({ tagName: "span", className: ne2.attachmentName, textContent: e4 });
+          t3.appendChild(i4);
+        }
+        if (i3) {
+          e4 && t3.appendChild(document.createTextNode(" "));
+          const n4 = S2({ tagName: "span", className: ne2.attachmentSize, textContent: i3 });
+          t3.appendChild(n4);
+        }
+      }
+      return t3;
+    }
+    getClassName() {
+      const t3 = [ne2.attachment, "".concat(ne2.attachment, "--").concat(this.attachment.getType())], e3 = this.attachment.getExtension();
+      return e3 && t3.push("".concat(ne2.attachment, "--").concat(e3)), t3.join(" ");
+    }
+    getData() {
+      const t3 = { trixAttachment: JSON.stringify(this.attachment), trixContentType: this.attachment.getContentType(), trixId: this.attachment.id }, { attributes: e3 } = this.attachmentPiece;
+      return e3.isEmpty() || (t3.trixAttributes = JSON.stringify(e3)), this.attachment.isPending() && (t3.trixSerialize = false), t3;
+    }
+    getHref() {
+      if (!se2(this.attachment.getContent(), "a"))
+        return this.attachment.getHref();
+    }
+    getCaptionConfig() {
+      var t3;
+      const e3 = this.attachment.getType(), n3 = Et2(null === (t3 = i2[e3]) || void 0 === t3 ? void 0 : t3.caption);
+      return "file" === e3 && (n3.name = true), n3;
+    }
+    findProgressElement() {
+      var t3;
+      return null === (t3 = this.findElement()) || void 0 === t3 ? void 0 : t3.querySelector("progress");
+    }
+    attachmentDidChangeUploadProgress() {
+      const t3 = this.attachment.getUploadProgress(), e3 = this.findProgressElement();
+      e3 && (e3.value = t3);
+    }
+  };
+  var oe2 = (t3) => S2({ tagName: "span", textContent: h2, data: { trixCursorTarget: t3, trixSerialize: false } });
+  var se2 = function(t3, e3) {
+    const i3 = S2("div");
+    return i3.innerHTML = t3 || "", i3.querySelector(e3);
+  };
+  var ae2 = class extends re2 {
+    constructor() {
+      super(...arguments), this.attachment.previewDelegate = this;
+    }
+    createContentNodes() {
+      return this.image = S2({ tagName: "img", attributes: { src: "" }, data: { trixMutable: true } }), this.refresh(this.image), [this.image];
+    }
+    createCaptionElement() {
+      const t3 = super.createCaptionElement(...arguments);
+      return t3.textContent || t3.setAttribute("data-trix-placeholder", l2.captionPlaceholder), t3;
+    }
+    refresh(t3) {
+      var e3;
+      t3 || (t3 = null === (e3 = this.findElement()) || void 0 === e3 ? void 0 : e3.querySelector("img"));
+      if (t3)
+        return this.updateAttributesForImage(t3);
+    }
+    updateAttributesForImage(t3) {
+      const e3 = this.attachment.getURL(), i3 = this.attachment.getPreviewURL();
+      if (t3.src = i3 || e3, i3 === e3)
+        t3.removeAttribute("data-trix-serialized-attributes");
+      else {
+        const i4 = JSON.stringify({ src: e3 });
+        t3.setAttribute("data-trix-serialized-attributes", i4);
+      }
+      const n3 = this.attachment.getWidth(), r3 = this.attachment.getHeight();
+      null != n3 && (t3.width = n3), null != r3 && (t3.height = r3);
+      const o3 = ["imageElement", this.attachment.id, t3.src, t3.width, t3.height].join("/");
+      t3.dataset.trixStoreKey = o3;
+    }
+    attachmentDidChangeAttributes() {
+      return this.refresh(this.image), this.refresh();
+    }
+  };
+  var le2 = class extends ee2 {
+    constructor() {
+      super(...arguments), this.piece = this.object, this.attributes = this.piece.getAttributes(), this.textConfig = this.options.textConfig, this.context = this.options.context, this.piece.attachment ? this.attachment = this.piece.attachment : this.string = this.piece.toString();
+    }
+    createNodes() {
+      let t3 = this.attachment ? this.createAttachmentNodes() : this.createStringNodes();
+      const e3 = this.createElement();
+      if (e3) {
+        const i3 = function(t4) {
+          for (; null !== (e4 = t4) && void 0 !== e4 && e4.firstElementChild; ) {
+            var e4;
+            t4 = t4.firstElementChild;
+          }
+          return t4;
+        }(e3);
+        Array.from(t3).forEach((t4) => {
+          i3.appendChild(t4);
+        }), t3 = [e3];
+      }
+      return t3;
+    }
+    createAttachmentNodes() {
+      const t3 = this.attachment.isPreviewable() ? ae2 : re2;
+      return this.createChildView(t3, this.piece.attachment, { piece: this.piece }).getNodes();
+    }
+    createStringNodes() {
+      var t3;
+      if (null !== (t3 = this.textConfig) && void 0 !== t3 && t3.plaintext)
+        return [document.createTextNode(this.string)];
+      {
+        const t4 = [], e3 = this.string.split("\n");
+        for (let i3 = 0; i3 < e3.length; i3++) {
+          const n3 = e3[i3];
+          if (i3 > 0) {
+            const e4 = S2("br");
+            t4.push(e4);
+          }
+          if (n3.length) {
+            const e4 = document.createTextNode(this.preserveSpaces(n3));
+            t4.push(e4);
+          }
+        }
+        return t4;
+      }
+    }
+    createElement() {
+      let t3, e3, i3;
+      const n3 = {};
+      for (e3 in this.attributes) {
+        i3 = this.attributes[e3];
+        const o3 = pt2(e3);
+        if (o3) {
+          if (o3.tagName) {
+            var r3;
+            const e4 = S2(o3.tagName);
+            r3 ? (r3.appendChild(e4), r3 = e4) : t3 = r3 = e4;
+          }
+          if (o3.styleProperty && (n3[o3.styleProperty] = i3), o3.style)
+            for (e3 in o3.style)
+              i3 = o3.style[e3], n3[e3] = i3;
+        }
+      }
+      if (Object.keys(n3).length)
+        for (e3 in t3 || (t3 = S2("span")), n3)
+          i3 = n3[e3], t3.style[e3] = i3;
+      return t3;
+    }
+    createContainerElement() {
+      for (const t3 in this.attributes) {
+        const e3 = this.attributes[t3], i3 = pt2(t3);
+        if (i3 && i3.groupTagName) {
+          const n3 = {};
+          return n3[t3] = e3, S2(i3.groupTagName, n3);
+        }
+      }
+    }
+    preserveSpaces(t3) {
+      return this.context.isLast && (t3 = t3.replace(/\ $/, d2)), t3 = t3.replace(/(\S)\ {3}(\S)/g, "$1 ".concat(d2, " $2")).replace(/\ {2}/g, "".concat(d2, " ")).replace(/\ {2}/g, " ".concat(d2)), (this.context.isFirst || this.context.followsWhitespace) && (t3 = t3.replace(/^\ /, d2)), t3;
+    }
+  };
+  var ce2 = class extends ee2 {
+    constructor() {
+      super(...arguments), this.text = this.object, this.textConfig = this.options.textConfig;
+    }
+    createNodes() {
+      const t3 = [], e3 = Xt2.groupObjects(this.getPieces()), i3 = e3.length - 1;
+      for (let r3 = 0; r3 < e3.length; r3++) {
+        const o3 = e3[r3], s3 = {};
+        0 === r3 && (s3.isFirst = true), r3 === i3 && (s3.isLast = true), ue2(n3) && (s3.followsWhitespace = true);
+        const a3 = this.findOrCreateCachedChildView(le2, o3, { textConfig: this.textConfig, context: s3 });
+        t3.push(...Array.from(a3.getNodes() || []));
+        var n3 = o3;
+      }
+      return t3;
+    }
+    getPieces() {
+      return Array.from(this.text.getPieces()).filter((t3) => !t3.hasAttribute("blockBreak"));
+    }
+  };
+  var ue2 = (t3) => /\s$/.test(null == t3 ? void 0 : t3.toString());
+  var { css: he2 } = V2;
+  var de2 = class extends ee2 {
+    constructor() {
+      super(...arguments), this.block = this.object, this.attributes = this.block.getAttributes();
+    }
+    createNodes() {
+      const t3 = [document.createComment("block")];
+      if (this.block.isEmpty())
+        t3.push(S2("br"));
+      else {
+        var e3;
+        const i3 = null === (e3 = gt2(this.block.getLastAttribute())) || void 0 === e3 ? void 0 : e3.text, n3 = this.findOrCreateCachedChildView(ce2, this.block.text, { textConfig: i3 });
+        t3.push(...Array.from(n3.getNodes() || [])), this.shouldAddExtraNewlineElement() && t3.push(S2("br"));
+      }
+      if (this.attributes.length)
+        return t3;
+      {
+        let e4;
+        const { tagName: i3 } = n2.default;
+        this.block.isRTL() && (e4 = { dir: "rtl" });
+        const r3 = S2({ tagName: i3, attributes: e4 });
+        return t3.forEach((t4) => r3.appendChild(t4)), [r3];
+      }
+    }
+    createContainerElement(t3) {
+      const e3 = {};
+      let i3;
+      const n3 = this.attributes[t3], { tagName: r3, htmlAttributes: o3 = [] } = gt2(n3);
+      if (0 === t3 && this.block.isRTL() && Object.assign(e3, { dir: "rtl" }), "attachmentGallery" === n3) {
+        const t4 = this.block.getBlockBreakPosition();
+        i3 = "".concat(he2.attachmentGallery, " ").concat(he2.attachmentGallery, "--").concat(t4);
+      }
+      return Object.entries(this.block.htmlAttributes).forEach((t4) => {
+        let [i4, n4] = t4;
+        o3.includes(i4) && (e3[i4] = n4);
+      }), S2({ tagName: r3, className: i3, attributes: e3 });
+    }
+    shouldAddExtraNewlineElement() {
+      return /\n\n$/.test(this.block.toString());
+    }
+  };
+  var ge2 = class extends ee2 {
+    static render(t3) {
+      const e3 = S2("div"), i3 = new this(t3, { element: e3 });
+      return i3.render(), i3.sync(), e3;
+    }
+    constructor() {
+      super(...arguments), this.element = this.options.element, this.elementStore = new Qt2(), this.setDocument(this.object);
+    }
+    setDocument(t3) {
+      t3.isEqualTo(this.document) || (this.document = this.object = t3);
+    }
+    render() {
+      if (this.childViews = [], this.shadowElement = S2("div"), !this.document.isEmpty()) {
+        const t3 = Xt2.groupObjects(this.document.getBlocks(), { asTree: true });
+        Array.from(t3).forEach((t4) => {
+          const e3 = this.findOrCreateCachedChildView(de2, t4);
+          Array.from(e3.getNodes()).map((t5) => this.shadowElement.appendChild(t5));
+        });
+      }
+    }
+    isSynced() {
+      return pe2(this.shadowElement, this.element);
+    }
+    sync() {
+      const t3 = this.createDocumentFragmentForSync();
+      for (; this.element.lastChild; )
+        this.element.removeChild(this.element.lastChild);
+      return this.element.appendChild(t3), this.didSync();
+    }
+    didSync() {
+      return this.elementStore.reset(me2(this.element)), Rt2(() => this.garbageCollectCachedViews());
+    }
+    createDocumentFragmentForSync() {
+      const t3 = document.createDocumentFragment();
+      return Array.from(this.shadowElement.childNodes).forEach((e3) => {
+        t3.appendChild(e3.cloneNode(true));
+      }), Array.from(me2(t3)).forEach((t4) => {
+        const e3 = this.elementStore.remove(t4);
+        e3 && t4.parentNode.replaceChild(e3, t4);
+      }), t3;
+    }
+  };
+  var me2 = (t3) => t3.querySelectorAll("[data-trix-store-key]");
+  var pe2 = (t3, e3) => fe2(t3.innerHTML) === fe2(e3.innerHTML);
+  var fe2 = (t3) => t3.replace(/&nbsp;/g, " ");
+  function be2(t3) {
+    var e3, i3;
+    function n3(e4, i4) {
+      try {
+        var o3 = t3[e4](i4), s3 = o3.value, a3 = s3 instanceof ve2;
+        Promise.resolve(a3 ? s3.v : s3).then(function(i5) {
+          if (a3) {
+            var l3 = "return" === e4 ? "return" : "next";
+            if (!s3.k || i5.done)
+              return n3(l3, i5);
+            i5 = t3[l3](i5).value;
+          }
+          r3(o3.done ? "return" : "normal", i5);
+        }, function(t4) {
+          n3("throw", t4);
+        });
+      } catch (t4) {
+        r3("throw", t4);
+      }
+    }
+    function r3(t4, r4) {
+      switch (t4) {
+        case "return":
+          e3.resolve({ value: r4, done: true });
+          break;
+        case "throw":
+          e3.reject(r4);
+          break;
+        default:
+          e3.resolve({ value: r4, done: false });
+      }
+      (e3 = e3.next) ? n3(e3.key, e3.arg) : i3 = null;
+    }
+    this._invoke = function(t4, r4) {
+      return new Promise(function(o3, s3) {
+        var a3 = { key: t4, arg: r4, resolve: o3, reject: s3, next: null };
+        i3 ? i3 = i3.next = a3 : (e3 = i3 = a3, n3(t4, r4));
+      });
+    }, "function" != typeof t3.return && (this.return = void 0);
+  }
+  function ve2(t3, e3) {
+    this.v = t3, this.k = e3;
+  }
+  function Ae(t3, e3, i3) {
+    return (e3 = xe2(e3)) in t3 ? Object.defineProperty(t3, e3, { value: i3, enumerable: true, configurable: true, writable: true }) : t3[e3] = i3, t3;
+  }
+  function xe2(t3) {
+    var e3 = function(t4, e4) {
+      if ("object" != typeof t4 || null === t4)
+        return t4;
+      var i3 = t4[Symbol.toPrimitive];
+      if (void 0 !== i3) {
+        var n3 = i3.call(t4, e4 || "default");
+        if ("object" != typeof n3)
+          return n3;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return ("string" === e4 ? String : Number)(t4);
+    }(t3, "string");
+    return "symbol" == typeof e3 ? e3 : String(e3);
+  }
+  be2.prototype["function" == typeof Symbol && Symbol.asyncIterator || "@@asyncIterator"] = function() {
+    return this;
+  }, be2.prototype.next = function(t3) {
+    return this._invoke("next", t3);
+  }, be2.prototype.throw = function(t3) {
+    return this._invoke("throw", t3);
+  }, be2.prototype.return = function(t3) {
+    return this._invoke("return", t3);
+  };
+  var ye2 = class extends nt2 {
+    static registerType(t3, e3) {
+      e3.type = t3, this.types[t3] = e3;
+    }
+    static fromJSON(t3) {
+      const e3 = this.types[t3.type];
+      if (e3)
+        return e3.fromJSON(t3);
+    }
+    constructor(t3) {
+      let e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      super(...arguments), this.attributes = zt2.box(e3);
+    }
+    copyWithAttributes(t3) {
+      return new this.constructor(this.getValue(), t3);
+    }
+    copyWithAdditionalAttributes(t3) {
+      return this.copyWithAttributes(this.attributes.merge(t3));
+    }
+    copyWithoutAttribute(t3) {
+      return this.copyWithAttributes(this.attributes.remove(t3));
+    }
+    copy() {
+      return this.copyWithAttributes(this.attributes);
+    }
+    getAttribute(t3) {
+      return this.attributes.get(t3);
+    }
+    getAttributesHash() {
+      return this.attributes;
+    }
+    getAttributes() {
+      return this.attributes.toObject();
+    }
+    hasAttribute(t3) {
+      return this.attributes.has(t3);
+    }
+    hasSameStringValueAsPiece(t3) {
+      return t3 && this.toString() === t3.toString();
+    }
+    hasSameAttributesAsPiece(t3) {
+      return t3 && (this.attributes === t3.attributes || this.attributes.isEqualTo(t3.attributes));
+    }
+    isBlockBreak() {
+      return false;
+    }
+    isEqualTo(t3) {
+      return super.isEqualTo(...arguments) || this.hasSameConstructorAs(t3) && this.hasSameStringValueAsPiece(t3) && this.hasSameAttributesAsPiece(t3);
+    }
+    isEmpty() {
+      return 0 === this.length;
+    }
+    isSerializable() {
+      return true;
+    }
+    toJSON() {
+      return { type: this.constructor.type, attributes: this.getAttributes() };
+    }
+    contentsForInspection() {
+      return { type: this.constructor.type, attributes: this.attributes.inspect() };
+    }
+    canBeGrouped() {
+      return this.hasAttribute("href");
+    }
+    canBeGroupedWith(t3) {
+      return this.getAttribute("href") === t3.getAttribute("href");
+    }
+    getLength() {
+      return this.length;
+    }
+    canBeConsolidatedWith(t3) {
+      return false;
+    }
+  };
+  Ae(ye2, "types", {});
+  var Ce2 = class extends te2 {
+    constructor(t3) {
+      super(...arguments), this.url = t3;
+    }
+    perform(t3) {
+      const e3 = new Image();
+      e3.onload = () => (e3.width = this.width = e3.naturalWidth, e3.height = this.height = e3.naturalHeight, t3(true, e3)), e3.onerror = () => t3(false), e3.src = this.url;
+    }
+  };
+  var ke = class _ke extends nt2 {
+    static attachmentForFile(t3) {
+      const e3 = new this(this.attributesForFile(t3));
+      return e3.setFile(t3), e3;
+    }
+    static attributesForFile(t3) {
+      return new zt2({ filename: t3.name, filesize: t3.size, contentType: t3.type });
+    }
+    static fromJSON(t3) {
+      return new this(t3);
+    }
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+      super(t3), this.releaseFile = this.releaseFile.bind(this), this.attributes = zt2.box(t3), this.didChangeAttributes();
+    }
+    getAttribute(t3) {
+      return this.attributes.get(t3);
+    }
+    hasAttribute(t3) {
+      return this.attributes.has(t3);
+    }
+    getAttributes() {
+      return this.attributes.toObject();
+    }
+    setAttributes() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+      const e3 = this.attributes.merge(t3);
+      var i3, n3, r3, o3;
+      if (!this.attributes.isEqualTo(e3))
+        return this.attributes = e3, this.didChangeAttributes(), null === (i3 = this.previewDelegate) || void 0 === i3 || null === (n3 = i3.attachmentDidChangeAttributes) || void 0 === n3 || n3.call(i3, this), null === (r3 = this.delegate) || void 0 === r3 || null === (o3 = r3.attachmentDidChangeAttributes) || void 0 === o3 ? void 0 : o3.call(r3, this);
+    }
+    didChangeAttributes() {
+      if (this.isPreviewable())
+        return this.preloadURL();
+    }
+    isPending() {
+      return null != this.file && !(this.getURL() || this.getHref());
+    }
+    isPreviewable() {
+      return this.attributes.has("previewable") ? this.attributes.get("previewable") : _ke.previewablePattern.test(this.getContentType());
+    }
+    getType() {
+      return this.hasContent() ? "content" : this.isPreviewable() ? "preview" : "file";
+    }
+    getURL() {
+      return this.attributes.get("url");
+    }
+    getHref() {
+      return this.attributes.get("href");
+    }
+    getFilename() {
+      return this.attributes.get("filename") || "";
+    }
+    getFilesize() {
+      return this.attributes.get("filesize");
+    }
+    getFormattedFilesize() {
+      const t3 = this.attributes.get("filesize");
+      return "number" == typeof t3 ? u2.formatter(t3) : "";
+    }
+    getExtension() {
+      var t3;
+      return null === (t3 = this.getFilename().match(/\.(\w+)$/)) || void 0 === t3 ? void 0 : t3[1].toLowerCase();
+    }
+    getContentType() {
+      return this.attributes.get("contentType");
+    }
+    hasContent() {
+      return this.attributes.has("content");
+    }
+    getContent() {
+      return this.attributes.get("content");
+    }
+    getWidth() {
+      return this.attributes.get("width");
+    }
+    getHeight() {
+      return this.attributes.get("height");
+    }
+    getFile() {
+      return this.file;
+    }
+    setFile(t3) {
+      if (this.file = t3, this.isPreviewable())
+        return this.preloadFile();
+    }
+    releaseFile() {
+      this.releasePreloadedFile(), this.file = null;
+    }
+    getUploadProgress() {
+      return null != this.uploadProgress ? this.uploadProgress : 0;
+    }
+    setUploadProgress(t3) {
+      var e3, i3;
+      if (this.uploadProgress !== t3)
+        return this.uploadProgress = t3, null === (e3 = this.uploadProgressDelegate) || void 0 === e3 || null === (i3 = e3.attachmentDidChangeUploadProgress) || void 0 === i3 ? void 0 : i3.call(e3, this);
+    }
+    toJSON() {
+      return this.getAttributes();
+    }
+    getCacheKey() {
+      return [super.getCacheKey(...arguments), this.attributes.getCacheKey(), this.getPreviewURL()].join("/");
+    }
+    getPreviewURL() {
+      return this.previewURL || this.preloadingURL;
+    }
+    setPreviewURL(t3) {
+      var e3, i3, n3, r3;
+      if (t3 !== this.getPreviewURL())
+        return this.previewURL = t3, null === (e3 = this.previewDelegate) || void 0 === e3 || null === (i3 = e3.attachmentDidChangeAttributes) || void 0 === i3 || i3.call(e3, this), null === (n3 = this.delegate) || void 0 === n3 || null === (r3 = n3.attachmentDidChangePreviewURL) || void 0 === r3 ? void 0 : r3.call(n3, this);
+    }
+    preloadURL() {
+      return this.preload(this.getURL(), this.releaseFile);
+    }
+    preloadFile() {
+      if (this.file)
+        return this.fileObjectURL = URL.createObjectURL(this.file), this.preload(this.fileObjectURL);
+    }
+    releasePreloadedFile() {
+      this.fileObjectURL && (URL.revokeObjectURL(this.fileObjectURL), this.fileObjectURL = null);
+    }
+    preload(t3, e3) {
+      if (t3 && t3 !== this.getPreviewURL()) {
+        this.preloadingURL = t3;
+        return new Ce2(t3).then((i3) => {
+          let { width: n3, height: r3 } = i3;
+          return this.getWidth() && this.getHeight() || this.setAttributes({ width: n3, height: r3 }), this.preloadingURL = null, this.setPreviewURL(t3), null == e3 ? void 0 : e3();
+        }).catch(() => (this.preloadingURL = null, null == e3 ? void 0 : e3()));
+      }
+    }
+  };
+  Ae(ke, "previewablePattern", /^image(\/(gif|png|webp|jpe?g)|$)/);
+  var Re = class _Re extends ye2 {
+    static fromJSON(t3) {
+      return new this(ke.fromJSON(t3.attachment), t3.attributes);
+    }
+    constructor(t3) {
+      super(...arguments), this.attachment = t3, this.length = 1, this.ensureAttachmentExclusivelyHasAttribute("href"), this.attachment.hasContent() || this.removeProhibitedAttributes();
+    }
+    ensureAttachmentExclusivelyHasAttribute(t3) {
+      this.hasAttribute(t3) && (this.attachment.hasAttribute(t3) || this.attachment.setAttributes(this.attributes.slice([t3])), this.attributes = this.attributes.remove(t3));
+    }
+    removeProhibitedAttributes() {
+      const t3 = this.attributes.slice(_Re.permittedAttributes);
+      t3.isEqualTo(this.attributes) || (this.attributes = t3);
+    }
+    getValue() {
+      return this.attachment;
+    }
+    isSerializable() {
+      return !this.attachment.isPending();
+    }
+    getCaption() {
+      return this.attributes.get("caption") || "";
+    }
+    isEqualTo(t3) {
+      var e3;
+      return super.isEqualTo(t3) && this.attachment.id === (null == t3 || null === (e3 = t3.attachment) || void 0 === e3 ? void 0 : e3.id);
+    }
+    toString() {
+      return "\uFFFC";
+    }
+    toJSON() {
+      const t3 = super.toJSON(...arguments);
+      return t3.attachment = this.attachment, t3;
+    }
+    getCacheKey() {
+      return [super.getCacheKey(...arguments), this.attachment.getCacheKey()].join("/");
+    }
+    toConsole() {
+      return JSON.stringify(this.toString());
+    }
+  };
+  Ae(Re, "permittedAttributes", ["caption", "presentation"]), ye2.registerType("attachment", Re);
+  var Ee2 = class extends ye2 {
+    static fromJSON(t3) {
+      return new this(t3.string, t3.attributes);
+    }
+    constructor(t3) {
+      super(...arguments), this.string = ((t4) => t4.replace(/\r\n?/g, "\n"))(t3), this.length = this.string.length;
+    }
+    getValue() {
+      return this.string;
+    }
+    toString() {
+      return this.string.toString();
+    }
+    isBlockBreak() {
+      return "\n" === this.toString() && true === this.getAttribute("blockBreak");
+    }
+    toJSON() {
+      const t3 = super.toJSON(...arguments);
+      return t3.string = this.string, t3;
+    }
+    canBeConsolidatedWith(t3) {
+      return t3 && this.hasSameConstructorAs(t3) && this.hasSameAttributesAsPiece(t3);
+    }
+    consolidateWith(t3) {
+      return new this.constructor(this.toString() + t3.toString(), this.attributes);
+    }
+    splitAtOffset(t3) {
+      let e3, i3;
+      return 0 === t3 ? (e3 = null, i3 = this) : t3 === this.length ? (e3 = this, i3 = null) : (e3 = new this.constructor(this.string.slice(0, t3), this.attributes), i3 = new this.constructor(this.string.slice(t3), this.attributes)), [e3, i3];
+    }
+    toConsole() {
+      let { string: t3 } = this;
+      return t3.length > 15 && (t3 = t3.slice(0, 14) + "\u2026"), JSON.stringify(t3.toString());
+    }
+  };
+  ye2.registerType("string", Ee2);
+  var Se2 = class extends nt2 {
+    static box(t3) {
+      return t3 instanceof this ? t3 : new this(t3);
+    }
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      super(...arguments), this.objects = t3.slice(0), this.length = this.objects.length;
+    }
+    indexOf(t3) {
+      return this.objects.indexOf(t3);
+    }
+    splice() {
+      for (var t3 = arguments.length, e3 = new Array(t3), i3 = 0; i3 < t3; i3++)
+        e3[i3] = arguments[i3];
+      return new this.constructor(ot2(this.objects, ...e3));
+    }
+    eachObject(t3) {
+      return this.objects.map((e3, i3) => t3(e3, i3));
+    }
+    insertObjectAtIndex(t3, e3) {
+      return this.splice(e3, 0, t3);
+    }
+    insertSplittableListAtIndex(t3, e3) {
+      return this.splice(e3, 0, ...t3.objects);
+    }
+    insertSplittableListAtPosition(t3, e3) {
+      const [i3, n3] = this.splitObjectAtPosition(e3);
+      return new this.constructor(i3).insertSplittableListAtIndex(t3, n3);
+    }
+    editObjectAtIndex(t3, e3) {
+      return this.replaceObjectAtIndex(e3(this.objects[t3]), t3);
+    }
+    replaceObjectAtIndex(t3, e3) {
+      return this.splice(e3, 1, t3);
+    }
+    removeObjectAtIndex(t3) {
+      return this.splice(t3, 1);
+    }
+    getObjectAtIndex(t3) {
+      return this.objects[t3];
+    }
+    getSplittableListInRange(t3) {
+      const [e3, i3, n3] = this.splitObjectsAtRange(t3);
+      return new this.constructor(e3.slice(i3, n3 + 1));
+    }
+    selectSplittableList(t3) {
+      const e3 = this.objects.filter((e4) => t3(e4));
+      return new this.constructor(e3);
+    }
+    removeObjectsInRange(t3) {
+      const [e3, i3, n3] = this.splitObjectsAtRange(t3);
+      return new this.constructor(e3).splice(i3, n3 - i3 + 1);
+    }
+    transformObjectsInRange(t3, e3) {
+      const [i3, n3, r3] = this.splitObjectsAtRange(t3), o3 = i3.map((t4, i4) => n3 <= i4 && i4 <= r3 ? e3(t4) : t4);
+      return new this.constructor(o3);
+    }
+    splitObjectsAtRange(t3) {
+      let e3, [i3, n3, r3] = this.splitObjectAtPosition(De(t3));
+      return [i3, e3] = new this.constructor(i3).splitObjectAtPosition(we2(t3) + r3), [i3, n3, e3 - 1];
+    }
+    getObjectAtPosition(t3) {
+      const { index: e3 } = this.findIndexAndOffsetAtPosition(t3);
+      return this.objects[e3];
+    }
+    splitObjectAtPosition(t3) {
+      let e3, i3;
+      const { index: n3, offset: r3 } = this.findIndexAndOffsetAtPosition(t3), o3 = this.objects.slice(0);
+      if (null != n3)
+        if (0 === r3)
+          e3 = n3, i3 = 0;
+        else {
+          const t4 = this.getObjectAtIndex(n3), [s3, a3] = t4.splitAtOffset(r3);
+          o3.splice(n3, 1, s3, a3), e3 = n3 + 1, i3 = s3.getLength() - r3;
+        }
+      else
+        e3 = o3.length, i3 = 0;
+      return [o3, e3, i3];
+    }
+    consolidate() {
+      const t3 = [];
+      let e3 = this.objects[0];
+      return this.objects.slice(1).forEach((i3) => {
+        var n3, r3;
+        null !== (n3 = (r3 = e3).canBeConsolidatedWith) && void 0 !== n3 && n3.call(r3, i3) ? e3 = e3.consolidateWith(i3) : (t3.push(e3), e3 = i3);
+      }), e3 && t3.push(e3), new this.constructor(t3);
+    }
+    consolidateFromIndexToIndex(t3, e3) {
+      const i3 = this.objects.slice(0).slice(t3, e3 + 1), n3 = new this.constructor(i3).consolidate().toArray();
+      return this.splice(t3, i3.length, ...n3);
+    }
+    findIndexAndOffsetAtPosition(t3) {
+      let e3, i3 = 0;
+      for (e3 = 0; e3 < this.objects.length; e3++) {
+        const n3 = i3 + this.objects[e3].getLength();
+        if (i3 <= t3 && t3 < n3)
+          return { index: e3, offset: t3 - i3 };
+        i3 = n3;
+      }
+      return { index: null, offset: null };
+    }
+    findPositionAtIndexAndOffset(t3, e3) {
+      let i3 = 0;
+      for (let n3 = 0; n3 < this.objects.length; n3++) {
+        const r3 = this.objects[n3];
+        if (n3 < t3)
+          i3 += r3.getLength();
+        else if (n3 === t3) {
+          i3 += e3;
+          break;
+        }
+      }
+      return i3;
+    }
+    getEndPosition() {
+      return null == this.endPosition && (this.endPosition = 0, this.objects.forEach((t3) => this.endPosition += t3.getLength())), this.endPosition;
+    }
+    toString() {
+      return this.objects.join("");
+    }
+    toArray() {
+      return this.objects.slice(0);
+    }
+    toJSON() {
+      return this.toArray();
+    }
+    isEqualTo(t3) {
+      return super.isEqualTo(...arguments) || Le(this.objects, null == t3 ? void 0 : t3.objects);
+    }
+    contentsForInspection() {
+      return { objects: "[".concat(this.objects.map((t3) => t3.inspect()).join(", "), "]") };
+    }
+  };
+  var Le = function(t3) {
+    let e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];
+    if (t3.length !== e3.length)
+      return false;
+    let i3 = true;
+    for (let n3 = 0; n3 < t3.length; n3++) {
+      const r3 = t3[n3];
+      i3 && !r3.isEqualTo(e3[n3]) && (i3 = false);
+    }
+    return i3;
+  };
+  var De = (t3) => t3[0];
+  var we2 = (t3) => t3[1];
+  var Te = class extends nt2 {
+    static textForAttachmentWithAttributes(t3, e3) {
+      return new this([new Re(t3, e3)]);
+    }
+    static textForStringWithAttributes(t3, e3) {
+      return new this([new Ee2(t3, e3)]);
+    }
+    static fromJSON(t3) {
+      return new this(Array.from(t3).map((t4) => ye2.fromJSON(t4)));
+    }
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      super(...arguments);
+      const e3 = t3.filter((t4) => !t4.isEmpty());
+      this.pieceList = new Se2(e3);
+    }
+    copy() {
+      return this.copyWithPieceList(this.pieceList);
+    }
+    copyWithPieceList(t3) {
+      return new this.constructor(t3.consolidate().toArray());
+    }
+    copyUsingObjectMap(t3) {
+      const e3 = this.getPieces().map((e4) => t3.find(e4) || e4);
+      return new this.constructor(e3);
+    }
+    appendText(t3) {
+      return this.insertTextAtPosition(t3, this.getLength());
+    }
+    insertTextAtPosition(t3, e3) {
+      return this.copyWithPieceList(this.pieceList.insertSplittableListAtPosition(t3.pieceList, e3));
+    }
+    removeTextAtRange(t3) {
+      return this.copyWithPieceList(this.pieceList.removeObjectsInRange(t3));
+    }
+    replaceTextAtRange(t3, e3) {
+      return this.removeTextAtRange(e3).insertTextAtPosition(t3, e3[0]);
+    }
+    moveTextFromRangeToPosition(t3, e3) {
+      if (t3[0] <= e3 && e3 <= t3[1])
+        return;
+      const i3 = this.getTextAtRange(t3), n3 = i3.getLength();
+      return t3[0] < e3 && (e3 -= n3), this.removeTextAtRange(t3).insertTextAtPosition(i3, e3);
+    }
+    addAttributeAtRange(t3, e3, i3) {
+      const n3 = {};
+      return n3[t3] = e3, this.addAttributesAtRange(n3, i3);
+    }
+    addAttributesAtRange(t3, e3) {
+      return this.copyWithPieceList(this.pieceList.transformObjectsInRange(e3, (e4) => e4.copyWithAdditionalAttributes(t3)));
+    }
+    removeAttributeAtRange(t3, e3) {
+      return this.copyWithPieceList(this.pieceList.transformObjectsInRange(e3, (e4) => e4.copyWithoutAttribute(t3)));
+    }
+    setAttributesAtRange(t3, e3) {
+      return this.copyWithPieceList(this.pieceList.transformObjectsInRange(e3, (e4) => e4.copyWithAttributes(t3)));
+    }
+    getAttributesAtPosition(t3) {
+      var e3;
+      return (null === (e3 = this.pieceList.getObjectAtPosition(t3)) || void 0 === e3 ? void 0 : e3.getAttributes()) || {};
+    }
+    getCommonAttributes() {
+      const t3 = Array.from(this.pieceList.toArray()).map((t4) => t4.getAttributes());
+      return zt2.fromCommonAttributesOfObjects(t3).toObject();
+    }
+    getCommonAttributesAtRange(t3) {
+      return this.getTextAtRange(t3).getCommonAttributes() || {};
+    }
+    getExpandedRangeForAttributeAtOffset(t3, e3) {
+      let i3, n3 = i3 = e3;
+      const r3 = this.getLength();
+      for (; n3 > 0 && this.getCommonAttributesAtRange([n3 - 1, i3])[t3]; )
+        n3--;
+      for (; i3 < r3 && this.getCommonAttributesAtRange([e3, i3 + 1])[t3]; )
+        i3++;
+      return [n3, i3];
+    }
+    getTextAtRange(t3) {
+      return this.copyWithPieceList(this.pieceList.getSplittableListInRange(t3));
+    }
+    getStringAtRange(t3) {
+      return this.pieceList.getSplittableListInRange(t3).toString();
+    }
+    getStringAtPosition(t3) {
+      return this.getStringAtRange([t3, t3 + 1]);
+    }
+    startsWithString(t3) {
+      return this.getStringAtRange([0, t3.length]) === t3;
+    }
+    endsWithString(t3) {
+      const e3 = this.getLength();
+      return this.getStringAtRange([e3 - t3.length, e3]) === t3;
+    }
+    getAttachmentPieces() {
+      return this.pieceList.toArray().filter((t3) => !!t3.attachment);
+    }
+    getAttachments() {
+      return this.getAttachmentPieces().map((t3) => t3.attachment);
+    }
+    getAttachmentAndPositionById(t3) {
+      let e3 = 0;
+      for (const n3 of this.pieceList.toArray()) {
+        var i3;
+        if ((null === (i3 = n3.attachment) || void 0 === i3 ? void 0 : i3.id) === t3)
+          return { attachment: n3.attachment, position: e3 };
+        e3 += n3.length;
+      }
+      return { attachment: null, position: null };
+    }
+    getAttachmentById(t3) {
+      const { attachment: e3 } = this.getAttachmentAndPositionById(t3);
+      return e3;
+    }
+    getRangeOfAttachment(t3) {
+      const e3 = this.getAttachmentAndPositionById(t3.id), i3 = e3.position;
+      if (t3 = e3.attachment)
+        return [i3, i3 + 1];
+    }
+    updateAttributesForAttachment(t3, e3) {
+      const i3 = this.getRangeOfAttachment(e3);
+      return i3 ? this.addAttributesAtRange(t3, i3) : this;
+    }
+    getLength() {
+      return this.pieceList.getEndPosition();
+    }
+    isEmpty() {
+      return 0 === this.getLength();
+    }
+    isEqualTo(t3) {
+      var e3;
+      return super.isEqualTo(t3) || (null == t3 || null === (e3 = t3.pieceList) || void 0 === e3 ? void 0 : e3.isEqualTo(this.pieceList));
+    }
+    isBlockBreak() {
+      return 1 === this.getLength() && this.pieceList.getObjectAtIndex(0).isBlockBreak();
+    }
+    eachPiece(t3) {
+      return this.pieceList.eachObject(t3);
+    }
+    getPieces() {
+      return this.pieceList.toArray();
+    }
+    getPieceAtPosition(t3) {
+      return this.pieceList.getObjectAtPosition(t3);
+    }
+    contentsForInspection() {
+      return { pieceList: this.pieceList.inspect() };
+    }
+    toSerializableText() {
+      const t3 = this.pieceList.selectSplittableList((t4) => t4.isSerializable());
+      return this.copyWithPieceList(t3);
+    }
+    toString() {
+      return this.pieceList.toString();
+    }
+    toJSON() {
+      return this.pieceList.toJSON();
+    }
+    toConsole() {
+      return JSON.stringify(this.pieceList.toArray().map((t3) => JSON.parse(t3.toConsole())));
+    }
+    getDirection() {
+      return at2(this.toString());
+    }
+    isRTL() {
+      return "rtl" === this.getDirection();
+    }
+  };
+  var Be = class _Be extends nt2 {
+    static fromJSON(t3) {
+      return new this(Te.fromJSON(t3.text), t3.attributes, t3.htmlAttributes);
+    }
+    constructor(t3, e3, i3) {
+      super(...arguments), this.text = Fe(t3 || new Te()), this.attributes = e3 || [], this.htmlAttributes = i3 || {};
+    }
+    isEmpty() {
+      return this.text.isBlockBreak();
+    }
+    isEqualTo(t3) {
+      return !!super.isEqualTo(t3) || this.text.isEqualTo(null == t3 ? void 0 : t3.text) && rt2(this.attributes, null == t3 ? void 0 : t3.attributes) && St2(this.htmlAttributes, null == t3 ? void 0 : t3.htmlAttributes);
+    }
+    copyWithText(t3) {
+      return new _Be(t3, this.attributes, this.htmlAttributes);
+    }
+    copyWithoutText() {
+      return this.copyWithText(null);
+    }
+    copyWithAttributes(t3) {
+      return new _Be(this.text, t3, this.htmlAttributes);
+    }
+    copyWithoutAttributes() {
+      return this.copyWithAttributes(null);
+    }
+    copyUsingObjectMap(t3) {
+      const e3 = t3.find(this.text);
+      return e3 ? this.copyWithText(e3) : this.copyWithText(this.text.copyUsingObjectMap(t3));
+    }
+    addAttribute(t3) {
+      const e3 = this.attributes.concat(je(t3));
+      return this.copyWithAttributes(e3);
+    }
+    addHTMLAttribute(t3, e3) {
+      const i3 = Object.assign({}, this.htmlAttributes, { [t3]: e3 });
+      return new _Be(this.text, this.attributes, i3);
+    }
+    removeAttribute(t3) {
+      const { listAttribute: e3 } = gt2(t3), i3 = Ue(Ue(this.attributes, t3), e3);
+      return this.copyWithAttributes(i3);
+    }
+    removeLastAttribute() {
+      return this.removeAttribute(this.getLastAttribute());
+    }
+    getLastAttribute() {
+      return We(this.attributes);
+    }
+    getAttributes() {
+      return this.attributes.slice(0);
+    }
+    getAttributeLevel() {
+      return this.attributes.length;
+    }
+    getAttributeAtLevel(t3) {
+      return this.attributes[t3 - 1];
+    }
+    hasAttribute(t3) {
+      return this.attributes.includes(t3);
+    }
+    hasAttributes() {
+      return this.getAttributeLevel() > 0;
+    }
+    getLastNestableAttribute() {
+      return We(this.getNestableAttributes());
+    }
+    getNestableAttributes() {
+      return this.attributes.filter((t3) => gt2(t3).nestable);
+    }
+    getNestingLevel() {
+      return this.getNestableAttributes().length;
+    }
+    decreaseNestingLevel() {
+      const t3 = this.getLastNestableAttribute();
+      return t3 ? this.removeAttribute(t3) : this;
+    }
+    increaseNestingLevel() {
+      const t3 = this.getLastNestableAttribute();
+      if (t3) {
+        const e3 = this.attributes.lastIndexOf(t3), i3 = ot2(this.attributes, e3 + 1, 0, ...je(t3));
+        return this.copyWithAttributes(i3);
+      }
+      return this;
+    }
+    getListItemAttributes() {
+      return this.attributes.filter((t3) => gt2(t3).listAttribute);
+    }
+    isListItem() {
+      var t3;
+      return null === (t3 = gt2(this.getLastAttribute())) || void 0 === t3 ? void 0 : t3.listAttribute;
+    }
+    isTerminalBlock() {
+      var t3;
+      return null === (t3 = gt2(this.getLastAttribute())) || void 0 === t3 ? void 0 : t3.terminal;
+    }
+    breaksOnReturn() {
+      var t3;
+      return null === (t3 = gt2(this.getLastAttribute())) || void 0 === t3 ? void 0 : t3.breakOnReturn;
+    }
+    findLineBreakInDirectionFromPosition(t3, e3) {
+      const i3 = this.toString();
+      let n3;
+      switch (t3) {
+        case "forward":
+          n3 = i3.indexOf("\n", e3);
+          break;
+        case "backward":
+          n3 = i3.slice(0, e3).lastIndexOf("\n");
+      }
+      if (-1 !== n3)
+        return n3;
+    }
+    contentsForInspection() {
+      return { text: this.text.inspect(), attributes: this.attributes };
+    }
+    toString() {
+      return this.text.toString();
+    }
+    toJSON() {
+      return { text: this.text, attributes: this.attributes, htmlAttributes: this.htmlAttributes };
+    }
+    getDirection() {
+      return this.text.getDirection();
+    }
+    isRTL() {
+      return this.text.isRTL();
+    }
+    getLength() {
+      return this.text.getLength();
+    }
+    canBeConsolidatedWith(t3) {
+      return !this.hasAttributes() && !t3.hasAttributes() && this.getDirection() === t3.getDirection();
+    }
+    consolidateWith(t3) {
+      const e3 = Te.textForStringWithAttributes("\n"), i3 = this.getTextWithoutBlockBreak().appendText(e3);
+      return this.copyWithText(i3.appendText(t3.text));
+    }
+    splitAtOffset(t3) {
+      let e3, i3;
+      return 0 === t3 ? (e3 = null, i3 = this) : t3 === this.getLength() ? (e3 = this, i3 = null) : (e3 = this.copyWithText(this.text.getTextAtRange([0, t3])), i3 = this.copyWithText(this.text.getTextAtRange([t3, this.getLength()]))), [e3, i3];
+    }
+    getBlockBreakPosition() {
+      return this.text.getLength() - 1;
+    }
+    getTextWithoutBlockBreak() {
+      return Oe(this.text) ? this.text.getTextAtRange([0, this.getBlockBreakPosition()]) : this.text.copy();
+    }
+    canBeGrouped(t3) {
+      return this.attributes[t3];
+    }
+    canBeGroupedWith(t3, e3) {
+      const i3 = t3.getAttributes(), r3 = i3[e3], o3 = this.attributes[e3];
+      return o3 === r3 && !(false === gt2(o3).group && !(() => {
+        if (!ht2) {
+          ht2 = [];
+          for (const t4 in n2) {
+            const { listAttribute: e4 } = n2[t4];
+            null != e4 && ht2.push(e4);
+          }
+        }
+        return ht2;
+      })().includes(i3[e3 + 1])) && (this.getDirection() === t3.getDirection() || t3.isEmpty());
+    }
+  };
+  var Fe = function(t3) {
+    return t3 = Pe2(t3), t3 = Ne(t3);
+  };
+  var Pe2 = function(t3) {
+    let e3 = false;
+    const i3 = t3.getPieces();
+    let n3 = i3.slice(0, i3.length - 1);
+    const r3 = i3[i3.length - 1];
+    return r3 ? (n3 = n3.map((t4) => t4.isBlockBreak() ? (e3 = true, Me(t4)) : t4), e3 ? new Te([...n3, r3]) : t3) : t3;
+  };
+  var Ie = Te.textForStringWithAttributes("\n", { blockBreak: true });
+  var Ne = function(t3) {
+    return Oe(t3) ? t3 : t3.appendText(Ie);
+  };
+  var Oe = function(t3) {
+    const e3 = t3.getLength();
+    if (0 === e3)
+      return false;
+    return t3.getTextAtRange([e3 - 1, e3]).isBlockBreak();
+  };
+  var Me = (t3) => t3.copyWithoutAttribute("blockBreak");
+  var je = function(t3) {
+    const { listAttribute: e3 } = gt2(t3);
+    return e3 ? [e3, t3] : [t3];
+  };
+  var We = (t3) => t3.slice(-1)[0];
+  var Ue = function(t3, e3) {
+    const i3 = t3.lastIndexOf(e3);
+    return -1 === i3 ? t3 : ot2(t3, i3, 1);
+  };
+  var qe = class extends nt2 {
+    static fromJSON(t3) {
+      return new this(Array.from(t3).map((t4) => Be.fromJSON(t4)));
+    }
+    static fromString(t3, e3) {
+      const i3 = Te.textForStringWithAttributes(t3, e3);
+      return new this([new Be(i3)]);
+    }
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      super(...arguments), 0 === t3.length && (t3 = [new Be()]), this.blockList = Se2.box(t3);
+    }
+    isEmpty() {
+      const t3 = this.getBlockAtIndex(0);
+      return 1 === this.blockList.length && t3.isEmpty() && !t3.hasAttributes();
+    }
+    copy() {
+      const t3 = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).consolidateBlocks ? this.blockList.consolidate().toArray() : this.blockList.toArray();
+      return new this.constructor(t3);
+    }
+    copyUsingObjectsFromDocument(t3) {
+      const e3 = new Yt2(t3.getObjects());
+      return this.copyUsingObjectMap(e3);
+    }
+    copyUsingObjectMap(t3) {
+      const e3 = this.getBlocks().map((e4) => t3.find(e4) || e4.copyUsingObjectMap(t3));
+      return new this.constructor(e3);
+    }
+    copyWithBaseBlockAttributes() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      const e3 = this.getBlocks().map((e4) => {
+        const i3 = t3.concat(e4.getAttributes());
+        return e4.copyWithAttributes(i3);
+      });
+      return new this.constructor(e3);
+    }
+    replaceBlock(t3, e3) {
+      const i3 = this.blockList.indexOf(t3);
+      return -1 === i3 ? this : new this.constructor(this.blockList.replaceObjectAtIndex(e3, i3));
+    }
+    insertDocumentAtRange(t3, e3) {
+      const { blockList: i3 } = t3;
+      e3 = Lt2(e3);
+      let [n3] = e3;
+      const { index: r3, offset: o3 } = this.locationFromPosition(n3);
+      let s3 = this;
+      const a3 = this.getBlockAtPosition(n3);
+      return Dt2(e3) && a3.isEmpty() && !a3.hasAttributes() ? s3 = new this.constructor(s3.blockList.removeObjectAtIndex(r3)) : a3.getBlockBreakPosition() === o3 && n3++, s3 = s3.removeTextAtRange(e3), new this.constructor(s3.blockList.insertSplittableListAtPosition(i3, n3));
+    }
+    mergeDocumentAtRange(t3, e3) {
+      let i3, n3;
+      e3 = Lt2(e3);
+      const [r3] = e3, o3 = this.locationFromPosition(r3), s3 = this.getBlockAtIndex(o3.index).getAttributes(), a3 = t3.getBaseBlockAttributes(), l3 = s3.slice(-a3.length);
+      if (rt2(a3, l3)) {
+        const e4 = s3.slice(0, -a3.length);
+        i3 = t3.copyWithBaseBlockAttributes(e4);
+      } else
+        i3 = t3.copy({ consolidateBlocks: true }).copyWithBaseBlockAttributes(s3);
+      const c3 = i3.getBlockCount(), u3 = i3.getBlockAtIndex(0);
+      if (rt2(s3, u3.getAttributes())) {
+        const t4 = u3.getTextWithoutBlockBreak();
+        if (n3 = this.insertTextAtRange(t4, e3), c3 > 1) {
+          i3 = new this.constructor(i3.getBlocks().slice(1));
+          const e4 = r3 + t4.getLength();
+          n3 = n3.insertDocumentAtRange(i3, e4);
+        }
+      } else
+        n3 = this.insertDocumentAtRange(i3, e3);
+      return n3;
+    }
+    insertTextAtRange(t3, e3) {
+      e3 = Lt2(e3);
+      const [i3] = e3, { index: n3, offset: r3 } = this.locationFromPosition(i3), o3 = this.removeTextAtRange(e3);
+      return new this.constructor(o3.blockList.editObjectAtIndex(n3, (e4) => e4.copyWithText(e4.text.insertTextAtPosition(t3, r3))));
+    }
+    removeTextAtRange(t3) {
+      let e3;
+      t3 = Lt2(t3);
+      const [i3, n3] = t3;
+      if (Dt2(t3))
+        return this;
+      const [r3, o3] = Array.from(this.locationRangeFromRange(t3)), s3 = r3.index, a3 = r3.offset, l3 = this.getBlockAtIndex(s3), c3 = o3.index, u3 = o3.offset, h3 = this.getBlockAtIndex(c3);
+      if (n3 - i3 == 1 && l3.getBlockBreakPosition() === a3 && h3.getBlockBreakPosition() !== u3 && "\n" === h3.text.getStringAtPosition(u3))
+        e3 = this.blockList.editObjectAtIndex(c3, (t4) => t4.copyWithText(t4.text.removeTextAtRange([u3, u3 + 1])));
+      else {
+        let t4;
+        const i4 = l3.text.getTextAtRange([0, a3]), n4 = h3.text.getTextAtRange([u3, h3.getLength()]), r4 = i4.appendText(n4);
+        t4 = s3 !== c3 && 0 === a3 && l3.getAttributeLevel() >= h3.getAttributeLevel() ? h3.copyWithText(r4) : l3.copyWithText(r4);
+        const o4 = c3 + 1 - s3;
+        e3 = this.blockList.splice(s3, o4, t4);
+      }
+      return new this.constructor(e3);
+    }
+    moveTextFromRangeToPosition(t3, e3) {
+      let i3;
+      t3 = Lt2(t3);
+      const [n3, r3] = t3;
+      if (n3 <= e3 && e3 <= r3)
+        return this;
+      let o3 = this.getDocumentAtRange(t3), s3 = this.removeTextAtRange(t3);
+      const a3 = n3 < e3;
+      a3 && (e3 -= o3.getLength());
+      const [l3, ...c3] = o3.getBlocks();
+      return 0 === c3.length ? (i3 = l3.getTextWithoutBlockBreak(), a3 && (e3 += 1)) : i3 = l3.text, s3 = s3.insertTextAtRange(i3, e3), 0 === c3.length ? s3 : (o3 = new this.constructor(c3), e3 += i3.getLength(), s3.insertDocumentAtRange(o3, e3));
+    }
+    addAttributeAtRange(t3, e3, i3) {
+      let { blockList: n3 } = this;
+      return this.eachBlockAtRange(i3, (i4, r3, o3) => n3 = n3.editObjectAtIndex(o3, function() {
+        return gt2(t3) ? i4.addAttribute(t3, e3) : r3[0] === r3[1] ? i4 : i4.copyWithText(i4.text.addAttributeAtRange(t3, e3, r3));
+      })), new this.constructor(n3);
+    }
+    addAttribute(t3, e3) {
+      let { blockList: i3 } = this;
+      return this.eachBlock((n3, r3) => i3 = i3.editObjectAtIndex(r3, () => n3.addAttribute(t3, e3))), new this.constructor(i3);
+    }
+    removeAttributeAtRange(t3, e3) {
+      let { blockList: i3 } = this;
+      return this.eachBlockAtRange(e3, function(e4, n3, r3) {
+        gt2(t3) ? i3 = i3.editObjectAtIndex(r3, () => e4.removeAttribute(t3)) : n3[0] !== n3[1] && (i3 = i3.editObjectAtIndex(r3, () => e4.copyWithText(e4.text.removeAttributeAtRange(t3, n3))));
+      }), new this.constructor(i3);
+    }
+    updateAttributesForAttachment(t3, e3) {
+      const i3 = this.getRangeOfAttachment(e3), [n3] = Array.from(i3), { index: r3 } = this.locationFromPosition(n3), o3 = this.getTextAtIndex(r3);
+      return new this.constructor(this.blockList.editObjectAtIndex(r3, (i4) => i4.copyWithText(o3.updateAttributesForAttachment(t3, e3))));
+    }
+    removeAttributeForAttachment(t3, e3) {
+      const i3 = this.getRangeOfAttachment(e3);
+      return this.removeAttributeAtRange(t3, i3);
+    }
+    setHTMLAttributeAtPosition(t3, e3, i3) {
+      const n3 = this.getBlockAtPosition(t3), r3 = n3.addHTMLAttribute(e3, i3);
+      return this.replaceBlock(n3, r3);
+    }
+    insertBlockBreakAtRange(t3) {
+      let e3;
+      t3 = Lt2(t3);
+      const [i3] = t3, { offset: n3 } = this.locationFromPosition(i3), r3 = this.removeTextAtRange(t3);
+      return 0 === n3 && (e3 = [new Be()]), new this.constructor(r3.blockList.insertSplittableListAtPosition(new Se2(e3), i3));
+    }
+    applyBlockAttributeAtRange(t3, e3, i3) {
+      const n3 = this.expandRangeToLineBreaksAndSplitBlocks(i3);
+      let r3 = n3.document;
+      i3 = n3.range;
+      const o3 = gt2(t3);
+      if (o3.listAttribute) {
+        r3 = r3.removeLastListAttributeAtRange(i3, { exceptAttributeName: t3 });
+        const e4 = r3.convertLineBreaksToBlockBreaksInRange(i3);
+        r3 = e4.document, i3 = e4.range;
+      } else
+        r3 = o3.exclusive ? r3.removeBlockAttributesAtRange(i3) : o3.terminal ? r3.removeLastTerminalAttributeAtRange(i3) : r3.consolidateBlocksAtRange(i3);
+      return r3.addAttributeAtRange(t3, e3, i3);
+    }
+    removeLastListAttributeAtRange(t3) {
+      let e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, { blockList: i3 } = this;
+      return this.eachBlockAtRange(t3, function(t4, n3, r3) {
+        const o3 = t4.getLastAttribute();
+        o3 && gt2(o3).listAttribute && o3 !== e3.exceptAttributeName && (i3 = i3.editObjectAtIndex(r3, () => t4.removeAttribute(o3)));
+      }), new this.constructor(i3);
+    }
+    removeLastTerminalAttributeAtRange(t3) {
+      let { blockList: e3 } = this;
+      return this.eachBlockAtRange(t3, function(t4, i3, n3) {
+        const r3 = t4.getLastAttribute();
+        r3 && gt2(r3).terminal && (e3 = e3.editObjectAtIndex(n3, () => t4.removeAttribute(r3)));
+      }), new this.constructor(e3);
+    }
+    removeBlockAttributesAtRange(t3) {
+      let { blockList: e3 } = this;
+      return this.eachBlockAtRange(t3, function(t4, i3, n3) {
+        t4.hasAttributes() && (e3 = e3.editObjectAtIndex(n3, () => t4.copyWithoutAttributes()));
+      }), new this.constructor(e3);
+    }
+    expandRangeToLineBreaksAndSplitBlocks(t3) {
+      let e3;
+      t3 = Lt2(t3);
+      let [i3, n3] = t3;
+      const r3 = this.locationFromPosition(i3), o3 = this.locationFromPosition(n3);
+      let s3 = this;
+      const a3 = s3.getBlockAtIndex(r3.index);
+      if (r3.offset = a3.findLineBreakInDirectionFromPosition("backward", r3.offset), null != r3.offset && (e3 = s3.positionFromLocation(r3), s3 = s3.insertBlockBreakAtRange([e3, e3 + 1]), o3.index += 1, o3.offset -= s3.getBlockAtIndex(r3.index).getLength(), r3.index += 1), r3.offset = 0, 0 === o3.offset && o3.index > r3.index)
+        o3.index -= 1, o3.offset = s3.getBlockAtIndex(o3.index).getBlockBreakPosition();
+      else {
+        const t4 = s3.getBlockAtIndex(o3.index);
+        "\n" === t4.text.getStringAtRange([o3.offset - 1, o3.offset]) ? o3.offset -= 1 : o3.offset = t4.findLineBreakInDirectionFromPosition("forward", o3.offset), o3.offset !== t4.getBlockBreakPosition() && (e3 = s3.positionFromLocation(o3), s3 = s3.insertBlockBreakAtRange([e3, e3 + 1]));
+      }
+      return i3 = s3.positionFromLocation(r3), n3 = s3.positionFromLocation(o3), { document: s3, range: t3 = Lt2([i3, n3]) };
+    }
+    convertLineBreaksToBlockBreaksInRange(t3) {
+      t3 = Lt2(t3);
+      let [e3] = t3;
+      const i3 = this.getStringAtRange(t3).slice(0, -1);
+      let n3 = this;
+      return i3.replace(/.*?\n/g, function(t4) {
+        e3 += t4.length, n3 = n3.insertBlockBreakAtRange([e3 - 1, e3]);
+      }), { document: n3, range: t3 };
+    }
+    consolidateBlocksAtRange(t3) {
+      t3 = Lt2(t3);
+      const [e3, i3] = t3, n3 = this.locationFromPosition(e3).index, r3 = this.locationFromPosition(i3).index;
+      return new this.constructor(this.blockList.consolidateFromIndexToIndex(n3, r3));
+    }
+    getDocumentAtRange(t3) {
+      t3 = Lt2(t3);
+      const e3 = this.blockList.getSplittableListInRange(t3).toArray();
+      return new this.constructor(e3);
+    }
+    getStringAtRange(t3) {
+      let e3;
+      const i3 = t3 = Lt2(t3);
+      return i3[i3.length - 1] !== this.getLength() && (e3 = -1), this.getDocumentAtRange(t3).toString().slice(0, e3);
+    }
+    getBlockAtIndex(t3) {
+      return this.blockList.getObjectAtIndex(t3);
+    }
+    getBlockAtPosition(t3) {
+      const { index: e3 } = this.locationFromPosition(t3);
+      return this.getBlockAtIndex(e3);
+    }
+    getTextAtIndex(t3) {
+      var e3;
+      return null === (e3 = this.getBlockAtIndex(t3)) || void 0 === e3 ? void 0 : e3.text;
+    }
+    getTextAtPosition(t3) {
+      const { index: e3 } = this.locationFromPosition(t3);
+      return this.getTextAtIndex(e3);
+    }
+    getPieceAtPosition(t3) {
+      const { index: e3, offset: i3 } = this.locationFromPosition(t3);
+      return this.getTextAtIndex(e3).getPieceAtPosition(i3);
+    }
+    getCharacterAtPosition(t3) {
+      const { index: e3, offset: i3 } = this.locationFromPosition(t3);
+      return this.getTextAtIndex(e3).getStringAtRange([i3, i3 + 1]);
+    }
+    getLength() {
+      return this.blockList.getEndPosition();
+    }
+    getBlocks() {
+      return this.blockList.toArray();
+    }
+    getBlockCount() {
+      return this.blockList.length;
+    }
+    getEditCount() {
+      return this.editCount;
+    }
+    eachBlock(t3) {
+      return this.blockList.eachObject(t3);
+    }
+    eachBlockAtRange(t3, e3) {
+      let i3, n3;
+      t3 = Lt2(t3);
+      const [r3, o3] = t3, s3 = this.locationFromPosition(r3), a3 = this.locationFromPosition(o3);
+      if (s3.index === a3.index)
+        return i3 = this.getBlockAtIndex(s3.index), n3 = [s3.offset, a3.offset], e3(i3, n3, s3.index);
+      for (let t4 = s3.index; t4 <= a3.index; t4++)
+        if (i3 = this.getBlockAtIndex(t4), i3) {
+          switch (t4) {
+            case s3.index:
+              n3 = [s3.offset, i3.text.getLength()];
+              break;
+            case a3.index:
+              n3 = [0, a3.offset];
+              break;
+            default:
+              n3 = [0, i3.text.getLength()];
+          }
+          e3(i3, n3, t4);
+        }
+    }
+    getCommonAttributesAtRange(t3) {
+      t3 = Lt2(t3);
+      const [e3] = t3;
+      if (Dt2(t3))
+        return this.getCommonAttributesAtPosition(e3);
+      {
+        const e4 = [], i3 = [];
+        return this.eachBlockAtRange(t3, function(t4, n3) {
+          if (n3[0] !== n3[1])
+            return e4.push(t4.text.getCommonAttributesAtRange(n3)), i3.push(Ve(t4));
+        }), zt2.fromCommonAttributesOfObjects(e4).merge(zt2.fromCommonAttributesOfObjects(i3)).toObject();
+      }
+    }
+    getCommonAttributesAtPosition(t3) {
+      let e3, i3;
+      const { index: n3, offset: r3 } = this.locationFromPosition(t3), o3 = this.getBlockAtIndex(n3);
+      if (!o3)
+        return {};
+      const s3 = Ve(o3), a3 = o3.text.getAttributesAtPosition(r3), l3 = o3.text.getAttributesAtPosition(r3 - 1), c3 = Object.keys(W2).filter((t4) => W2[t4].inheritable);
+      for (e3 in l3)
+        i3 = l3[e3], (i3 === a3[e3] || c3.includes(e3)) && (s3[e3] = i3);
+      return s3;
+    }
+    getRangeOfCommonAttributeAtPosition(t3, e3) {
+      const { index: i3, offset: n3 } = this.locationFromPosition(e3), r3 = this.getTextAtIndex(i3), [o3, s3] = Array.from(r3.getExpandedRangeForAttributeAtOffset(t3, n3)), a3 = this.positionFromLocation({ index: i3, offset: o3 }), l3 = this.positionFromLocation({ index: i3, offset: s3 });
+      return Lt2([a3, l3]);
+    }
+    getBaseBlockAttributes() {
+      let t3 = this.getBlockAtIndex(0).getAttributes();
+      for (let e3 = 1; e3 < this.getBlockCount(); e3++) {
+        const i3 = this.getBlockAtIndex(e3).getAttributes(), n3 = Math.min(t3.length, i3.length);
+        t3 = (() => {
+          const e4 = [];
+          for (let r3 = 0; r3 < n3 && i3[r3] === t3[r3]; r3++)
+            e4.push(i3[r3]);
+          return e4;
+        })();
+      }
+      return t3;
+    }
+    getAttachmentById(t3) {
+      for (const e3 of this.getAttachments())
+        if (e3.id === t3)
+          return e3;
+    }
+    getAttachmentPieces() {
+      let t3 = [];
+      return this.blockList.eachObject((e3) => {
+        let { text: i3 } = e3;
+        return t3 = t3.concat(i3.getAttachmentPieces());
+      }), t3;
+    }
+    getAttachments() {
+      return this.getAttachmentPieces().map((t3) => t3.attachment);
+    }
+    getRangeOfAttachment(t3) {
+      let e3 = 0;
+      const i3 = this.blockList.toArray();
+      for (let n3 = 0; n3 < i3.length; n3++) {
+        const { text: r3 } = i3[n3], o3 = r3.getRangeOfAttachment(t3);
+        if (o3)
+          return Lt2([e3 + o3[0], e3 + o3[1]]);
+        e3 += r3.getLength();
+      }
+    }
+    getLocationRangeOfAttachment(t3) {
+      const e3 = this.getRangeOfAttachment(t3);
+      return this.locationRangeFromRange(e3);
+    }
+    getAttachmentPieceForAttachment(t3) {
+      for (const e3 of this.getAttachmentPieces())
+        if (e3.attachment === t3)
+          return e3;
+    }
+    findRangesForBlockAttribute(t3) {
+      let e3 = 0;
+      const i3 = [];
+      return this.getBlocks().forEach((n3) => {
+        const r3 = n3.getLength();
+        n3.hasAttribute(t3) && i3.push([e3, e3 + r3]), e3 += r3;
+      }), i3;
+    }
+    findRangesForTextAttribute(t3) {
+      let { withValue: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, i3 = 0, n3 = [];
+      const r3 = [];
+      return this.getPieces().forEach((o3) => {
+        const s3 = o3.getLength();
+        (function(i4) {
+          return e3 ? i4.getAttribute(t3) === e3 : i4.hasAttribute(t3);
+        })(o3) && (n3[1] === i3 ? n3[1] = i3 + s3 : r3.push(n3 = [i3, i3 + s3])), i3 += s3;
+      }), r3;
+    }
+    locationFromPosition(t3) {
+      const e3 = this.blockList.findIndexAndOffsetAtPosition(Math.max(0, t3));
+      if (null != e3.index)
+        return e3;
+      {
+        const t4 = this.getBlocks();
+        return { index: t4.length - 1, offset: t4[t4.length - 1].getLength() };
+      }
+    }
+    positionFromLocation(t3) {
+      return this.blockList.findPositionAtIndexAndOffset(t3.index, t3.offset);
+    }
+    locationRangeFromPosition(t3) {
+      return Lt2(this.locationFromPosition(t3));
+    }
+    locationRangeFromRange(t3) {
+      if (!(t3 = Lt2(t3)))
+        return;
+      const [e3, i3] = Array.from(t3), n3 = this.locationFromPosition(e3), r3 = this.locationFromPosition(i3);
+      return Lt2([n3, r3]);
+    }
+    rangeFromLocationRange(t3) {
+      let e3;
+      t3 = Lt2(t3);
+      const i3 = this.positionFromLocation(t3[0]);
+      return Dt2(t3) || (e3 = this.positionFromLocation(t3[1])), Lt2([i3, e3]);
+    }
+    isEqualTo(t3) {
+      return this.blockList.isEqualTo(null == t3 ? void 0 : t3.blockList);
+    }
+    getTexts() {
+      return this.getBlocks().map((t3) => t3.text);
+    }
+    getPieces() {
+      const t3 = [];
+      return Array.from(this.getTexts()).forEach((e3) => {
+        t3.push(...Array.from(e3.getPieces() || []));
+      }), t3;
+    }
+    getObjects() {
+      return this.getBlocks().concat(this.getTexts()).concat(this.getPieces());
+    }
+    toSerializableDocument() {
+      const t3 = [];
+      return this.blockList.eachObject((e3) => t3.push(e3.copyWithText(e3.text.toSerializableText()))), new this.constructor(t3);
+    }
+    toString() {
+      return this.blockList.toString();
+    }
+    toJSON() {
+      return this.blockList.toJSON();
+    }
+    toConsole() {
+      return JSON.stringify(this.blockList.toArray().map((t3) => JSON.parse(t3.text.toConsole())));
+    }
+  };
+  var Ve = function(t3) {
+    const e3 = {}, i3 = t3.getLastAttribute();
+    return i3 && (e3[i3] = true), e3;
+  };
+  var He = "style href src width height language class".split(" ");
+  var ze = "javascript:".split(" ");
+  var _e = "script iframe form noscript".split(" ");
+  var Je = class extends H2 {
+    static sanitize(t3, e3) {
+      const i3 = new this(t3, e3);
+      return i3.sanitize(), i3;
+    }
+    constructor(t3) {
+      let { allowedAttributes: e3, forbiddenProtocols: i3, forbiddenElements: n3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      super(...arguments), this.allowedAttributes = e3 || He, this.forbiddenProtocols = i3 || ze, this.forbiddenElements = n3 || _e, this.body = Ke(t3);
+    }
+    sanitize() {
+      return this.sanitizeElements(), this.normalizeListElementNesting();
+    }
+    getHTML() {
+      return this.body.innerHTML;
+    }
+    getBody() {
+      return this.body;
+    }
+    sanitizeElements() {
+      const t3 = R2(this.body), e3 = [];
+      for (; t3.nextNode(); ) {
+        const i3 = t3.currentNode;
+        switch (i3.nodeType) {
+          case Node.ELEMENT_NODE:
+            this.elementIsRemovable(i3) ? e3.push(i3) : this.sanitizeElement(i3);
+            break;
+          case Node.COMMENT_NODE:
+            e3.push(i3);
+        }
+      }
+      return e3.forEach((t4) => k2(t4)), this.body;
+    }
+    sanitizeElement(t3) {
+      return t3.hasAttribute("href") && this.forbiddenProtocols.includes(t3.protocol) && t3.removeAttribute("href"), Array.from(t3.attributes).forEach((e3) => {
+        let { name: i3 } = e3;
+        this.allowedAttributes.includes(i3) || 0 === i3.indexOf("data-trix") || t3.removeAttribute(i3);
+      }), t3;
+    }
+    normalizeListElementNesting() {
+      return Array.from(this.body.querySelectorAll("ul,ol")).forEach((t3) => {
+        const e3 = t3.previousElementSibling;
+        e3 && "li" === E2(e3) && e3.appendChild(t3);
+      }), this.body;
+    }
+    elementIsRemovable(t3) {
+      if ((null == t3 ? void 0 : t3.nodeType) === Node.ELEMENT_NODE)
+        return this.elementIsForbidden(t3) || this.elementIsntSerializable(t3);
+    }
+    elementIsForbidden(t3) {
+      return this.forbiddenElements.includes(E2(t3));
+    }
+    elementIsntSerializable(t3) {
+      return "false" === t3.getAttribute("data-trix-serialize") && !I2(t3);
+    }
+  };
+  var Ke = function() {
+    let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "";
+    t3 = t3.replace(/<\/html[^>]*>[^]*$/i, "</html>");
+    const e3 = document.implementation.createHTMLDocument("");
+    return e3.documentElement.innerHTML = t3, Array.from(e3.head.querySelectorAll("style")).forEach((t4) => {
+      e3.body.appendChild(t4);
+    }), e3.body;
+  };
+  var Ge = function(t3) {
+    let e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+    return { string: t3 = Wt2(t3), attributes: e3, type: "string" };
+  };
+  var $e = (t3, e3) => {
+    try {
+      const i3 = JSON.parse(t3.getAttribute("data-trix-".concat(e3)));
+      return "text/html" === i3.contentType && i3.content && (i3.content = Je.sanitize(i3.content).getHTML()), i3;
+    } catch (t4) {
+      return {};
+    }
+  };
+  var Xe = class extends H2 {
+    static parse(t3, e3) {
+      const i3 = new this(t3, e3);
+      return i3.parse(), i3;
+    }
+    constructor(t3) {
+      let { referenceElement: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      super(...arguments), this.html = t3, this.referenceElement = e3, this.blocks = [], this.blockElements = [], this.processedElements = [];
+    }
+    getDocument() {
+      return qe.fromJSON(this.blocks);
+    }
+    parse() {
+      try {
+        this.createHiddenContainer();
+        const t3 = Je.sanitize(this.html).getHTML();
+        this.containerElement.innerHTML = t3;
+        const e3 = R2(this.containerElement, { usingFilter: ti });
+        for (; e3.nextNode(); )
+          this.processNode(e3.currentNode);
+        return this.translateBlockElementMarginsToNewlines();
+      } finally {
+        this.removeHiddenContainer();
+      }
+    }
+    createHiddenContainer() {
+      return this.referenceElement ? (this.containerElement = this.referenceElement.cloneNode(false), this.containerElement.removeAttribute("id"), this.containerElement.setAttribute("data-trix-internal", ""), this.containerElement.style.display = "none", this.referenceElement.parentNode.insertBefore(this.containerElement, this.referenceElement.nextSibling)) : (this.containerElement = S2({ tagName: "div", style: { display: "none" } }), document.body.appendChild(this.containerElement));
+    }
+    removeHiddenContainer() {
+      return k2(this.containerElement);
+    }
+    processNode(t3) {
+      switch (t3.nodeType) {
+        case Node.TEXT_NODE:
+          if (!this.isInsignificantTextNode(t3))
+            return this.appendBlockForTextNode(t3), this.processTextNode(t3);
+          break;
+        case Node.ELEMENT_NODE:
+          return this.appendBlockForElement(t3), this.processElement(t3);
+      }
+    }
+    appendBlockForTextNode(t3) {
+      const e3 = t3.parentNode;
+      if (e3 === this.currentBlockElement && this.isBlockElement(t3.previousSibling))
+        return this.appendStringWithAttributes("\n");
+      if (e3 === this.containerElement || this.isBlockElement(e3)) {
+        var i3;
+        const t4 = this.getBlockAttributes(e3), n3 = this.getBlockHTMLAttributes(e3);
+        rt2(t4, null === (i3 = this.currentBlock) || void 0 === i3 ? void 0 : i3.attributes) || (this.currentBlock = this.appendBlockForAttributesWithElement(t4, e3, n3), this.currentBlockElement = e3);
+      }
+    }
+    appendBlockForElement(t3) {
+      const e3 = this.isBlockElement(t3), i3 = y2(this.currentBlockElement, t3);
+      if (e3 && !this.isBlockElement(t3.firstChild)) {
+        if (!this.isInsignificantTextNode(t3.firstChild) || !this.isBlockElement(t3.firstElementChild)) {
+          const e4 = this.getBlockAttributes(t3), n3 = this.getBlockHTMLAttributes(t3);
+          if (t3.firstChild) {
+            if (i3 && rt2(e4, this.currentBlock.attributes))
+              return this.appendStringWithAttributes("\n");
+            this.currentBlock = this.appendBlockForAttributesWithElement(e4, t3, n3), this.currentBlockElement = t3;
+          }
+        }
+      } else if (this.currentBlockElement && !i3 && !e3) {
+        const e4 = this.findParentBlockElement(t3);
+        if (e4)
+          return this.appendBlockForElement(e4);
+        this.currentBlock = this.appendEmptyBlock(), this.currentBlockElement = null;
+      }
+    }
+    findParentBlockElement(t3) {
+      let { parentElement: e3 } = t3;
+      for (; e3 && e3 !== this.containerElement; ) {
+        if (this.isBlockElement(e3) && this.blockElements.includes(e3))
+          return e3;
+        e3 = e3.parentElement;
+      }
+      return null;
+    }
+    processTextNode(t3) {
+      let e3 = t3.data;
+      var i3;
+      Ye(t3.parentNode) || (e3 = qt2(e3), ni(null === (i3 = t3.previousSibling) || void 0 === i3 ? void 0 : i3.textContent) && (e3 = ei(e3)));
+      return this.appendStringWithAttributes(e3, this.getTextAttributes(t3.parentNode));
+    }
+    processElement(t3) {
+      let e3;
+      if (I2(t3)) {
+        if (e3 = $e(t3, "attachment"), Object.keys(e3).length) {
+          const i3 = this.getTextAttributes(t3);
+          this.appendAttachmentWithAttributes(e3, i3), t3.innerHTML = "";
+        }
+        return this.processedElements.push(t3);
+      }
+      switch (E2(t3)) {
+        case "br":
+          return this.isExtraBR(t3) || this.isBlockElement(t3.nextSibling) || this.appendStringWithAttributes("\n", this.getTextAttributes(t3)), this.processedElements.push(t3);
+        case "img":
+          e3 = { url: t3.getAttribute("src"), contentType: "image" };
+          const i3 = ((t4) => {
+            const e4 = t4.getAttribute("width"), i4 = t4.getAttribute("height"), n3 = {};
+            return e4 && (n3.width = parseInt(e4, 10)), i4 && (n3.height = parseInt(i4, 10)), n3;
+          })(t3);
+          for (const t4 in i3) {
+            const n3 = i3[t4];
+            e3[t4] = n3;
+          }
+          return this.appendAttachmentWithAttributes(e3, this.getTextAttributes(t3)), this.processedElements.push(t3);
+        case "tr":
+          if (this.needsTableSeparator(t3))
+            return this.appendStringWithAttributes(j2.tableRowSeparator);
+          break;
+        case "td":
+          if (this.needsTableSeparator(t3))
+            return this.appendStringWithAttributes(j2.tableCellSeparator);
+      }
+    }
+    appendBlockForAttributesWithElement(t3, e3) {
+      let i3 = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {};
+      this.blockElements.push(e3);
+      const n3 = function() {
+        return { text: [], attributes: arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, htmlAttributes: arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {} };
+      }(t3, i3);
+      return this.blocks.push(n3), n3;
+    }
+    appendEmptyBlock() {
+      return this.appendBlockForAttributesWithElement([], null);
+    }
+    appendStringWithAttributes(t3, e3) {
+      return this.appendPiece(Ge(t3, e3));
+    }
+    appendAttachmentWithAttributes(t3, e3) {
+      return this.appendPiece(function(t4) {
+        return { attachment: t4, attributes: arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, type: "attachment" };
+      }(t3, e3));
+    }
+    appendPiece(t3) {
+      return 0 === this.blocks.length && this.appendEmptyBlock(), this.blocks[this.blocks.length - 1].text.push(t3);
+    }
+    appendStringToTextAtIndex(t3, e3) {
+      const { text: i3 } = this.blocks[e3], n3 = i3[i3.length - 1];
+      if ("string" !== (null == n3 ? void 0 : n3.type))
+        return i3.push(Ge(t3));
+      n3.string += t3;
+    }
+    prependStringToTextAtIndex(t3, e3) {
+      const { text: i3 } = this.blocks[e3], n3 = i3[0];
+      if ("string" !== (null == n3 ? void 0 : n3.type))
+        return i3.unshift(Ge(t3));
+      n3.string = t3 + n3.string;
+    }
+    getTextAttributes(t3) {
+      let e3;
+      const i3 = {};
+      for (const n3 in W2) {
+        const r3 = W2[n3];
+        if (r3.tagName && A2(t3, { matchingSelector: r3.tagName, untilNode: this.containerElement }))
+          i3[n3] = true;
+        else if (r3.parser) {
+          if (e3 = r3.parser(t3), e3) {
+            let o3 = false;
+            for (const i4 of this.findBlockElementAncestors(t3))
+              if (r3.parser(i4) === e3) {
+                o3 = true;
+                break;
+              }
+            o3 || (i3[n3] = e3);
+          }
+        } else
+          r3.styleProperty && (e3 = t3.style[r3.styleProperty], e3 && (i3[n3] = e3));
+      }
+      if (I2(t3)) {
+        const n3 = $e(t3, "attributes");
+        for (const t4 in n3)
+          e3 = n3[t4], i3[t4] = e3;
+      }
+      return i3;
+    }
+    getBlockAttributes(t3) {
+      const e3 = [];
+      for (; t3 && t3 !== this.containerElement; ) {
+        for (const r3 in n2) {
+          const o3 = n2[r3];
+          var i3;
+          if (false !== o3.parse) {
+            if (E2(t3) === o3.tagName)
+              (null !== (i3 = o3.test) && void 0 !== i3 && i3.call(o3, t3) || !o3.test) && (e3.push(r3), o3.listAttribute && e3.push(o3.listAttribute));
+          }
+        }
+        t3 = t3.parentNode;
+      }
+      return e3.reverse();
+    }
+    getBlockHTMLAttributes(t3) {
+      const e3 = {}, i3 = Object.values(n2).find((e4) => e4.tagName === E2(t3));
+      return ((null == i3 ? void 0 : i3.htmlAttributes) || []).forEach((i4) => {
+        t3.hasAttribute(i4) && (e3[i4] = t3.getAttribute(i4));
+      }), e3;
+    }
+    findBlockElementAncestors(t3) {
+      const e3 = [];
+      for (; t3 && t3 !== this.containerElement; ) {
+        const i3 = E2(t3);
+        D2().includes(i3) && e3.push(t3), t3 = t3.parentNode;
+      }
+      return e3;
+    }
+    isBlockElement(t3) {
+      if ((null == t3 ? void 0 : t3.nodeType) === Node.ELEMENT_NODE && !I2(t3) && !A2(t3, { matchingSelector: "td", untilNode: this.containerElement }))
+        return D2().includes(E2(t3)) || "block" === window.getComputedStyle(t3).display;
+    }
+    isInsignificantTextNode(t3) {
+      if ((null == t3 ? void 0 : t3.nodeType) !== Node.TEXT_NODE)
+        return;
+      if (!ii(t3.data))
+        return;
+      const { parentNode: e3, previousSibling: i3, nextSibling: n3 } = t3;
+      return Qe(e3.previousSibling) && !this.isBlockElement(e3.previousSibling) || Ye(e3) ? void 0 : !i3 || this.isBlockElement(i3) || !n3 || this.isBlockElement(n3);
+    }
+    isExtraBR(t3) {
+      return "br" === E2(t3) && this.isBlockElement(t3.parentNode) && t3.parentNode.lastChild === t3;
+    }
+    needsTableSeparator(t3) {
+      if (j2.removeBlankTableCells) {
+        var e3;
+        const i3 = null === (e3 = t3.previousSibling) || void 0 === e3 ? void 0 : e3.textContent;
+        return i3 && /\S/.test(i3);
+      }
+      return t3.previousSibling;
+    }
+    translateBlockElementMarginsToNewlines() {
+      const t3 = this.getMarginOfDefaultBlockElement();
+      for (let e3 = 0; e3 < this.blocks.length; e3++) {
+        const i3 = this.getMarginOfBlockElementAtIndex(e3);
+        i3 && (i3.top > 2 * t3.top && this.prependStringToTextAtIndex("\n", e3), i3.bottom > 2 * t3.bottom && this.appendStringToTextAtIndex("\n", e3));
+      }
+    }
+    getMarginOfBlockElementAtIndex(t3) {
+      const e3 = this.blockElements[t3];
+      if (e3 && e3.textContent && !D2().includes(E2(e3)) && !this.processedElements.includes(e3))
+        return Ze(e3);
+    }
+    getMarginOfDefaultBlockElement() {
+      const t3 = S2(n2.default.tagName);
+      return this.containerElement.appendChild(t3), Ze(t3);
+    }
+  };
+  var Ye = function(t3) {
+    const { whiteSpace: e3 } = window.getComputedStyle(t3);
+    return ["pre", "pre-wrap", "pre-line"].includes(e3);
+  };
+  var Qe = (t3) => t3 && !ni(t3.textContent);
+  var Ze = function(t3) {
+    const e3 = window.getComputedStyle(t3);
+    if ("block" === e3.display)
+      return { top: parseInt(e3.marginTop), bottom: parseInt(e3.marginBottom) };
+  };
+  var ti = function(t3) {
+    return "style" === E2(t3) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+  };
+  var ei = (t3) => t3.replace(new RegExp("^".concat(Ut2.source, "+")), "");
+  var ii = (t3) => new RegExp("^".concat(Ut2.source, "*$")).test(t3);
+  var ni = (t3) => /\s$/.test(t3);
+  var ri = ["contenteditable", "data-trix-id", "data-trix-store-key", "data-trix-mutable", "data-trix-placeholder", "tabindex"];
+  var oi = "data-trix-serialized-attributes";
+  var si = "[".concat(oi, "]");
+  var ai = new RegExp("<!--block-->", "g");
+  var li = { "application/json": function(t3) {
+    let e3;
+    if (t3 instanceof qe)
+      e3 = t3;
+    else {
+      if (!(t3 instanceof HTMLElement))
+        throw new Error("unserializable object");
+      e3 = Xe.parse(t3.innerHTML).getDocument();
+    }
+    return e3.toSerializableDocument().toJSONString();
+  }, "text/html": function(t3) {
+    let e3;
+    if (t3 instanceof qe)
+      e3 = ge2.render(t3);
+    else {
+      if (!(t3 instanceof HTMLElement))
+        throw new Error("unserializable object");
+      e3 = t3.cloneNode(true);
+    }
+    return Array.from(e3.querySelectorAll("[data-trix-serialize=false]")).forEach((t4) => {
+      k2(t4);
+    }), ri.forEach((t4) => {
+      Array.from(e3.querySelectorAll("[".concat(t4, "]"))).forEach((e4) => {
+        e4.removeAttribute(t4);
+      });
+    }), Array.from(e3.querySelectorAll(si)).forEach((t4) => {
+      try {
+        const e4 = JSON.parse(t4.getAttribute(oi));
+        t4.removeAttribute(oi);
+        for (const i3 in e4) {
+          const n3 = e4[i3];
+          t4.setAttribute(i3, n3);
+        }
+      } catch (t5) {
+      }
+    }), e3.innerHTML.replace(ai, "");
+  } };
+  var ci = Object.freeze({ __proto__: null });
+  var ui = class extends H2 {
+    constructor(t3, e3) {
+      super(...arguments), this.attachmentManager = t3, this.attachment = e3, this.id = this.attachment.id, this.file = this.attachment.file;
+    }
+    remove() {
+      return this.attachmentManager.requestRemovalOfAttachment(this.attachment);
+    }
+  };
+  ui.proxyMethod("attachment.getAttribute"), ui.proxyMethod("attachment.hasAttribute"), ui.proxyMethod("attachment.setAttribute"), ui.proxyMethod("attachment.getAttributes"), ui.proxyMethod("attachment.setAttributes"), ui.proxyMethod("attachment.isPending"), ui.proxyMethod("attachment.isPreviewable"), ui.proxyMethod("attachment.getURL"), ui.proxyMethod("attachment.getHref"), ui.proxyMethod("attachment.getFilename"), ui.proxyMethod("attachment.getFilesize"), ui.proxyMethod("attachment.getFormattedFilesize"), ui.proxyMethod("attachment.getExtension"), ui.proxyMethod("attachment.getContentType"), ui.proxyMethod("attachment.getFile"), ui.proxyMethod("attachment.setFile"), ui.proxyMethod("attachment.releaseFile"), ui.proxyMethod("attachment.getUploadProgress"), ui.proxyMethod("attachment.setUploadProgress");
+  var hi = class extends H2 {
+    constructor() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+      super(...arguments), this.managedAttachments = {}, Array.from(t3).forEach((t4) => {
+        this.manageAttachment(t4);
+      });
+    }
+    getAttachments() {
+      const t3 = [];
+      for (const e3 in this.managedAttachments) {
+        const i3 = this.managedAttachments[e3];
+        t3.push(i3);
+      }
+      return t3;
+    }
+    manageAttachment(t3) {
+      return this.managedAttachments[t3.id] || (this.managedAttachments[t3.id] = new ui(this, t3)), this.managedAttachments[t3.id];
+    }
+    attachmentIsManaged(t3) {
+      return t3.id in this.managedAttachments;
+    }
+    requestRemovalOfAttachment(t3) {
+      var e3, i3;
+      if (this.attachmentIsManaged(t3))
+        return null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.attachmentManagerDidRequestRemovalOfAttachment) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    unmanageAttachment(t3) {
+      const e3 = this.managedAttachments[t3.id];
+      return delete this.managedAttachments[t3.id], e3;
+    }
+  };
+  var di = class {
+    constructor(t3) {
+      this.composition = t3, this.document = this.composition.document;
+      const e3 = this.composition.getSelectedRange();
+      this.startPosition = e3[0], this.endPosition = e3[1], this.startLocation = this.document.locationFromPosition(this.startPosition), this.endLocation = this.document.locationFromPosition(this.endPosition), this.block = this.document.getBlockAtIndex(this.endLocation.index), this.breaksOnReturn = this.block.breaksOnReturn(), this.previousCharacter = this.block.text.getStringAtPosition(this.endLocation.offset - 1), this.nextCharacter = this.block.text.getStringAtPosition(this.endLocation.offset);
+    }
+    shouldInsertBlockBreak() {
+      return this.block.hasAttributes() && this.block.isListItem() && !this.block.isEmpty() ? 0 !== this.startLocation.offset : this.breaksOnReturn && "\n" !== this.nextCharacter;
+    }
+    shouldBreakFormattedBlock() {
+      return this.block.hasAttributes() && !this.block.isListItem() && (this.breaksOnReturn && "\n" === this.nextCharacter || "\n" === this.previousCharacter);
+    }
+    shouldDecreaseListLevel() {
+      return this.block.hasAttributes() && this.block.isListItem() && this.block.isEmpty();
+    }
+    shouldPrependListItem() {
+      return this.block.isListItem() && 0 === this.startLocation.offset && !this.block.isEmpty();
+    }
+    shouldRemoveLastBlockAttribute() {
+      return this.block.hasAttributes() && !this.block.isListItem() && this.block.isEmpty();
+    }
+  };
+  var gi = class extends H2 {
+    constructor() {
+      super(...arguments), this.document = new qe(), this.attachments = [], this.currentAttributes = {}, this.revision = 0;
+    }
+    setDocument(t3) {
+      var e3, i3;
+      if (!t3.isEqualTo(this.document))
+        return this.document = t3, this.refreshAttachments(), this.revision++, null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionDidChangeDocument) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    getSnapshot() {
+      return { document: this.document, selectedRange: this.getSelectedRange() };
+    }
+    loadSnapshot(t3) {
+      var e3, i3, n3, r3;
+      let { document: o3, selectedRange: s3 } = t3;
+      return null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionWillLoadSnapshot) || void 0 === i3 || i3.call(e3), this.setDocument(null != o3 ? o3 : new qe()), this.setSelection(null != s3 ? s3 : [0, 0]), null === (n3 = this.delegate) || void 0 === n3 || null === (r3 = n3.compositionDidLoadSnapshot) || void 0 === r3 ? void 0 : r3.call(n3);
+    }
+    insertText(t3) {
+      let { updatePosition: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { updatePosition: true };
+      const i3 = this.getSelectedRange();
+      this.setDocument(this.document.insertTextAtRange(t3, i3));
+      const n3 = i3[0], r3 = n3 + t3.getLength();
+      return e3 && this.setSelection(r3), this.notifyDelegateOfInsertionAtRange([n3, r3]);
+    }
+    insertBlock() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : new Be();
+      const e3 = new qe([t3]);
+      return this.insertDocument(e3);
+    }
+    insertDocument() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : new qe();
+      const e3 = this.getSelectedRange();
+      this.setDocument(this.document.insertDocumentAtRange(t3, e3));
+      const i3 = e3[0], n3 = i3 + t3.getLength();
+      return this.setSelection(n3), this.notifyDelegateOfInsertionAtRange([i3, n3]);
+    }
+    insertString(t3, e3) {
+      const i3 = this.getCurrentTextAttributes(), n3 = Te.textForStringWithAttributes(t3, i3);
+      return this.insertText(n3, e3);
+    }
+    insertBlockBreak() {
+      const t3 = this.getSelectedRange();
+      this.setDocument(this.document.insertBlockBreakAtRange(t3));
+      const e3 = t3[0], i3 = e3 + 1;
+      return this.setSelection(i3), this.notifyDelegateOfInsertionAtRange([e3, i3]);
+    }
+    insertLineBreak() {
+      const t3 = new di(this);
+      if (t3.shouldDecreaseListLevel())
+        return this.decreaseListLevel(), this.setSelection(t3.startPosition);
+      if (t3.shouldPrependListItem()) {
+        const e3 = new qe([t3.block.copyWithoutText()]);
+        return this.insertDocument(e3);
+      }
+      return t3.shouldInsertBlockBreak() ? this.insertBlockBreak() : t3.shouldRemoveLastBlockAttribute() ? this.removeLastBlockAttribute() : t3.shouldBreakFormattedBlock() ? this.breakFormattedBlock(t3) : this.insertString("\n");
+    }
+    insertHTML(t3) {
+      const e3 = Xe.parse(t3).getDocument(), i3 = this.getSelectedRange();
+      this.setDocument(this.document.mergeDocumentAtRange(e3, i3));
+      const n3 = i3[0], r3 = n3 + e3.getLength() - 1;
+      return this.setSelection(r3), this.notifyDelegateOfInsertionAtRange([n3, r3]);
+    }
+    replaceHTML(t3) {
+      const e3 = Xe.parse(t3).getDocument().copyUsingObjectsFromDocument(this.document), i3 = this.getLocationRange({ strict: false }), n3 = this.document.rangeFromLocationRange(i3);
+      return this.setDocument(e3), this.setSelection(n3);
+    }
+    insertFile(t3) {
+      return this.insertFiles([t3]);
+    }
+    insertFiles(t3) {
+      const e3 = [];
+      return Array.from(t3).forEach((t4) => {
+        var i3;
+        if (null !== (i3 = this.delegate) && void 0 !== i3 && i3.compositionShouldAcceptFile(t4)) {
+          const i4 = ke.attachmentForFile(t4);
+          e3.push(i4);
+        }
+      }), this.insertAttachments(e3);
+    }
+    insertAttachment(t3) {
+      return this.insertAttachments([t3]);
+    }
+    insertAttachments(t3) {
+      let e3 = new Te();
+      return Array.from(t3).forEach((t4) => {
+        var n3;
+        const r3 = t4.getType(), o3 = null === (n3 = i2[r3]) || void 0 === n3 ? void 0 : n3.presentation, s3 = this.getCurrentTextAttributes();
+        o3 && (s3.presentation = o3);
+        const a3 = Te.textForAttachmentWithAttributes(t4, s3);
+        e3 = e3.appendText(a3);
+      }), this.insertText(e3);
+    }
+    shouldManageDeletingInDirection(t3) {
+      const e3 = this.getLocationRange();
+      if (Dt2(e3)) {
+        if ("backward" === t3 && 0 === e3[0].offset)
+          return true;
+        if (this.shouldManageMovingCursorInDirection(t3))
+          return true;
+      } else if (e3[0].index !== e3[1].index)
+        return true;
+      return false;
+    }
+    deleteInDirection(t3) {
+      let e3, i3, n3, { length: r3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      const o3 = this.getLocationRange();
+      let s3 = this.getSelectedRange();
+      const a3 = Dt2(s3);
+      if (a3 ? i3 = "backward" === t3 && 0 === o3[0].offset : n3 = o3[0].index !== o3[1].index, i3 && this.canDecreaseBlockAttributeLevel()) {
+        const t4 = this.getBlock();
+        if (t4.isListItem() ? this.decreaseListLevel() : this.decreaseBlockAttributeLevel(), this.setSelection(s3[0]), t4.isEmpty())
+          return false;
+      }
+      return a3 && (s3 = this.getExpandedRangeInDirection(t3, { length: r3 }), "backward" === t3 && (e3 = this.getAttachmentAtRange(s3))), e3 ? (this.editAttachment(e3), false) : (this.setDocument(this.document.removeTextAtRange(s3)), this.setSelection(s3[0]), !i3 && !n3 && void 0);
+    }
+    moveTextFromRange(t3) {
+      const [e3] = Array.from(this.getSelectedRange());
+      return this.setDocument(this.document.moveTextFromRangeToPosition(t3, e3)), this.setSelection(e3);
+    }
+    removeAttachment(t3) {
+      const e3 = this.document.getRangeOfAttachment(t3);
+      if (e3)
+        return this.stopEditingAttachment(), this.setDocument(this.document.removeTextAtRange(e3)), this.setSelection(e3[0]);
+    }
+    removeLastBlockAttribute() {
+      const [t3, e3] = Array.from(this.getSelectedRange()), i3 = this.document.getBlockAtPosition(e3);
+      return this.removeCurrentAttribute(i3.getLastAttribute()), this.setSelection(t3);
+    }
+    insertPlaceholder() {
+      return this.placeholderPosition = this.getPosition(), this.insertString(" ");
+    }
+    selectPlaceholder() {
+      if (null != this.placeholderPosition)
+        return this.setSelectedRange([this.placeholderPosition, this.placeholderPosition + 1]), this.getSelectedRange();
+    }
+    forgetPlaceholder() {
+      this.placeholderPosition = null;
+    }
+    hasCurrentAttribute(t3) {
+      const e3 = this.currentAttributes[t3];
+      return null != e3 && false !== e3;
+    }
+    toggleCurrentAttribute(t3) {
+      const e3 = !this.currentAttributes[t3];
+      return e3 ? this.setCurrentAttribute(t3, e3) : this.removeCurrentAttribute(t3);
+    }
+    canSetCurrentAttribute(t3) {
+      return gt2(t3) ? this.canSetCurrentBlockAttribute(t3) : this.canSetCurrentTextAttribute(t3);
+    }
+    canSetCurrentTextAttribute(t3) {
+      const e3 = this.getSelectedDocument();
+      if (e3) {
+        for (const t4 of Array.from(e3.getAttachments()))
+          if (!t4.hasContent())
+            return false;
+        return true;
+      }
+    }
+    canSetCurrentBlockAttribute(t3) {
+      const e3 = this.getBlock();
+      if (e3)
+        return !e3.isTerminalBlock();
+    }
+    setCurrentAttribute(t3, e3) {
+      return gt2(t3) ? this.setBlockAttribute(t3, e3) : (this.setTextAttribute(t3, e3), this.currentAttributes[t3] = e3, this.notifyDelegateOfCurrentAttributesChange());
+    }
+    setHTMLAtributeAtPosition(t3, e3, i3) {
+      var n3;
+      const r3 = this.document.getBlockAtPosition(t3), o3 = null === (n3 = gt2(r3.getLastAttribute())) || void 0 === n3 ? void 0 : n3.htmlAttributes;
+      if (r3 && null != o3 && o3.includes(e3)) {
+        const n4 = this.document.setHTMLAttributeAtPosition(t3, e3, i3);
+        this.setDocument(n4);
+      }
+    }
+    setTextAttribute(t3, e3) {
+      const i3 = this.getSelectedRange();
+      if (!i3)
+        return;
+      const [n3, r3] = Array.from(i3);
+      if (n3 !== r3)
+        return this.setDocument(this.document.addAttributeAtRange(t3, e3, i3));
+      if ("href" === t3) {
+        const t4 = Te.textForStringWithAttributes(e3, { href: e3 });
+        return this.insertText(t4);
+      }
+    }
+    setBlockAttribute(t3, e3) {
+      const i3 = this.getSelectedRange();
+      if (this.canSetCurrentAttribute(t3))
+        return this.setDocument(this.document.applyBlockAttributeAtRange(t3, e3, i3)), this.setSelection(i3);
+    }
+    removeCurrentAttribute(t3) {
+      return gt2(t3) ? (this.removeBlockAttribute(t3), this.updateCurrentAttributes()) : (this.removeTextAttribute(t3), delete this.currentAttributes[t3], this.notifyDelegateOfCurrentAttributesChange());
+    }
+    removeTextAttribute(t3) {
+      const e3 = this.getSelectedRange();
+      if (e3)
+        return this.setDocument(this.document.removeAttributeAtRange(t3, e3));
+    }
+    removeBlockAttribute(t3) {
+      const e3 = this.getSelectedRange();
+      if (e3)
+        return this.setDocument(this.document.removeAttributeAtRange(t3, e3));
+    }
+    canDecreaseNestingLevel() {
+      var t3;
+      return (null === (t3 = this.getBlock()) || void 0 === t3 ? void 0 : t3.getNestingLevel()) > 0;
+    }
+    canIncreaseNestingLevel() {
+      var t3;
+      const e3 = this.getBlock();
+      if (e3) {
+        if (null === (t3 = gt2(e3.getLastNestableAttribute())) || void 0 === t3 || !t3.listAttribute)
+          return e3.getNestingLevel() > 0;
+        {
+          const t4 = this.getPreviousBlock();
+          if (t4)
+            return function() {
+              let t5 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];
+              return rt2((arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : []).slice(0, t5.length), t5);
+            }(t4.getListItemAttributes(), e3.getListItemAttributes());
+        }
+      }
+    }
+    decreaseNestingLevel() {
+      const t3 = this.getBlock();
+      if (t3)
+        return this.setDocument(this.document.replaceBlock(t3, t3.decreaseNestingLevel()));
+    }
+    increaseNestingLevel() {
+      const t3 = this.getBlock();
+      if (t3)
+        return this.setDocument(this.document.replaceBlock(t3, t3.increaseNestingLevel()));
+    }
+    canDecreaseBlockAttributeLevel() {
+      var t3;
+      return (null === (t3 = this.getBlock()) || void 0 === t3 ? void 0 : t3.getAttributeLevel()) > 0;
+    }
+    decreaseBlockAttributeLevel() {
+      var t3;
+      const e3 = null === (t3 = this.getBlock()) || void 0 === t3 ? void 0 : t3.getLastAttribute();
+      if (e3)
+        return this.removeCurrentAttribute(e3);
+    }
+    decreaseListLevel() {
+      let [t3] = Array.from(this.getSelectedRange());
+      const { index: e3 } = this.document.locationFromPosition(t3);
+      let i3 = e3;
+      const n3 = this.getBlock().getAttributeLevel();
+      let r3 = this.document.getBlockAtIndex(i3 + 1);
+      for (; r3 && r3.isListItem() && !(r3.getAttributeLevel() <= n3); )
+        i3++, r3 = this.document.getBlockAtIndex(i3 + 1);
+      t3 = this.document.positionFromLocation({ index: e3, offset: 0 });
+      const o3 = this.document.positionFromLocation({ index: i3, offset: 0 });
+      return this.setDocument(this.document.removeLastListAttributeAtRange([t3, o3]));
+    }
+    updateCurrentAttributes() {
+      const t3 = this.getSelectedRange({ ignoreLock: true });
+      if (t3) {
+        const e3 = this.document.getCommonAttributesAtRange(t3);
+        if (Array.from(dt2()).forEach((t4) => {
+          e3[t4] || this.canSetCurrentAttribute(t4) || (e3[t4] = false);
+        }), !St2(e3, this.currentAttributes))
+          return this.currentAttributes = e3, this.notifyDelegateOfCurrentAttributesChange();
+      }
+    }
+    getCurrentAttributes() {
+      return g2.call({}, this.currentAttributes);
+    }
+    getCurrentTextAttributes() {
+      const t3 = {};
+      for (const e3 in this.currentAttributes) {
+        const i3 = this.currentAttributes[e3];
+        false !== i3 && pt2(e3) && (t3[e3] = i3);
+      }
+      return t3;
+    }
+    freezeSelection() {
+      return this.setCurrentAttribute("frozen", true);
+    }
+    thawSelection() {
+      return this.removeCurrentAttribute("frozen");
+    }
+    hasFrozenSelection() {
+      return this.hasCurrentAttribute("frozen");
+    }
+    setSelection(t3) {
+      var e3;
+      const i3 = this.document.locationRangeFromRange(t3);
+      return null === (e3 = this.delegate) || void 0 === e3 ? void 0 : e3.compositionDidRequestChangingSelectionToLocationRange(i3);
+    }
+    getSelectedRange() {
+      const t3 = this.getLocationRange();
+      if (t3)
+        return this.document.rangeFromLocationRange(t3);
+    }
+    setSelectedRange(t3) {
+      const e3 = this.document.locationRangeFromRange(t3);
+      return this.getSelectionManager().setLocationRange(e3);
+    }
+    getPosition() {
+      const t3 = this.getLocationRange();
+      if (t3)
+        return this.document.positionFromLocation(t3[0]);
+    }
+    getLocationRange(t3) {
+      return this.targetLocationRange ? this.targetLocationRange : this.getSelectionManager().getLocationRange(t3) || Lt2({ index: 0, offset: 0 });
+    }
+    withTargetLocationRange(t3, e3) {
+      let i3;
+      this.targetLocationRange = t3;
+      try {
+        i3 = e3();
+      } finally {
+        this.targetLocationRange = null;
+      }
+      return i3;
+    }
+    withTargetRange(t3, e3) {
+      const i3 = this.document.locationRangeFromRange(t3);
+      return this.withTargetLocationRange(i3, e3);
+    }
+    withTargetDOMRange(t3, e3) {
+      const i3 = this.createLocationRangeFromDOMRange(t3, { strict: false });
+      return this.withTargetLocationRange(i3, e3);
+    }
+    getExpandedRangeInDirection(t3) {
+      let { length: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, [i3, n3] = Array.from(this.getSelectedRange());
+      return "backward" === t3 ? e3 ? i3 -= e3 : i3 = this.translateUTF16PositionFromOffset(i3, -1) : e3 ? n3 += e3 : n3 = this.translateUTF16PositionFromOffset(n3, 1), Lt2([i3, n3]);
+    }
+    shouldManageMovingCursorInDirection(t3) {
+      if (this.editingAttachment)
+        return true;
+      const e3 = this.getExpandedRangeInDirection(t3);
+      return null != this.getAttachmentAtRange(e3);
+    }
+    moveCursorInDirection(t3) {
+      let e3, i3;
+      if (this.editingAttachment)
+        i3 = this.document.getRangeOfAttachment(this.editingAttachment);
+      else {
+        const n3 = this.getSelectedRange();
+        i3 = this.getExpandedRangeInDirection(t3), e3 = !wt2(n3, i3);
+      }
+      if ("backward" === t3 ? this.setSelectedRange(i3[0]) : this.setSelectedRange(i3[1]), e3) {
+        const t4 = this.getAttachmentAtRange(i3);
+        if (t4)
+          return this.editAttachment(t4);
+      }
+    }
+    expandSelectionInDirection(t3) {
+      let { length: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      const i3 = this.getExpandedRangeInDirection(t3, { length: e3 });
+      return this.setSelectedRange(i3);
+    }
+    expandSelectionForEditing() {
+      if (this.hasCurrentAttribute("href"))
+        return this.expandSelectionAroundCommonAttribute("href");
+    }
+    expandSelectionAroundCommonAttribute(t3) {
+      const e3 = this.getPosition(), i3 = this.document.getRangeOfCommonAttributeAtPosition(t3, e3);
+      return this.setSelectedRange(i3);
+    }
+    selectionContainsAttachments() {
+      var t3;
+      return (null === (t3 = this.getSelectedAttachments()) || void 0 === t3 ? void 0 : t3.length) > 0;
+    }
+    selectionIsInCursorTarget() {
+      return this.editingAttachment || this.positionIsCursorTarget(this.getPosition());
+    }
+    positionIsCursorTarget(t3) {
+      const e3 = this.document.locationFromPosition(t3);
+      if (e3)
+        return this.locationIsCursorTarget(e3);
+    }
+    positionIsBlockBreak(t3) {
+      var e3;
+      return null === (e3 = this.document.getPieceAtPosition(t3)) || void 0 === e3 ? void 0 : e3.isBlockBreak();
+    }
+    getSelectedDocument() {
+      const t3 = this.getSelectedRange();
+      if (t3)
+        return this.document.getDocumentAtRange(t3);
+    }
+    getSelectedAttachments() {
+      var t3;
+      return null === (t3 = this.getSelectedDocument()) || void 0 === t3 ? void 0 : t3.getAttachments();
+    }
+    getAttachments() {
+      return this.attachments.slice(0);
+    }
+    refreshAttachments() {
+      const t3 = this.document.getAttachments(), { added: e3, removed: i3 } = function() {
+        let t4 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [], e4 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];
+        const i4 = [], n3 = [], r3 = /* @__PURE__ */ new Set();
+        t4.forEach((t5) => {
+          r3.add(t5);
+        });
+        const o3 = /* @__PURE__ */ new Set();
+        return e4.forEach((t5) => {
+          o3.add(t5), r3.has(t5) || i4.push(t5);
+        }), t4.forEach((t5) => {
+          o3.has(t5) || n3.push(t5);
+        }), { added: i4, removed: n3 };
+      }(this.attachments, t3);
+      return this.attachments = t3, Array.from(i3).forEach((t4) => {
+        var e4, i4;
+        t4.delegate = null, null === (e4 = this.delegate) || void 0 === e4 || null === (i4 = e4.compositionDidRemoveAttachment) || void 0 === i4 || i4.call(e4, t4);
+      }), (() => {
+        const t4 = [];
+        return Array.from(e3).forEach((e4) => {
+          var i4, n3;
+          e4.delegate = this, t4.push(null === (i4 = this.delegate) || void 0 === i4 || null === (n3 = i4.compositionDidAddAttachment) || void 0 === n3 ? void 0 : n3.call(i4, e4));
+        }), t4;
+      })();
+    }
+    attachmentDidChangeAttributes(t3) {
+      var e3, i3;
+      return this.revision++, null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionDidEditAttachment) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    attachmentDidChangePreviewURL(t3) {
+      var e3, i3;
+      return this.revision++, null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionDidChangeAttachmentPreviewURL) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    editAttachment(t3, e3) {
+      var i3, n3;
+      if (t3 !== this.editingAttachment)
+        return this.stopEditingAttachment(), this.editingAttachment = t3, null === (i3 = this.delegate) || void 0 === i3 || null === (n3 = i3.compositionDidStartEditingAttachment) || void 0 === n3 ? void 0 : n3.call(i3, this.editingAttachment, e3);
+    }
+    stopEditingAttachment() {
+      var t3, e3;
+      this.editingAttachment && (null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.compositionDidStopEditingAttachment) || void 0 === e3 || e3.call(t3, this.editingAttachment), this.editingAttachment = null);
+    }
+    updateAttributesForAttachment(t3, e3) {
+      return this.setDocument(this.document.updateAttributesForAttachment(t3, e3));
+    }
+    removeAttributeForAttachment(t3, e3) {
+      return this.setDocument(this.document.removeAttributeForAttachment(t3, e3));
+    }
+    breakFormattedBlock(t3) {
+      let { document: e3 } = t3;
+      const { block: i3 } = t3;
+      let n3 = t3.startPosition, r3 = [n3 - 1, n3];
+      i3.getBlockBreakPosition() === t3.startLocation.offset ? (i3.breaksOnReturn() && "\n" === t3.nextCharacter ? n3 += 1 : e3 = e3.removeTextAtRange(r3), r3 = [n3, n3]) : "\n" === t3.nextCharacter ? "\n" === t3.previousCharacter ? r3 = [n3 - 1, n3 + 1] : (r3 = [n3, n3 + 1], n3 += 1) : t3.startLocation.offset - 1 != 0 && (n3 += 1);
+      const o3 = new qe([i3.removeLastAttribute().copyWithoutText()]);
+      return this.setDocument(e3.insertDocumentAtRange(o3, r3)), this.setSelection(n3);
+    }
+    getPreviousBlock() {
+      const t3 = this.getLocationRange();
+      if (t3) {
+        const { index: e3 } = t3[0];
+        if (e3 > 0)
+          return this.document.getBlockAtIndex(e3 - 1);
+      }
+    }
+    getBlock() {
+      const t3 = this.getLocationRange();
+      if (t3)
+        return this.document.getBlockAtIndex(t3[0].index);
+    }
+    getAttachmentAtRange(t3) {
+      const e3 = this.document.getDocumentAtRange(t3);
+      if (e3.toString() === "".concat("\uFFFC", "\n"))
+        return e3.getAttachments()[0];
+    }
+    notifyDelegateOfCurrentAttributesChange() {
+      var t3, e3;
+      return null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.compositionDidChangeCurrentAttributes) || void 0 === e3 ? void 0 : e3.call(t3, this.currentAttributes);
+    }
+    notifyDelegateOfInsertionAtRange(t3) {
+      var e3, i3;
+      return null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionDidPerformInsertionAtRange) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    translateUTF16PositionFromOffset(t3, e3) {
+      const i3 = this.document.toUTF16String(), n3 = i3.offsetFromUCS2Offset(t3);
+      return i3.offsetToUCS2Offset(n3 + e3);
+    }
+  };
+  gi.proxyMethod("getSelectionManager().getPointRange"), gi.proxyMethod("getSelectionManager().setLocationRangeFromPointRange"), gi.proxyMethod("getSelectionManager().createLocationRangeFromDOMRange"), gi.proxyMethod("getSelectionManager().locationIsCursorTarget"), gi.proxyMethod("getSelectionManager().selectionIsExpanded"), gi.proxyMethod("delegate?.getSelectionManager");
+  var mi = class extends H2 {
+    constructor(t3) {
+      super(...arguments), this.composition = t3, this.undoEntries = [], this.redoEntries = [];
+    }
+    recordUndoEntry(t3) {
+      let { context: e3, consolidatable: i3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      const n3 = this.undoEntries.slice(-1)[0];
+      if (!i3 || !pi(n3, t3, e3)) {
+        const i4 = this.createEntry({ description: t3, context: e3 });
+        this.undoEntries.push(i4), this.redoEntries = [];
+      }
+    }
+    undo() {
+      const t3 = this.undoEntries.pop();
+      if (t3) {
+        const e3 = this.createEntry(t3);
+        return this.redoEntries.push(e3), this.composition.loadSnapshot(t3.snapshot);
+      }
+    }
+    redo() {
+      const t3 = this.redoEntries.pop();
+      if (t3) {
+        const e3 = this.createEntry(t3);
+        return this.undoEntries.push(e3), this.composition.loadSnapshot(t3.snapshot);
+      }
+    }
+    canUndo() {
+      return this.undoEntries.length > 0;
+    }
+    canRedo() {
+      return this.redoEntries.length > 0;
+    }
+    createEntry() {
+      let { description: t3, context: e3 } = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+      return { description: null == t3 ? void 0 : t3.toString(), context: JSON.stringify(e3), snapshot: this.composition.getSnapshot() };
+    }
+  };
+  var pi = (t3, e3, i3) => (null == t3 ? void 0 : t3.description) === (null == e3 ? void 0 : e3.toString()) && (null == t3 ? void 0 : t3.context) === JSON.stringify(i3);
+  var fi = "attachmentGallery";
+  var bi = class {
+    constructor(t3) {
+      this.document = t3.document, this.selectedRange = t3.selectedRange;
+    }
+    perform() {
+      return this.removeBlockAttribute(), this.applyBlockAttribute();
+    }
+    getSnapshot() {
+      return { document: this.document, selectedRange: this.selectedRange };
+    }
+    removeBlockAttribute() {
+      return this.findRangesOfBlocks().map((t3) => this.document = this.document.removeAttributeAtRange(fi, t3));
+    }
+    applyBlockAttribute() {
+      let t3 = 0;
+      this.findRangesOfPieces().forEach((e3) => {
+        e3[1] - e3[0] > 1 && (e3[0] += t3, e3[1] += t3, "\n" !== this.document.getCharacterAtPosition(e3[1]) && (this.document = this.document.insertBlockBreakAtRange(e3[1]), e3[1] < this.selectedRange[1] && this.moveSelectedRangeForward(), e3[1]++, t3++), 0 !== e3[0] && "\n" !== this.document.getCharacterAtPosition(e3[0] - 1) && (this.document = this.document.insertBlockBreakAtRange(e3[0]), e3[0] < this.selectedRange[0] && this.moveSelectedRangeForward(), e3[0]++, t3++), this.document = this.document.applyBlockAttributeAtRange(fi, true, e3));
+      });
+    }
+    findRangesOfBlocks() {
+      return this.document.findRangesForBlockAttribute(fi);
+    }
+    findRangesOfPieces() {
+      return this.document.findRangesForTextAttribute("presentation", { withValue: "gallery" });
+    }
+    moveSelectedRangeForward() {
+      this.selectedRange[0] += 1, this.selectedRange[1] += 1;
+    }
+  };
+  var vi = function(t3) {
+    const e3 = new bi(t3);
+    return e3.perform(), e3.getSnapshot();
+  };
+  var Ai = [vi];
+  var xi = class {
+    constructor(t3, e3, i3) {
+      this.insertFiles = this.insertFiles.bind(this), this.composition = t3, this.selectionManager = e3, this.element = i3, this.undoManager = new mi(this.composition), this.filters = Ai.slice(0);
+    }
+    loadDocument(t3) {
+      return this.loadSnapshot({ document: t3, selectedRange: [0, 0] });
+    }
+    loadHTML() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "";
+      const e3 = Xe.parse(t3, { referenceElement: this.element }).getDocument();
+      return this.loadDocument(e3);
+    }
+    loadJSON(t3) {
+      let { document: e3, selectedRange: i3 } = t3;
+      return e3 = qe.fromJSON(e3), this.loadSnapshot({ document: e3, selectedRange: i3 });
+    }
+    loadSnapshot(t3) {
+      return this.undoManager = new mi(this.composition), this.composition.loadSnapshot(t3);
+    }
+    getDocument() {
+      return this.composition.document;
+    }
+    getSelectedDocument() {
+      return this.composition.getSelectedDocument();
+    }
+    getSnapshot() {
+      return this.composition.getSnapshot();
+    }
+    toJSON() {
+      return this.getSnapshot();
+    }
+    deleteInDirection(t3) {
+      return this.composition.deleteInDirection(t3);
+    }
+    insertAttachment(t3) {
+      return this.composition.insertAttachment(t3);
+    }
+    insertAttachments(t3) {
+      return this.composition.insertAttachments(t3);
+    }
+    insertDocument(t3) {
+      return this.composition.insertDocument(t3);
+    }
+    insertFile(t3) {
+      return this.composition.insertFile(t3);
+    }
+    insertFiles(t3) {
+      return this.composition.insertFiles(t3);
+    }
+    insertHTML(t3) {
+      return this.composition.insertHTML(t3);
+    }
+    insertString(t3) {
+      return this.composition.insertString(t3);
+    }
+    insertText(t3) {
+      return this.composition.insertText(t3);
+    }
+    insertLineBreak() {
+      return this.composition.insertLineBreak();
+    }
+    getSelectedRange() {
+      return this.composition.getSelectedRange();
+    }
+    getPosition() {
+      return this.composition.getPosition();
+    }
+    getClientRectAtPosition(t3) {
+      const e3 = this.getDocument().locationRangeFromRange([t3, t3 + 1]);
+      return this.selectionManager.getClientRectAtLocationRange(e3);
+    }
+    expandSelectionInDirection(t3) {
+      return this.composition.expandSelectionInDirection(t3);
+    }
+    moveCursorInDirection(t3) {
+      return this.composition.moveCursorInDirection(t3);
+    }
+    setSelectedRange(t3) {
+      return this.composition.setSelectedRange(t3);
+    }
+    activateAttribute(t3) {
+      let e3 = !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1];
+      return this.composition.setCurrentAttribute(t3, e3);
+    }
+    attributeIsActive(t3) {
+      return this.composition.hasCurrentAttribute(t3);
+    }
+    canActivateAttribute(t3) {
+      return this.composition.canSetCurrentAttribute(t3);
+    }
+    deactivateAttribute(t3) {
+      return this.composition.removeCurrentAttribute(t3);
+    }
+    setHTMLAtributeAtPosition(t3, e3, i3) {
+      this.composition.setHTMLAtributeAtPosition(t3, e3, i3);
+    }
+    canDecreaseNestingLevel() {
+      return this.composition.canDecreaseNestingLevel();
+    }
+    canIncreaseNestingLevel() {
+      return this.composition.canIncreaseNestingLevel();
+    }
+    decreaseNestingLevel() {
+      if (this.canDecreaseNestingLevel())
+        return this.composition.decreaseNestingLevel();
+    }
+    increaseNestingLevel() {
+      if (this.canIncreaseNestingLevel())
+        return this.composition.increaseNestingLevel();
+    }
+    canRedo() {
+      return this.undoManager.canRedo();
+    }
+    canUndo() {
+      return this.undoManager.canUndo();
+    }
+    recordUndoEntry(t3) {
+      let { context: e3, consolidatable: i3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+      return this.undoManager.recordUndoEntry(t3, { context: e3, consolidatable: i3 });
+    }
+    redo() {
+      if (this.canRedo())
+        return this.undoManager.redo();
+    }
+    undo() {
+      if (this.canUndo())
+        return this.undoManager.undo();
+    }
+  };
+  var yi = class {
+    constructor(t3) {
+      this.element = t3;
+    }
+    findLocationFromContainerAndOffset(t3, e3) {
+      let { strict: i3 } = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : { strict: true }, n3 = 0, r3 = false;
+      const o3 = { index: 0, offset: 0 }, s3 = this.findAttachmentElementParentForNode(t3);
+      s3 && (t3 = s3.parentNode, e3 = C2(s3));
+      const a3 = R2(this.element, { usingFilter: Ei });
+      for (; a3.nextNode(); ) {
+        const s4 = a3.currentNode;
+        if (s4 === t3 && O2(t3)) {
+          P2(s4) || (o3.offset += e3);
+          break;
+        }
+        if (s4.parentNode === t3) {
+          if (n3++ === e3)
+            break;
+        } else if (!y2(t3, s4) && n3 > 0)
+          break;
+        T2(s4, { strict: i3 }) ? (r3 && o3.index++, o3.offset = 0, r3 = true) : o3.offset += Ci(s4);
+      }
+      return o3;
+    }
+    findContainerAndOffsetFromLocation(t3) {
+      let e3, i3;
+      if (0 === t3.index && 0 === t3.offset) {
+        for (e3 = this.element, i3 = 0; e3.firstChild; )
+          if (e3 = e3.firstChild, w2(e3)) {
+            i3 = 1;
+            break;
+          }
+        return [e3, i3];
+      }
+      let [n3, r3] = this.findNodeAndOffsetFromLocation(t3);
+      if (n3) {
+        if (O2(n3))
+          0 === Ci(n3) ? (e3 = n3.parentNode.parentNode, i3 = C2(n3.parentNode), P2(n3, { name: "right" }) && i3++) : (e3 = n3, i3 = t3.offset - r3);
+        else {
+          if (e3 = n3.parentNode, !T2(n3.previousSibling) && !w2(e3))
+            for (; n3 === e3.lastChild && (n3 = e3, e3 = e3.parentNode, !w2(e3)); )
+              ;
+          i3 = C2(n3), 0 !== t3.offset && i3++;
+        }
+        return [e3, i3];
+      }
+    }
+    findNodeAndOffsetFromLocation(t3) {
+      let e3, i3, n3 = 0;
+      for (const r3 of this.getSignificantNodesForIndex(t3.index)) {
+        const o3 = Ci(r3);
+        if (t3.offset <= n3 + o3)
+          if (O2(r3)) {
+            if (e3 = r3, i3 = n3, t3.offset === i3 && P2(e3))
+              break;
+          } else
+            e3 || (e3 = r3, i3 = n3);
+        if (n3 += o3, n3 > t3.offset)
+          break;
+      }
+      return [e3, i3];
+    }
+    findAttachmentElementParentForNode(t3) {
+      for (; t3 && t3 !== this.element; ) {
+        if (I2(t3))
+          return t3;
+        t3 = t3.parentNode;
+      }
+    }
+    getSignificantNodesForIndex(t3) {
+      const e3 = [], i3 = R2(this.element, { usingFilter: ki });
+      let n3 = false;
+      for (; i3.nextNode(); ) {
+        const o3 = i3.currentNode;
+        var r3;
+        if (B2(o3)) {
+          if (null != r3 ? r3++ : r3 = 0, r3 === t3)
+            n3 = true;
+          else if (n3)
+            break;
+        } else
+          n3 && e3.push(o3);
+      }
+      return e3;
+    }
+  };
+  var Ci = function(t3) {
+    if (t3.nodeType === Node.TEXT_NODE) {
+      if (P2(t3))
+        return 0;
+      return t3.textContent.length;
+    }
+    return "br" === E2(t3) || I2(t3) ? 1 : 0;
+  };
+  var ki = function(t3) {
+    return Ri(t3) === NodeFilter.FILTER_ACCEPT ? Ei(t3) : NodeFilter.FILTER_REJECT;
+  };
+  var Ri = function(t3) {
+    return N2(t3) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+  };
+  var Ei = function(t3) {
+    return I2(t3.parentNode) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+  };
+  var Si = class {
+    createDOMRangeFromPoint(t3) {
+      let e3, { x: i3, y: n3 } = t3;
+      if (document.caretPositionFromPoint) {
+        const { offsetNode: t4, offset: r3 } = document.caretPositionFromPoint(i3, n3);
+        return e3 = document.createRange(), e3.setStart(t4, r3), e3;
+      }
+      if (document.caretRangeFromPoint)
+        return document.caretRangeFromPoint(i3, n3);
+      if (document.body.createTextRange) {
+        const t4 = Nt2();
+        try {
+          const t5 = document.body.createTextRange();
+          t5.moveToPoint(i3, n3), t5.select();
+        } catch (t5) {
+        }
+        return e3 = Nt2(), Ot2(t4), e3;
+      }
+    }
+    getClientRectsForDOMRange(t3) {
+      const e3 = Array.from(t3.getClientRects());
+      return [e3[0], e3[e3.length - 1]];
+    }
+  };
+  var Li = class extends H2 {
+    constructor(t3) {
+      super(...arguments), this.didMouseDown = this.didMouseDown.bind(this), this.selectionDidChange = this.selectionDidChange.bind(this), this.element = t3, this.locationMapper = new yi(this.element), this.pointMapper = new Si(), this.lockCount = 0, f2("mousedown", { onElement: this.element, withCallback: this.didMouseDown });
+    }
+    getLocationRange() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+      return false === t3.strict ? this.createLocationRangeFromDOMRange(Nt2()) : t3.ignoreLock ? this.currentLocationRange : this.lockedLocationRange ? this.lockedLocationRange : this.currentLocationRange;
+    }
+    setLocationRange(t3) {
+      if (this.lockedLocationRange)
+        return;
+      t3 = Lt2(t3);
+      const e3 = this.createDOMRangeFromLocationRange(t3);
+      e3 && (Ot2(e3), this.updateCurrentLocationRange(t3));
+    }
+    setLocationRangeFromPointRange(t3) {
+      t3 = Lt2(t3);
+      const e3 = this.getLocationAtPoint(t3[0]), i3 = this.getLocationAtPoint(t3[1]);
+      this.setLocationRange([e3, i3]);
+    }
+    getClientRectAtLocationRange(t3) {
+      const e3 = this.createDOMRangeFromLocationRange(t3);
+      if (e3)
+        return this.getClientRectsForDOMRange(e3)[1];
+    }
+    locationIsCursorTarget(t3) {
+      const e3 = Array.from(this.findNodeAndOffsetFromLocation(t3))[0];
+      return P2(e3);
+    }
+    lock() {
+      0 == this.lockCount++ && (this.updateCurrentLocationRange(), this.lockedLocationRange = this.getLocationRange());
+    }
+    unlock() {
+      if (0 == --this.lockCount) {
+        const { lockedLocationRange: t3 } = this;
+        if (this.lockedLocationRange = null, null != t3)
+          return this.setLocationRange(t3);
+      }
+    }
+    clearSelection() {
+      var t3;
+      return null === (t3 = It2()) || void 0 === t3 ? void 0 : t3.removeAllRanges();
+    }
+    selectionIsCollapsed() {
+      var t3;
+      return true === (null === (t3 = Nt2()) || void 0 === t3 ? void 0 : t3.collapsed);
+    }
+    selectionIsExpanded() {
+      return !this.selectionIsCollapsed();
+    }
+    createLocationRangeFromDOMRange(t3, e3) {
+      if (null == t3 || !this.domRangeWithinElement(t3))
+        return;
+      const i3 = this.findLocationFromContainerAndOffset(t3.startContainer, t3.startOffset, e3);
+      if (!i3)
+        return;
+      const n3 = t3.collapsed ? void 0 : this.findLocationFromContainerAndOffset(t3.endContainer, t3.endOffset, e3);
+      return Lt2([i3, n3]);
+    }
+    didMouseDown() {
+      return this.pauseTemporarily();
+    }
+    pauseTemporarily() {
+      let t3;
+      this.paused = true;
+      const e3 = () => {
+        if (this.paused = false, clearTimeout(i3), Array.from(t3).forEach((t4) => {
+          t4.destroy();
+        }), y2(document, this.element))
+          return this.selectionDidChange();
+      }, i3 = setTimeout(e3, 200);
+      t3 = ["mousemove", "keydown"].map((t4) => f2(t4, { onElement: document, withCallback: e3 }));
+    }
+    selectionDidChange() {
+      if (!this.paused && !x2(this.element))
+        return this.updateCurrentLocationRange();
+    }
+    updateCurrentLocationRange(t3) {
+      var e3, i3;
+      if ((null != t3 ? t3 : t3 = this.createLocationRangeFromDOMRange(Nt2())) && !wt2(t3, this.currentLocationRange))
+        return this.currentLocationRange = t3, null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.locationRangeDidChange) || void 0 === i3 ? void 0 : i3.call(e3, this.currentLocationRange.slice(0));
+    }
+    createDOMRangeFromLocationRange(t3) {
+      const e3 = this.findContainerAndOffsetFromLocation(t3[0]), i3 = Dt2(t3) ? e3 : this.findContainerAndOffsetFromLocation(t3[1]) || e3;
+      if (null != e3 && null != i3) {
+        const t4 = document.createRange();
+        return t4.setStart(...Array.from(e3 || [])), t4.setEnd(...Array.from(i3 || [])), t4;
+      }
+    }
+    getLocationAtPoint(t3) {
+      const e3 = this.createDOMRangeFromPoint(t3);
+      var i3;
+      if (e3)
+        return null === (i3 = this.createLocationRangeFromDOMRange(e3)) || void 0 === i3 ? void 0 : i3[0];
+    }
+    domRangeWithinElement(t3) {
+      return t3.collapsed ? y2(this.element, t3.startContainer) : y2(this.element, t3.startContainer) && y2(this.element, t3.endContainer);
+    }
+  };
+  Li.proxyMethod("locationMapper.findLocationFromContainerAndOffset"), Li.proxyMethod("locationMapper.findContainerAndOffsetFromLocation"), Li.proxyMethod("locationMapper.findNodeAndOffsetFromLocation"), Li.proxyMethod("pointMapper.createDOMRangeFromPoint"), Li.proxyMethod("pointMapper.getClientRectsForDOMRange");
+  var Di = Object.freeze({ __proto__: null, Attachment: ke, AttachmentManager: hi, AttachmentPiece: Re, Block: Be, Composition: gi, Document: qe, Editor: xi, HTMLParser: Xe, HTMLSanitizer: Je, LineBreakInsertion: di, LocationMapper: yi, ManagedAttachment: ui, Piece: ye2, PointMapper: Si, SelectionManager: Li, SplittableList: Se2, StringPiece: Ee2, Text: Te, UndoManager: mi });
+  var wi = Object.freeze({ __proto__: null, ObjectView: ee2, AttachmentView: re2, BlockView: de2, DocumentView: ge2, PieceView: le2, PreviewableAttachmentView: ae2, TextView: ce2 });
+  var { lang: Ti, css: Bi, keyNames: Fi } = V2;
+  var Pi = function(t3) {
+    return function() {
+      const e3 = t3.apply(this, arguments);
+      e3.do(), this.undos || (this.undos = []), this.undos.push(e3.undo);
+    };
+  };
+  var Ii = class extends H2 {
+    constructor(t3, e3, i3) {
+      let n3 = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : {};
+      super(...arguments), Ae(this, "makeElementMutable", Pi(() => ({ do: () => {
+        this.element.dataset.trixMutable = true;
+      }, undo: () => delete this.element.dataset.trixMutable }))), Ae(this, "addToolbar", Pi(() => {
+        const t4 = S2({ tagName: "div", className: Bi.attachmentToolbar, data: { trixMutable: true }, childNodes: S2({ tagName: "div", className: "trix-button-row", childNodes: S2({ tagName: "span", className: "trix-button-group trix-button-group--actions", childNodes: S2({ tagName: "button", className: "trix-button trix-button--remove", textContent: Ti.remove, attributes: { title: Ti.remove }, data: { trixAction: "remove" } }) }) }) });
+        return this.attachment.isPreviewable() && t4.appendChild(S2({ tagName: "div", className: Bi.attachmentMetadataContainer, childNodes: S2({ tagName: "span", className: Bi.attachmentMetadata, childNodes: [S2({ tagName: "span", className: Bi.attachmentName, textContent: this.attachment.getFilename(), attributes: { title: this.attachment.getFilename() } }), S2({ tagName: "span", className: Bi.attachmentSize, textContent: this.attachment.getFormattedFilesize() })] }) })), f2("click", { onElement: t4, withCallback: this.didClickToolbar }), f2("click", { onElement: t4, matchingSelector: "[data-trix-action]", withCallback: this.didClickActionButton }), b2("trix-attachment-before-toolbar", { onElement: this.element, attributes: { toolbar: t4, attachment: this.attachment } }), { do: () => this.element.appendChild(t4), undo: () => k2(t4) };
+      })), Ae(this, "installCaptionEditor", Pi(() => {
+        const t4 = S2({ tagName: "textarea", className: Bi.attachmentCaptionEditor, attributes: { placeholder: Ti.captionPlaceholder }, data: { trixMutable: true } });
+        t4.value = this.attachmentPiece.getCaption();
+        const e4 = t4.cloneNode();
+        e4.classList.add("trix-autoresize-clone"), e4.tabIndex = -1;
+        const i4 = function() {
+          e4.value = t4.value, t4.style.height = e4.scrollHeight + "px";
+        };
+        f2("input", { onElement: t4, withCallback: i4 }), f2("input", { onElement: t4, withCallback: this.didInputCaption }), f2("keydown", { onElement: t4, withCallback: this.didKeyDownCaption }), f2("change", { onElement: t4, withCallback: this.didChangeCaption }), f2("blur", { onElement: t4, withCallback: this.didBlurCaption });
+        const n4 = this.element.querySelector("figcaption"), r3 = n4.cloneNode();
+        return { do: () => {
+          if (n4.style.display = "none", r3.appendChild(t4), r3.appendChild(e4), r3.classList.add("".concat(Bi.attachmentCaption, "--editing")), n4.parentElement.insertBefore(r3, n4), i4(), this.options.editCaption)
+            return Rt2(() => t4.focus());
+        }, undo() {
+          k2(r3), n4.style.display = null;
+        } };
+      })), this.didClickToolbar = this.didClickToolbar.bind(this), this.didClickActionButton = this.didClickActionButton.bind(this), this.didKeyDownCaption = this.didKeyDownCaption.bind(this), this.didInputCaption = this.didInputCaption.bind(this), this.didChangeCaption = this.didChangeCaption.bind(this), this.didBlurCaption = this.didBlurCaption.bind(this), this.attachmentPiece = t3, this.element = e3, this.container = i3, this.options = n3, this.attachment = this.attachmentPiece.attachment, "a" === E2(this.element) && (this.element = this.element.firstChild), this.install();
+    }
+    install() {
+      this.makeElementMutable(), this.addToolbar(), this.attachment.isPreviewable() && this.installCaptionEditor();
+    }
+    uninstall() {
+      var t3;
+      let e3 = this.undos.pop();
+      for (this.savePendingCaption(); e3; )
+        e3(), e3 = this.undos.pop();
+      null === (t3 = this.delegate) || void 0 === t3 || t3.didUninstallAttachmentEditor(this);
+    }
+    savePendingCaption() {
+      if (null != this.pendingCaption) {
+        const r3 = this.pendingCaption;
+        var t3, e3, i3, n3;
+        if (this.pendingCaption = null, r3)
+          null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.attachmentEditorDidRequestUpdatingAttributesForAttachment) || void 0 === e3 || e3.call(t3, { caption: r3 }, this.attachment);
+        else
+          null === (i3 = this.delegate) || void 0 === i3 || null === (n3 = i3.attachmentEditorDidRequestRemovingAttributeForAttachment) || void 0 === n3 || n3.call(i3, "caption", this.attachment);
+      }
+    }
+    didClickToolbar(t3) {
+      return t3.preventDefault(), t3.stopPropagation();
+    }
+    didClickActionButton(t3) {
+      var e3;
+      if ("remove" === t3.target.getAttribute("data-trix-action"))
+        return null === (e3 = this.delegate) || void 0 === e3 ? void 0 : e3.attachmentEditorDidRequestRemovalOfAttachment(this.attachment);
+    }
+    didKeyDownCaption(t3) {
+      var e3, i3;
+      if ("return" === Fi[t3.keyCode])
+        return t3.preventDefault(), this.savePendingCaption(), null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.attachmentEditorDidRequestDeselectingAttachment) || void 0 === i3 ? void 0 : i3.call(e3, this.attachment);
+    }
+    didInputCaption(t3) {
+      this.pendingCaption = t3.target.value.replace(/\s/g, " ").trim();
+    }
+    didChangeCaption(t3) {
+      return this.savePendingCaption();
+    }
+    didBlurCaption(t3) {
+      return this.savePendingCaption();
+    }
+  };
+  var Ni = class extends H2 {
+    constructor(t3, i3) {
+      super(...arguments), this.didFocus = this.didFocus.bind(this), this.didBlur = this.didBlur.bind(this), this.didClickAttachment = this.didClickAttachment.bind(this), this.element = t3, this.composition = i3, this.documentView = new ge2(this.composition.document, { element: this.element }), f2("focus", { onElement: this.element, withCallback: this.didFocus }), f2("blur", { onElement: this.element, withCallback: this.didBlur }), f2("click", { onElement: this.element, matchingSelector: "a[contenteditable=false]", preventDefault: true }), f2("mousedown", { onElement: this.element, matchingSelector: e2, withCallback: this.didClickAttachment }), f2("click", { onElement: this.element, matchingSelector: "a".concat(e2), preventDefault: true });
+    }
+    didFocus(t3) {
+      var e3;
+      const i3 = () => {
+        var t4, e4;
+        if (!this.focused)
+          return this.focused = true, null === (t4 = this.delegate) || void 0 === t4 || null === (e4 = t4.compositionControllerDidFocus) || void 0 === e4 ? void 0 : e4.call(t4);
+      };
+      return (null === (e3 = this.blurPromise) || void 0 === e3 ? void 0 : e3.then(i3)) || i3();
+    }
+    didBlur(t3) {
+      this.blurPromise = new Promise((t4) => Rt2(() => {
+        var e3, i3;
+        x2(this.element) || (this.focused = null, null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionControllerDidBlur) || void 0 === i3 || i3.call(e3));
+        return this.blurPromise = null, t4();
+      }));
+    }
+    didClickAttachment(t3, e3) {
+      var i3, n3;
+      const r3 = this.findAttachmentForElement(e3), o3 = !!A2(t3.target, { matchingSelector: "figcaption" });
+      return null === (i3 = this.delegate) || void 0 === i3 || null === (n3 = i3.compositionControllerDidSelectAttachment) || void 0 === n3 ? void 0 : n3.call(i3, r3, { editCaption: o3 });
+    }
+    getSerializableElement() {
+      return this.isEditingAttachment() ? this.documentView.shadowElement : this.element;
+    }
+    render() {
+      var t3, e3, i3, n3, r3, o3;
+      (this.revision !== this.composition.revision && (this.documentView.setDocument(this.composition.document), this.documentView.render(), this.revision = this.composition.revision), this.canSyncDocumentView() && !this.documentView.isSynced()) && (null === (i3 = this.delegate) || void 0 === i3 || null === (n3 = i3.compositionControllerWillSyncDocumentView) || void 0 === n3 || n3.call(i3), this.documentView.sync(), null === (r3 = this.delegate) || void 0 === r3 || null === (o3 = r3.compositionControllerDidSyncDocumentView) || void 0 === o3 || o3.call(r3));
+      return null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.compositionControllerDidRender) || void 0 === e3 ? void 0 : e3.call(t3);
+    }
+    rerenderViewForObject(t3) {
+      return this.invalidateViewForObject(t3), this.render();
+    }
+    invalidateViewForObject(t3) {
+      return this.documentView.invalidateViewForObject(t3);
+    }
+    isViewCachingEnabled() {
+      return this.documentView.isViewCachingEnabled();
+    }
+    enableViewCaching() {
+      return this.documentView.enableViewCaching();
+    }
+    disableViewCaching() {
+      return this.documentView.disableViewCaching();
+    }
+    refreshViewCache() {
+      return this.documentView.garbageCollectCachedViews();
+    }
+    isEditingAttachment() {
+      return !!this.attachmentEditor;
+    }
+    installAttachmentEditorForAttachment(t3, e3) {
+      var i3;
+      if ((null === (i3 = this.attachmentEditor) || void 0 === i3 ? void 0 : i3.attachment) === t3)
+        return;
+      const n3 = this.documentView.findElementForObject(t3);
+      if (!n3)
+        return;
+      this.uninstallAttachmentEditor();
+      const r3 = this.composition.document.getAttachmentPieceForAttachment(t3);
+      this.attachmentEditor = new Ii(r3, n3, this.element, e3), this.attachmentEditor.delegate = this;
+    }
+    uninstallAttachmentEditor() {
+      var t3;
+      return null === (t3 = this.attachmentEditor) || void 0 === t3 ? void 0 : t3.uninstall();
+    }
+    didUninstallAttachmentEditor() {
+      return this.attachmentEditor = null, this.render();
+    }
+    attachmentEditorDidRequestUpdatingAttributesForAttachment(t3, e3) {
+      var i3, n3;
+      return null === (i3 = this.delegate) || void 0 === i3 || null === (n3 = i3.compositionControllerWillUpdateAttachment) || void 0 === n3 || n3.call(i3, e3), this.composition.updateAttributesForAttachment(t3, e3);
+    }
+    attachmentEditorDidRequestRemovingAttributeForAttachment(t3, e3) {
+      var i3, n3;
+      return null === (i3 = this.delegate) || void 0 === i3 || null === (n3 = i3.compositionControllerWillUpdateAttachment) || void 0 === n3 || n3.call(i3, e3), this.composition.removeAttributeForAttachment(t3, e3);
+    }
+    attachmentEditorDidRequestRemovalOfAttachment(t3) {
+      var e3, i3;
+      return null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionControllerDidRequestRemovalOfAttachment) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    attachmentEditorDidRequestDeselectingAttachment(t3) {
+      var e3, i3;
+      return null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.compositionControllerDidRequestDeselectingAttachment) || void 0 === i3 ? void 0 : i3.call(e3, t3);
+    }
+    canSyncDocumentView() {
+      return !this.isEditingAttachment();
+    }
+    findAttachmentForElement(t3) {
+      return this.composition.document.getAttachmentById(parseInt(t3.dataset.trixId, 10));
+    }
+  };
+  var Oi = class extends H2 {
+  };
+  var Mi = "data-trix-mutable";
+  var ji = "[".concat(Mi, "]");
+  var Wi = { attributes: true, childList: true, characterData: true, characterDataOldValue: true, subtree: true };
+  var Ui = class extends H2 {
+    constructor(t3) {
+      super(t3), this.didMutate = this.didMutate.bind(this), this.element = t3, this.observer = new window.MutationObserver(this.didMutate), this.start();
+    }
+    start() {
+      return this.reset(), this.observer.observe(this.element, Wi);
+    }
+    stop() {
+      return this.observer.disconnect();
+    }
+    didMutate(t3) {
+      var e3, i3;
+      if (this.mutations.push(...Array.from(this.findSignificantMutations(t3) || [])), this.mutations.length)
+        return null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.elementDidMutate) || void 0 === i3 || i3.call(e3, this.getMutationSummary()), this.reset();
+    }
+    reset() {
+      this.mutations = [];
+    }
+    findSignificantMutations(t3) {
+      return t3.filter((t4) => this.mutationIsSignificant(t4));
+    }
+    mutationIsSignificant(t3) {
+      if (this.nodeIsMutable(t3.target))
+        return false;
+      for (const e3 of Array.from(this.nodesModifiedByMutation(t3)))
+        if (this.nodeIsSignificant(e3))
+          return true;
+      return false;
+    }
+    nodeIsSignificant(t3) {
+      return t3 !== this.element && !this.nodeIsMutable(t3) && !N2(t3);
+    }
+    nodeIsMutable(t3) {
+      return A2(t3, { matchingSelector: ji });
+    }
+    nodesModifiedByMutation(t3) {
+      const e3 = [];
+      switch (t3.type) {
+        case "attributes":
+          t3.attributeName !== Mi && e3.push(t3.target);
+          break;
+        case "characterData":
+          e3.push(t3.target.parentNode), e3.push(t3.target);
+          break;
+        case "childList":
+          e3.push(...Array.from(t3.addedNodes || [])), e3.push(...Array.from(t3.removedNodes || []));
+      }
+      return e3;
+    }
+    getMutationSummary() {
+      return this.getTextMutationSummary();
+    }
+    getTextMutationSummary() {
+      const { additions: t3, deletions: e3 } = this.getTextChangesFromCharacterData(), i3 = this.getTextChangesFromChildList();
+      Array.from(i3.additions).forEach((e4) => {
+        Array.from(t3).includes(e4) || t3.push(e4);
+      }), e3.push(...Array.from(i3.deletions || []));
+      const n3 = {}, r3 = t3.join("");
+      r3 && (n3.textAdded = r3);
+      const o3 = e3.join("");
+      return o3 && (n3.textDeleted = o3), n3;
+    }
+    getMutationsByType(t3) {
+      return Array.from(this.mutations).filter((e3) => e3.type === t3);
+    }
+    getTextChangesFromChildList() {
+      let t3, e3;
+      const i3 = [], n3 = [];
+      Array.from(this.getMutationsByType("childList")).forEach((t4) => {
+        i3.push(...Array.from(t4.addedNodes || [])), n3.push(...Array.from(t4.removedNodes || []));
+      });
+      0 === i3.length && 1 === n3.length && B2(n3[0]) ? (t3 = [], e3 = ["\n"]) : (t3 = qi(i3), e3 = qi(n3));
+      return { additions: t3.filter((t4, i4) => t4 !== e3[i4]).map(Wt2), deletions: e3.filter((e4, i4) => e4 !== t3[i4]).map(Wt2) };
+    }
+    getTextChangesFromCharacterData() {
+      let t3, e3;
+      const i3 = this.getMutationsByType("characterData");
+      if (i3.length) {
+        const n3 = i3[0], r3 = i3[i3.length - 1], o3 = function(t4, e4) {
+          let i4, n4;
+          return t4 = X2.box(t4), (e4 = X2.box(e4)).length < t4.length ? [n4, i4] = Vt2(t4, e4) : [i4, n4] = Vt2(e4, t4), { added: i4, removed: n4 };
+        }(Wt2(n3.oldValue), Wt2(r3.target.data));
+        t3 = o3.added, e3 = o3.removed;
+      }
+      return { additions: t3 ? [t3] : [], deletions: e3 ? [e3] : [] };
+    }
+  };
+  var qi = function() {
+    let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
+    const e3 = [];
+    for (const i3 of Array.from(t3))
+      switch (i3.nodeType) {
+        case Node.TEXT_NODE:
+          e3.push(i3.data);
+          break;
+        case Node.ELEMENT_NODE:
+          "br" === E2(i3) ? e3.push("\n") : e3.push(...Array.from(qi(i3.childNodes) || []));
+      }
+    return e3;
+  };
+  var Vi = class extends te2 {
+    constructor(t3) {
+      super(...arguments), this.file = t3;
+    }
+    perform(t3) {
+      const e3 = new FileReader();
+      return e3.onerror = () => t3(false), e3.onload = () => {
+        e3.onerror = null;
+        try {
+          e3.abort();
+        } catch (t4) {
+        }
+        return t3(true, this.file);
+      }, e3.readAsArrayBuffer(this.file);
+    }
+  };
+  var Hi = class {
+    constructor(t3) {
+      this.element = t3;
+    }
+    shouldIgnore(t3) {
+      return !!a2.samsungAndroid && (this.previousEvent = this.event, this.event = t3, this.checkSamsungKeyboardBuggyModeStart(), this.checkSamsungKeyboardBuggyModeEnd(), this.buggyMode);
+    }
+    checkSamsungKeyboardBuggyModeStart() {
+      this.insertingLongTextAfterUnidentifiedChar() && zi(this.element.innerText, this.event.data) && (this.buggyMode = true, this.event.preventDefault());
+    }
+    checkSamsungKeyboardBuggyModeEnd() {
+      this.buggyMode && "insertText" !== this.event.inputType && (this.buggyMode = false);
+    }
+    insertingLongTextAfterUnidentifiedChar() {
+      var t3;
+      return this.isBeforeInputInsertText() && this.previousEventWasUnidentifiedKeydown() && (null === (t3 = this.event.data) || void 0 === t3 ? void 0 : t3.length) > 50;
+    }
+    isBeforeInputInsertText() {
+      return "beforeinput" === this.event.type && "insertText" === this.event.inputType;
+    }
+    previousEventWasUnidentifiedKeydown() {
+      var t3, e3;
+      return "keydown" === (null === (t3 = this.previousEvent) || void 0 === t3 ? void 0 : t3.type) && "Unidentified" === (null === (e3 = this.previousEvent) || void 0 === e3 ? void 0 : e3.key);
+    }
+  };
+  var zi = (t3, e3) => Ji(t3) === Ji(e3);
+  var _i = new RegExp("(".concat("\uFFFC", "|").concat(h2, "|").concat(d2, "|\\s)+"), "g");
+  var Ji = (t3) => t3.replace(_i, " ").trim();
+  var Ki = class extends H2 {
+    constructor(t3) {
+      super(...arguments), this.element = t3, this.mutationObserver = new Ui(this.element), this.mutationObserver.delegate = this, this.flakyKeyboardDetector = new Hi(this.element);
+      for (const t4 in this.constructor.events)
+        f2(t4, { onElement: this.element, withCallback: this.handlerFor(t4) });
+    }
+    elementDidMutate(t3) {
+    }
+    editorWillSyncDocumentView() {
+      return this.mutationObserver.stop();
+    }
+    editorDidSyncDocumentView() {
+      return this.mutationObserver.start();
+    }
+    requestRender() {
+      var t3, e3;
+      return null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.inputControllerDidRequestRender) || void 0 === e3 ? void 0 : e3.call(t3);
+    }
+    requestReparse() {
+      var t3, e3;
+      return null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.inputControllerDidRequestReparse) || void 0 === e3 || e3.call(t3), this.requestRender();
+    }
+    attachFiles(t3) {
+      const e3 = Array.from(t3).map((t4) => new Vi(t4));
+      return Promise.all(e3).then((t4) => {
+        this.handleInput(function() {
+          var e4, i3;
+          return null === (e4 = this.delegate) || void 0 === e4 || e4.inputControllerWillAttachFiles(), null === (i3 = this.responder) || void 0 === i3 || i3.insertFiles(t4), this.requestRender();
+        });
+      });
+    }
+    handlerFor(t3) {
+      return (e3) => {
+        e3.defaultPrevented || this.handleInput(() => {
+          if (!x2(this.element)) {
+            if (this.flakyKeyboardDetector.shouldIgnore(e3))
+              return;
+            this.eventName = t3, this.constructor.events[t3].call(this, e3);
+          }
+        });
+      };
+    }
+    handleInput(t3) {
+      try {
+        var e3;
+        null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillHandleInput(), t3.call(this);
+      } finally {
+        var i3;
+        null === (i3 = this.delegate) || void 0 === i3 || i3.inputControllerDidHandleInput();
+      }
+    }
+    createLinkHTML(t3, e3) {
+      const i3 = document.createElement("a");
+      return i3.href = t3, i3.textContent = e3 || t3, i3.outerHTML;
+    }
+  };
+  var Gi;
+  Ae(Ki, "events", {});
+  var { browser: $i, keyNames: Xi } = V2;
+  var Yi = 0;
+  var Qi = class extends Ki {
+    constructor() {
+      super(...arguments), this.resetInputSummary();
+    }
+    setInputSummary() {
+      let t3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+      this.inputSummary.eventName = this.eventName;
+      for (const e3 in t3) {
+        const i3 = t3[e3];
+        this.inputSummary[e3] = i3;
+      }
+      return this.inputSummary;
+    }
+    resetInputSummary() {
+      this.inputSummary = {};
+    }
+    reset() {
+      return this.resetInputSummary(), Pt2.reset();
+    }
+    elementDidMutate(t3) {
+      var e3, i3;
+      return this.isComposing() ? null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.inputControllerDidAllowUnhandledInput) || void 0 === i3 ? void 0 : i3.call(e3) : this.handleInput(function() {
+        return this.mutationIsSignificant(t3) && (this.mutationIsExpected(t3) ? this.requestRender() : this.requestReparse()), this.reset();
+      });
+    }
+    mutationIsExpected(t3) {
+      let { textAdded: e3, textDeleted: i3 } = t3;
+      if (this.inputSummary.preferDocument)
+        return true;
+      const n3 = null != e3 ? e3 === this.inputSummary.textAdded : !this.inputSummary.textAdded, r3 = null != i3 ? this.inputSummary.didDelete : !this.inputSummary.didDelete, o3 = ["\n", " \n"].includes(e3) && !n3, s3 = "\n" === i3 && !r3;
+      if (o3 && !s3 || s3 && !o3) {
+        const t4 = this.getSelectedRange();
+        if (t4) {
+          var a3;
+          const i4 = o3 ? e3.replace(/\n$/, "").length || -1 : (null == e3 ? void 0 : e3.length) || 1;
+          if (null !== (a3 = this.responder) && void 0 !== a3 && a3.positionIsBlockBreak(t4[1] + i4))
+            return true;
+        }
+      }
+      return n3 && r3;
+    }
+    mutationIsSignificant(t3) {
+      var e3;
+      const i3 = Object.keys(t3).length > 0, n3 = "" === (null === (e3 = this.compositionInput) || void 0 === e3 ? void 0 : e3.getEndData());
+      return i3 || !n3;
+    }
+    getCompositionInput() {
+      if (this.isComposing())
+        return this.compositionInput;
+      this.compositionInput = new rn(this);
+    }
+    isComposing() {
+      return this.compositionInput && !this.compositionInput.isEnded();
+    }
+    deleteInDirection(t3, e3) {
+      var i3;
+      return false !== (null === (i3 = this.responder) || void 0 === i3 ? void 0 : i3.deleteInDirection(t3)) ? this.setInputSummary({ didDelete: true }) : e3 ? (e3.preventDefault(), this.requestRender()) : void 0;
+    }
+    serializeSelectionToDataTransfer(t3) {
+      var e3;
+      if (!function(t4) {
+        if (null == t4 || !t4.setData)
+          return false;
+        for (const e4 in yt2) {
+          const i4 = yt2[e4];
+          try {
+            if (t4.setData(e4, i4), !t4.getData(e4) === i4)
+              return false;
+          } catch (t5) {
+            return false;
+          }
+        }
+        return true;
+      }(t3))
+        return;
+      const i3 = null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.getSelectedDocument().toSerializableDocument();
+      return t3.setData("application/x-trix-document", JSON.stringify(i3)), t3.setData("text/html", ge2.render(i3).innerHTML), t3.setData("text/plain", i3.toString().replace(/\n$/, "")), true;
+    }
+    canAcceptDataTransfer(t3) {
+      const e3 = {};
+      return Array.from((null == t3 ? void 0 : t3.types) || []).forEach((t4) => {
+        e3[t4] = true;
+      }), e3.Files || e3["application/x-trix-document"] || e3["text/html"] || e3["text/plain"];
+    }
+    getPastedHTMLUsingHiddenElement(t3) {
+      const e3 = this.getSelectedRange(), i3 = { position: "absolute", left: "".concat(window.pageXOffset, "px"), top: "".concat(window.pageYOffset, "px"), opacity: 0 }, n3 = S2({ style: i3, tagName: "div", editable: true });
+      return document.body.appendChild(n3), n3.focus(), requestAnimationFrame(() => {
+        const i4 = n3.innerHTML;
+        return k2(n3), this.setSelectedRange(e3), t3(i4);
+      });
+    }
+  };
+  Ae(Qi, "events", { keydown(t3) {
+    this.isComposing() || this.resetInputSummary(), this.inputSummary.didInput = true;
+    const e3 = Xi[t3.keyCode];
+    if (e3) {
+      var i3;
+      let n4 = this.keys;
+      ["ctrl", "alt", "shift", "meta"].forEach((e4) => {
+        var i4;
+        t3["".concat(e4, "Key")] && ("ctrl" === e4 && (e4 = "control"), n4 = null === (i4 = n4) || void 0 === i4 ? void 0 : i4[e4]);
+      }), null != (null === (i3 = n4) || void 0 === i3 ? void 0 : i3[e3]) && (this.setInputSummary({ keyName: e3 }), Pt2.reset(), n4[e3].call(this, t3));
+    }
+    if (kt2(t3)) {
+      const e4 = String.fromCharCode(t3.keyCode).toLowerCase();
+      if (e4) {
+        var n3;
+        const i4 = ["alt", "shift"].map((e5) => {
+          if (t3["".concat(e5, "Key")])
+            return e5;
+        }).filter((t4) => t4);
+        i4.push(e4), null !== (n3 = this.delegate) && void 0 !== n3 && n3.inputControllerDidReceiveKeyboardCommand(i4) && t3.preventDefault();
+      }
+    }
+  }, keypress(t3) {
+    if (null != this.inputSummary.eventName)
+      return;
+    if (t3.metaKey)
+      return;
+    if (t3.ctrlKey && !t3.altKey)
+      return;
+    const e3 = en(t3);
+    var i3, n3;
+    return e3 ? (null === (i3 = this.delegate) || void 0 === i3 || i3.inputControllerWillPerformTyping(), null === (n3 = this.responder) || void 0 === n3 || n3.insertString(e3), this.setInputSummary({ textAdded: e3, didDelete: this.selectionIsExpanded() })) : void 0;
+  }, textInput(t3) {
+    const { data: e3 } = t3, { textAdded: i3 } = this.inputSummary;
+    if (i3 && i3 !== e3 && i3.toUpperCase() === e3) {
+      var n3;
+      const t4 = this.getSelectedRange();
+      return this.setSelectedRange([t4[0], t4[1] + i3.length]), null === (n3 = this.responder) || void 0 === n3 || n3.insertString(e3), this.setInputSummary({ textAdded: e3 }), this.setSelectedRange(t4);
+    }
+  }, dragenter(t3) {
+    t3.preventDefault();
+  }, dragstart(t3) {
+    var e3, i3;
+    return this.serializeSelectionToDataTransfer(t3.dataTransfer), this.draggedRange = this.getSelectedRange(), null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.inputControllerDidStartDrag) || void 0 === i3 ? void 0 : i3.call(e3);
+  }, dragover(t3) {
+    if (this.draggedRange || this.canAcceptDataTransfer(t3.dataTransfer)) {
+      t3.preventDefault();
+      const n3 = { x: t3.clientX, y: t3.clientY };
+      var e3, i3;
+      if (!St2(n3, this.draggingPoint))
+        return this.draggingPoint = n3, null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.inputControllerDidReceiveDragOverPoint) || void 0 === i3 ? void 0 : i3.call(e3, this.draggingPoint);
+    }
+  }, dragend(t3) {
+    var e3, i3;
+    null === (e3 = this.delegate) || void 0 === e3 || null === (i3 = e3.inputControllerDidCancelDrag) || void 0 === i3 || i3.call(e3), this.draggedRange = null, this.draggingPoint = null;
+  }, drop(t3) {
+    var e3, i3;
+    t3.preventDefault();
+    const n3 = null === (e3 = t3.dataTransfer) || void 0 === e3 ? void 0 : e3.files, r3 = t3.dataTransfer.getData("application/x-trix-document"), o3 = { x: t3.clientX, y: t3.clientY };
+    if (null === (i3 = this.responder) || void 0 === i3 || i3.setLocationRangeFromPointRange(o3), null != n3 && n3.length)
+      this.attachFiles(n3);
+    else if (this.draggedRange) {
+      var s3, a3;
+      null === (s3 = this.delegate) || void 0 === s3 || s3.inputControllerWillMoveText(), null === (a3 = this.responder) || void 0 === a3 || a3.moveTextFromRange(this.draggedRange), this.draggedRange = null, this.requestRender();
+    } else if (r3) {
+      var l3;
+      const t4 = qe.fromJSONString(r3);
+      null === (l3 = this.responder) || void 0 === l3 || l3.insertDocument(t4), this.requestRender();
+    }
+    this.draggedRange = null, this.draggingPoint = null;
+  }, cut(t3) {
+    var e3, i3;
+    if (null !== (e3 = this.responder) && void 0 !== e3 && e3.selectionIsExpanded() && (this.serializeSelectionToDataTransfer(t3.clipboardData) && t3.preventDefault(), null === (i3 = this.delegate) || void 0 === i3 || i3.inputControllerWillCutText(), this.deleteInDirection("backward"), t3.defaultPrevented))
+      return this.requestRender();
+  }, copy(t3) {
+    var e3;
+    null !== (e3 = this.responder) && void 0 !== e3 && e3.selectionIsExpanded() && this.serializeSelectionToDataTransfer(t3.clipboardData) && t3.preventDefault();
+  }, paste(t3) {
+    const e3 = t3.clipboardData || t3.testClipboardData, i3 = { clipboard: e3 };
+    if (!e3 || nn(t3))
+      return void this.getPastedHTMLUsingHiddenElement((t4) => {
+        var e4, n4, r4;
+        return i3.type = "text/html", i3.html = t4, null === (e4 = this.delegate) || void 0 === e4 || e4.inputControllerWillPaste(i3), null === (n4 = this.responder) || void 0 === n4 || n4.insertHTML(i3.html), this.requestRender(), null === (r4 = this.delegate) || void 0 === r4 ? void 0 : r4.inputControllerDidPaste(i3);
+      });
+    const n3 = e3.getData("URL"), r3 = e3.getData("text/html"), o3 = e3.getData("public.url-name");
+    if (n3) {
+      var s3, a3, l3;
+      let t4;
+      i3.type = "text/html", t4 = o3 ? qt2(o3).trim() : n3, i3.html = this.createLinkHTML(n3, t4), null === (s3 = this.delegate) || void 0 === s3 || s3.inputControllerWillPaste(i3), this.setInputSummary({ textAdded: t4, didDelete: this.selectionIsExpanded() }), null === (a3 = this.responder) || void 0 === a3 || a3.insertHTML(i3.html), this.requestRender(), null === (l3 = this.delegate) || void 0 === l3 || l3.inputControllerDidPaste(i3);
+    } else if (Ct2(e3)) {
+      var c3, u3, h3;
+      i3.type = "text/plain", i3.string = e3.getData("text/plain"), null === (c3 = this.delegate) || void 0 === c3 || c3.inputControllerWillPaste(i3), this.setInputSummary({ textAdded: i3.string, didDelete: this.selectionIsExpanded() }), null === (u3 = this.responder) || void 0 === u3 || u3.insertString(i3.string), this.requestRender(), null === (h3 = this.delegate) || void 0 === h3 || h3.inputControllerDidPaste(i3);
+    } else if (r3) {
+      var d3, g3, m3;
+      i3.type = "text/html", i3.html = r3, null === (d3 = this.delegate) || void 0 === d3 || d3.inputControllerWillPaste(i3), null === (g3 = this.responder) || void 0 === g3 || g3.insertHTML(i3.html), this.requestRender(), null === (m3 = this.delegate) || void 0 === m3 || m3.inputControllerDidPaste(i3);
+    } else if (Array.from(e3.types).includes("Files")) {
+      var p3, f3;
+      const t4 = null === (p3 = e3.items) || void 0 === p3 || null === (p3 = p3[0]) || void 0 === p3 || null === (f3 = p3.getAsFile) || void 0 === f3 ? void 0 : f3.call(p3);
+      if (t4) {
+        var b3, v3, A3;
+        const e4 = Zi(t4);
+        !t4.name && e4 && (t4.name = "pasted-file-".concat(++Yi, ".").concat(e4)), i3.type = "File", i3.file = t4, null === (b3 = this.delegate) || void 0 === b3 || b3.inputControllerWillAttachFiles(), null === (v3 = this.responder) || void 0 === v3 || v3.insertFile(i3.file), this.requestRender(), null === (A3 = this.delegate) || void 0 === A3 || A3.inputControllerDidPaste(i3);
+      }
+    }
+    t3.preventDefault();
+  }, compositionstart(t3) {
+    return this.getCompositionInput().start(t3.data);
+  }, compositionupdate(t3) {
+    return this.getCompositionInput().update(t3.data);
+  }, compositionend(t3) {
+    return this.getCompositionInput().end(t3.data);
+  }, beforeinput(t3) {
+    this.inputSummary.didInput = true;
+  }, input(t3) {
+    return this.inputSummary.didInput = true, t3.stopPropagation();
+  } }), Ae(Qi, "keys", { backspace(t3) {
+    var e3;
+    return null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), this.deleteInDirection("backward", t3);
+  }, delete(t3) {
+    var e3;
+    return null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), this.deleteInDirection("forward", t3);
+  }, return(t3) {
+    var e3, i3;
+    return this.setInputSummary({ preferDocument: true }), null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), null === (i3 = this.responder) || void 0 === i3 ? void 0 : i3.insertLineBreak();
+  }, tab(t3) {
+    var e3, i3;
+    null !== (e3 = this.responder) && void 0 !== e3 && e3.canIncreaseNestingLevel() && (null === (i3 = this.responder) || void 0 === i3 || i3.increaseNestingLevel(), this.requestRender(), t3.preventDefault());
+  }, left(t3) {
+    var e3;
+    if (this.selectionIsInCursorTarget())
+      return t3.preventDefault(), null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.moveCursorInDirection("backward");
+  }, right(t3) {
+    var e3;
+    if (this.selectionIsInCursorTarget())
+      return t3.preventDefault(), null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.moveCursorInDirection("forward");
+  }, control: { d(t3) {
+    var e3;
+    return null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), this.deleteInDirection("forward", t3);
+  }, h(t3) {
+    var e3;
+    return null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), this.deleteInDirection("backward", t3);
+  }, o(t3) {
+    var e3, i3;
+    return t3.preventDefault(), null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), null === (i3 = this.responder) || void 0 === i3 || i3.insertString("\n", { updatePosition: false }), this.requestRender();
+  } }, shift: { return(t3) {
+    var e3, i3;
+    null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), null === (i3 = this.responder) || void 0 === i3 || i3.insertString("\n"), this.requestRender(), t3.preventDefault();
+  }, tab(t3) {
+    var e3, i3;
+    null !== (e3 = this.responder) && void 0 !== e3 && e3.canDecreaseNestingLevel() && (null === (i3 = this.responder) || void 0 === i3 || i3.decreaseNestingLevel(), this.requestRender(), t3.preventDefault());
+  }, left(t3) {
+    if (this.selectionIsInCursorTarget())
+      return t3.preventDefault(), this.expandSelectionInDirection("backward");
+  }, right(t3) {
+    if (this.selectionIsInCursorTarget())
+      return t3.preventDefault(), this.expandSelectionInDirection("forward");
+  } }, alt: { backspace(t3) {
+    var e3;
+    return this.setInputSummary({ preferDocument: false }), null === (e3 = this.delegate) || void 0 === e3 ? void 0 : e3.inputControllerWillPerformTyping();
+  } }, meta: { backspace(t3) {
+    var e3;
+    return this.setInputSummary({ preferDocument: false }), null === (e3 = this.delegate) || void 0 === e3 ? void 0 : e3.inputControllerWillPerformTyping();
+  } } }), Qi.proxyMethod("responder?.getSelectedRange"), Qi.proxyMethod("responder?.setSelectedRange"), Qi.proxyMethod("responder?.expandSelectionInDirection"), Qi.proxyMethod("responder?.selectionIsInCursorTarget"), Qi.proxyMethod("responder?.selectionIsExpanded");
+  var Zi = (t3) => {
+    var e3;
+    return null === (e3 = t3.type) || void 0 === e3 || null === (e3 = e3.match(/\/(\w+)$/)) || void 0 === e3 ? void 0 : e3[1];
+  };
+  var tn = !(null === (Gi = " ".codePointAt) || void 0 === Gi || !Gi.call(" ", 0));
+  var en = function(t3) {
+    if (t3.key && tn && t3.key.codePointAt(0) === t3.keyCode)
+      return t3.key;
+    {
+      let e3;
+      if (null === t3.which ? e3 = t3.keyCode : 0 !== t3.which && 0 !== t3.charCode && (e3 = t3.charCode), null != e3 && "escape" !== Xi[e3])
+        return X2.fromCodepoints([e3]).toString();
+    }
+  };
+  var nn = function(t3) {
+    const e3 = t3.clipboardData;
+    if (e3) {
+      if (e3.types.includes("text/html")) {
+        for (const t4 of e3.types) {
+          const i3 = /^CorePasteboardFlavorType/.test(t4), n3 = /^dyn\./.test(t4) && e3.getData(t4);
+          if (i3 || n3)
+            return true;
+        }
+        return false;
+      }
+      {
+        const t4 = e3.types.includes("com.apple.webarchive"), i3 = e3.types.includes("com.apple.flat-rtfd");
+        return t4 || i3;
+      }
+    }
+  };
+  var rn = class extends H2 {
+    constructor(t3) {
+      super(...arguments), this.inputController = t3, this.responder = this.inputController.responder, this.delegate = this.inputController.delegate, this.inputSummary = this.inputController.inputSummary, this.data = {};
+    }
+    start(t3) {
+      if (this.data.start = t3, this.isSignificant()) {
+        var e3, i3;
+        if ("keypress" === this.inputSummary.eventName && this.inputSummary.textAdded)
+          null === (i3 = this.responder) || void 0 === i3 || i3.deleteInDirection("left");
+        this.selectionIsExpanded() || (this.insertPlaceholder(), this.requestRender()), this.range = null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.getSelectedRange();
+      }
+    }
+    update(t3) {
+      if (this.data.update = t3, this.isSignificant()) {
+        const t4 = this.selectPlaceholder();
+        t4 && (this.forgetPlaceholder(), this.range = t4);
+      }
+    }
+    end(t3) {
+      return this.data.end = t3, this.isSignificant() ? (this.forgetPlaceholder(), this.canApplyToDocument() ? (this.setInputSummary({ preferDocument: true, didInput: false }), null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), null === (i3 = this.responder) || void 0 === i3 || i3.setSelectedRange(this.range), null === (n3 = this.responder) || void 0 === n3 || n3.insertString(this.data.end), null === (r3 = this.responder) || void 0 === r3 ? void 0 : r3.setSelectedRange(this.range[0] + this.data.end.length)) : null != this.data.start || null != this.data.update ? (this.requestReparse(), this.inputController.reset()) : void 0) : this.inputController.reset();
+      var e3, i3, n3, r3;
+    }
+    getEndData() {
+      return this.data.end;
+    }
+    isEnded() {
+      return null != this.getEndData();
+    }
+    isSignificant() {
+      return !$i.composesExistingText || this.inputSummary.didInput;
+    }
+    canApplyToDocument() {
+      var t3, e3;
+      return 0 === (null === (t3 = this.data.start) || void 0 === t3 ? void 0 : t3.length) && (null === (e3 = this.data.end) || void 0 === e3 ? void 0 : e3.length) > 0 && this.range;
+    }
+  };
+  rn.proxyMethod("inputController.setInputSummary"), rn.proxyMethod("inputController.requestRender"), rn.proxyMethod("inputController.requestReparse"), rn.proxyMethod("responder?.selectionIsExpanded"), rn.proxyMethod("responder?.insertPlaceholder"), rn.proxyMethod("responder?.selectPlaceholder"), rn.proxyMethod("responder?.forgetPlaceholder");
+  var on = class extends Ki {
+    constructor() {
+      super(...arguments), this.render = this.render.bind(this);
+    }
+    elementDidMutate() {
+      return this.scheduledRender ? this.composing ? null === (t3 = this.delegate) || void 0 === t3 || null === (e3 = t3.inputControllerDidAllowUnhandledInput) || void 0 === e3 ? void 0 : e3.call(t3) : void 0 : this.reparse();
+      var t3, e3;
+    }
+    scheduleRender() {
+      return this.scheduledRender ? this.scheduledRender : this.scheduledRender = requestAnimationFrame(this.render);
+    }
+    render() {
+      var t3, e3;
+      (cancelAnimationFrame(this.scheduledRender), this.scheduledRender = null, this.composing) || (null === (e3 = this.delegate) || void 0 === e3 || e3.render());
+      null === (t3 = this.afterRender) || void 0 === t3 || t3.call(this), this.afterRender = null;
+    }
+    reparse() {
+      var t3;
+      return null === (t3 = this.delegate) || void 0 === t3 ? void 0 : t3.reparse();
+    }
+    insertString() {
+      var t3;
+      let e3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "", i3 = arguments.length > 1 ? arguments[1] : void 0;
+      return null === (t3 = this.delegate) || void 0 === t3 || t3.inputControllerWillPerformTyping(), this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.insertString(e3, i3);
+      });
+    }
+    toggleAttributeIfSupported(t3) {
+      var e3;
+      if (dt2().includes(t3))
+        return null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformFormatting(t3), this.withTargetDOMRange(function() {
+          var e4;
+          return null === (e4 = this.responder) || void 0 === e4 ? void 0 : e4.toggleCurrentAttribute(t3);
+        });
+    }
+    activateAttributeIfSupported(t3, e3) {
+      var i3;
+      if (dt2().includes(t3))
+        return null === (i3 = this.delegate) || void 0 === i3 || i3.inputControllerWillPerformFormatting(t3), this.withTargetDOMRange(function() {
+          var i4;
+          return null === (i4 = this.responder) || void 0 === i4 ? void 0 : i4.setCurrentAttribute(t3, e3);
+        });
+    }
+    deleteInDirection(t3) {
+      let { recordUndoEntry: e3 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { recordUndoEntry: true };
+      var i3;
+      e3 && (null === (i3 = this.delegate) || void 0 === i3 || i3.inputControllerWillPerformTyping());
+      const n3 = () => {
+        var e4;
+        return null === (e4 = this.responder) || void 0 === e4 ? void 0 : e4.deleteInDirection(t3);
+      }, r3 = this.getTargetDOMRange({ minLength: this.composing ? 1 : 2 });
+      return r3 ? this.withTargetDOMRange(r3, n3) : n3();
+    }
+    withTargetDOMRange(t3, e3) {
+      var i3;
+      return "function" == typeof t3 && (e3 = t3, t3 = this.getTargetDOMRange()), t3 ? null === (i3 = this.responder) || void 0 === i3 ? void 0 : i3.withTargetDOMRange(t3, e3.bind(this)) : (Pt2.reset(), e3.call(this));
+    }
+    getTargetDOMRange() {
+      var t3, e3;
+      let { minLength: i3 } = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : { minLength: 0 };
+      const n3 = null === (t3 = (e3 = this.event).getTargetRanges) || void 0 === t3 ? void 0 : t3.call(e3);
+      if (n3 && n3.length) {
+        const t4 = sn(n3[0]);
+        if (0 === i3 || t4.toString().length >= i3)
+          return t4;
+      }
+    }
+    withEvent(t3, e3) {
+      let i3;
+      this.event = t3;
+      try {
+        i3 = e3.call(this);
+      } finally {
+        this.event = null;
+      }
+      return i3;
+    }
+  };
+  Ae(on, "events", { keydown(t3) {
+    if (kt2(t3)) {
+      var e3;
+      const i3 = hn(t3);
+      null !== (e3 = this.delegate) && void 0 !== e3 && e3.inputControllerDidReceiveKeyboardCommand(i3) && t3.preventDefault();
+    } else {
+      let e4 = t3.key;
+      t3.altKey && (e4 += "+Alt"), t3.shiftKey && (e4 += "+Shift");
+      const i3 = this.constructor.keys[e4];
+      if (i3)
+        return this.withEvent(t3, i3);
+    }
+  }, paste(t3) {
+    var e3;
+    let i3;
+    const n3 = null === (e3 = t3.clipboardData) || void 0 === e3 ? void 0 : e3.getData("URL");
+    return cn(t3) ? (t3.preventDefault(), this.attachFiles(t3.clipboardData.files)) : un(t3) ? (t3.preventDefault(), i3 = { type: "text/plain", string: t3.clipboardData.getData("text/plain") }, null === (r3 = this.delegate) || void 0 === r3 || r3.inputControllerWillPaste(i3), null === (o3 = this.responder) || void 0 === o3 || o3.insertString(i3.string), this.render(), null === (s3 = this.delegate) || void 0 === s3 ? void 0 : s3.inputControllerDidPaste(i3)) : n3 ? (t3.preventDefault(), i3 = { type: "text/html", html: this.createLinkHTML(n3) }, null === (a3 = this.delegate) || void 0 === a3 || a3.inputControllerWillPaste(i3), null === (l3 = this.responder) || void 0 === l3 || l3.insertHTML(i3.html), this.render(), null === (c3 = this.delegate) || void 0 === c3 ? void 0 : c3.inputControllerDidPaste(i3)) : void 0;
+    var r3, o3, s3, a3, l3, c3;
+  }, beforeinput(t3) {
+    const e3 = this.constructor.inputTypes[t3.inputType];
+    e3 && (this.withEvent(t3, e3), this.scheduleRender());
+  }, input(t3) {
+    Pt2.reset();
+  }, dragstart(t3) {
+    var e3, i3;
+    null !== (e3 = this.responder) && void 0 !== e3 && e3.selectionContainsAttachments() && (t3.dataTransfer.setData("application/x-trix-dragging", true), this.dragging = { range: null === (i3 = this.responder) || void 0 === i3 ? void 0 : i3.getSelectedRange(), point: dn(t3) });
+  }, dragenter(t3) {
+    an(t3) && t3.preventDefault();
+  }, dragover(t3) {
+    if (this.dragging) {
+      t3.preventDefault();
+      const i3 = dn(t3);
+      var e3;
+      if (!St2(i3, this.dragging.point))
+        return this.dragging.point = i3, null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.setLocationRangeFromPointRange(i3);
+    } else
+      an(t3) && t3.preventDefault();
+  }, drop(t3) {
+    var e3, i3;
+    if (this.dragging)
+      return t3.preventDefault(), null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillMoveText(), null === (i3 = this.responder) || void 0 === i3 || i3.moveTextFromRange(this.dragging.range), this.dragging = null, this.scheduleRender();
+    if (an(t3)) {
+      var n3;
+      t3.preventDefault();
+      const e4 = dn(t3);
+      return null === (n3 = this.responder) || void 0 === n3 || n3.setLocationRangeFromPointRange(e4), this.attachFiles(t3.dataTransfer.files);
+    }
+  }, dragend() {
+    var t3;
+    this.dragging && (null === (t3 = this.responder) || void 0 === t3 || t3.setSelectedRange(this.dragging.range), this.dragging = null);
+  }, compositionend(t3) {
+    this.composing && (this.composing = false, a2.recentAndroid || this.scheduleRender());
+  } }), Ae(on, "keys", { ArrowLeft() {
+    var t3, e3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.shouldManageMovingCursorInDirection("backward"))
+      return this.event.preventDefault(), null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.moveCursorInDirection("backward");
+  }, ArrowRight() {
+    var t3, e3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.shouldManageMovingCursorInDirection("forward"))
+      return this.event.preventDefault(), null === (e3 = this.responder) || void 0 === e3 ? void 0 : e3.moveCursorInDirection("forward");
+  }, Backspace() {
+    var t3, e3, i3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.shouldManageDeletingInDirection("backward"))
+      return this.event.preventDefault(), null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillPerformTyping(), null === (i3 = this.responder) || void 0 === i3 || i3.deleteInDirection("backward"), this.render();
+  }, Tab() {
+    var t3, e3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.canIncreaseNestingLevel())
+      return this.event.preventDefault(), null === (e3 = this.responder) || void 0 === e3 || e3.increaseNestingLevel(), this.render();
+  }, "Tab+Shift"() {
+    var t3, e3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.canDecreaseNestingLevel())
+      return this.event.preventDefault(), null === (e3 = this.responder) || void 0 === e3 || e3.decreaseNestingLevel(), this.render();
+  } }), Ae(on, "inputTypes", { deleteByComposition() {
+    return this.deleteInDirection("backward", { recordUndoEntry: false });
+  }, deleteByCut() {
+    return this.deleteInDirection("backward");
+  }, deleteByDrag() {
+    return this.event.preventDefault(), this.withTargetDOMRange(function() {
+      var t3;
+      this.deleteByDragRange = null === (t3 = this.responder) || void 0 === t3 ? void 0 : t3.getSelectedRange();
+    });
+  }, deleteCompositionText() {
+    return this.deleteInDirection("backward", { recordUndoEntry: false });
+  }, deleteContent() {
+    return this.deleteInDirection("backward");
+  }, deleteContentBackward() {
+    return this.deleteInDirection("backward");
+  }, deleteContentForward() {
+    return this.deleteInDirection("forward");
+  }, deleteEntireSoftLine() {
+    return this.deleteInDirection("forward");
+  }, deleteHardLineBackward() {
+    return this.deleteInDirection("backward");
+  }, deleteHardLineForward() {
+    return this.deleteInDirection("forward");
+  }, deleteSoftLineBackward() {
+    return this.deleteInDirection("backward");
+  }, deleteSoftLineForward() {
+    return this.deleteInDirection("forward");
+  }, deleteWordBackward() {
+    return this.deleteInDirection("backward");
+  }, deleteWordForward() {
+    return this.deleteInDirection("forward");
+  }, formatBackColor() {
+    return this.activateAttributeIfSupported("backgroundColor", this.event.data);
+  }, formatBold() {
+    return this.toggleAttributeIfSupported("bold");
+  }, formatFontColor() {
+    return this.activateAttributeIfSupported("color", this.event.data);
+  }, formatFontName() {
+    return this.activateAttributeIfSupported("font", this.event.data);
+  }, formatIndent() {
+    var t3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.canIncreaseNestingLevel())
+      return this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.increaseNestingLevel();
+      });
+  }, formatItalic() {
+    return this.toggleAttributeIfSupported("italic");
+  }, formatJustifyCenter() {
+    return this.toggleAttributeIfSupported("justifyCenter");
+  }, formatJustifyFull() {
+    return this.toggleAttributeIfSupported("justifyFull");
+  }, formatJustifyLeft() {
+    return this.toggleAttributeIfSupported("justifyLeft");
+  }, formatJustifyRight() {
+    return this.toggleAttributeIfSupported("justifyRight");
+  }, formatOutdent() {
+    var t3;
+    if (null !== (t3 = this.responder) && void 0 !== t3 && t3.canDecreaseNestingLevel())
+      return this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.decreaseNestingLevel();
+      });
+  }, formatRemove() {
+    this.withTargetDOMRange(function() {
+      for (const i3 in null === (t3 = this.responder) || void 0 === t3 ? void 0 : t3.getCurrentAttributes()) {
+        var t3, e3;
+        null === (e3 = this.responder) || void 0 === e3 || e3.removeCurrentAttribute(i3);
+      }
+    });
+  }, formatSetBlockTextDirection() {
+    return this.activateAttributeIfSupported("blockDir", this.event.data);
+  }, formatSetInlineTextDirection() {
+    return this.activateAttributeIfSupported("textDir", this.event.data);
+  }, formatStrikeThrough() {
+    return this.toggleAttributeIfSupported("strike");
+  }, formatSubscript() {
+    return this.toggleAttributeIfSupported("sub");
+  }, formatSuperscript() {
+    return this.toggleAttributeIfSupported("sup");
+  }, formatUnderline() {
+    return this.toggleAttributeIfSupported("underline");
+  }, historyRedo() {
+    var t3;
+    return null === (t3 = this.delegate) || void 0 === t3 ? void 0 : t3.inputControllerWillPerformRedo();
+  }, historyUndo() {
+    var t3;
+    return null === (t3 = this.delegate) || void 0 === t3 ? void 0 : t3.inputControllerWillPerformUndo();
+  }, insertCompositionText() {
+    return this.composing = true, this.insertString(this.event.data);
+  }, insertFromComposition() {
+    return this.composing = false, this.insertString(this.event.data);
+  }, insertFromDrop() {
+    const t3 = this.deleteByDragRange;
+    var e3;
+    if (t3)
+      return this.deleteByDragRange = null, null === (e3 = this.delegate) || void 0 === e3 || e3.inputControllerWillMoveText(), this.withTargetDOMRange(function() {
+        var e4;
+        return null === (e4 = this.responder) || void 0 === e4 ? void 0 : e4.moveTextFromRange(t3);
+      });
+  }, insertFromPaste() {
+    const { dataTransfer: t3 } = this.event, e3 = { dataTransfer: t3 }, i3 = t3.getData("URL"), n3 = t3.getData("text/html");
+    if (i3) {
+      var r3;
+      let n4;
+      this.event.preventDefault(), e3.type = "text/html";
+      const o4 = t3.getData("public.url-name");
+      n4 = o4 ? qt2(o4).trim() : i3, e3.html = this.createLinkHTML(i3, n4), null === (r3 = this.delegate) || void 0 === r3 || r3.inputControllerWillPaste(e3), this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.insertHTML(e3.html);
+      }), this.afterRender = () => {
+        var t4;
+        return null === (t4 = this.delegate) || void 0 === t4 ? void 0 : t4.inputControllerDidPaste(e3);
+      };
+    } else if (Ct2(t3)) {
+      var o3;
+      e3.type = "text/plain", e3.string = t3.getData("text/plain"), null === (o3 = this.delegate) || void 0 === o3 || o3.inputControllerWillPaste(e3), this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.insertString(e3.string);
+      }), this.afterRender = () => {
+        var t4;
+        return null === (t4 = this.delegate) || void 0 === t4 ? void 0 : t4.inputControllerDidPaste(e3);
+      };
+    } else if (ln(this.event)) {
+      var s3;
+      e3.type = "File", e3.file = t3.files[0], null === (s3 = this.delegate) || void 0 === s3 || s3.inputControllerWillPaste(e3), this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.insertFile(e3.file);
+      }), this.afterRender = () => {
+        var t4;
+        return null === (t4 = this.delegate) || void 0 === t4 ? void 0 : t4.inputControllerDidPaste(e3);
+      };
+    } else if (n3) {
+      var a3;
+      this.event.preventDefault(), e3.type = "text/html", e3.html = n3, null === (a3 = this.delegate) || void 0 === a3 || a3.inputControllerWillPaste(e3), this.withTargetDOMRange(function() {
+        var t4;
+        return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.insertHTML(e3.html);
+      }), this.afterRender = () => {
+        var t4;
+        return null === (t4 = this.delegate) || void 0 === t4 ? void 0 : t4.inputControllerDidPaste(e3);
+      };
+    }
+  }, insertFromYank() {
+    return this.insertString(this.event.data);
+  }, insertLineBreak() {
+    return this.insertString("\n");
+  }, insertLink() {
+    return this.activateAttributeIfSupported("href", this.event.data);
+  }, insertOrderedList() {
+    return this.toggleAttributeIfSupported("number");
+  }, insertParagraph() {
+    var t3;
+    return null === (t3 = this.delegate) || void 0 === t3 || t3.inputControllerWillPerformTyping(), this.withTargetDOMRange(function() {
+      var t4;
+      return null === (t4 = this.responder) || void 0 === t4 ? void 0 : t4.insertLineBreak();
+    });
+  }, insertReplacementText() {
+    const t3 = this.event.dataTransfer.getData("text/plain"), e3 = this.event.getTargetRanges()[0];
+    this.withTargetDOMRange(e3, () => {
+      this.insertString(t3, { updatePosition: false });
+    });
+  }, insertText() {
+    var t3;
+    return this.insertString(this.event.data || (null === (t3 = this.event.dataTransfer) || void 0 === t3 ? void 0 : t3.getData("text/plain")));
+  }, insertTranspose() {
+    return this.insertString(this.event.data);
+  }, insertUnorderedList() {
+    return this.toggleAttributeIfSupported("bullet");
+  } });
+  var sn = function(t3) {
+    const e3 = document.createRange();
+    return e3.setStart(t3.startContainer, t3.startOffset), e3.setEnd(t3.endContainer, t3.endOffset), e3;
+  };
+  var an = (t3) => {
+    var e3;
+    return Array.from((null === (e3 = t3.dataTransfer) || void 0 === e3 ? void 0 : e3.types) || []).includes("Files");
+  };
+  var ln = (t3) => {
+    var e3;
+    return (null === (e3 = t3.dataTransfer.files) || void 0 === e3 ? void 0 : e3[0]) && !cn(t3) && !((t4) => {
+      let { dataTransfer: e4 } = t4;
+      return e4.types.includes("Files") && e4.types.includes("text/html") && e4.getData("text/html").includes("urn:schemas-microsoft-com:office:office");
+    })(t3);
+  };
+  var cn = function(t3) {
+    const e3 = t3.clipboardData;
+    if (e3) {
+      return Array.from(e3.types).filter((t4) => t4.match(/file/i)).length === e3.types.length && e3.files.length >= 1;
+    }
+  };
+  var un = function(t3) {
+    const e3 = t3.clipboardData;
+    if (e3)
+      return e3.types.includes("text/plain") && 1 === e3.types.length;
+  };
+  var hn = function(t3) {
+    const e3 = [];
+    return t3.altKey && e3.push("alt"), t3.shiftKey && e3.push("shift"), e3.push(t3.key), e3;
+  };
+  var dn = (t3) => ({ x: t3.clientX, y: t3.clientY });
+  var gn = "[data-trix-attribute]";
+  var mn = "[data-trix-action]";
+  var pn = "".concat(gn, ", ").concat(mn);
+  var fn = "[data-trix-dialog]";
+  var bn = "".concat(fn, "[data-trix-active]");
+  var vn = "".concat(fn, " [data-trix-method]");
+  var An = "".concat(fn, " [data-trix-input]");
+  var xn = (t3, e3) => (e3 || (e3 = Cn(t3)), t3.querySelector("[data-trix-input][name='".concat(e3, "']")));
+  var yn = (t3) => t3.getAttribute("data-trix-action");
+  var Cn = (t3) => t3.getAttribute("data-trix-attribute") || t3.getAttribute("data-trix-dialog-attribute");
+  var kn = class extends H2 {
+    constructor(t3) {
+      super(t3), this.didClickActionButton = this.didClickActionButton.bind(this), this.didClickAttributeButton = this.didClickAttributeButton.bind(this), this.didClickDialogButton = this.didClickDialogButton.bind(this), this.didKeyDownDialogInput = this.didKeyDownDialogInput.bind(this), this.element = t3, this.attributes = {}, this.actions = {}, this.resetDialogInputs(), f2("mousedown", { onElement: this.element, matchingSelector: mn, withCallback: this.didClickActionButton }), f2("mousedown", { onElement: this.element, matchingSelector: gn, withCallback: this.didClickAttributeButton }), f2("click", { onElement: this.element, matchingSelector: pn, preventDefault: true }), f2("click", { onElement: this.element, matchingSelector: vn, withCallback: this.didClickDialogButton }), f2("keydown", { onElement: this.element, matchingSelector: An, withCallback: this.didKeyDownDialogInput });
+    }
+    didClickActionButton(t3, e3) {
+      var i3;
+      null === (i3 = this.delegate) || void 0 === i3 || i3.toolbarDidClickButton(), t3.preventDefault();
+      const n3 = yn(e3);
+      return this.getDialog(n3) ? this.toggleDialog(n3) : null === (r3 = this.delegate) || void 0 === r3 ? void 0 : r3.toolbarDidInvokeAction(n3, e3);
+      var r3;
+    }
+    didClickAttributeButton(t3, e3) {
+      var i3;
+      null === (i3 = this.delegate) || void 0 === i3 || i3.toolbarDidClickButton(), t3.preventDefault();
+      const n3 = Cn(e3);
+      var r3;
+      this.getDialog(n3) ? this.toggleDialog(n3) : null === (r3 = this.delegate) || void 0 === r3 || r3.toolbarDidToggleAttribute(n3);
+      return this.refreshAttributeButtons();
+    }
+    didClickDialogButton(t3, e3) {
+      const i3 = A2(e3, { matchingSelector: fn });
+      return this[e3.getAttribute("data-trix-method")].call(this, i3);
+    }
+    didKeyDownDialogInput(t3, e3) {
+      if (13 === t3.keyCode) {
+        t3.preventDefault();
+        const i3 = e3.getAttribute("name"), n3 = this.getDialog(i3);
+        this.setAttribute(n3);
+      }
+      if (27 === t3.keyCode)
+        return t3.preventDefault(), this.hideDialog();
+    }
+    updateActions(t3) {
+      return this.actions = t3, this.refreshActionButtons();
+    }
+    refreshActionButtons() {
+      return this.eachActionButton((t3, e3) => {
+        t3.disabled = false === this.actions[e3];
+      });
+    }
+    eachActionButton(t3) {
+      return Array.from(this.element.querySelectorAll(mn)).map((e3) => t3(e3, yn(e3)));
+    }
+    updateAttributes(t3) {
+      return this.attributes = t3, this.refreshAttributeButtons();
+    }
+    refreshAttributeButtons() {
+      return this.eachAttributeButton((t3, e3) => (t3.disabled = false === this.attributes[e3], this.attributes[e3] || this.dialogIsVisible(e3) ? (t3.setAttribute("data-trix-active", ""), t3.classList.add("trix-active")) : (t3.removeAttribute("data-trix-active"), t3.classList.remove("trix-active"))));
+    }
+    eachAttributeButton(t3) {
+      return Array.from(this.element.querySelectorAll(gn)).map((e3) => t3(e3, Cn(e3)));
+    }
+    applyKeyboardCommand(t3) {
+      const e3 = JSON.stringify(t3.sort());
+      for (const t4 of Array.from(this.element.querySelectorAll("[data-trix-key]"))) {
+        const i3 = t4.getAttribute("data-trix-key").split("+");
+        if (JSON.stringify(i3.sort()) === e3)
+          return b2("mousedown", { onElement: t4 }), true;
+      }
+      return false;
+    }
+    dialogIsVisible(t3) {
+      const e3 = this.getDialog(t3);
+      if (e3)
+        return e3.hasAttribute("data-trix-active");
+    }
+    toggleDialog(t3) {
+      return this.dialogIsVisible(t3) ? this.hideDialog() : this.showDialog(t3);
+    }
+    showDialog(t3) {
+      var e3, i3;
+      this.hideDialog(), null === (e3 = this.delegate) || void 0 === e3 || e3.toolbarWillShowDialog();
+      const n3 = this.getDialog(t3);
+      n3.setAttribute("data-trix-active", ""), n3.classList.add("trix-active"), Array.from(n3.querySelectorAll("input[disabled]")).forEach((t4) => {
+        t4.removeAttribute("disabled");
+      });
+      const r3 = Cn(n3);
+      if (r3) {
+        const e4 = xn(n3, t3);
+        e4 && (e4.value = this.attributes[r3] || "", e4.select());
+      }
+      return null === (i3 = this.delegate) || void 0 === i3 ? void 0 : i3.toolbarDidShowDialog(t3);
+    }
+    setAttribute(t3) {
+      const e3 = Cn(t3), i3 = xn(t3, e3);
+      return i3.willValidate && !i3.checkValidity() ? (i3.setAttribute("data-trix-validate", ""), i3.classList.add("trix-validate"), i3.focus()) : (null === (n3 = this.delegate) || void 0 === n3 || n3.toolbarDidUpdateAttribute(e3, i3.value), this.hideDialog());
+      var n3;
+    }
+    removeAttribute(t3) {
+      var e3;
+      const i3 = Cn(t3);
+      return null === (e3 = this.delegate) || void 0 === e3 || e3.toolbarDidRemoveAttribute(i3), this.hideDialog();
+    }
+    hideDialog() {
+      const t3 = this.element.querySelector(bn);
+      var e3;
+      if (t3)
+        return t3.removeAttribute("data-trix-active"), t3.classList.remove("trix-active"), this.resetDialogInputs(), null === (e3 = this.delegate) || void 0 === e3 ? void 0 : e3.toolbarDidHideDialog(((t4) => t4.getAttribute("data-trix-dialog"))(t3));
+    }
+    resetDialogInputs() {
+      Array.from(this.element.querySelectorAll(An)).forEach((t3) => {
+        t3.setAttribute("disabled", "disabled"), t3.removeAttribute("data-trix-validate"), t3.classList.remove("trix-validate");
+      });
+    }
+    getDialog(t3) {
+      return this.element.querySelector("[data-trix-dialog=".concat(t3, "]"));
+    }
+  };
+  var Rn = class extends Oi {
+    constructor(t3) {
+      let { editorElement: e3, document: i3, html: n3 } = t3;
+      super(...arguments), this.editorElement = e3, this.selectionManager = new Li(this.editorElement), this.selectionManager.delegate = this, this.composition = new gi(), this.composition.delegate = this, this.attachmentManager = new hi(this.composition.getAttachments()), this.attachmentManager.delegate = this, this.inputController = 2 === M2.getLevel() ? new on(this.editorElement) : new Qi(this.editorElement), this.inputController.delegate = this, this.inputController.responder = this.composition, this.compositionController = new Ni(this.editorElement, this.composition), this.compositionController.delegate = this, this.toolbarController = new kn(this.editorElement.toolbarElement), this.toolbarController.delegate = this, this.editor = new xi(this.composition, this.selectionManager, this.editorElement), i3 ? this.editor.loadDocument(i3) : this.editor.loadHTML(n3);
+    }
+    registerSelectionManager() {
+      return Pt2.registerSelectionManager(this.selectionManager);
+    }
+    unregisterSelectionManager() {
+      return Pt2.unregisterSelectionManager(this.selectionManager);
+    }
+    render() {
+      return this.compositionController.render();
+    }
+    reparse() {
+      return this.composition.replaceHTML(this.editorElement.innerHTML);
+    }
+    compositionDidChangeDocument(t3) {
+      if (this.notifyEditorElement("document-change"), !this.handlingInput)
+        return this.render();
+    }
+    compositionDidChangeCurrentAttributes(t3) {
+      return this.currentAttributes = t3, this.toolbarController.updateAttributes(this.currentAttributes), this.updateCurrentActions(), this.notifyEditorElement("attributes-change", { attributes: this.currentAttributes });
+    }
+    compositionDidPerformInsertionAtRange(t3) {
+      this.pasting && (this.pastedRange = t3);
+    }
+    compositionShouldAcceptFile(t3) {
+      return this.notifyEditorElement("file-accept", { file: t3 });
+    }
+    compositionDidAddAttachment(t3) {
+      const e3 = this.attachmentManager.manageAttachment(t3);
+      return this.notifyEditorElement("attachment-add", { attachment: e3 });
+    }
+    compositionDidEditAttachment(t3) {
+      this.compositionController.rerenderViewForObject(t3);
+      const e3 = this.attachmentManager.manageAttachment(t3);
+      return this.notifyEditorElement("attachment-edit", { attachment: e3 }), this.notifyEditorElement("change");
+    }
+    compositionDidChangeAttachmentPreviewURL(t3) {
+      return this.compositionController.invalidateViewForObject(t3), this.notifyEditorElement("change");
+    }
+    compositionDidRemoveAttachment(t3) {
+      const e3 = this.attachmentManager.unmanageAttachment(t3);
+      return this.notifyEditorElement("attachment-remove", { attachment: e3 });
+    }
+    compositionDidStartEditingAttachment(t3, e3) {
+      return this.attachmentLocationRange = this.composition.document.getLocationRangeOfAttachment(t3), this.compositionController.installAttachmentEditorForAttachment(t3, e3), this.selectionManager.setLocationRange(this.attachmentLocationRange);
+    }
+    compositionDidStopEditingAttachment(t3) {
+      this.compositionController.uninstallAttachmentEditor(), this.attachmentLocationRange = null;
+    }
+    compositionDidRequestChangingSelectionToLocationRange(t3) {
+      if (!this.loadingSnapshot || this.isFocused())
+        return this.requestedLocationRange = t3, this.compositionRevisionWhenLocationRangeRequested = this.composition.revision, this.handlingInput ? void 0 : this.render();
+    }
+    compositionWillLoadSnapshot() {
+      this.loadingSnapshot = true;
+    }
+    compositionDidLoadSnapshot() {
+      this.compositionController.refreshViewCache(), this.render(), this.loadingSnapshot = false;
+    }
+    getSelectionManager() {
+      return this.selectionManager;
+    }
+    attachmentManagerDidRequestRemovalOfAttachment(t3) {
+      return this.removeAttachment(t3);
+    }
+    compositionControllerWillSyncDocumentView() {
+      return this.inputController.editorWillSyncDocumentView(), this.selectionManager.lock(), this.selectionManager.clearSelection();
+    }
+    compositionControllerDidSyncDocumentView() {
+      return this.inputController.editorDidSyncDocumentView(), this.selectionManager.unlock(), this.updateCurrentActions(), this.notifyEditorElement("sync");
+    }
+    compositionControllerDidRender() {
+      this.requestedLocationRange && (this.compositionRevisionWhenLocationRangeRequested === this.composition.revision && this.selectionManager.setLocationRange(this.requestedLocationRange), this.requestedLocationRange = null, this.compositionRevisionWhenLocationRangeRequested = null), this.renderedCompositionRevision !== this.composition.revision && (this.runEditorFilters(), this.composition.updateCurrentAttributes(), this.notifyEditorElement("render")), this.renderedCompositionRevision = this.composition.revision;
+    }
+    compositionControllerDidFocus() {
+      return this.isFocusedInvisibly() && this.setLocationRange({ index: 0, offset: 0 }), this.toolbarController.hideDialog(), this.notifyEditorElement("focus");
+    }
+    compositionControllerDidBlur() {
+      return this.notifyEditorElement("blur");
+    }
+    compositionControllerDidSelectAttachment(t3, e3) {
+      return this.toolbarController.hideDialog(), this.composition.editAttachment(t3, e3);
+    }
+    compositionControllerDidRequestDeselectingAttachment(t3) {
+      const e3 = this.attachmentLocationRange || this.composition.document.getLocationRangeOfAttachment(t3);
+      return this.selectionManager.setLocationRange(e3[1]);
+    }
+    compositionControllerWillUpdateAttachment(t3) {
+      return this.editor.recordUndoEntry("Edit Attachment", { context: t3.id, consolidatable: true });
+    }
+    compositionControllerDidRequestRemovalOfAttachment(t3) {
+      return this.removeAttachment(t3);
+    }
+    inputControllerWillHandleInput() {
+      this.handlingInput = true, this.requestedRender = false;
+    }
+    inputControllerDidRequestRender() {
+      this.requestedRender = true;
+    }
+    inputControllerDidHandleInput() {
+      if (this.handlingInput = false, this.requestedRender)
+        return this.requestedRender = false, this.render();
+    }
+    inputControllerDidAllowUnhandledInput() {
+      return this.notifyEditorElement("change");
+    }
+    inputControllerDidRequestReparse() {
+      return this.reparse();
+    }
+    inputControllerWillPerformTyping() {
+      return this.recordTypingUndoEntry();
+    }
+    inputControllerWillPerformFormatting(t3) {
+      return this.recordFormattingUndoEntry(t3);
+    }
+    inputControllerWillCutText() {
+      return this.editor.recordUndoEntry("Cut");
+    }
+    inputControllerWillPaste(t3) {
+      return this.editor.recordUndoEntry("Paste"), this.pasting = true, this.notifyEditorElement("before-paste", { paste: t3 });
+    }
+    inputControllerDidPaste(t3) {
+      return t3.range = this.pastedRange, this.pastedRange = null, this.pasting = null, this.notifyEditorElement("paste", { paste: t3 });
+    }
+    inputControllerWillMoveText() {
+      return this.editor.recordUndoEntry("Move");
+    }
+    inputControllerWillAttachFiles() {
+      return this.editor.recordUndoEntry("Drop Files");
+    }
+    inputControllerWillPerformUndo() {
+      return this.editor.undo();
+    }
+    inputControllerWillPerformRedo() {
+      return this.editor.redo();
+    }
+    inputControllerDidReceiveKeyboardCommand(t3) {
+      return this.toolbarController.applyKeyboardCommand(t3);
+    }
+    inputControllerDidStartDrag() {
+      this.locationRangeBeforeDrag = this.selectionManager.getLocationRange();
+    }
+    inputControllerDidReceiveDragOverPoint(t3) {
+      return this.selectionManager.setLocationRangeFromPointRange(t3);
+    }
+    inputControllerDidCancelDrag() {
+      this.selectionManager.setLocationRange(this.locationRangeBeforeDrag), this.locationRangeBeforeDrag = null;
+    }
+    locationRangeDidChange(t3) {
+      return this.composition.updateCurrentAttributes(), this.updateCurrentActions(), this.attachmentLocationRange && !wt2(this.attachmentLocationRange, t3) && this.composition.stopEditingAttachment(), this.notifyEditorElement("selection-change");
+    }
+    toolbarDidClickButton() {
+      if (!this.getLocationRange())
+        return this.setLocationRange({ index: 0, offset: 0 });
+    }
+    toolbarDidInvokeAction(t3, e3) {
+      return this.invokeAction(t3, e3);
+    }
+    toolbarDidToggleAttribute(t3) {
+      if (this.recordFormattingUndoEntry(t3), this.composition.toggleCurrentAttribute(t3), this.render(), !this.selectionFrozen)
+        return this.editorElement.focus();
+    }
+    toolbarDidUpdateAttribute(t3, e3) {
+      if (this.recordFormattingUndoEntry(t3), this.composition.setCurrentAttribute(t3, e3), this.render(), !this.selectionFrozen)
+        return this.editorElement.focus();
+    }
+    toolbarDidRemoveAttribute(t3) {
+      if (this.recordFormattingUndoEntry(t3), this.composition.removeCurrentAttribute(t3), this.render(), !this.selectionFrozen)
+        return this.editorElement.focus();
+    }
+    toolbarWillShowDialog(t3) {
+      return this.composition.expandSelectionForEditing(), this.freezeSelection();
+    }
+    toolbarDidShowDialog(t3) {
+      return this.notifyEditorElement("toolbar-dialog-show", { dialogName: t3 });
+    }
+    toolbarDidHideDialog(t3) {
+      return this.thawSelection(), this.editorElement.focus(), this.notifyEditorElement("toolbar-dialog-hide", { dialogName: t3 });
+    }
+    freezeSelection() {
+      if (!this.selectionFrozen)
+        return this.selectionManager.lock(), this.composition.freezeSelection(), this.selectionFrozen = true, this.render();
+    }
+    thawSelection() {
+      if (this.selectionFrozen)
+        return this.composition.thawSelection(), this.selectionManager.unlock(), this.selectionFrozen = false, this.render();
+    }
+    canInvokeAction(t3) {
+      return !!this.actionIsExternal(t3) || !(null === (e3 = this.actions[t3]) || void 0 === e3 || null === (e3 = e3.test) || void 0 === e3 || !e3.call(this));
+      var e3;
+    }
+    invokeAction(t3, e3) {
+      return this.actionIsExternal(t3) ? this.notifyEditorElement("action-invoke", { actionName: t3, invokingElement: e3 }) : null === (i3 = this.actions[t3]) || void 0 === i3 || null === (i3 = i3.perform) || void 0 === i3 ? void 0 : i3.call(this);
+      var i3;
+    }
+    actionIsExternal(t3) {
+      return /^x-./.test(t3);
+    }
+    getCurrentActions() {
+      const t3 = {};
+      for (const e3 in this.actions)
+        t3[e3] = this.canInvokeAction(e3);
+      return t3;
+    }
+    updateCurrentActions() {
+      const t3 = this.getCurrentActions();
+      if (!St2(t3, this.currentActions))
+        return this.currentActions = t3, this.toolbarController.updateActions(this.currentActions), this.notifyEditorElement("actions-change", { actions: this.currentActions });
+    }
+    runEditorFilters() {
+      let t3 = this.composition.getSnapshot();
+      if (Array.from(this.editor.filters).forEach((e4) => {
+        const { document: i4, selectedRange: n3 } = t3;
+        t3 = e4.call(this.editor, t3) || {}, t3.document || (t3.document = i4), t3.selectedRange || (t3.selectedRange = n3);
+      }), e3 = t3, i3 = this.composition.getSnapshot(), !wt2(e3.selectedRange, i3.selectedRange) || !e3.document.isEqualTo(i3.document))
+        return this.composition.loadSnapshot(t3);
+      var e3, i3;
+    }
+    updateInputElement() {
+      const t3 = function(t4, e3) {
+        const i3 = li[e3];
+        if (i3)
+          return i3(t4);
+        throw new Error("unknown content type: ".concat(e3));
+      }(this.compositionController.getSerializableElement(), "text/html");
+      return this.editorElement.setInputElementValue(t3);
+    }
+    notifyEditorElement(t3, e3) {
+      switch (t3) {
+        case "document-change":
+          this.documentChangedSinceLastRender = true;
+          break;
+        case "render":
+          this.documentChangedSinceLastRender && (this.documentChangedSinceLastRender = false, this.notifyEditorElement("change"));
+          break;
+        case "change":
+        case "attachment-add":
+        case "attachment-edit":
+        case "attachment-remove":
+          this.updateInputElement();
+      }
+      return this.editorElement.notify(t3, e3);
+    }
+    removeAttachment(t3) {
+      return this.editor.recordUndoEntry("Delete Attachment"), this.composition.removeAttachment(t3), this.render();
+    }
+    recordFormattingUndoEntry(t3) {
+      const e3 = gt2(t3), i3 = this.selectionManager.getLocationRange();
+      if (e3 || !Dt2(i3))
+        return this.editor.recordUndoEntry("Formatting", { context: this.getUndoContext(), consolidatable: true });
+    }
+    recordTypingUndoEntry() {
+      return this.editor.recordUndoEntry("Typing", { context: this.getUndoContext(this.currentAttributes), consolidatable: true });
+    }
+    getUndoContext() {
+      for (var t3 = arguments.length, e3 = new Array(t3), i3 = 0; i3 < t3; i3++)
+        e3[i3] = arguments[i3];
+      return [this.getLocationContext(), this.getTimeContext(), ...Array.from(e3)];
+    }
+    getLocationContext() {
+      const t3 = this.selectionManager.getLocationRange();
+      return Dt2(t3) ? t3[0].index : t3;
+    }
+    getTimeContext() {
+      return q2.interval > 0 ? Math.floor((/* @__PURE__ */ new Date()).getTime() / q2.interval) : 0;
+    }
+    isFocused() {
+      var t3;
+      return this.editorElement === (null === (t3 = this.editorElement.ownerDocument) || void 0 === t3 ? void 0 : t3.activeElement);
+    }
+    isFocusedInvisibly() {
+      return this.isFocused() && !this.getLocationRange();
+    }
+    get actions() {
+      return this.constructor.actions;
+    }
+  };
+  Ae(Rn, "actions", { undo: { test() {
+    return this.editor.canUndo();
+  }, perform() {
+    return this.editor.undo();
+  } }, redo: { test() {
+    return this.editor.canRedo();
+  }, perform() {
+    return this.editor.redo();
+  } }, link: { test() {
+    return this.editor.canActivateAttribute("href");
+  } }, increaseNestingLevel: { test() {
+    return this.editor.canIncreaseNestingLevel();
+  }, perform() {
+    return this.editor.increaseNestingLevel() && this.render();
+  } }, decreaseNestingLevel: { test() {
+    return this.editor.canDecreaseNestingLevel();
+  }, perform() {
+    return this.editor.decreaseNestingLevel() && this.render();
+  } }, attachFiles: { test: () => true, perform() {
+    return M2.pickFiles(this.editor.insertFiles);
+  } } }), Rn.proxyMethod("getSelectionManager().setLocationRange"), Rn.proxyMethod("getSelectionManager().getLocationRange");
+  var En = Object.freeze({ __proto__: null, AttachmentEditorController: Ii, CompositionController: Ni, Controller: Oi, EditorController: Rn, InputController: Ki, Level0InputController: Qi, Level2InputController: on, ToolbarController: kn });
+  var Sn = Object.freeze({ __proto__: null, MutationObserver: Ui, SelectionChangeObserver: Ft2 });
+  var Ln = Object.freeze({ __proto__: null, FileVerificationOperation: Vi, ImagePreloadOperation: Ce2 });
+  bt2("trix-toolbar", "%t {\n  display: block;\n}\n\n%t {\n  white-space: nowrap;\n}\n\n%t [data-trix-dialog] {\n  display: none;\n}\n\n%t [data-trix-dialog][data-trix-active] {\n  display: block;\n}\n\n%t [data-trix-dialog] [data-trix-validate]:invalid {\n  background-color: #ffdddd;\n}");
+  var Dn = class extends HTMLElement {
+    connectedCallback() {
+      "" === this.innerHTML && (this.innerHTML = U2.getDefaultHTML());
+    }
+  };
+  var wn = 0;
+  var Tn = function(t3) {
+    if (!t3.hasAttribute("contenteditable"))
+      return t3.setAttribute("contenteditable", ""), function(t4) {
+        let e3 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+        return e3.times = 1, f2(t4, e3);
+      }("focus", { onElement: t3, withCallback: () => Bn(t3) });
+  };
+  var Bn = function(t3) {
+    return Fn(t3), Pn(t3);
+  };
+  var Fn = function(t3) {
+    var e3, i3;
+    if (null !== (e3 = (i3 = document).queryCommandSupported) && void 0 !== e3 && e3.call(i3, "enableObjectResizing"))
+      return document.execCommand("enableObjectResizing", false, false), f2("mscontrolselect", { onElement: t3, preventDefault: true });
+  };
+  var Pn = function(t3) {
+    var e3, i3;
+    if (null !== (e3 = (i3 = document).queryCommandSupported) && void 0 !== e3 && e3.call(i3, "DefaultParagraphSeparator")) {
+      const { tagName: t4 } = n2.default;
+      if (["div", "p"].includes(t4))
+        return document.execCommand("DefaultParagraphSeparator", false, t4);
+    }
+  };
+  var In = a2.forcesObjectResizing ? { display: "inline", width: "auto" } : { display: "inline-block", width: "1px" };
+  bt2("trix-editor", "%t {\n    display: block;\n}\n\n%t:empty:not(:focus)::before {\n    content: attr(placeholder);\n    color: graytext;\n    cursor: text;\n    pointer-events: none;\n    white-space: pre-line;\n}\n\n%t a[contenteditable=false] {\n    cursor: text;\n}\n\n%t img {\n    max-width: 100%;\n    height: auto;\n}\n\n%t ".concat(e2, " figcaption textarea {\n    resize: none;\n}\n\n%t ").concat(e2, " figcaption textarea.trix-autoresize-clone {\n    position: absolute;\n    left: -9999px;\n    max-height: 0px;\n}\n\n%t ").concat(e2, " figcaption[data-trix-placeholder]:empty::before {\n    content: attr(data-trix-placeholder);\n    color: graytext;\n}\n\n%t [data-trix-cursor-target] {\n    display: ").concat(In.display, " !important;\n    width: ").concat(In.width, " !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border: none !important;\n}\n\n%t [data-trix-cursor-target=left] {\n    vertical-align: top !important;\n    margin-left: -1px !important;\n}\n\n%t [data-trix-cursor-target=right] {\n    vertical-align: bottom !important;\n    margin-right: -1px !important;\n}"));
+  var Nn = class extends HTMLElement {
+    get trixId() {
+      return this.hasAttribute("trix-id") ? this.getAttribute("trix-id") : (this.setAttribute("trix-id", ++wn), this.trixId);
+    }
+    get labels() {
+      const t3 = [];
+      this.id && this.ownerDocument && t3.push(...Array.from(this.ownerDocument.querySelectorAll("label[for='".concat(this.id, "']")) || []));
+      const e3 = A2(this, { matchingSelector: "label" });
+      return e3 && [this, null].includes(e3.control) && t3.push(e3), t3;
+    }
+    get toolbarElement() {
+      var t3;
+      if (this.hasAttribute("toolbar"))
+        return null === (t3 = this.ownerDocument) || void 0 === t3 ? void 0 : t3.getElementById(this.getAttribute("toolbar"));
+      if (this.parentNode) {
+        const t4 = "trix-toolbar-".concat(this.trixId);
+        this.setAttribute("toolbar", t4);
+        const e3 = S2("trix-toolbar", { id: t4 });
+        return this.parentNode.insertBefore(e3, this), e3;
+      }
+    }
+    get form() {
+      var t3;
+      return null === (t3 = this.inputElement) || void 0 === t3 ? void 0 : t3.form;
+    }
+    get inputElement() {
+      var t3;
+      if (this.hasAttribute("input"))
+        return null === (t3 = this.ownerDocument) || void 0 === t3 ? void 0 : t3.getElementById(this.getAttribute("input"));
+      if (this.parentNode) {
+        const t4 = "trix-input-".concat(this.trixId);
+        this.setAttribute("input", t4);
+        const e3 = S2("input", { type: "hidden", id: t4 });
+        return this.parentNode.insertBefore(e3, this.nextElementSibling), e3;
+      }
+    }
+    get editor() {
+      var t3;
+      return null === (t3 = this.editorController) || void 0 === t3 ? void 0 : t3.editor;
+    }
+    get name() {
+      var t3;
+      return null === (t3 = this.inputElement) || void 0 === t3 ? void 0 : t3.name;
+    }
+    get value() {
+      var t3;
+      return null === (t3 = this.inputElement) || void 0 === t3 ? void 0 : t3.value;
+    }
+    set value(t3) {
+      var e3;
+      this.defaultValue = t3, null === (e3 = this.editor) || void 0 === e3 || e3.loadHTML(this.defaultValue);
+    }
+    notify(t3, e3) {
+      if (this.editorController)
+        return b2("trix-".concat(t3), { onElement: this, attributes: e3 });
+    }
+    setInputElementValue(t3) {
+      this.inputElement && (this.inputElement.value = t3);
+    }
+    connectedCallback() {
+      this.hasAttribute("data-trix-internal") || (Tn(this), function(t3) {
+        if (!t3.hasAttribute("role"))
+          t3.setAttribute("role", "textbox");
+      }(this), function(t3) {
+        if (t3.hasAttribute("aria-label") || t3.hasAttribute("aria-labelledby"))
+          return;
+        const e3 = function() {
+          const e4 = Array.from(t3.labels).map((e5) => {
+            if (!e5.contains(t3))
+              return e5.textContent;
+          }).filter((t4) => t4), i3 = e4.join(" ");
+          return i3 ? t3.setAttribute("aria-label", i3) : t3.removeAttribute("aria-label");
+        };
+        e3(), f2("focus", { onElement: t3, withCallback: e3 });
+      }(this), this.editorController || (b2("trix-before-initialize", { onElement: this }), this.editorController = new Rn({ editorElement: this, html: this.defaultValue = this.value }), requestAnimationFrame(() => b2("trix-initialize", { onElement: this }))), this.editorController.registerSelectionManager(), this.registerResetListener(), this.registerClickListener(), function(t3) {
+        if (!document.querySelector(":focus") && t3.hasAttribute("autofocus") && document.querySelector("[autofocus]") === t3)
+          t3.focus();
+      }(this));
+    }
+    disconnectedCallback() {
+      var t3;
+      return null === (t3 = this.editorController) || void 0 === t3 || t3.unregisterSelectionManager(), this.unregisterResetListener(), this.unregisterClickListener();
+    }
+    registerResetListener() {
+      return this.resetListener = this.resetBubbled.bind(this), window.addEventListener("reset", this.resetListener, false);
+    }
+    unregisterResetListener() {
+      return window.removeEventListener("reset", this.resetListener, false);
+    }
+    registerClickListener() {
+      return this.clickListener = this.clickBubbled.bind(this), window.addEventListener("click", this.clickListener, false);
+    }
+    unregisterClickListener() {
+      return window.removeEventListener("click", this.clickListener, false);
+    }
+    resetBubbled(t3) {
+      if (!t3.defaultPrevented && t3.target === this.form)
+        return this.reset();
+    }
+    clickBubbled(t3) {
+      if (t3.defaultPrevented)
+        return;
+      if (this.contains(t3.target))
+        return;
+      const e3 = A2(t3.target, { matchingSelector: "label" });
+      return e3 && Array.from(this.labels).includes(e3) ? this.focus() : void 0;
+    }
+    reset() {
+      this.value = this.defaultValue;
+    }
+  };
+  var On = { VERSION: t2, config: V2, core: ci, models: Di, views: wi, controllers: En, observers: Sn, operations: Ln, elements: Object.freeze({ __proto__: null, TrixEditorElement: Nn, TrixToolbarElement: Dn }), filters: Object.freeze({ __proto__: null, Filter: bi, attachmentGalleryFilter: vi }) };
+  Object.assign(On, Di), window.Trix = On, setTimeout(function() {
+    customElements.get("trix-toolbar") || customElements.define("trix-toolbar", Dn), customElements.get("trix-editor") || customElements.define("trix-editor", Nn);
+  }, 0);
+
+  // node_modules/@rails/actiontext/app/assets/javascripts/actiontext.js
+  (function(factory) {
+    typeof define === "function" && define.amd ? define(factory) : factory();
+  })(function() {
+    "use strict";
+    var sparkMd5 = {
+      exports: {}
+    };
+    (function(module, exports) {
+      (function(factory) {
+        {
+          module.exports = factory();
+        }
+      })(function(undefined$1) {
+        var hex_chr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+        function md5cycle(x3, k3) {
+          var a3 = x3[0], b3 = x3[1], c3 = x3[2], d3 = x3[3];
+          a3 += (b3 & c3 | ~b3 & d3) + k3[0] - 680876936 | 0;
+          a3 = (a3 << 7 | a3 >>> 25) + b3 | 0;
+          d3 += (a3 & b3 | ~a3 & c3) + k3[1] - 389564586 | 0;
+          d3 = (d3 << 12 | d3 >>> 20) + a3 | 0;
+          c3 += (d3 & a3 | ~d3 & b3) + k3[2] + 606105819 | 0;
+          c3 = (c3 << 17 | c3 >>> 15) + d3 | 0;
+          b3 += (c3 & d3 | ~c3 & a3) + k3[3] - 1044525330 | 0;
+          b3 = (b3 << 22 | b3 >>> 10) + c3 | 0;
+          a3 += (b3 & c3 | ~b3 & d3) + k3[4] - 176418897 | 0;
+          a3 = (a3 << 7 | a3 >>> 25) + b3 | 0;
+          d3 += (a3 & b3 | ~a3 & c3) + k3[5] + 1200080426 | 0;
+          d3 = (d3 << 12 | d3 >>> 20) + a3 | 0;
+          c3 += (d3 & a3 | ~d3 & b3) + k3[6] - 1473231341 | 0;
+          c3 = (c3 << 17 | c3 >>> 15) + d3 | 0;
+          b3 += (c3 & d3 | ~c3 & a3) + k3[7] - 45705983 | 0;
+          b3 = (b3 << 22 | b3 >>> 10) + c3 | 0;
+          a3 += (b3 & c3 | ~b3 & d3) + k3[8] + 1770035416 | 0;
+          a3 = (a3 << 7 | a3 >>> 25) + b3 | 0;
+          d3 += (a3 & b3 | ~a3 & c3) + k3[9] - 1958414417 | 0;
+          d3 = (d3 << 12 | d3 >>> 20) + a3 | 0;
+          c3 += (d3 & a3 | ~d3 & b3) + k3[10] - 42063 | 0;
+          c3 = (c3 << 17 | c3 >>> 15) + d3 | 0;
+          b3 += (c3 & d3 | ~c3 & a3) + k3[11] - 1990404162 | 0;
+          b3 = (b3 << 22 | b3 >>> 10) + c3 | 0;
+          a3 += (b3 & c3 | ~b3 & d3) + k3[12] + 1804603682 | 0;
+          a3 = (a3 << 7 | a3 >>> 25) + b3 | 0;
+          d3 += (a3 & b3 | ~a3 & c3) + k3[13] - 40341101 | 0;
+          d3 = (d3 << 12 | d3 >>> 20) + a3 | 0;
+          c3 += (d3 & a3 | ~d3 & b3) + k3[14] - 1502002290 | 0;
+          c3 = (c3 << 17 | c3 >>> 15) + d3 | 0;
+          b3 += (c3 & d3 | ~c3 & a3) + k3[15] + 1236535329 | 0;
+          b3 = (b3 << 22 | b3 >>> 10) + c3 | 0;
+          a3 += (b3 & d3 | c3 & ~d3) + k3[1] - 165796510 | 0;
+          a3 = (a3 << 5 | a3 >>> 27) + b3 | 0;
+          d3 += (a3 & c3 | b3 & ~c3) + k3[6] - 1069501632 | 0;
+          d3 = (d3 << 9 | d3 >>> 23) + a3 | 0;
+          c3 += (d3 & b3 | a3 & ~b3) + k3[11] + 643717713 | 0;
+          c3 = (c3 << 14 | c3 >>> 18) + d3 | 0;
+          b3 += (c3 & a3 | d3 & ~a3) + k3[0] - 373897302 | 0;
+          b3 = (b3 << 20 | b3 >>> 12) + c3 | 0;
+          a3 += (b3 & d3 | c3 & ~d3) + k3[5] - 701558691 | 0;
+          a3 = (a3 << 5 | a3 >>> 27) + b3 | 0;
+          d3 += (a3 & c3 | b3 & ~c3) + k3[10] + 38016083 | 0;
+          d3 = (d3 << 9 | d3 >>> 23) + a3 | 0;
+          c3 += (d3 & b3 | a3 & ~b3) + k3[15] - 660478335 | 0;
+          c3 = (c3 << 14 | c3 >>> 18) + d3 | 0;
+          b3 += (c3 & a3 | d3 & ~a3) + k3[4] - 405537848 | 0;
+          b3 = (b3 << 20 | b3 >>> 12) + c3 | 0;
+          a3 += (b3 & d3 | c3 & ~d3) + k3[9] + 568446438 | 0;
+          a3 = (a3 << 5 | a3 >>> 27) + b3 | 0;
+          d3 += (a3 & c3 | b3 & ~c3) + k3[14] - 1019803690 | 0;
+          d3 = (d3 << 9 | d3 >>> 23) + a3 | 0;
+          c3 += (d3 & b3 | a3 & ~b3) + k3[3] - 187363961 | 0;
+          c3 = (c3 << 14 | c3 >>> 18) + d3 | 0;
+          b3 += (c3 & a3 | d3 & ~a3) + k3[8] + 1163531501 | 0;
+          b3 = (b3 << 20 | b3 >>> 12) + c3 | 0;
+          a3 += (b3 & d3 | c3 & ~d3) + k3[13] - 1444681467 | 0;
+          a3 = (a3 << 5 | a3 >>> 27) + b3 | 0;
+          d3 += (a3 & c3 | b3 & ~c3) + k3[2] - 51403784 | 0;
+          d3 = (d3 << 9 | d3 >>> 23) + a3 | 0;
+          c3 += (d3 & b3 | a3 & ~b3) + k3[7] + 1735328473 | 0;
+          c3 = (c3 << 14 | c3 >>> 18) + d3 | 0;
+          b3 += (c3 & a3 | d3 & ~a3) + k3[12] - 1926607734 | 0;
+          b3 = (b3 << 20 | b3 >>> 12) + c3 | 0;
+          a3 += (b3 ^ c3 ^ d3) + k3[5] - 378558 | 0;
+          a3 = (a3 << 4 | a3 >>> 28) + b3 | 0;
+          d3 += (a3 ^ b3 ^ c3) + k3[8] - 2022574463 | 0;
+          d3 = (d3 << 11 | d3 >>> 21) + a3 | 0;
+          c3 += (d3 ^ a3 ^ b3) + k3[11] + 1839030562 | 0;
+          c3 = (c3 << 16 | c3 >>> 16) + d3 | 0;
+          b3 += (c3 ^ d3 ^ a3) + k3[14] - 35309556 | 0;
+          b3 = (b3 << 23 | b3 >>> 9) + c3 | 0;
+          a3 += (b3 ^ c3 ^ d3) + k3[1] - 1530992060 | 0;
+          a3 = (a3 << 4 | a3 >>> 28) + b3 | 0;
+          d3 += (a3 ^ b3 ^ c3) + k3[4] + 1272893353 | 0;
+          d3 = (d3 << 11 | d3 >>> 21) + a3 | 0;
+          c3 += (d3 ^ a3 ^ b3) + k3[7] - 155497632 | 0;
+          c3 = (c3 << 16 | c3 >>> 16) + d3 | 0;
+          b3 += (c3 ^ d3 ^ a3) + k3[10] - 1094730640 | 0;
+          b3 = (b3 << 23 | b3 >>> 9) + c3 | 0;
+          a3 += (b3 ^ c3 ^ d3) + k3[13] + 681279174 | 0;
+          a3 = (a3 << 4 | a3 >>> 28) + b3 | 0;
+          d3 += (a3 ^ b3 ^ c3) + k3[0] - 358537222 | 0;
+          d3 = (d3 << 11 | d3 >>> 21) + a3 | 0;
+          c3 += (d3 ^ a3 ^ b3) + k3[3] - 722521979 | 0;
+          c3 = (c3 << 16 | c3 >>> 16) + d3 | 0;
+          b3 += (c3 ^ d3 ^ a3) + k3[6] + 76029189 | 0;
+          b3 = (b3 << 23 | b3 >>> 9) + c3 | 0;
+          a3 += (b3 ^ c3 ^ d3) + k3[9] - 640364487 | 0;
+          a3 = (a3 << 4 | a3 >>> 28) + b3 | 0;
+          d3 += (a3 ^ b3 ^ c3) + k3[12] - 421815835 | 0;
+          d3 = (d3 << 11 | d3 >>> 21) + a3 | 0;
+          c3 += (d3 ^ a3 ^ b3) + k3[15] + 530742520 | 0;
+          c3 = (c3 << 16 | c3 >>> 16) + d3 | 0;
+          b3 += (c3 ^ d3 ^ a3) + k3[2] - 995338651 | 0;
+          b3 = (b3 << 23 | b3 >>> 9) + c3 | 0;
+          a3 += (c3 ^ (b3 | ~d3)) + k3[0] - 198630844 | 0;
+          a3 = (a3 << 6 | a3 >>> 26) + b3 | 0;
+          d3 += (b3 ^ (a3 | ~c3)) + k3[7] + 1126891415 | 0;
+          d3 = (d3 << 10 | d3 >>> 22) + a3 | 0;
+          c3 += (a3 ^ (d3 | ~b3)) + k3[14] - 1416354905 | 0;
+          c3 = (c3 << 15 | c3 >>> 17) + d3 | 0;
+          b3 += (d3 ^ (c3 | ~a3)) + k3[5] - 57434055 | 0;
+          b3 = (b3 << 21 | b3 >>> 11) + c3 | 0;
+          a3 += (c3 ^ (b3 | ~d3)) + k3[12] + 1700485571 | 0;
+          a3 = (a3 << 6 | a3 >>> 26) + b3 | 0;
+          d3 += (b3 ^ (a3 | ~c3)) + k3[3] - 1894986606 | 0;
+          d3 = (d3 << 10 | d3 >>> 22) + a3 | 0;
+          c3 += (a3 ^ (d3 | ~b3)) + k3[10] - 1051523 | 0;
+          c3 = (c3 << 15 | c3 >>> 17) + d3 | 0;
+          b3 += (d3 ^ (c3 | ~a3)) + k3[1] - 2054922799 | 0;
+          b3 = (b3 << 21 | b3 >>> 11) + c3 | 0;
+          a3 += (c3 ^ (b3 | ~d3)) + k3[8] + 1873313359 | 0;
+          a3 = (a3 << 6 | a3 >>> 26) + b3 | 0;
+          d3 += (b3 ^ (a3 | ~c3)) + k3[15] - 30611744 | 0;
+          d3 = (d3 << 10 | d3 >>> 22) + a3 | 0;
+          c3 += (a3 ^ (d3 | ~b3)) + k3[6] - 1560198380 | 0;
+          c3 = (c3 << 15 | c3 >>> 17) + d3 | 0;
+          b3 += (d3 ^ (c3 | ~a3)) + k3[13] + 1309151649 | 0;
+          b3 = (b3 << 21 | b3 >>> 11) + c3 | 0;
+          a3 += (c3 ^ (b3 | ~d3)) + k3[4] - 145523070 | 0;
+          a3 = (a3 << 6 | a3 >>> 26) + b3 | 0;
+          d3 += (b3 ^ (a3 | ~c3)) + k3[11] - 1120210379 | 0;
+          d3 = (d3 << 10 | d3 >>> 22) + a3 | 0;
+          c3 += (a3 ^ (d3 | ~b3)) + k3[2] + 718787259 | 0;
+          c3 = (c3 << 15 | c3 >>> 17) + d3 | 0;
+          b3 += (d3 ^ (c3 | ~a3)) + k3[9] - 343485551 | 0;
+          b3 = (b3 << 21 | b3 >>> 11) + c3 | 0;
+          x3[0] = a3 + x3[0] | 0;
+          x3[1] = b3 + x3[1] | 0;
+          x3[2] = c3 + x3[2] | 0;
+          x3[3] = d3 + x3[3] | 0;
+        }
+        function md5blk(s3) {
+          var md5blks = [], i3;
+          for (i3 = 0; i3 < 64; i3 += 4) {
+            md5blks[i3 >> 2] = s3.charCodeAt(i3) + (s3.charCodeAt(i3 + 1) << 8) + (s3.charCodeAt(i3 + 2) << 16) + (s3.charCodeAt(i3 + 3) << 24);
+          }
+          return md5blks;
+        }
+        function md5blk_array(a3) {
+          var md5blks = [], i3;
+          for (i3 = 0; i3 < 64; i3 += 4) {
+            md5blks[i3 >> 2] = a3[i3] + (a3[i3 + 1] << 8) + (a3[i3 + 2] << 16) + (a3[i3 + 3] << 24);
+          }
+          return md5blks;
+        }
+        function md51(s3) {
+          var n3 = s3.length, state = [1732584193, -271733879, -1732584194, 271733878], i3, length, tail, tmp, lo, hi2;
+          for (i3 = 64; i3 <= n3; i3 += 64) {
+            md5cycle(state, md5blk(s3.substring(i3 - 64, i3)));
+          }
+          s3 = s3.substring(i3 - 64);
+          length = s3.length;
+          tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          for (i3 = 0; i3 < length; i3 += 1) {
+            tail[i3 >> 2] |= s3.charCodeAt(i3) << (i3 % 4 << 3);
+          }
+          tail[i3 >> 2] |= 128 << (i3 % 4 << 3);
+          if (i3 > 55) {
+            md5cycle(state, tail);
+            for (i3 = 0; i3 < 16; i3 += 1) {
+              tail[i3] = 0;
+            }
+          }
+          tmp = n3 * 8;
+          tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/);
+          lo = parseInt(tmp[2], 16);
+          hi2 = parseInt(tmp[1], 16) || 0;
+          tail[14] = lo;
+          tail[15] = hi2;
+          md5cycle(state, tail);
+          return state;
+        }
+        function md51_array(a3) {
+          var n3 = a3.length, state = [1732584193, -271733879, -1732584194, 271733878], i3, length, tail, tmp, lo, hi2;
+          for (i3 = 64; i3 <= n3; i3 += 64) {
+            md5cycle(state, md5blk_array(a3.subarray(i3 - 64, i3)));
+          }
+          a3 = i3 - 64 < n3 ? a3.subarray(i3 - 64) : new Uint8Array(0);
+          length = a3.length;
+          tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          for (i3 = 0; i3 < length; i3 += 1) {
+            tail[i3 >> 2] |= a3[i3] << (i3 % 4 << 3);
+          }
+          tail[i3 >> 2] |= 128 << (i3 % 4 << 3);
+          if (i3 > 55) {
+            md5cycle(state, tail);
+            for (i3 = 0; i3 < 16; i3 += 1) {
+              tail[i3] = 0;
+            }
+          }
+          tmp = n3 * 8;
+          tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/);
+          lo = parseInt(tmp[2], 16);
+          hi2 = parseInt(tmp[1], 16) || 0;
+          tail[14] = lo;
+          tail[15] = hi2;
+          md5cycle(state, tail);
+          return state;
+        }
+        function rhex(n3) {
+          var s3 = "", j3;
+          for (j3 = 0; j3 < 4; j3 += 1) {
+            s3 += hex_chr[n3 >> j3 * 8 + 4 & 15] + hex_chr[n3 >> j3 * 8 & 15];
+          }
+          return s3;
+        }
+        function hex(x3) {
+          var i3;
+          for (i3 = 0; i3 < x3.length; i3 += 1) {
+            x3[i3] = rhex(x3[i3]);
+          }
+          return x3.join("");
+        }
+        if (hex(md51("hello")) !== "5d41402abc4b2a76b9719d911017c592")
+          ;
+        if (typeof ArrayBuffer !== "undefined" && !ArrayBuffer.prototype.slice) {
+          (function() {
+            function clamp(val, length) {
+              val = val | 0 || 0;
+              if (val < 0) {
+                return Math.max(val + length, 0);
+              }
+              return Math.min(val, length);
+            }
+            ArrayBuffer.prototype.slice = function(from, to) {
+              var length = this.byteLength, begin = clamp(from, length), end = length, num, target, targetArray, sourceArray;
+              if (to !== undefined$1) {
+                end = clamp(to, length);
+              }
+              if (begin > end) {
+                return new ArrayBuffer(0);
+              }
+              num = end - begin;
+              target = new ArrayBuffer(num);
+              targetArray = new Uint8Array(target);
+              sourceArray = new Uint8Array(this, begin, num);
+              targetArray.set(sourceArray);
+              return target;
+            };
+          })();
+        }
+        function toUtf8(str) {
+          if (/[\u0080-\uFFFF]/.test(str)) {
+            str = unescape(encodeURIComponent(str));
+          }
+          return str;
+        }
+        function utf8Str2ArrayBuffer(str, returnUInt8Array) {
+          var length = str.length, buff = new ArrayBuffer(length), arr = new Uint8Array(buff), i3;
+          for (i3 = 0; i3 < length; i3 += 1) {
+            arr[i3] = str.charCodeAt(i3);
+          }
+          return returnUInt8Array ? arr : buff;
+        }
+        function arrayBuffer2Utf8Str(buff) {
+          return String.fromCharCode.apply(null, new Uint8Array(buff));
+        }
+        function concatenateArrayBuffers(first, second, returnUInt8Array) {
+          var result = new Uint8Array(first.byteLength + second.byteLength);
+          result.set(new Uint8Array(first));
+          result.set(new Uint8Array(second), first.byteLength);
+          return returnUInt8Array ? result : result.buffer;
+        }
+        function hexToBinaryString(hex2) {
+          var bytes = [], length = hex2.length, x3;
+          for (x3 = 0; x3 < length - 1; x3 += 2) {
+            bytes.push(parseInt(hex2.substr(x3, 2), 16));
+          }
+          return String.fromCharCode.apply(String, bytes);
+        }
+        function SparkMD52() {
+          this.reset();
+        }
+        SparkMD52.prototype.append = function(str) {
+          this.appendBinary(toUtf8(str));
+          return this;
+        };
+        SparkMD52.prototype.appendBinary = function(contents) {
+          this._buff += contents;
+          this._length += contents.length;
+          var length = this._buff.length, i3;
+          for (i3 = 64; i3 <= length; i3 += 64) {
+            md5cycle(this._hash, md5blk(this._buff.substring(i3 - 64, i3)));
+          }
+          this._buff = this._buff.substring(i3 - 64);
+          return this;
+        };
+        SparkMD52.prototype.end = function(raw) {
+          var buff = this._buff, length = buff.length, i3, tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ret;
+          for (i3 = 0; i3 < length; i3 += 1) {
+            tail[i3 >> 2] |= buff.charCodeAt(i3) << (i3 % 4 << 3);
+          }
+          this._finish(tail, length);
+          ret = hex(this._hash);
+          if (raw) {
+            ret = hexToBinaryString(ret);
+          }
+          this.reset();
+          return ret;
+        };
+        SparkMD52.prototype.reset = function() {
+          this._buff = "";
+          this._length = 0;
+          this._hash = [1732584193, -271733879, -1732584194, 271733878];
+          return this;
+        };
+        SparkMD52.prototype.getState = function() {
+          return {
+            buff: this._buff,
+            length: this._length,
+            hash: this._hash.slice()
+          };
+        };
+        SparkMD52.prototype.setState = function(state) {
+          this._buff = state.buff;
+          this._length = state.length;
+          this._hash = state.hash;
+          return this;
+        };
+        SparkMD52.prototype.destroy = function() {
+          delete this._hash;
+          delete this._buff;
+          delete this._length;
+        };
+        SparkMD52.prototype._finish = function(tail, length) {
+          var i3 = length, tmp, lo, hi2;
+          tail[i3 >> 2] |= 128 << (i3 % 4 << 3);
+          if (i3 > 55) {
+            md5cycle(this._hash, tail);
+            for (i3 = 0; i3 < 16; i3 += 1) {
+              tail[i3] = 0;
+            }
+          }
+          tmp = this._length * 8;
+          tmp = tmp.toString(16).match(/(.*?)(.{0,8})$/);
+          lo = parseInt(tmp[2], 16);
+          hi2 = parseInt(tmp[1], 16) || 0;
+          tail[14] = lo;
+          tail[15] = hi2;
+          md5cycle(this._hash, tail);
+        };
+        SparkMD52.hash = function(str, raw) {
+          return SparkMD52.hashBinary(toUtf8(str), raw);
+        };
+        SparkMD52.hashBinary = function(content, raw) {
+          var hash = md51(content), ret = hex(hash);
+          return raw ? hexToBinaryString(ret) : ret;
+        };
+        SparkMD52.ArrayBuffer = function() {
+          this.reset();
+        };
+        SparkMD52.ArrayBuffer.prototype.append = function(arr) {
+          var buff = concatenateArrayBuffers(this._buff.buffer, arr, true), length = buff.length, i3;
+          this._length += arr.byteLength;
+          for (i3 = 64; i3 <= length; i3 += 64) {
+            md5cycle(this._hash, md5blk_array(buff.subarray(i3 - 64, i3)));
+          }
+          this._buff = i3 - 64 < length ? new Uint8Array(buff.buffer.slice(i3 - 64)) : new Uint8Array(0);
+          return this;
+        };
+        SparkMD52.ArrayBuffer.prototype.end = function(raw) {
+          var buff = this._buff, length = buff.length, tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i3, ret;
+          for (i3 = 0; i3 < length; i3 += 1) {
+            tail[i3 >> 2] |= buff[i3] << (i3 % 4 << 3);
+          }
+          this._finish(tail, length);
+          ret = hex(this._hash);
+          if (raw) {
+            ret = hexToBinaryString(ret);
+          }
+          this.reset();
+          return ret;
+        };
+        SparkMD52.ArrayBuffer.prototype.reset = function() {
+          this._buff = new Uint8Array(0);
+          this._length = 0;
+          this._hash = [1732584193, -271733879, -1732584194, 271733878];
+          return this;
+        };
+        SparkMD52.ArrayBuffer.prototype.getState = function() {
+          var state = SparkMD52.prototype.getState.call(this);
+          state.buff = arrayBuffer2Utf8Str(state.buff);
+          return state;
+        };
+        SparkMD52.ArrayBuffer.prototype.setState = function(state) {
+          state.buff = utf8Str2ArrayBuffer(state.buff, true);
+          return SparkMD52.prototype.setState.call(this, state);
+        };
+        SparkMD52.ArrayBuffer.prototype.destroy = SparkMD52.prototype.destroy;
+        SparkMD52.ArrayBuffer.prototype._finish = SparkMD52.prototype._finish;
+        SparkMD52.ArrayBuffer.hash = function(arr, raw) {
+          var hash = md51_array(new Uint8Array(arr)), ret = hex(hash);
+          return raw ? hexToBinaryString(ret) : ret;
+        };
+        return SparkMD52;
+      });
+    })(sparkMd5);
+    var SparkMD5 = sparkMd5.exports;
+    const fileSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
+    class FileChecksum {
+      static create(file, callback) {
+        const instance = new FileChecksum(file);
+        instance.create(callback);
+      }
+      constructor(file) {
+        this.file = file;
+        this.chunkSize = 2097152;
+        this.chunkCount = Math.ceil(this.file.size / this.chunkSize);
+        this.chunkIndex = 0;
+      }
+      create(callback) {
+        this.callback = callback;
+        this.md5Buffer = new SparkMD5.ArrayBuffer();
+        this.fileReader = new FileReader();
+        this.fileReader.addEventListener("load", (event2) => this.fileReaderDidLoad(event2));
+        this.fileReader.addEventListener("error", (event2) => this.fileReaderDidError(event2));
+        this.readNextChunk();
+      }
+      fileReaderDidLoad(event2) {
+        this.md5Buffer.append(event2.target.result);
+        if (!this.readNextChunk()) {
+          const binaryDigest = this.md5Buffer.end(true);
+          const base64digest = btoa(binaryDigest);
+          this.callback(null, base64digest);
+        }
+      }
+      fileReaderDidError(event2) {
+        this.callback(`Error reading ${this.file.name}`);
+      }
+      readNextChunk() {
+        if (this.chunkIndex < this.chunkCount || this.chunkIndex == 0 && this.chunkCount == 0) {
+          const start3 = this.chunkIndex * this.chunkSize;
+          const end = Math.min(start3 + this.chunkSize, this.file.size);
+          const bytes = fileSlice.call(this.file, start3, end);
+          this.fileReader.readAsArrayBuffer(bytes);
+          this.chunkIndex++;
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+    function getMetaValue(name) {
+      const element = findElement(document.head, `meta[name="${name}"]`);
+      if (element) {
+        return element.getAttribute("content");
+      }
+    }
+    function findElements(root, selector) {
+      if (typeof root == "string") {
+        selector = root;
+        root = document;
+      }
+      const elements = root.querySelectorAll(selector);
+      return toArray(elements);
+    }
+    function findElement(root, selector) {
+      if (typeof root == "string") {
+        selector = root;
+        root = document;
+      }
+      return root.querySelector(selector);
+    }
+    function dispatchEvent2(element, type, eventInit = {}) {
+      const { disabled } = element;
+      const { bubbles, cancelable, detail } = eventInit;
+      const event2 = document.createEvent("Event");
+      event2.initEvent(type, bubbles || true, cancelable || true);
+      event2.detail = detail || {};
+      try {
+        element.disabled = false;
+        element.dispatchEvent(event2);
+      } finally {
+        element.disabled = disabled;
+      }
+      return event2;
+    }
+    function toArray(value) {
+      if (Array.isArray(value)) {
+        return value;
+      } else if (Array.from) {
+        return Array.from(value);
+      } else {
+        return [].slice.call(value);
+      }
+    }
+    class BlobRecord {
+      constructor(file, checksum, url, customHeaders = {}) {
+        this.file = file;
+        this.attributes = {
+          filename: file.name,
+          content_type: file.type || "application/octet-stream",
+          byte_size: file.size,
+          checksum
+        };
+        this.xhr = new XMLHttpRequest();
+        this.xhr.open("POST", url, true);
+        this.xhr.responseType = "json";
+        this.xhr.setRequestHeader("Content-Type", "application/json");
+        this.xhr.setRequestHeader("Accept", "application/json");
+        this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        Object.keys(customHeaders).forEach((headerKey) => {
+          this.xhr.setRequestHeader(headerKey, customHeaders[headerKey]);
+        });
+        const csrfToken = getMetaValue("csrf-token");
+        if (csrfToken != void 0) {
+          this.xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+        }
+        this.xhr.addEventListener("load", (event2) => this.requestDidLoad(event2));
+        this.xhr.addEventListener("error", (event2) => this.requestDidError(event2));
+      }
+      get status() {
+        return this.xhr.status;
+      }
+      get response() {
+        const { responseType, response } = this.xhr;
+        if (responseType == "json") {
+          return response;
+        } else {
+          return JSON.parse(response);
+        }
+      }
+      create(callback) {
+        this.callback = callback;
+        this.xhr.send(JSON.stringify({
+          blob: this.attributes
+        }));
+      }
+      requestDidLoad(event2) {
+        if (this.status >= 200 && this.status < 300) {
+          const { response } = this;
+          const { direct_upload } = response;
+          delete response.direct_upload;
+          this.attributes = response;
+          this.directUploadData = direct_upload;
+          this.callback(null, this.toJSON());
+        } else {
+          this.requestDidError(event2);
+        }
+      }
+      requestDidError(event2) {
+        this.callback(`Error creating Blob for "${this.file.name}". Status: ${this.status}`);
+      }
+      toJSON() {
+        const result = {};
+        for (const key in this.attributes) {
+          result[key] = this.attributes[key];
+        }
+        return result;
+      }
+    }
+    class BlobUpload {
+      constructor(blob) {
+        this.blob = blob;
+        this.file = blob.file;
+        const { url, headers } = blob.directUploadData;
+        this.xhr = new XMLHttpRequest();
+        this.xhr.open("PUT", url, true);
+        this.xhr.responseType = "text";
+        for (const key in headers) {
+          this.xhr.setRequestHeader(key, headers[key]);
+        }
+        this.xhr.addEventListener("load", (event2) => this.requestDidLoad(event2));
+        this.xhr.addEventListener("error", (event2) => this.requestDidError(event2));
+      }
+      create(callback) {
+        this.callback = callback;
+        this.xhr.send(this.file.slice());
+      }
+      requestDidLoad(event2) {
+        const { status, response } = this.xhr;
+        if (status >= 200 && status < 300) {
+          this.callback(null, response);
+        } else {
+          this.requestDidError(event2);
+        }
+      }
+      requestDidError(event2) {
+        this.callback(`Error storing "${this.file.name}". Status: ${this.xhr.status}`);
+      }
+    }
+    let id = 0;
+    class DirectUpload {
+      constructor(file, url, delegate, customHeaders = {}) {
+        this.id = ++id;
+        this.file = file;
+        this.url = url;
+        this.delegate = delegate;
+        this.customHeaders = customHeaders;
+      }
+      create(callback) {
+        FileChecksum.create(this.file, (error2, checksum) => {
+          if (error2) {
+            callback(error2);
+            return;
+          }
+          const blob = new BlobRecord(this.file, checksum, this.url, this.customHeaders);
+          notify(this.delegate, "directUploadWillCreateBlobWithXHR", blob.xhr);
+          blob.create((error3) => {
+            if (error3) {
+              callback(error3);
+            } else {
+              const upload = new BlobUpload(blob);
+              notify(this.delegate, "directUploadWillStoreFileWithXHR", upload.xhr);
+              upload.create((error4) => {
+                if (error4) {
+                  callback(error4);
+                } else {
+                  callback(null, blob.toJSON());
+                }
+              });
+            }
+          });
+        });
+      }
+    }
+    function notify(object, methodName, ...messages) {
+      if (object && typeof object[methodName] == "function") {
+        return object[methodName](...messages);
+      }
+    }
+    class DirectUploadController {
+      constructor(input, file) {
+        this.input = input;
+        this.file = file;
+        this.directUpload = new DirectUpload(this.file, this.url, this);
+        this.dispatch("initialize");
+      }
+      start(callback) {
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = this.input.name;
+        this.input.insertAdjacentElement("beforebegin", hiddenInput);
+        this.dispatch("start");
+        this.directUpload.create((error2, attributes) => {
+          if (error2) {
+            hiddenInput.parentNode.removeChild(hiddenInput);
+            this.dispatchError(error2);
+          } else {
+            hiddenInput.value = attributes.signed_id;
+          }
+          this.dispatch("end");
+          callback(error2);
+        });
+      }
+      uploadRequestDidProgress(event2) {
+        const progress = event2.loaded / event2.total * 100;
+        if (progress) {
+          this.dispatch("progress", {
+            progress
+          });
+        }
+      }
+      get url() {
+        return this.input.getAttribute("data-direct-upload-url");
+      }
+      dispatch(name, detail = {}) {
+        detail.file = this.file;
+        detail.id = this.directUpload.id;
+        return dispatchEvent2(this.input, `direct-upload:${name}`, {
+          detail
+        });
+      }
+      dispatchError(error2) {
+        const event2 = this.dispatch("error", {
+          error: error2
+        });
+        if (!event2.defaultPrevented) {
+          alert(error2);
+        }
+      }
+      directUploadWillCreateBlobWithXHR(xhr) {
+        this.dispatch("before-blob-request", {
+          xhr
+        });
+      }
+      directUploadWillStoreFileWithXHR(xhr) {
+        this.dispatch("before-storage-request", {
+          xhr
+        });
+        xhr.upload.addEventListener("progress", (event2) => this.uploadRequestDidProgress(event2));
+      }
+    }
+    const inputSelector = "input[type=file][data-direct-upload-url]:not([disabled])";
+    class DirectUploadsController {
+      constructor(form) {
+        this.form = form;
+        this.inputs = findElements(form, inputSelector).filter((input) => input.files.length);
+      }
+      start(callback) {
+        const controllers = this.createDirectUploadControllers();
+        const startNextController = () => {
+          const controller = controllers.shift();
+          if (controller) {
+            controller.start((error2) => {
+              if (error2) {
+                callback(error2);
+                this.dispatch("end");
+              } else {
+                startNextController();
+              }
+            });
+          } else {
+            callback();
+            this.dispatch("end");
+          }
+        };
+        this.dispatch("start");
+        startNextController();
+      }
+      createDirectUploadControllers() {
+        const controllers = [];
+        this.inputs.forEach((input) => {
+          toArray(input.files).forEach((file) => {
+            const controller = new DirectUploadController(input, file);
+            controllers.push(controller);
+          });
+        });
+        return controllers;
+      }
+      dispatch(name, detail = {}) {
+        return dispatchEvent2(this.form, `direct-uploads:${name}`, {
+          detail
+        });
+      }
+    }
+    const processingAttribute = "data-direct-uploads-processing";
+    const submitButtonsByForm = /* @__PURE__ */ new WeakMap();
+    let started = false;
+    function start2() {
+      if (!started) {
+        started = true;
+        document.addEventListener("click", didClick, true);
+        document.addEventListener("submit", didSubmitForm, true);
+        document.addEventListener("ajax:before", didSubmitRemoteElement);
+      }
+    }
+    function didClick(event2) {
+      const button = event2.target.closest("button, input");
+      if (button && button.type === "submit" && button.form) {
+        submitButtonsByForm.set(button.form, button);
+      }
+    }
+    function didSubmitForm(event2) {
+      handleFormSubmissionEvent(event2);
+    }
+    function didSubmitRemoteElement(event2) {
+      if (event2.target.tagName == "FORM") {
+        handleFormSubmissionEvent(event2);
+      }
+    }
+    function handleFormSubmissionEvent(event2) {
+      const form = event2.target;
+      if (form.hasAttribute(processingAttribute)) {
+        event2.preventDefault();
+        return;
+      }
+      const controller = new DirectUploadsController(form);
+      const { inputs } = controller;
+      if (inputs.length) {
+        event2.preventDefault();
+        form.setAttribute(processingAttribute, "");
+        inputs.forEach(disable);
+        controller.start((error2) => {
+          form.removeAttribute(processingAttribute);
+          if (error2) {
+            inputs.forEach(enable);
+          } else {
+            submitForm(form);
+          }
+        });
+      }
+    }
+    function submitForm(form) {
+      let button = submitButtonsByForm.get(form) || findElement(form, "input[type=submit], button[type=submit]");
+      if (button) {
+        const { disabled } = button;
+        button.disabled = false;
+        button.focus();
+        button.click();
+        button.disabled = disabled;
+      } else {
+        button = document.createElement("input");
+        button.type = "submit";
+        button.style.display = "none";
+        form.appendChild(button);
+        button.click();
+        form.removeChild(button);
+      }
+      submitButtonsByForm.delete(form);
+    }
+    function disable(input) {
+      input.disabled = true;
+    }
+    function enable(input) {
+      input.disabled = false;
+    }
+    function autostart() {
+      if (window.ActiveStorage) {
+        start2();
+      }
+    }
+    setTimeout(autostart, 1);
+    class AttachmentUpload {
+      constructor(attachment, element) {
+        this.attachment = attachment;
+        this.element = element;
+        this.directUpload = new DirectUpload(attachment.file, this.directUploadUrl, this);
+      }
+      start() {
+        this.directUpload.create(this.directUploadDidComplete.bind(this));
+      }
+      directUploadWillStoreFileWithXHR(xhr) {
+        xhr.upload.addEventListener("progress", (event2) => {
+          const progress = event2.loaded / event2.total * 100;
+          this.attachment.setUploadProgress(progress);
+        });
+      }
+      directUploadDidComplete(error2, attributes) {
+        if (error2) {
+          throw new Error(`Direct upload failed: ${error2}`);
+        }
+        this.attachment.setAttributes({
+          sgid: attributes.attachable_sgid,
+          url: this.createBlobUrl(attributes.signed_id, attributes.filename)
+        });
+      }
+      createBlobUrl(signedId, filename) {
+        return this.blobUrlTemplate.replace(":signed_id", signedId).replace(":filename", encodeURIComponent(filename));
+      }
+      get directUploadUrl() {
+        return this.element.dataset.directUploadUrl;
+      }
+      get blobUrlTemplate() {
+        return this.element.dataset.blobUrlTemplate;
+      }
+    }
+    addEventListener("trix-attachment-add", (event2) => {
+      const { attachment, target } = event2;
+      if (attachment.file) {
+        const upload = new AttachmentUpload(attachment, target);
+        upload.start();
+      }
+    });
+  });
 })();
 /*! Bundled license information:
 
