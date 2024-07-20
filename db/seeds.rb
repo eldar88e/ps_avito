@@ -3,7 +3,7 @@ if Rails.env == 'development'
   Setting.create(var: 'telegram_chat_id', value: 123)
   Setting.create(var: 'quantity_games', value: 10)
 
-  User.create(email: 'test@test.tt', password: 123456)
+  User.create(email: 'test@test.tt', password: 12345678)
 
   Store.create(
     var: 'open_ps',

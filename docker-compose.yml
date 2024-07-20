@@ -1,5 +1,4 @@
 services:
-
   pg:
     image: postgres:16.1
     container_name: pg-ps
@@ -32,6 +31,8 @@ services:
       - ./game_lists:/app/game_lists
     networks:
       - web-net
+    ports:
+      - 3002:3000
     restart: "unless-stopped"
 
   good_job:
