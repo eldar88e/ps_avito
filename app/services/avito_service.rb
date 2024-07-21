@@ -68,7 +68,7 @@ class AvitoService
       token_info['access_token']
     else
       msg = if response.status == 403
-              "‼️Доступ запрещён. Возмозно аккаунт #{@store.manager_name} заблокирован"
+              "‼️Доступ запрещён. Возможно аккаунт #{@store.manager_name} заблокирован"
             else
               "‼️Failed to get token(#{response.status}): #{response.body}"
             end
