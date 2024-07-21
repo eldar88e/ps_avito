@@ -43,6 +43,13 @@ Rails.application.configure do
       class: "PurgeDeletedStoreImgJob",
       set: { priority: 10 },
       description: "Purge deleted stores and addresses images"
+    },
+    check_avito: {
+      cron: "0 */2 * * *",
+      class: "CheckAvitoShedulesJob",
+      set: { priority: 10 },
+      args: { user_id: 1 },
+      description: "Notice for problem avito account"
     }
   }
 end

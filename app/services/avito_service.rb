@@ -67,7 +67,11 @@ class AvitoService
       @store.avito_tokens.create token_info
       token_info['access_token']
     else
-      msg = "Failed to get access token: #{response.body}"
+      msg = if response.status == 403
+              "‼️Доступ запрещён. Возмозно аккаунт #{@store.manager_name} заблокирован"
+            else
+              "‼️Failed to get token(#{response.status}): #{response.body}"
+            end
       TelegramService.new(msg).report
     end
   end

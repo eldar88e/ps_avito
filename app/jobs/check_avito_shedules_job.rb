@@ -3,7 +3,7 @@ class CheckAvitoShedulesJob < ApplicationJob
 
   def perform(**args)
     current_user = User.find args[:user_id]
-    stores = current_user.stores
+    stores = current_user.stores.where(stores: { active: true })
     stores.each do |store|
       avito    = AvitoService.new(store: store)
       response = avito.connect_to('https://api.avito.ru/autoload/v1/profile')
