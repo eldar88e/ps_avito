@@ -43,8 +43,8 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Mount Action Cable outside main process or domain.
-  config.action_cable.mount_path = nil # '/cable' # nil
-  config.action_cable.url = "ws://server.open-ps.ru:28080"
+  #config.action_cable.mount_path = '/cable' # nil
+  config.action_cable.url = "ws://server.open-ps.ru:28080/cable"
   #config.action_cable.allowed_request_origins = ["http://server.open-ps.ru", /http:\/\/server.open-ps.*/]
   #config.action_cable.disable_request_forgery_protection = true
 
