@@ -20,5 +20,7 @@ class CheckAvitoShedulesJob < ApplicationJob
         TelegramService.call("‼️#{store.manager_name} указано более одного временного интервала.")
       end
     end
+
+    nil
   end
 end

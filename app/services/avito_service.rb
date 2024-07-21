@@ -5,6 +5,11 @@ class AvitoService
 
     @client_id     = @store.client_id
     @client_secret = @store.client_secret
+
+    if @client_id.blank? || @client_secret.blank?
+      Rails.logger.error "Not set client_id & client_secret for #{@store.manager_name}"
+    end
+
     @token         = get_token
     @headers       = {
       "Authorization" => "Bearer #{@token}",
@@ -13,6 +18,8 @@ class AvitoService
   end
 
   def connect_to(url, method=:get, payload=nil)
+    return if @client_id.blank? || @client_secret.blank?
+
     request    = method == :get ? :url_encoded : :json
     connection = Faraday.new(url: url) do |faraday|
       faraday.request request
@@ -41,6 +48,8 @@ class AvitoService
   end
 
   def refresh_token
+    return if @client_id.blank? || @client_secret.blank?
+
     conn = Faraday.new(url: 'https://api.avito.ru') do |faraday|
       faraday.request :url_encoded
       faraday.adapter Faraday.default_adapter
