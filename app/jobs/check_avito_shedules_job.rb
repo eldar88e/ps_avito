@@ -5,7 +5,12 @@ class CheckAvitoShedulesJob < ApplicationJob
     current_user = User.find args[:user_id]
     stores = current_user.stores.where(stores: { active: true })
     stores.each do |store|
-      avito    = AvitoService.new(store: store)
+      avito = AvitoService.new(store: store)
+
+      if avito.token_status == 403
+        TelegramService.new("‼️Доступ запрещён. Возможно аккаунт #{store.manager_name} заблокирован").report
+      end
+
       response = avito.connect_to('https://api.avito.ru/autoload/v1/profile')
       next if response&.status != 200
 
