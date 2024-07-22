@@ -8,7 +8,8 @@ class UpdateBanListJob < ApplicationJob
 
     current_user = current_user(args[:user_id])
     current_user.stores.where(active: true).each do |store|
-      avito  = AvitoService.new(store: store)
+      count_ban = 0
+      avito     = AvitoService.new(store: store)
       next if avito.token_status == 403
 
       response = avito.connect_to('https://api.avito.ru/autoload/v2/reports/last_completed_report')
@@ -39,10 +40,13 @@ class UpdateBanListJob < ApplicationJob
         blocked_ids = blocked.map { |i| i['ad_id'] }
         blocked_ids.each do |blocked_id|
           store.ban_lists.create(ad_id: blocked_id, expires_at: Time.current + 1.month, report_id: report_id)
+          count_ban += 1
         rescue ActiveRecord::RecordNotUnique
           next
         end
       end
+      msg = "✅ Added #{count_ban} bans for #{store.manager_name}"
+      TelegramService.call(current_user, msg) if count_ban > 0
     end
 
     nil
