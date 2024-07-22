@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_20_134326) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_134735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_20_134326) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_avito_tokens_on_store_id"
+  end
+
+  create_table "ban_lists", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.string "ad_id"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "report_id"
+    t.index ["ad_id"], name: "index_ban_lists_on_ad_id", unique: true
+    t.index ["store_id"], name: "index_ban_lists_on_store_id"
   end
 
   create_table "exception_tracks", force: :cascade do |t|
@@ -294,6 +305,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_20_134326) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "stores"
   add_foreign_key "avito_tokens", "stores"
+  add_foreign_key "ban_lists", "stores"
   add_foreign_key "game_black_lists", "games", primary_key: "sony_id"
   add_foreign_key "image_layers", "stores"
   add_foreign_key "products", "users"

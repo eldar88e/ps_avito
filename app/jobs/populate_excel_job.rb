@@ -6,8 +6,7 @@ class PopulateExcelJob < ApplicationJob
     store     = args[:store]
     user      = args[:store].user
     settings  = user.settings.pluck(:var, :value).to_h
-    name      = "top_1000_#{store.var}.xlsx"
-    xlsx_path = "./game_lists/#{name}"
+    xlsx_path = "./game_lists/top_1000_#{store.var}.xlsx"
     workbook  = FastExcel.open
     worksheet = workbook.add_worksheet
     products  = user.products.where(active: true).with_attached_image
@@ -15,26 +14,33 @@ class PopulateExcelJob < ApplicationJob
     worksheet.append_row %w[Id AdStatus Category GoodsType AdType Type Platform Localization Address Title
                             Description Condition Price AllowEmail ManagerName	ContactPhone ContactMethod ImageUrls]
 
+    ban_list = store.ban_lists.active.pluck(:ad_id)
     store.addresses.where(active: true).each do |address|
       games = Game.order(:top).limit(address.total_games || settings['quantity_games']).includes(:game_black_list).with_attached_images # TODO limit games import to settings
       games.each do |game|
         next if game.game_black_list
 
+        ad_id = "#{game.sony_id}_#{store.id}_#{address.id}"
+        next if ban_list.include? ad_id
+
         worksheet.append_row(
-          ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category, store.goods_type,
-           store.ad_type, store.type, make_platform(game),  make_local(game), address.store_address, make_title(game),
-           make_description(game, store, address), store.condition, make_price(game.price_tl), store.allow_email,
-           store.manager_name, store.contact_phone, store.contact_method, make_image(game, store, address)]
+          [ad_id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
+           make_local(game), address.store_address, make_title(game), make_description(game, store, address),
+           store.condition, make_price(game.price_tl), store.allow_email, store.manager_name, store.contact_phone,
+           store.contact_method, make_image(game, store, address)]
         )
       end
     end
 
     store.addresses.where(active: true).each do |address|
       products.each do |product|
+        ad_id = "#{product.id}_#{store.id}_#{address.id}"
+        next if ban_list.include? ad_id
+
         worksheet.append_row(
-          ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
-           product.category || store.category, product.goods_type || store.goods_type, product.ad_type || store.ad_type,
-           product.type || store.type, product.platform, product.localization, address.store_address, product.title,
+          [ad_id, product.ad_status || store.ad_status, product.category || store.category,
+           product.goods_type || store.goods_type, product.ad_type || store.ad_type, product.type || store.type,
+           product.platform, product.localization, address.store_address, product.title,
            make_description(product, store, address), product.condition || store.condition, product.price,
            product.allow_email || store.allow_email, store.manager_name, store.contact_phone,
            product.contact_method || store.contact_method, make_image(product, store, address)]
@@ -48,7 +54,7 @@ class PopulateExcelJob < ApplicationJob
     File.open(xlsx_path, 'wb') { |f| f.write(content) }
 
     domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
-    msg    = "✅ File http://#{domain}/game_lists/#{name} is updated!"
+    msg    = "✅ File http://#{domain}#{xlsx_path[1..-1]} is updated!"
     broadcast_notify(msg)
     TelegramService.call(user, msg)
 
