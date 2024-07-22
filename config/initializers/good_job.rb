@@ -48,7 +48,8 @@ Rails.application.configure do
       cron: "0 */2 * * *",
       class: "CheckAvitoShedulesJob",
       set: { priority: 10 },
-      args: [user_id: 1],
+      #args: [42, "life"],
+      kwargs: { user_id: 1 },
       description: "Notice for problem avito account"
     }
   }
