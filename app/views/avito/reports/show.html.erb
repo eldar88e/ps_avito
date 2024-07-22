@@ -2,6 +2,8 @@
   Отчет <%= @report['report_id'] %>
 <% end %>
 
+<%= @report %>
+
 <div class="container">
   <div class="mb-3">
     <% @report.to_a[0..3].to_h.each do |key, val| %>

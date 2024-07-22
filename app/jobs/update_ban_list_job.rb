@@ -23,11 +23,14 @@ class UpdateBanListJob < ApplicationJob
       report         = JSON.parse(response.body)
       error_sections = report['section_stats']['sections'].find { |i| i['slug'] = 'error' }
 
-      # ########
-      # TODO Need add notice about blocked becose need delete old ad
-      # ########
-
       if error_sections
+        error_deleted = error_sections['sections'].find { |i| i['slug'] = 'error_deleted' }
+        if error_deleted
+          count_del = error_deleted['count']
+          msg = "‼️Deleted #{count_del} games for #{store.manager_name}.\nДля выгрузки объявления как нового измените идентификатор объявления в элементе или воспользуйтесь функцией «Выгрузить как новые»"
+          TelegramService.call(current_user, msg) if count_del > 0
+        end
+
         count_blocked = error_sections['sections'].find { |i| i['slug'] = 'error_blocked' }['count']
 
         if count_blocked > 100
