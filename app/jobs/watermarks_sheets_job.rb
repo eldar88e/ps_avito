@@ -5,9 +5,15 @@ class WatermarksSheetsJob < ApplicationJob
     stores    = args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true })
     settings  = args[:user].settings
     size      = settings.find_by(var: 'game_img_size').value
-    blob      = settings.find_by(var: 'main_font').font.blob
-    raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
-    main_font = "./storage/#{raw_path}/#{blob.key}"
+    blob      = settings.find_by(var: 'main_font')&.font&.blob
+    main_font =
+      if blob
+        raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
+        "./storage/#{raw_path}/#{blob.key}"
+      else
+        nil
+      end
+
     stores.each do |store|
       [Game, Product ].each do |model|
         AddWatermarkJob.perform_now(user: args[:user], model: model, store: store, size: size, main_font: main_font, clean: args[:clean])

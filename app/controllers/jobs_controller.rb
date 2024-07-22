@@ -1,14 +1,9 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_settings, only: [:update_img, :update_products_img]
+  before_action :set_settings, only: [:update_img, :update_products_img, :update_store_test_img]
 
   def update_store_test_img
-    store     = current_user.stores.includes(:addresses).where(active: true, id: params[:store_id]).first
-    settings  = current_user.settings.pluck(:var, :value).to_h
-    size      = settings['game_img_size']
-    blob      = settings['main_font'].font.blob
-    raw_path  = blob.key.scan(/.{2}/)[0..1].join('/')
-    main_font = "./storage/#{raw_path}/#{blob.key}"
+    store = current_user.stores.includes(:addresses).where(active: true, id: params[:store_id]).first
     game  = Game.order(:top).first
 
     directory_path = Rails.root.join('app', 'assets', 'images', "img_#{store.id}")
@@ -16,7 +11,7 @@ class JobsController < ApplicationController
     FileUtils.mkdir_p(directory_path)
 
     store.addresses.each do |address|
-      w_service = WatermarkService.new(store: store, address: address, size: size, game: game, main_font: main_font)
+      w_service = WatermarkService.new(store: store, address: address, size: @size, game: game, main_font: @main_font)
       next unless w_service.image
 
       image    = w_service.add_watermarks
@@ -27,15 +22,12 @@ class JobsController < ApplicationController
   end
 
   def update_img
-    clean     = params[:clean]
-    raw_path  = @blob.key.scan(/.{2}/)[0..1].join('/')
-    main_font = "./storage/#{raw_path}/#{@blob.key}"
-    store     = current_user.stores.find_by(active: true, id: params[:store_id])
-
+    clean = params[:clean]
+    store = current_user.stores.find_by(active: true, id: params[:store_id])
     if store
       [Game, Product].each do |model|
-        AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, size: @size, main_font: main_font,
-                                      clean: clean, address_id: params[:address_id])
+        AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, size: @size,
+                                      main_font: @main_font, clean: clean, address_id: params[:address_id])
       end
       msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."
       render turbo_stream: [success_notice(msg)]
@@ -43,10 +35,8 @@ class JobsController < ApplicationController
   end
 
   def update_products_img
-    clean     = params[:clean]
-    raw_path  = @blob.key.scan(/.{2}/)[0..1].join('/')
-    main_font = "./storage/#{raw_path}/#{@blob.key}"
-    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size, main_font: main_font, clean: clean)
+    clean = params[:clean]
+    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size, main_font: @main_font, clean: clean)
 
     msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для всех объявлений кроме игр успешно запущена."
     render turbo_stream: [success_notice(msg)]
@@ -66,9 +56,13 @@ class JobsController < ApplicationController
   private
 
   def set_settings
-    settings = current_user.settings
-    @size    = settings.find_by(var: 'game_img_size').value
-    @blob    = settings.find_by(var: 'main_font').font.blob
+    settings   = current_user.settings
+    @size      = settings.find_by(var: 'game_img_size').value
+    blob       = settings.find_by(var: 'main_font')&.font&.blob
+    @main_font = if blob
+                   raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
+                   "./storage/#{raw_path}/#{blob.key}"
+                 end
   end
 
   def save_image(image, img_path)
