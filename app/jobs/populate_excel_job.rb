@@ -20,23 +20,25 @@ class PopulateExcelJob < ApplicationJob
       games.each do |game|
         next if game.game_black_list
 
-        worksheet.append_row ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category,
-                       store.goods_type, store.ad_type, store.type, make_platform(game),  make_local(game),
-                       address.store_address, make_title(game), make_description(game, store, address),
-                       store.condition, make_price(game.price_tl), store.allow_email, store.manager_name,
-                       store.contact_phone, store.contact_method, make_image(game, store, address)]
+        worksheet.append_row(
+          ["#{game.sony_id}_#{store.id}_#{address.id}", store.ad_status, store.category, store.goods_type,
+           store.ad_type, store.type, make_platform(game),  make_local(game), address.store_address, make_title(game),
+           make_description(game, store, address), store.condition, make_price(game.price_tl), store.allow_email,
+           store.manager_name, store.contact_phone, store.contact_method, make_image(game, store, address)]
+        )
       end
     end
 
     store.addresses.where(active: true).each do |address|
       products.each do |product|
-        worksheet.append_row ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
-                       product.category || store.category, product.goods_type || store.goods_type,
-                       product.ad_type || store.ad_type, product.type || store.type, product.platform, product.localization,
-                       address.store_address, product.title, make_description(product, store, address),
-                       product.condition || store.condition, product.price, product.allow_email || store.allow_email,
-                       store.manager_name, store.contact_phone, product.contact_method || store.contact_method,
-                       make_image(product, store, address)]
+        worksheet.append_row(
+          ["#{product.id}_#{store.id}_#{address.id}", product.ad_status || store.ad_status,
+           product.category || store.category, product.goods_type || store.goods_type, product.ad_type || store.ad_type,
+           product.type || store.type, product.platform, product.localization, address.store_address, product.title,
+           make_description(product, store, address), product.condition || store.condition, product.price,
+           product.allow_email || store.allow_email, store.manager_name, store.contact_phone,
+           product.contact_method || store.contact_method, make_image(product, store, address)]
+        )
       end
     end
 
