@@ -3,7 +3,7 @@ class CheckAvitoShedulesJob < ApplicationJob
 
   def perform(**args)
     current_user = User.find args[:user_id]
-    stores = current_user.stores.where(stores: { active: true })
+    stores       = current_user.stores.where(stores: { active: true })
     stores.each do |store|
       avito = AvitoService.new(store: store)
 
@@ -15,7 +15,7 @@ class CheckAvitoShedulesJob < ApplicationJob
       next if response&.status != 200
 
       auto_load = JSON.parse(response.body)
-      weekdays = auto_load['schedule'][0]['weekdays']
+      weekdays  = auto_load['schedule'][0]['weekdays']
       if weekdays.size > 1
         TelegramService.call("‼️#{store.manager_name} указанно более двух дней для автозагрузки.")
       end
