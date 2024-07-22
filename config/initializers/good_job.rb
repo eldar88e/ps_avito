@@ -45,7 +45,7 @@ Rails.application.configure do
       description: "Purge deleted stores and addresses images"
     },
     check_avito: {
-      cron: "0 */2 * * *",
+      cron: "30 */2 * * *",
       class: "CheckAvitoShedulesJob",
       set: { priority: 10 },
       #args: [42, "life"],
