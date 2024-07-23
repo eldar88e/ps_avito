@@ -79,10 +79,21 @@ services:
       - web-net
       - proxy-net
 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-ps
+    restart: always
+    env_file: ./.env
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - web-net
+
 volumes:
   gems:
   db_data:
   redis:
+  mongo_data:
 
 networks:
   web-net:

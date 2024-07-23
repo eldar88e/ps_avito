@@ -21,8 +21,6 @@ gem 'google_drive'
 gem 'mysql2'
 gem 'telegram-bot-ruby', "~> 0.19"
 gem 'devise'
-# gem 'kaminari'
-# gem 'caxlsx'
 gem 'net-ftp'
 gem 'active_link_to'
 gem 'exception-track'
@@ -31,8 +29,8 @@ gem 'fast_excel'
 gem 'pagy'
 gem 'breadcrumbs_on_rails'
 gem 'ransack', '~> 4.2'
-
 gem "image_processing", "~> 1.2"
+gem 'mongoid'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

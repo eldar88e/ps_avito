@@ -34,14 +34,29 @@ module Avito
 
       avito_url = "https://api.avito.ru/autoload/v2/reports/#{params['id']}"
       unless turbo_frame_request?
-        report = @avito.connect_to(avito_url)
-        return error_notice("Ошибка подключения к API Avito") if report.nil? || report.status != 200
+        cached_report = CacheReport.find_or_initialize_by(report_id: params['id'], store_id: @store.id)
+        @cached = true if cached_report.report.present?
+        if cached_report.nil? || cached_report.report.nil?
+          report = @avito.connect_to(avito_url)
+          return error_notice("Ошибка подключения к API Avito") if report.nil? || report.status != 200
 
-        @report = JSON.parse(report.body)
-        money   = @avito.connect_to("#{avito_url}/items/fees")
-        return error_notice("Ошибка подключения к API Avito") if money.nil? || money.status != 200
+          @report = JSON.parse(report.body)
+          cached_report.report = @report
+          cached_report.save
+        else
+          @report = cached_report.report
+        end
 
-        @money = JSON.parse(money.body)
+        if cached_report.fees.nil?
+          money = @avito.connect_to("#{avito_url}/items/fees")
+          return error_notice("Ошибка подключения к API Avito") if money.nil? || money.status != 200
+
+          @money = JSON.parse(money.body)
+          cached_report.fees = @money
+          cached_report.save
+        else
+          @money = cached_report.fees
+        end
 
         add_breadcrumb @store.manager_name, store_avito_dashboard_path(@store)
         add_breadcrumb "Reports", :store_avito_reports_path
@@ -53,8 +68,6 @@ module Avito
       return error_notice("Ошибка подключения к API Avito") if items.nil? || items.status != 200
 
       @items = JSON.parse(items.body)
-
-      # "https://api.avito.ru/autoload/v2/reports/items?query=EB0094-CUSA48135_00-0551066418730933_9_41"
 
       if turbo_frame_request?
         return render turbo_stream: turbo_stream.update(:reports, partial: '/avito/reports/item_page')
