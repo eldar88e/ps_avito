@@ -4,11 +4,12 @@ module Avito
     before_action :set_avito
 
     add_breadcrumb "Главная", :root_path
-    add_breadcrumb "Avito", :store_avito_path
-    add_breadcrumb "Reports", :store_avito_reports_path
+    add_breadcrumb "Avito", :avitos_path
     layout 'avito'
 
     def index
+      add_breadcrumb @store.manager_name, store_avito_dashboard_path(@store)
+      add_breadcrumb "Reports", :store_avito_reports_path
       report =
         if params['page'].blank? || params['page'] == '0'
           @avito.connect_to('https://api.avito.ru/autoload/v2/reports')
@@ -42,6 +43,8 @@ module Avito
 
         @money = JSON.parse(money.body)
 
+        add_breadcrumb @store.manager_name, store_avito_dashboard_path(@store)
+        add_breadcrumb "Reports", :store_avito_reports_path
         add_breadcrumb @report['report_id']
       end
 

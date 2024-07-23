@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :stores do
     post '/update_img', to: 'jobs#update_img', as: 'update_img'
     post '/update_feed', to: 'jobs#update_feed', as: 'update_feed'
+    post '/update_ban_list', to: 'jobs#update_ban_list', as: 'update_ban_list'
 
     resources :streets, only: [:index, :create, :update, :destroy]
     resources :maps, only: [:show]

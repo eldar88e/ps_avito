@@ -1,12 +1,5 @@
 module Avito
   module ReportsHelper
-    def format_date(date)
-      return unless date.present?
-
-      tz = TZInfo::Timezone.get(Rails.application.config.time_zone)
-      tz.utc_to_local(Time.parse(date)).strftime('%H:%M %d.%m.%Yг.')
-    end
-
     def badge_style(slug)
       if slug == 'error_rejected'
         'bg-warning text-dark'

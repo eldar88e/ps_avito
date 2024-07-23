@@ -5,15 +5,15 @@ module Avito
 
     add_breadcrumb "Главная", :root_path
     add_breadcrumb "Avito", :store_avito_path
-    #add_breadcrumb "Reports", :store_avito_reports_path
+
     layout 'avito'
 
     def index
-      #account = @avito.connect_to('https://api.avito.ru/core/v1/accounts/self')
-      #return error_notice("Ошибка подключения к API Avito") if account.nil? || account.status != 200
+      add_breadcrumb @store.manager_name, store_avito_dashboard_path(@store)
 
-      #account = JSON.parse(account.body)
-      items   = @avito.connect_to("https://api.avito.ru/core/v1/items?page=#{params['page']}&per_page=#{params['per_page'] || 50}")
+      items = @avito.connect_to(
+        "https://api.avito.ru/core/v1/items?page=#{params['page']}&per_page=#{params['per_page'] || 100}"
+      )
       return error_notice("Ошибка подключения к API Avito") if items.nil? || items.status != 200
 
       @items = JSON.parse(items.body)

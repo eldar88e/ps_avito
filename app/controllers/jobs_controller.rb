@@ -36,9 +36,11 @@ class JobsController < ApplicationController
 
   def update_products_img
     clean = params[:clean]
-    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size, main_font: @main_font, clean: clean)
+    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size,
+                                  main_font: @main_font, clean: clean)
 
-    msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для всех объявлений кроме игр успешно запущена."
+    msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для всех объявлений кроме \
+           игр успешно запущена."
     render turbo_stream: [success_notice(msg)]
   end
 
@@ -49,6 +51,19 @@ class JobsController < ApplicationController
       render turbo_stream: [success_notice(msg)]
     else
       msg = "Ошибка запуска фоновой задачи по обновлению фида, возможно магазин не активен!"
+      error_notice(msg)
+    end
+  end
+
+  def update_ban_list
+    store = current_user.stores.find_by(active: true, id: params[:store_id])
+    if store && UpdateBanListJob.perform_later(store: store)
+      msg = "Фоновая задача по обновлению списка заблокированных объявлений для магазина #{store.manager_name} \
+             успешно запущена."
+      render turbo_stream: [success_notice(msg)]
+    else
+      msg = "Ошибка запуска фоновой задачи по обновлению списка заблокированных объявлений для магазина \
+             #{store.manager_name}, возможно магазин не активен!"
       error_notice(msg)
     end
   end

@@ -6,7 +6,9 @@ class StoresController < ApplicationController
     @stores = current_user.stores.order(active: :desc).order(:created_at)
   end
 
-  def show; end
+  def show
+    @pagy, @ban = pagy(@store.ban_lists, items: 36)
+  end
 
   def new
     @store = current_user.stores.build

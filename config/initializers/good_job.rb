@@ -51,6 +51,13 @@ Rails.application.configure do
       #args: [42, "life"],
       kwargs: { user_id: 1 },
       description: "Notice for problem avito account"
+    },
+    update_ban_list: {
+      cron: "0 8 * * 1",
+      class: "UpdateBanListJob",
+      set: { priority: 10 },
+      kwargs: { user_id: 1 },
+      description: "Update ban list from avito report"
     }
   }
 end

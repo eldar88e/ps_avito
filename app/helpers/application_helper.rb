@@ -1,6 +1,17 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def format_date(date)
+    return unless date.present?
+
+    tz = TZInfo::Timezone.get(Rails.application.config.time_zone)
+    if date.class == ActiveSupport::TimeWithZone
+      date.strftime('%H:%M %d.%m.%Yг.')
+    else
+      tz.utc_to_local(Time.parse(date)).strftime('%H:%M %d.%m.%Yг.')
+    end
+  end
+
   def paginator(ends)
     if ends > 5
       page = (params[:page].present? && params[:page].to_i.positive? && params[:page].to_i > 3) ? params[:page].to_i : 2
