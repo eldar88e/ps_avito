@@ -36,8 +36,10 @@ class UpdateBanListJob < ApplicationJob
 
       if error_fee = error_sections['sections'].find { |i| i['slug'] == 'error_fee' }
         count_fee = error_fee['count']
-        msg = "‼️Пополните счет! Как только на счёте появятся деньги, #{count_fee} объявлений станут активными \
-               автоматически на аккаунте #{store.manager_name}."
+        msg = <<~MSG.squeeze(' ').chomp
+          ‼️Пополните счет! Как только на счёте появятся деньги, #{count_fee} объявлений станут активными
+          автоматически на аккаунте #{store.manager_name}.
+        MSG
         TelegramService.call(current_user, msg)
       end
 
