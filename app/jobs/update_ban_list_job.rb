@@ -17,7 +17,7 @@ class UpdateBanListJob < ApplicationJob
       next if avito.token_status == 403
 
       response = avito.connect_to('https://api.avito.ru/autoload/v2/reports/last_completed_report')
-      #return error_notice("Ошибка подключения к API Avito") if response.nil? || response.status != 200
+      next if response.nil? || response.status != 200
 
       report_id = JSON.parse(response.body)['report_id']
       report_url = "https://api.avito.ru/autoload/v2/reports/#{report_id}"

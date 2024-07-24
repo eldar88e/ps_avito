@@ -11,29 +11,37 @@ class WatermarkService
                    "./game_images/#{@game.sony_id}_#{args[:size]}.jpg"
                  else
                    if @game.image.attached?
-                     key      = @game.image.blob.key
-                     raw_path = key.scan(/.{2}/)[0..1].join('/')
-                     "./storage/#{raw_path}/#{key}"
+                     key = @game.image.blob.key
+                     if @game.image.blob.service_name == "amazon"
+                       bucket_name = Rails.application.credentials.dig(:aws, :bucket)
+                       "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+                     else
+                       raw_path = key.scan(/.{2}/)[0..1].join('/')
+                       "./storage/#{raw_path}/#{key}"
+                     end
                    else
                      ''
                    end
                  end
-    @image     = File.exist?(img_url)
+    @image     = File.exist?(img_url) || image_exists?(img_url)
     layers_row = args[:store].image_layers.map do |i|
       if i.layer.attached?
         key = i.layer.blob.key
         raw_path = key.scan(/.{2}/)[0..1].join('/')
         img_path = "./storage/#{raw_path}/#{key}"
-        { img: img_path, params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title, active: i.active }
+        { img: img_path, params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type,
+          title: i.title, active: i.active }
       elsif i.layer_type == 'text' && i.layer_type.present?
-        { params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title, active: i.active }
+        { params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type,
+          title: i.title, active: i.active }
       else
         nil
       end
     end.compact
 
     @platforms, @layers = layers_row.partition { |i| i[:layer_type] == 'platform' }
-    @layers << { img: img_url, menuindex: args[:store].menuindex, params: args[:store].game_img_params || {}, :layer_type=>"img", active: true }
+    @layers << { img: img_url, menuindex: args[:store].menuindex, params: args[:store].game_img_params || {},
+                 layer_type: 'img', active: true }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
     if @platforms.present? && !@product
@@ -56,12 +64,13 @@ class WatermarkService
     @layers.each_with_index do |layer, idx|
       next if !layer[:active] || (@product && layer[:layer_type] == 'flag')
 
-      layer[:params] = layer[:params].is_a?(Hash) ? layer[:params] : eval(layer[:params]).transform_keys { |key| key.to_s } if layer[:params].present?
-      if layer[:layer_type] == 'text'
-        add_text(layer)
-      else
-        add_img(layer, idx)
-      end
+      layer[:params] =
+        if layer[:params].is_a?(Hash)
+          layer[:params]
+        else
+          eval(layer[:params]).transform_keys { |key| key.to_s } if layer[:params].present?
+        end
+      layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer, idx)
     end
 
     @new_image
@@ -110,5 +119,11 @@ class WatermarkService
     elsif @game.platform.match?(/PS4/)
       @platforms.find { |i| i[:title] == 'ps4' }
     end
+  end
+
+  def image_exists?(url)
+    uri      = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    response.is_a?(Net::HTTPSuccess)
   end
 end

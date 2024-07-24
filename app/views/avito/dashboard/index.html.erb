@@ -55,7 +55,7 @@
         </li>
       <% end %>
 
-      <% @auto_load['schedule'].first.each do |k, v| %>
+      <% @auto_load['schedule'].first&.each do |k, v| %>
         <li class="list-group-item list-group-item-action">
           <div class="row">
             <div class="fw-bold col-6 col-md-3">
@@ -102,7 +102,13 @@
                           data: { turbo_prefetch: false } %>
             <% elsif key == 'status' %>
               <div class="row">
-                <span class="badge bg-<%= val.match?(/warning/) ? 'warning text-dark' : 'primary' %>">
+                <span class="badge bg-<%= if val.match?(/warning/)
+                                            'warning text-dark'
+                                          elsif val.match?(/success/)
+                                            'success'
+                                          else
+                                            'primary'
+                                          end %>">
                   <%= t("avito.autoload.report.#{val}") %>
                 </span>
               </div>

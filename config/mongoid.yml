@@ -294,7 +294,7 @@ production:
     default:
       database: <%= ENV['MONGO_INITDB_DATABASE'] %>
       hosts:
-        - mongodb:27017
+        - <%= ENV.fetch('MONGO_HOST') {'localhost'} %>:27017
       options:
         user: <%= ENV['MONGO_INITDB_ROOT_USERNAME'] %>
         password: <%= ENV['MONGO_INITDB_ROOT_PASSWORD'] %>
@@ -303,4 +303,3 @@ production:
           mode: :primary
         max_pool_size: 10
         min_pool_size: 5
-        timeout: 5

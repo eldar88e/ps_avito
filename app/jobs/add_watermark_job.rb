@@ -11,7 +11,7 @@ class AddWatermarkJob < ApplicationJob
     id       = model == Game ? :sony_id : :id
 
     addresses = nil
-    count = 0
+    count     = 0
     products.each do |product|
       stores.each do |store|
         addresses = store.addresses.where(active: true)
@@ -19,7 +19,9 @@ class AddWatermarkJob < ApplicationJob
         addresses.each do |address|
           if product.images.attached?
             if args[:clean]
-              product.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
+              product.images.each do |i|
+                i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id
+              end
             else
               next if product.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
             end

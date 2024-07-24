@@ -2,7 +2,7 @@ require 'telegram/bot'
 
 class TelegramService
   def initialize(user=nil, message)
-    user     = User.first unless user
+    user     = User.find(ENV.fetch("USER_ID") { 1 }.to_i) unless user
     @message = message
     @chat_id = user.settings.pluck(:var, :value).to_h['telegram_chat_id']
   end

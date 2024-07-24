@@ -122,7 +122,13 @@ class PopulateExcelJob < ApplicationJob
     if model.images.attached? && model.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
       image  = model.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
       params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-      rails_blob_url(image, params)
+      if image.blob.service_name == "amazon"
+        bucket_name = Rails.application.credentials.dig(:aws, :bucket)
+        key         = image.blob.key
+        "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+      else
+        rails_blob_url(image, params)
+      end
     end
   end
 
@@ -159,22 +165,18 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def make_exchange_rate(price)
-    #от 1 до 300 лир курс - 5.5
-    # от 300 до 800 лир курс 5
-    # от 800 до 1200 курс 4.5
-    # от 1200 до 1700 курс 4.3
-    # от 1700 курс 4
-    if price >= 1 && price < 300
-      5.5
+    if price < 300
+      # price >= 1 &&
+      ENV.fetch("LOWEST_PRICE") { 5.5 }.to_f
     elsif price >= 300 && price < 800
-      5
+      ENV.fetch("LOW_PRICE") { 5 }.to_f
     elsif price >= 800 && price < 1200
-      # settings['exchange_rate'] - 0.5
-      4.5
+      ENV.fetch("MEDIAN_PRICE") { 4.5 }.to_f
     elsif price >= 1200 && price < 1700
-      4.3
-    elsif price >= 1700
-      4
+      ENV.fetch("HIGH_PRICE") { 4.3 }.to_f
+    else
+      #elsif price >= 1700
+      ENV.fetch("HIGHEST_PRICE") { 4 }.to_f
     end
   end
 end
