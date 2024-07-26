@@ -1,4 +1,4 @@
-<div class="steets-item mb-3" id="street_<%= street.id || 'new' %>">
+<div class="steets-item mb-2 mt-1" id="street_<%= street.id || 'new' %>">
   <%= form_with(model: street, url: url, method: method, data: { controller: "clear-form" }) do |form| %>
     <div class="steets-item-form">
         <%= form.text_field :title, value: street&.title, class: 'form-control form-control-sm',

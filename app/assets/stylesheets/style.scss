@@ -177,9 +177,6 @@ ul.pagination {
 }
 
 .steets-wrap {
-  max-height: 300px;
-  overflow-y: auto;
-
   .steets-item {
     display: flex;
     gap: 10px;
@@ -192,6 +189,11 @@ ul.pagination {
         gap: 5px;
       }
     }
+  }
+
+  .steets-wrap-scroll {
+    max-height: 300px;
+    overflow-y: auto;
   }
 }
 
