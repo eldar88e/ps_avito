@@ -8,19 +8,27 @@
 
 <%= turbo_frame_tag @store do %>
   <div class="container">
-    <%= button_to 'Обновить feed', store_update_feed_path(@store),
-                  class: 'loader-btn btn btn-success btn-upd-feed',
-                  data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' } %>
+    <div class="d-flex gap-3">
+      <%= button_to 'Обновить feed', store_update_feed_path(@store),
+                    class: 'loader-btn btn btn-success btn-upd-feed',
+                    data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' } %>
+
+      <%= button_to 'Обновить Black list', store_update_ban_list_path(@store),
+                    class: 'loader-btn btn btn-dark' %>
+    </div>
 
     <ul class="nav nav-tabs mt-2 mt-md-3" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Основная информация</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" type="button" role="tab" aria-controls="profile" aria-selected="false">Адреса магазина</button>
+        <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" type="button" role="tab" aria-controls="address" aria-selected="false">Адреса магазина</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Слои картинки</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="ban-tab" data-bs-toggle="tab" data-bs-target="#ban" type="button" role="tab" aria-controls="ban" aria-selected="false">Заблокированные объявления</button>
       </li>
     </ul>
 
@@ -37,21 +45,53 @@
         </ul>
       </div>
 
-      <div class="tab-pane fade show" id="address" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade show" id="address" role="tabpanel" aria-labelledby="address-tab">
         <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
 
         <ul class="list-group" id="addresses">
-          <%= render @addresses %>
+          <%= render @store.addresses.order(:id) %>
         </ul>
       </div>
 
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <ol class="list-group list-group-numbered" id="layers">
-          <%= render @image_layers %>
+        <%= render partial: '/image_layers/new_image_layer_btn', locals: { store: @store } %>
+
+        <ol class="list-group list-group-numbered" id="image_layers">
+          <%= render @store.image_layers.order(:menuindex, :id) %>
         </ol>
-        <ul class="list-group mt-3">
-          <%= render '/image_layers/new' %>
-        </ul>
+      </div>
+
+      <div class="tab-pane fade" id="ban" role="tabpanel" aria-labelledby="ban-tab">
+        <%= turbo_frame_tag :ban do %>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-action active d-none d-md-block">
+              <div class="row">
+                <div class="col-1">№</div>
+                <div class="col-2">№ отчета</div>
+                <div class="col-5">Avito ID</div>
+                <div class="col-2">Добавлено</div>
+                <div class="col-2">Заблокировано до</div>
+              </div>
+            </li>
+            <% @ban.each do |item| %>
+              <li class="list-group-item list-group-item-action">
+                <div class="row">
+                  <div class="col-6 col-md-1"><%= item.id %></div>
+                  <div class="col-6 col-md-2"><%= item.report_id %></div>
+                  <div class="col-12 col-md-5"><%= item.ad_id %></div>
+                  <div class="col-6 col-md-2"><%= format_date item.created_at %></div>
+                  <div class="col-6 col-md-2"><%= format_date item.expires_at %></div>
+                </div>
+              </li>
+            <% end %>
+
+            <div data-controller="pagy_initializer" class="mt-3 mb-3">
+              <%== pagy_bootstrap_nav_js(@pagy) if @pagy.pages > 1 %>
+            </div>
+
+            <%== pagy_info(@pagy) %>
+          </ul>
+        <% end %>
       </div>
     </div>
   </div>

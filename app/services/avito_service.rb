@@ -5,14 +5,24 @@ class AvitoService
 
     @client_id     = @store.client_id
     @client_secret = @store.client_secret
-    @token         = get_token
-    @headers       = {
+    @token_status  = nil
+
+    if @client_id.blank? || @client_secret.blank?
+      Rails.logger.error "Not set client_id & client_secret for #{@store.manager_name}"
+    end
+
+    @token   = get_token
+    @headers = {
       "Authorization" => "Bearer #{@token}",
       "Content-Type" => "application/json"
     }
   end
 
+  attr_reader :token_status
+
   def connect_to(url, method=:get, payload=nil)
+    return if @token.blank? || @client_id.blank? || @client_secret.blank?
+
     request    = method == :get ? :url_encoded : :json
     connection = Faraday.new(url: url) do |faraday|
       faraday.request request
@@ -22,7 +32,7 @@ class AvitoService
 
     connection.send(method) do |req|
       req.headers = @headers
-      req.body = payload.to_json if payload
+      req.body    = payload.to_json if payload
     end
   rescue => e
     Rails.logger.error e.message
@@ -41,6 +51,8 @@ class AvitoService
   end
 
   def refresh_token
+    return if @client_id.blank? || @client_secret.blank?
+
     conn = Faraday.new(url: 'https://api.avito.ru') do |faraday|
       faraday.request :url_encoded
       faraday.adapter Faraday.default_adapter
@@ -58,8 +70,10 @@ class AvitoService
       @store.avito_tokens.create token_info
       token_info['access_token']
     else
-      msg = "Failed to get access token: #{response.body}"
-      TelegramService.new(msg).report
+      msg = "Failed to get token! Status: (#{response.status}), Account: #{@store.manager_name}, Error: #{response.body}"
+      Rails.logger.error msg
+      @token_status = response.status
+      nil
     end
   end
 end

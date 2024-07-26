@@ -13,6 +13,9 @@ class Store < ApplicationRecord
   has_many :image_layers, dependent: :destroy
   has_many :addresses, dependent: :destroy
   has_many :avito_tokens, dependent: :destroy
+  has_many :ban_lists, dependent: :destroy
+
+  belongs_to :user
 
   before_save :set_default_layer_params, :cleanup_description
 
@@ -21,7 +24,7 @@ class Store < ApplicationRecord
   private
 
   def set_default_layer_params
-    game_img_params = {} unless game_img_params.present?
+    game_img_params.present? || self.game_img_params = nil
   end
 
   def cleanup_description

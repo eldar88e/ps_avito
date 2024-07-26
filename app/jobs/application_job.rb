@@ -4,4 +4,21 @@ class ApplicationJob < ActiveJob::Base
 
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
+
+  private
+
+  def current_user(user_id)
+    User.find(user_id)
+  end
+
+  def broadcast_notify(message, key='success')
+    Rails.logger.info "Broadcasting message: #{message}"
+    Rails.error.report("Broadcasting message: #{message}")
+    Turbo::StreamsChannel.broadcast_append_to(
+      :notify,
+      target: :notices,
+      partial: '/notices/notice',
+      locals: { notices: message, key: key }
+    )
+  end
 end

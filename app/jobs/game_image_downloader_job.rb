@@ -1,9 +1,10 @@
 class GameImageDownloaderJob < ApplicationJob
   queue_as :default
 
-  def perform
-    size     = Setting.pluck(:var, :value).to_h['game_img_size']
-    sony_ids = Game.order(:top).pluck(:sony_id)
+  def perform(**args)
+    args[:user] = current_user(args[:user_id]) unless args[:user]
+    size        = args.dig(:settings, 'game_img_size') || 1024
+    sony_ids    = Game.order(:top).pluck(:sony_id)
     sony_ids.each do |id|
       img_path = "./game_images/#{id}_#{size}.jpg"
       next if File.exist?(img_path)
@@ -16,7 +17,9 @@ class GameImageDownloaderJob < ApplicationJob
       File.open(img_path, 'wb') { |local_file| local_file.write(img) }
       sleep rand(1..3)
     end
-    TelegramService.new('✅ All game image downloaded!').report
+    msg = '✅ All game image downloaded!'
+    broadcast_notify(msg)
+    TelegramService.call(args[:user], msg)
   end
 
   private
@@ -28,12 +31,12 @@ class GameImageDownloaderJob < ApplicationJob
       response.body
     else
       Rails.logger.error "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
-      TelegramService.new("PS img is not available\n#{url}").report
+      TelegramService.call(args[:user], "PS img is not available\n#{url}")
       nil
     end
   rescue => e
     Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-    TelegramService.new("Sony image is not available\nError message: #{e.message}\n#{url}").report
+    TelegramService.call(args[:user], "Sony image is not available\nError message: #{e.message}\n#{url}")
     nil
   end
 

@@ -1,6 +1,8 @@
-<div class="container">
-  <h1>Другие объявления:</h1>
+<% content_for :title do %>
+  Другие объявления:
+<% end %>
 
+<div class="container">
   <div class="d-flex align-content-center gap-3 justify-content-between">
     <div class='d-flex align-content-center gap-3 mt-3 mt-md-0 flex-column flex-sm-row'>
       <%= button_to 'Создать картинки', update_products_img_path, class: 'loader-btn btn btn-success',

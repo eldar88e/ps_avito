@@ -16,6 +16,6 @@ class PurgeDeletedStoreImgJob < ApplicationJob
       end
     end
 
-    TelegramService.new("⚠️ All images of deleted stores and addresses have been removed!").report
+    TelegramService.call("⚠️ All images of deleted stores and addresses have been removed!")
   end
 end

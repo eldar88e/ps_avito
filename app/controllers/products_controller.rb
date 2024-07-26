@@ -3,17 +3,17 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.order(:id).page(params[:page]).per(12)
+    @products = current_user.products.order(:id).page(params[:page]).per(12)
   end
 
   def show; end
 
   def new
-    @product = Product.new
+    @product = current_user.products.build
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = current_user.products.build(product_params)
 
     if @product.save
       msg = ["Объявление #{@product.title} было успешно добавлено."]
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = current_user.products.find(params[:id])
   end
 
   def product_params

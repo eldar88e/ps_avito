@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #mount ActionCable.server => '/cable'
+
   devise_for :users, controllers: {
     registrations: 'registrations'
   }
@@ -9,19 +11,29 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show] do
     resources :game_black_lists, only: [:create, :destroy]
   end
-  #resources :stores
   resources :products
-  resources :image_layers
-  resources :addresses, only: [:new, :create, :show, :update, :destroy]
+  resources :image_layers, only: [:new, :create, :show, :update, :destroy]
   resources :avitos, only: [:index, :show, :edit, :update]
+
   post 'avitos/:id/update_ads', to: 'avitos#update_ads', as: 'update_ads_avito'
 
   resources :stores do
     post '/update_img', to: 'jobs#update_img', as: 'update_img'
     post '/update_feed', to: 'jobs#update_feed', as: 'update_feed'
+    post '/update_ban_list', to: 'jobs#update_ban_list', as: 'update_ban_list'
 
     resources :streets, only: [:index, :create, :update, :destroy]
     resources :maps, only: [:show]
+    resources :addresses, only: [:new, :create, :show, :update, :destroy]
+
+    namespace :avito do
+      get '/dashboard', to: 'dashboard#index'
+      get '/reports', to: 'reports#index'
+      get '/reports/:id', to: 'reports#show'
+      get '/items', to: 'items#index'
+    end
+
+    match '/avito', to: 'avito/dashboard#index', via: :get
   end
 
   post '/update_products_img', to: 'jobs#update_products_img', as: 'update_products_img'

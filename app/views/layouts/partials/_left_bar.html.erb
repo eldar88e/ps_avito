@@ -1,0 +1,38 @@
+<div class="left-bar" data-controller="collapse" >
+  <div>
+    <div class="store-name mb-3">
+      <%= link_to @store.manager_name, store_path(@store), data: { turbo_prefetch: false },
+                  title: "Перейти к управлению магазином #{@store.manager_name}" %>
+    </div>
+
+    <ul class="left-bar-menu">
+      <li>
+        <%= active_link_to store_avito_path(params[:store_id]),
+                           data: { turbo_prefetch: false }, active: :exclusive do %>
+          <i class="bi bi-kanban"></i>
+          <span class="title">Dashboard</span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= active_link_to store_avito_reports_path(params[:store_id]),
+                           data: { turbo_prefetch: false }, active: :exclusive do %>
+          <i class="bi bi-list-task"></i>
+          <span class="title">Reports</span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= active_link_to store_avito_items_path(params[:store_id]),
+                           data: { turbo_prefetch: false }, active: :exclusive do %>
+          <i class="bi bi-bag-check"></i>
+          <span class="title">Items</span>
+        <% end %>
+      </li>
+    </ul>
+
+    <%= tag.div class: 'collapse-bar-button', data: { action: 'click->collapse#call' } do %>
+      <i class="bi bi-arrow-right-square"></i>
+    <% end %>
+  </div>
+</div>

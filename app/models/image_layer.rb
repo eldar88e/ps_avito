@@ -1,5 +1,5 @@
 class ImageLayer < ApplicationRecord
-  has_one_attached :layer, dependent: :destroy
+  has_one_attached :layer, dependent: :destroy, service: :local
   belongs_to :store
 
   validate :check_img_title, on: [:update, :create]
@@ -18,12 +18,10 @@ class ImageLayer < ApplicationRecord
   end
 
   def set_default_layer_params
-    self.layer_params = {} if layer_params.blank?
+    layer_params.present? || self.layer_params = nil
   end
 
   def check_img_title
-    if layer.blank? && title.blank?
-      errors.add(:base, 'Должна быть указана картинка или текст слоя!')
-    end
+    errors.add(:base, 'Должна быть указана картинка или текст слоя!') if layer.blank? && title.blank?
   end
 end

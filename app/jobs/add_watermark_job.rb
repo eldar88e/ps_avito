@@ -6,12 +6,12 @@ class AddWatermarkJob < ApplicationJob
     size     = args[:size]
     font     = args[:main_font]
     model    = args[:model]
-    products = (model == Game ? model.order(:top) : model.where(active: true)).with_attached_images
-    stores   = args[:all] ? Store.includes(:addresses).where(active: true, addresses: { active: true }) : [args[:store]]
+    products = (model == Game ? model.order(:top) : args[:user].send("#{model}s".downcase.to_sym).where(active: true)).with_attached_images
+    stores   = args[:all] ? args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true }) : [args[:store]]
     id       = model == Game ? :sony_id : :id
 
     addresses = nil
-    count = 0
+    count     = 0
     products.each do |product|
       stores.each do |store|
         addresses = store.addresses.where(active: true)
@@ -19,7 +19,9 @@ class AddWatermarkJob < ApplicationJob
         addresses.each do |address|
           if product.images.attached?
             if args[:clean]
-              product.images.each { |i| i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
+              product.images.each do |i|
+                i.purge if i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id
+              end
             else
               next if product.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
             end
@@ -37,14 +39,15 @@ class AddWatermarkJob < ApplicationJob
       end
     end
 
-    if args[:notify] # && args[:clean]
-      address = addresses.size == 1 ? addresses.first.store_address : addresses.map { |i| i.store_address }.join("\n")
+    if addresses && args[:notify]
+      address = addresses.size == 1 ? addresses.first.city : addresses.map { |i| i.city }.join("\n")
       address = 'No active address!' if addresses.size.zero?
-      msg = "Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
-      TelegramService.call(msg)
+      msg = "🏞 Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
+      broadcast_notify(msg)
+      TelegramService.call(args[:user], msg)
     end
   rescue => e
-    TelegramService.new("Error #{self.class} || #{e.message}").report
+    TelegramService.call(args[:user], "Error #{self.class} || #{e.message}")
     raise
   end
 

@@ -5,7 +5,7 @@
     </div>
     <div class="col-1">
       <div class="d-flex justify-content-end">
-        <%= link_to address_path(address), title: 'Назад', class: 'btn btn-primary btn-sm',
+        <%= link_to store_address_path(id: address, store_id: address.store), title: 'Назад', class: 'btn btn-primary btn-sm',
                     data: { turbo_prefetch: false } do %>
           <i class="bi bi-backspace"></i>
         <% end %>

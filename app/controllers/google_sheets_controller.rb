@@ -1,8 +1,8 @@
 class GoogleSheetsController < ApplicationController
   before_action :authenticate_user!
+  include Turbo::StreamsHelper
 
   def index
-    #@google_sheets = Setting.all.select { |i| i['var'].match?(/tid/) }
-    @stores = Store.order(:created_at)
+    @stores = current_user.stores.order(:created_at)
   end
 end

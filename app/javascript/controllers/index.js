@@ -27,3 +27,9 @@ application.register('map', MapController);
 
 import SwiperController from "./swiper_controller";
 application.register('swiper', SwiperController);
+
+import ExpandTextController from "./expand_text_controller";
+application.register('expand_text', ExpandTextController);
+
+import CollapseController from "./collapse_controller";
+application.register('collapse', CollapseController);

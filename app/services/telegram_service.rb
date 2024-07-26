@@ -1,13 +1,14 @@
 require 'telegram/bot'
 
 class TelegramService
-  def initialize(message)
+  def initialize(user=nil, message)
+    user     = User.find(ENV.fetch("USER_ID") { 1 }.to_i) unless user
     @message = message
-    @chat_id = Setting.pluck(:var, :value).to_h['telegram_chat_id']
+    @chat_id = user.settings.pluck(:var, :value).to_h['telegram_chat_id']
   end
 
-  def self.call(message)
-    new(message).report
+  def self.call(user=nil, message)
+    new(user, message).report
   end
 
   def report
@@ -28,6 +29,7 @@ class TelegramService
       Telegram::Bot::Client.run(TELEGRAM_BOT_TOKEN) do |bot|
         message_count.times do
           splitted_text = @message.chars
+          splitted_text = %w[D e v |] + splitted_text if Rails.env.development?
           text_part     = splitted_text.shift(message_limit).join
           bot.api.send_message(chat_id: user_id, text: escape(text_part), parse_mode: 'MarkdownV2')
         end

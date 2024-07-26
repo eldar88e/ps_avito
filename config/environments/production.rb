@@ -40,12 +40,18 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = ENV['STORAGE_SERVICE_AMAZON'] ? :amazon : :local
 
   # Mount Action Cable outside main process or domain.
-  # config.action_cable.mount_path = nil
-  # config.action_cable.url = "wss://example.com/cable"
-  # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
+  #config.action_cable.mount_path = '/cable' # nil
+  #config.action_cable.url = "ws://localhost:28080/cable"
+  #config.action_cable.allowed_request_origins = ["http://server.open-ps.ru", /http:\/\/server.open-ps.*/]
+  config.action_cable.disable_request_forgery_protection = true
+
+  config.after_initialize do
+    Rails.logger.info "Action Cable URL: #{Rails.application.config.action_cable.url}"
+    Rails.logger.info "Action Cable Mount Path: #{Rails.application.config.action_cable.mount_path}"
+  end
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
@@ -69,6 +75,11 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store, {
+    url: ENV['REDIS_URL'],
+    namespace: 'cache',
+    expires_in: 2.hour
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque

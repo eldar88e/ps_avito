@@ -1,8 +1,8 @@
 <li class="list-group-item list-group-item-action<%= address.active ? '' : ' list-group-item-danger' %>" id="address_<%= address.id %>">
-  <%= render partial: '/addresses/form', locals: { address: address, url: address_path(address), method: :patch, data: nil } %>
+  <%= render partial: '/addresses/form', locals: { address: address, url: store_address_path(id: address, store_id: address.store), method: :patch } %>
 
   <div class="address-buttons mb-2">
-    <%= button_to address_path(address),
+    <%= button_to store_address_path(id: address, store_id: address.store),
                   method: :delete, class: 'btn btn-danger mt-3 mt-md-0 btn-sm',
                   data: { confirm: 'Вы уверены, что хотите удалить данный адресс и все с ним связанные картинки?',
                           controller: 'confirm', action: 'click->confirm#call' } do %>

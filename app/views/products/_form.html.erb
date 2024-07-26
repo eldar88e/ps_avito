@@ -1,0 +1,111 @@
+<%= form_with(model: @product, url: url, method: method) do |form| %>
+
+  <% render partial: '/shared/error', locals: { model: @product } %>
+
+  <h5>Обязательные параметры</h5>
+
+  <div class="mb-3">
+    <%= form.label :title, 'Название объявления', class: 'form-label' %>
+    <%= form.text_field :title, value: @product.title, class: 'form-control', placeholder: 'title' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, 'Цена', class: 'form-label' %>
+    <%= form.text_field :price, value: @product.price, class: 'form-control', placeholder: 'price' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :image, 'Загрузить изображение', class: 'form-label' %>
+    <%= form.file_field :image, class: 'form-control' %>
+  </div>
+
+  <% if @product.image.attached? %>
+    <div class="mb-3">
+      <%= image_tag url_for(@product.image), class: 'img-fluid', style: 'height: 150px;' %>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :description, 'Описание', class: 'form-label' %>
+    <%= form.rich_text_area :description, value: @product.description, class: 'form-control',
+                       size: '50x10', placeholder: 'Description' %>
+  </div>
+
+  <h5>Не обязательные параметры</h5>
+  <p>Если их не заполнить, то они будут братся из настроек магазина</p>
+
+  <div class="mb-3">
+    <label for="contact_method" class="form-label">Способ связи</label>
+    <%= form.select :contact_method,
+                    options_for_select(
+                      ['По телефону и в сообщениях', 'По телефону', 'В сообщениях'],
+                      @product.contact_method),
+                    {}, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :ad_status, class: 'form-label' %>
+    <%= form.text_field :ad_status, value: @product.ad_status, class: 'form-control', placeholder: 'Ad status' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :category, class: 'form-label' %>
+    <%= form.text_field :category, value: @product.category, class: 'form-control',
+                        style: 'width: 100%', placeholder: 'Category' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :goods_type, class: 'form-label' %>
+    <%= form.text_field :goods_type, value: @product.goods_type, class: 'form-control',
+                        style: 'width: 100%', placeholder: 'Goods type' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :ad_type, class: 'form-label' %>
+    <%= form.text_field :ad_type, value: @product.ad_type, class: 'form-control',
+                        style: 'width: 100%', placeholder: 'Ad type' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :type, class: 'form-label' %>
+    <%= form.text_field :type, value: @product.type, class: 'form-control',
+                        style: 'width: 100%', placeholder: 'Type' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :platform, class: 'form-label' %>
+    <%= form.text_field :platform, value: @product.platform,
+                        class: 'form-control', style: 'width: 100%', placeholder: 'Platform' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :localization, class: 'form-label' %>
+    <%= form.text_field :localization, value: @product.localization,
+                        class: 'form-control', style: 'width: 100%', placeholder: 'Localization' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :condition, class: 'form-label' %>
+    <%= form.text_field :condition, value: @product.condition, class: 'form-control',
+                        style: 'width: 100%', placeholder: 'Condition' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :allow_email, class: 'form-label' %>
+    <%= form.text_field :allow_email, value: @product.allow_email,
+                        class: 'form-control', style: 'width: 100%', placeholder: 'Allow email' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.check_box :active, { checked: @product.active, class: 'form-check-input' } %>
+    <%= form.label :active, class: 'form-check-label' %>
+  </div>
+
+  <div class="mb-3">
+    <% if method == :patch %>
+      <%= form.submit 'Save', class: 'btn btn-warning' %>
+    <% else %>
+      <%= form.submit 'Add', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+<% end %>

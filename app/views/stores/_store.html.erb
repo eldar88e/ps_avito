@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action" id="store_<%= store.id %>">
+<li class="list-group-item list-group-item-action<%= ' list-group-item-danger' unless store.active %>" id="store_<%= store.id %>">
   <div class="row">
     <div class="col-5 col-md-9">
       <%= link_to store.manager_name, store_path(store.id) %>

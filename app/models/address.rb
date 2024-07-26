@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  has_one_attached :image, dependent: :destroy
+  has_one_attached :image, dependent: :destroy, service: :local
   belongs_to :store
   has_many :streets, dependent: :destroy
 
@@ -15,6 +15,6 @@ class Address < ApplicationRecord
   private
 
   def check_slogan_params_blank
-    self.slogan_params = {} if slogan_params.blank?
+    slogan_params.present? || self.slogan_params = nil
   end
 end

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PsAvito</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <%= yield :head %>
+  </head>
+
+  <body>
+    <header>
+      <%= render '/layouts/header' %>
+    </header>
+    <main>
+      <%= render '/layouts/partials/left_bar' %>
+      <div class="container">
+        <h1 class="mb-3 mt-3"><%= yield :title %></h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <%= render_breadcrumbs tag: 'li', separator: ' / ', class: 'breadcrumb-item' %>
+          </ol>
+        </nav>
+      </div>
+
+      <%= yield %>
+    </main>
+    <footer>
+      <div class="container mb-3 mt-4">
+        <h3><%= link_to 'PsAvito', root_path, title: 'На главную' %></h3>
+      </div>
+    </footer>
+  </body>
+</html>

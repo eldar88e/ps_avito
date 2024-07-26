@@ -1,0 +1,45 @@
+<% content_for :title do %>
+  Отчеты
+<% end %>
+
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-action active">
+      <div class="row">
+        <div class="col-3">Номер отчета</div>
+        <div class="col-3">Начато</div>
+        <div class="col-3">Завершено</div>
+        <div class="col-3">Статус</div>
+      </div>
+    </li>
+
+    <% @reports['reports'].each do |report| %>
+      <%= render partial: '/avito/reports/report', locals: { report: report } %>
+    <% end %>
+  </ul>
+
+  <% if @reports['meta']['pages'] > 1 %>
+    <nav aria-label="Page navigation reports">
+      <ul class="pagination">
+        <% paginator(@reports['meta']['pages']-1).each do |page| %>
+          <li class="page-item<%= ' disabled' if page.is_a?(String) %><%= ' active' if page == params['page'].to_i %>">
+            <% if page != params['page'].to_i %>
+              <%= link_to "/stores/#{@reports.id}/avito/reports/#{@reports['report_id']}?page=#{page}",
+                          data: { turbo_prefetch: false, turbo_frame: "reports" }, class: "page-link" do %>
+                <%= page.is_a?(String) ? page : page.to_i + 1 %>
+              <% end %>
+            <% else %>
+              <a class="page-link"><%= page.to_i + 1 %></a>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  <% end %>
+
+  <div class="mt-3 mb-3">
+    <% @reports['meta'].each do |k, v| %>
+      <span class="px-2"><%= t("avito.autoload.report.#{k}") + ": #{v}" %></span>
+    <% end %>
+  </div>
+</div>

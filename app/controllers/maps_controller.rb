@@ -8,7 +8,7 @@ class MapsController < ApplicationController
         turbo_stream.replace("address_#{@address.id}", partial: '/maps/map', locals: { address: @address }),
       ]
     else
-      error_notice(@address.errors.full_messages)
+      error_notice(@address&.errors&.full_messages || 'Error getting address')
     end
   end
 
@@ -16,6 +16,7 @@ class MapsController < ApplicationController
   private
 
   def set_address
-    @address = Address.find(params[:address_id])
+    store    = current_user.stores.find(params[:store_id])
+    @address = store.addresses.find(params[:address_id]) if store
   end
 end
