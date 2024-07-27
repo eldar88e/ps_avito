@@ -42,6 +42,7 @@ group :development do
   gem 'annotate'
   gem 'better_errors' # Shows better errors description on errors page
   gem 'binding_of_caller'
+  gem 'brakeman'
   gem 'chusaku', require: false # annotations for routes
   gem 'letter_opener'
   gem 'listen' # Monitoring changes in files and directories in real-time

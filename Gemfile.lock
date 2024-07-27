@@ -116,6 +116,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
+    brakeman (6.1.2)
+      racc
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
     bson (5.0.0)
@@ -535,6 +537,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
+  brakeman
   breadcrumbs_on_rails
   capybara
   chusaku
