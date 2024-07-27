@@ -34,7 +34,12 @@ module Avito
 
       avito_url = "https://api.avito.ru/autoload/v2/reports/#{params['id']}"
       unless turbo_frame_request?
-        cached_report = CacheReport.find_or_initialize_by(report_id: params['id'], store_id: @store.id)
+        cached_report =
+          if params['no_cache'].nil?
+            CacheReport.find_or_initialize_by(report_id: params['id'], store_id: @store.id)
+          else
+            CacheReport.new(report_id: params['id'], store_id: @store.id)
+          end
         @cached = true if cached_report.report.present?
         if cached_report.nil? || cached_report.report.nil?
           report = @avito.connect_to(avito_url)
@@ -42,7 +47,7 @@ module Avito
 
           @report = JSON.parse(report.body)
           cached_report.report = @report
-          cached_report.save
+          cached_report.save if @report['status'] != 'processing'
         else
           @report = cached_report.report
         end
@@ -53,7 +58,7 @@ module Avito
 
           @money = JSON.parse(money.body)
           cached_report.fees = @money
-          cached_report.save
+          cached_report.save if @report['status'] != 'processing'
         else
           @money = cached_report.fees
         end

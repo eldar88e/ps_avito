@@ -19,5 +19,16 @@ module Avito
         'bg-primary'
       end
     end
+
+    def badge_status(status)
+      case status
+      when /warning/
+        'warning text-dark'
+      when /success/
+        'success'
+      else
+        'primary'
+      end
+    end
   end
 end

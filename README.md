@@ -1,24 +1,107 @@
-# README
+# Автозагрузка объявлений на Avito
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Этот проект представляет собой веб-приложение на Ruby on Rails, которое подготавливает объявления для автозагрузки на платформу Avito. Приложение экспортирует объявления в формате Excel, который затем можно использовать для импорта на Avito.
 
-Things you may want to cover:
+## Стек технологий
+    - Ruby on Rails 7.1.3
+    - PostgreSQL 16.1
+    - Ruby 3.2.2
+    - MongoDB
+    - Redis
+    - GoodJob
 
-* Ruby version
+## Установка
 
-* System dependencies
+1. **Клонируйте репозиторий:**
 
-* Configuration
+    ```bash
+    git clone https://github.com/eldar88e/ps_avito
+    cd ps_avito
+    ```
 
-* Database creation
+2. **Установите зависимости:**
 
-* Database initialization
+   Убедитесь, что у вас установлены все необходимые гемы:
 
-* How to run the test suite
+    ```bash
+    bundle install
+    nvm use
+    yarn install
+    ```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. **Настройте базу данных:**
 
-* Deployment instructions
+   Создайте и мигрируйте базу данных:
 
-* ...
+   ```bash
+   rails db:create
+   rails db:migrate
+   ```
+
+4. **Настройте окружение:**
+
+   Создайте файл `.env` и добавьте необходимые переменные окружения. Пример файла `.env`:
+
+    ```bash
+    SECRET_KEY_BASE=your_secret_key
+    REDIS_URL="redis://localhost:6379/1"
+    TELEGRAM_BOT_TOKEN="your_telegram_bot_token"
+    YANDEX_API_KEY="your_yandex_api_key"
+    DB_HOST="localhost"
+    DB_USER="admin"
+    DB_PASSWORD="admin"
+    ```
+
+5. **Запустите сервер:**
+
+    ```bash
+    bundle exec rails s
+    bundle exec good_job start
+    ```
+
+## Использование
+
+1. **Добавление минимальных настроек:**
+    Перейдите в раздел "Settings" в вашем приложении и добавьте минимальные настройки. Пример:
+    
+    ```bash
+   Переменная        Значение 
+   quantity_games      300
+   game_img_size       1024
+   telegram_chat_id    your_telegram_chat_id
+    ```    
+
+2. **Добавление объявлений:**
+
+    Перейдите в раздел "Products" в вашем приложении и добавьте необходимые данные. Убедитесь, что все данные корректно заполнены.
+
+3. **Добавление магазина:**
+
+   Перейдите в раздел "Stores" в вашем приложении и введите все необходимые данные магазина, а также заполните поля client_id и client_secret для дальнейшей работы с Avito API. Так же в данном разделе добавьте минимум один адрес и улицу, затем настройте слои картинки для Avito.
+
+4. **Экспорт в Excel:**
+
+   После добавления объявлений, вы можете экспортировать их в Excel, выбрав соответствующую опцию в интерфейсе приложения. Экспортируемый файл будет готов для импорта на Avito.
+
+5. **Настройка и запуск автозагрузки:**
+
+   Перейдя в раздел "Avito" и выбрав списке необходимый магазин можете настроить параметры автозагрузки и запустить принудительную автозагрузку.
+
+## Тестирование
+
+Для запуска тестов используйте команду:
+
+```bash
+bundle exec rails rspec
+``` 
+
+## Разработка
+Если вы хотите внести изменения в проект, создайте новую ветку и отправьте pull request. Пожалуйста, следуйте стандартам кодирования и добавляйте тесты для новых функций.
+
+## Лицензия
+Этот проект лицензируется на условиях MIT License.
+
+## Контакты
+Если у вас есть вопросы или предложения, вы можете связаться с нами по электронной почте: eldar0112@gmail.com.
+
+Этот проект не является официальным инструментом Avito и предназначен только для личного использования и обучения.

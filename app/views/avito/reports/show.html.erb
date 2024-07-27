@@ -10,7 +10,9 @@
       <span class="me-3">
       <%= t("avito.autoload.report.#{key}") %>:
         <% if key == 'status' %>
-          <span class="badge bg-<%= val.match?(/warning/) ? 'warning text-dark' : 'primary' %>"><%= t("avito.autoload.report.#{val}") %></span>
+          <span class="badge bg-<%= badge_status(val) %>">
+            <%= t("avito.autoload.report.#{val}") %>
+          </span>
         <% elsif key == 'started_at' %>
           <%= format_date val %>
         <% else %>
