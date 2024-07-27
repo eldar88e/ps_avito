@@ -48,17 +48,15 @@ class PopulateExcelJob < ApplicationJob
       end
     end
 
-    #file.use_shared_strings = true
-    #file.serialize(xlsx_path)
     content = workbook.read_string
     File.open(xlsx_path, 'wb') { |f| f.write(content) }
+
+    # FtpService.call(xlsx_path) if settings['send_ftp']
 
     domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
     msg    = "✅ File http://#{domain}#{xlsx_path[1..-1]} is updated!"
     broadcast_notify(msg)
     TelegramService.call(user, msg)
-
-    #FtpService.new(name).send_file
   rescue => e
     Rails.logger.error("Error #{self.class} || #{e.message}")
     TelegramService.call(user,"Error #{self.class} || #{e.message}")

@@ -3,6 +3,10 @@ class FtpService
     @name = name
   end
 
+  def self.call(name)
+    new(name).send_file
+  end
+
   def send_file
     Net::FTP.open(FTP_HOST, FTP_LOGIN, FTP_PASS) do |ftp|
       ftp.chdir('/assets')
