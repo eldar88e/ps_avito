@@ -8,7 +8,7 @@ class Store < ApplicationRecord
   validates :condition, presence: true
   validates :allow_email, presence: true
   validates :manager_name, presence: true
-  validates :contact_phone, presence: true, uniqueness: true
+  validates :contact_phone, presence: true, uniqueness: { case_sensitive: false }
 
   has_many :image_layers, dependent: :destroy
   has_many :addresses, dependent: :destroy
@@ -30,7 +30,7 @@ class Store < ApplicationRecord
   def cleanup_description
     if description.present?
       description.squeeze!(' ')
-      description.chomp!
+      description.strip!
     end
   end
 end
