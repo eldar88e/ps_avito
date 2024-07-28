@@ -16,7 +16,8 @@ class PopulateExcelJob < ApplicationJob
 
     ban_list = store.ban_lists.active.pluck(:ad_id)
     store.addresses.where(active: true).each do |address|
-      games = Game.order(:top).limit(address.total_games || settings['quantity_games']).includes(:game_black_list).with_attached_images # TODO limit games import to settings
+      games = Game.order(:top).limit(address.total_games || settings['quantity_games'])
+                  .includes(:game_black_list).with_attached_images
       games.each do |game|
         next if game.game_black_list
 
@@ -143,12 +144,12 @@ class PopulateExcelJob < ApplicationJob
       rus_voice = model.rus_voice ? 'Есть' : 'Нет'
       rus_text  = model.rus_screen ? 'Есть' : 'Нет'
       desc_game.gsub('[name]', model.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', store.manager_name)
-           .gsub('[rus_text]', rus_text).gsub('[platform]', model.platform).gsub('[addr_desc]', address.description || '')
-           .squeeze(' ').chomp
+               .gsub('[rus_text]', rus_text).gsub('[platform]', model.platform)
+               .gsub('[addr_desc]', address.description.to_s).squeeze(' ').strip
     else
       desc_product = store.description + store.desc_product.to_s
       desc_product.gsub('[name]', model.title).gsub('[addr_desc]', address.description || '')
-                  .gsub('[manager]', store.manager_name).gsub('[desc_product]', model.description).squeeze(' ').chomp
+                  .gsub('[manager]', store.manager_name).gsub('[desc_product]', model.description).squeeze(' ').strip
     end
   end
 

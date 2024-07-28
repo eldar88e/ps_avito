@@ -19,24 +19,24 @@ class UpdateBanListJob < ApplicationJob
       response = avito.connect_to('https://api.avito.ru/autoload/v2/reports/last_completed_report')
       next if response.nil? || response.status != 200
 
-      report_id = JSON.parse(response.body)['report_id']
+      report_id  = JSON.parse(response.body)['report_id']
       report_url = "https://api.avito.ru/autoload/v2/reports/#{report_id}"
-      response = avito.connect_to(report_url)
-      #return error_notice("Ошибка подключения к API Avito") if response.nil? || response.status != 200
+      response   = avito.connect_to(report_url)
+      next if response.nil? || response.status != 200
 
       report = JSON.parse(response.body)
       next unless error_sections = report['section_stats']['sections'].find { |i| i['slug'] = 'error' }
 
       if error_deleted = error_sections['sections'].find { |i| i['slug'] == 'error_deleted' }
         count_del = error_deleted['count']
-        msg = "‼️Deleted #{count_del} games for #{store.manager_name}.\nДля выгрузки объявления как нового измените \
-               идентификатор объявления в элементе или воспользуйтесь функцией «Выгрузить как новые»"
+        msg       = "‼️Deleted #{count_del} games for #{store.manager_name}.\nДля выгрузки объявления как нового \
+                     измените идентификатор объявления в элементе или воспользуйтесь функцией «Выгрузить как новые»"
         TelegramService.call(current_user, msg)
       end
 
       if error_fee = error_sections['sections'].find { |i| i['slug'] == 'error_fee' }
         count_fee = error_fee['count']
-        msg = <<~MSG.squeeze(' ').chomp
+        msg       = <<~MSG.squeeze(' ').chomp
           ‼️Пополните счет! Как только на счёте появятся деньги, #{count_fee} объявлений станут активными \
           автоматически на аккаунте #{store.manager_name}.
         MSG
@@ -58,6 +58,7 @@ class UpdateBanListJob < ApplicationJob
           next
         else
           old_ad.update(expires_at: Time.current)
+          count_ban += 1
         end
       end
 

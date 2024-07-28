@@ -39,7 +39,8 @@
         <ul class="list-group">
           <% @store.attributes.keys.reject { |i| i.match?(/^id|created_at|updated_at/) }.each do |name| %>
             <li class="list-group-item list-group-item-action overflow-hidden">
-              <strong><%= name %>: </strong><%= @store.send(name.to_sym) %>
+              <strong><%= name %>: </strong>
+              <%= name == 'description' ? Sanitize.fragment(@store.send(name.to_sym), @whitelist).html_safe : @store.send(name.to_sym) %>
             </li>
           <% end %>
         </ul>

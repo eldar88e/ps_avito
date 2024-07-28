@@ -26,6 +26,8 @@ module Avito
         'warning text-dark'
       when /success/
         'success'
+      when /error/
+        'danger'
       else
         'primary'
       end

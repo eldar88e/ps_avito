@@ -3,20 +3,23 @@ class AddWatermarkJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   def perform(**args)
-    size     = args[:size]
-    font     = args[:main_font]
-    model    = args[:model]
-    products = (model == Game ? model.order(:top) : args[:user].send("#{model}s".downcase.to_sym).where(active: true)).with_attached_images
-    stores   = args[:all] ? args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true }) : [args[:store]]
-    id       = model == Game ? :sony_id : :id
-
+    size      = args[:size]
+    font      = args[:main_font]
+    model     = args[:model]
+    products  = (model == Game ? model.order(:top) : args[:user].send("#{model}s".downcase.to_sym)
+                                                                .where(active: true)).with_attached_images
+    stores    = args[:all] ? args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true }) : [args[:store]]
+    id        = model == Game ? :sony_id : :id
     addresses = nil
     count     = 0
-    products.each do |product|
-      stores.each do |store|
-        addresses = store.addresses.where(active: true)
-        addresses = addresses.select { |i| i.id == args[:address_id].to_i } if args[:address_id]
-        addresses.each do |address|
+
+    stores.each do |store|
+      addresses = store.addresses.where(active: true)
+      addresses = addresses.select { |i| i.id == args[:address_id].to_i } if args[:address_id]
+      addresses.each do |address|
+        products = products.limit(address.total_games) if model == Game && address.total_games.present?
+        products.each do |product|
+
           if product.images.attached?
             if args[:clean]
               product.images.each do |i|

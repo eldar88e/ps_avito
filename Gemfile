@@ -32,6 +32,7 @@ gem 'ransack', '~> 4.2'
 gem "image_processing", "~> 1.2"
 gem 'mongoid'
 gem 'aws-sdk-s3'
+gem 'sanitize'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

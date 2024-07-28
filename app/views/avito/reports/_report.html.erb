@@ -6,13 +6,7 @@
     <div class="col-6 col-md-3"><%= format_date report['started_at'] %></div>
     <div class="col-6 col-md-3"><%= format_date report['finished_at'] %></div>
     <div class="col-6 col-md-3">
-      <span class="badge bg-<%= if report['status'].match?(/warning/)
-                                  'warning text-dark'
-                                elsif report['status'].match?(/error/)
-                                  'danger'
-                                else
-                                  'primary'
-                                end %>">
+      <span class="badge bg-<%= badge_status report['status'] %>">
         <%= t("avito.autoload.report.#{report['status']}") %>
       </span>
     </div>

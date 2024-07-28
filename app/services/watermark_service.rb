@@ -25,23 +25,23 @@ class WatermarkService
                  end
     @image     = File.exist?(img_url) || image_exists?(img_url)
     layers_row = args[:store].image_layers.map do |i|
+      next if !i.active || @product && i.layer_type == 'flag'
+
       if i.layer.attached?
-        key = i.layer.blob.key
+        key      = i.layer.blob.key
         raw_path = key.scan(/.{2}/)[0..1].join('/')
         img_path = "./storage/#{raw_path}/#{key}"
-        { img: img_path, params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type,
-          title: i.title, active: i.active }
-      elsif i.layer_type == 'text' && i.layer_type.present?
-        { params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type,
-          title: i.title, active: i.active }
+        { img: img_path, params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title }
+      elsif i.layer_type == 'text' && i.title.present?
+        { params: i.layer_params || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title }
       else
         nil
       end
-    end.compact
+    end
 
-    @platforms, @layers = layers_row.partition { |i| i[:layer_type] == 'platform' }
+    @platforms, @layers = layers_row.compact.partition { |i| i[:layer_type] == 'platform' }
     @layers << { img: img_url, menuindex: args[:store].menuindex, params: args[:store].game_img_params || {},
-                 layer_type: 'img', active: true }
+                 layer_type: 'img' }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
     if @platforms.present? && !@product
@@ -49,7 +49,7 @@ class WatermarkService
       @layers << platform if platform.present?
     end
 
-    slogan = { title: args[:address].slogan, params: args[:address].slogan_params || {}, active: 1 }
+    slogan = { title: args[:address].slogan, params: args[:address].slogan_params || {} }
     if args[:address].image.attached?
       blob                = args[:address].image.blob
       raw_path            = blob.key.scan(/.{2}/)[0..1].join('/')
@@ -62,8 +62,6 @@ class WatermarkService
 
   def add_watermarks
     @layers.each_with_index do |layer, idx|
-      next if !layer[:active] || (@product && layer[:layer_type] == 'flag')
-
       layer[:params] =
         if layer[:params].is_a?(Hash)
           layer[:params]
@@ -99,14 +97,14 @@ class WatermarkService
 
     return unless layer[:title].present?
 
-    params               = layer[:params]
-    text_obj             = Magick::Draw.new
-    text_obj.font        = layer[:img] || @main_font # || params['font']
-    text_obj.pointsize   = params['pointsize'] || 42  # Размер шрифта
-    #text_obj.rotate      = params['rotate']&.to_f || 0
-    text_obj.fill        = params['fill'] || 'white'
-    text_obj.stroke      = params['stroke'] || 'white'   # Цвет обводки текста
-    text_obj.gravity     = Magick::LeftGravity  if params[:center]
+    params             = layer[:params]
+    text_obj           = Magick::Draw.new
+    text_obj.font      = layer[:img] || @main_font || 'Arial'
+    text_obj.pointsize = params['pointsize'] || 42  # Размер шрифта
+    #text_obj.rotate    = params['rotate']&.to_f || 0
+    text_obj.fill      = params['fill'] || 'white'
+    text_obj.stroke    = params['stroke'] || 'white'  # Цвет обводки текста
+    text_obj.gravity   = Magick::LeftGravity  if params[:center]
     text_obj.annotate(@new_image, params['row'] || 0, params['column'] || 0,
                       params['pos_x'] || 0, params['pos_y'] || 0, layer[:title])
   end
@@ -122,6 +120,8 @@ class WatermarkService
   end
 
   def image_exists?(url)
+    return false if url.match?(/\Ahttp/)
+
     uri      = URI.parse(url)
     response = Net::HTTP.get_response(uri)
     response.is_a?(Net::HTTPSuccess)
