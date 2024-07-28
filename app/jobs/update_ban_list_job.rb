@@ -34,6 +34,18 @@ class UpdateBanListJob < ApplicationJob
         TelegramService.call(current_user, msg)
       end
 
+      if error_limit = error_sections['sections'].find { |i| i['slug'] == 'error_fee_hard_limit' }
+        count_limit = error_limit['count']
+        msg         = "‼️Лимит на размещения #{count_limit} на аккаунте #{store.manager_name}"
+        TelegramService.call(current_user, msg)
+      end
+
+      if error_other = error_sections['sections'].find { |i| i['slug'] == 'error_other' }
+        count_other = error_other['count']
+        msg         = "‼️Другие ошибки #{count_other} на аккаунте #{store.manager_name}"
+        TelegramService.call(current_user, msg)
+      end
+
       if error_fee = error_sections['sections'].find { |i| i['slug'] == 'error_fee' }
         count_fee = error_fee['count']
         msg       = <<~MSG.squeeze(' ').chomp
