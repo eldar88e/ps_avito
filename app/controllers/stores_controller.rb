@@ -8,7 +8,7 @@ class StoresController < ApplicationController
 
   def show
     @pagy, @ban = pagy(@store.ban_lists, items: 36)
-    @whitelist  = { elements: %w[div span ul li br b i strong em p], }
+    @whitelist  = { elements: %w[div span ul li br b i strong em p] }
   end
 
   def new
