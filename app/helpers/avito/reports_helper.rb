@@ -32,5 +32,13 @@ module Avito
         'primary'
       end
     end
+
+    def safe_html(html)
+      whitelist = {
+        elements: %w[div span ul li br b i strong em p a],
+        attributes: { 'a' => %w[href title] }
+      }
+      Sanitize.fragment(html, whitelist).html_safe
+    end
   end
 end

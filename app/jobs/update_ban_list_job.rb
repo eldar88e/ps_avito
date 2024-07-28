@@ -29,8 +29,10 @@ class UpdateBanListJob < ApplicationJob
 
       if error_deleted = error_sections['sections'].find { |i| i['slug'] == 'error_deleted' }
         count_del = error_deleted['count']
-        msg       = "‼️Deleted #{count_del} games for #{store.manager_name}.\nДля выгрузки объявления как нового \
-                     измените идентификатор объявления в элементе или воспользуйтесь функцией «Выгрузить как новые»"
+        msg       = <<~MSG.squeeze(' ').chomp
+          ‼️Deleted #{count_del} games for #{store.manager_name}.\nДля выгрузки объявления как нового \
+          измените идентификатор объявления в элементе или воспользуйтесь функцией «Выгрузить как новые»
+        MSG
         TelegramService.call(current_user, msg)
       end
 
