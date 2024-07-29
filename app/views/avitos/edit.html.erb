@@ -4,7 +4,6 @@
   <% end %>
 
   <div class="container">
-    <%#= @auto_load %>
     <%= form_with(model: @store, url: avito_path(@store), method: :patch) do |form| %>
       <div class="mb-3">
         <%= form.check_box :autoload_enabled,
@@ -33,14 +32,14 @@
 
         <div class="col-12 col-md-4">
           <%= form.label :weekdays, t('avito.autoload.weekdays'), class: 'form-label' %>
-          <%= form.collection_select :weekdays, @weekdays.map { |i| OpenStruct.new(i) }, :id, :name,
+          <%= form.collection_select :weekdays, Avito::DashboardHelper::WEEKDAYS.map { |i| OpenStruct.new(i) }, :id, :name,
                                      { selected: @auto_load['schedule'][0]['weekdays'] },
                                      { multiple: true, class: "form-control" } %>
         </div>
 
         <div class="col-12 col-md-4">
           <%= form.label :time_slots, t('avito.autoload.time_slots'), class: 'form-label' %>
-          <%= form.collection_select :time_slots, @time_slots.map { |i| OpenStruct.new(i) }, :id, :name,
+          <%= form.collection_select :time_slots, TIME_SLOTS.map { |i| OpenStruct.new(i) }, :id, :name,
                                      { selected: @auto_load['schedule'][0]['time_slots'] },
                                      { multiple: true, class: "form-control" } %>
         </div>

@@ -63,7 +63,7 @@
             </div>
             <div class="col-6 col-md-9">
               <% if k == 'weekdays' %>
-                <%= v.map { |i| @weekdays[i][:name] }.join(', ') %>
+                <%= v.map { |i| Avito::DashboardHelper::WEEKDAYS[i][:name] }.join(', ') %>
               <% elsif v.is_a?(Array) %>
                 <%= v.sort.map { |i| "#{i}.00-#{i+1}.00" }.join(', ') %>
               <% else %>

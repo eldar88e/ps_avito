@@ -19,7 +19,7 @@
 
     <div class="col-8 col-md-3">
       <%= form.label :layer, 'Картинка или шрифт', class: 'form-label' %>
-      <%= form.file_field :layer, value: image_layer.layer, class: 'form-control' %>
+      <%= form.file_field :layer, value: image_layer.layer.blob&.filename, class: 'form-control' %>
     </div>
 
     <div class="col-8 col-md-2">
