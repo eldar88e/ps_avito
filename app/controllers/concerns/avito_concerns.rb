@@ -13,7 +13,9 @@ module AvitoConcerns
 
   def fetch_and_parse(url)
     response = @avito.connect_to(url)
-    raise StandardError, "Ошибка подключения к API Avito. Status: #{response.nil? ? 'nil' : response.status}" #if response.nil? || response.status != 200
+    if response.nil? || response.status != 200
+      raise StandardError, "Ошибка подключения к API Avito. Status: #{response.nil? ? 'nil' : response.status}"
+    end
 
     JSON.parse(response.body)
   end
