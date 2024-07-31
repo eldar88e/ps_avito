@@ -42,12 +42,15 @@ class AvitoService
   private
 
   def get_token
-    last_token = @store.avito_tokens.order(created_at: :desc).first
-    valid_token?(last_token) ? last_token.access_token : refresh_token
+    cache_key  = "store_#{@store.id}_avito_token"
+    Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
+      last_token = @store.avito_tokens.order(created_at: :desc).first
+      valid_token?(last_token) ? last_token.access_token : refresh_token
+    end
   end
 
   def valid_token?(model)
-    model&.created_at.to_i + model&.expires_in.to_i > Time.current.to_i
+    model&.created_at.to_i + model&.expires_in.to_i - 10.minutes > Time.current.to_i
   end
 
   def refresh_token

@@ -27,6 +27,7 @@ module Avito
 
       if result&.status == 200
         set_auto_load
+        Rails.cache.delete("auto_load_#{@store.id}")
         msg = 'Успешно обновлены настройки автозагрузки'
         render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
       else
