@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
   #mount ActionCable.server => '/cable'
-
-  devise_for :users, controllers: {
-    registrations: 'registrations'
-  }
-
   #get "up" => "rails/health#show", as: :rails_health_check
+
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :settings, only: [:index, :create, :update]
   resources :games, only: [:index, :show] do
@@ -13,9 +10,7 @@ Rails.application.routes.draw do
   end
   resources :products
   resources :image_layers, only: [:new, :create, :show, :update, :destroy]
-  resources :avitos, only: [:index, :show, :edit, :update]
-
-  post 'avitos/:id/update_ads', to: 'avitos#update_ads', as: 'update_ads_avito'
+  resources :avitos, only: [:index]
 
   resources :stores do
     post '/update_img', to: 'jobs#update_img', as: 'update_img'
@@ -31,6 +26,10 @@ Rails.application.routes.draw do
       get '/reports', to: 'reports#index'
       get '/reports/:id', to: 'reports#show'
       get '/items', to: 'items#index'
+      get '/autoload/edit', to: 'autoload#edit'
+      patch '/autoload', to: 'autoload#update'
+      get '/autoload', to: 'autoload#show'
+      post '/autoload/update_ads', to: 'autoload#update_ads'
     end
 
     match '/avito', to: 'avito/dashboard#index', via: :get

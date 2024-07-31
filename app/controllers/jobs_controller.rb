@@ -35,13 +35,12 @@ class JobsController < ApplicationController
   end
 
   def update_products_img
-    clean = params[:clean]
     AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size,
-                                  main_font: @main_font, clean: clean)
-
-    msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для всех объявлений кроме \
-           игр успешно запущена."
-    render turbo_stream: [success_notice(msg)]
+                                  main_font: @main_font, clean: params[:clean])
+    past = params[:clean] ? 'пересозданию' : 'созданию'
+    render turbo_stream: [
+      success_notice("Фоновая задача по #{past} картинок для всех объявлений кроме игр успешно запущена.")
+    ]
   end
 
   def update_feed
@@ -50,8 +49,7 @@ class JobsController < ApplicationController
       msg = "Фоновая задача по обновлению фида для магазина #{store.manager_name} успешно запущена."
       render turbo_stream: [success_notice(msg)]
     else
-      msg = "Ошибка запуска фоновой задачи по обновлению фида, возможно магазин не активен!"
-      error_notice(msg)
+      error_notice "Ошибка запуска фоновой задачи по обновлению фида, возможно магазин не активен!"
     end
   end
 
