@@ -24,6 +24,45 @@
         </div>
       </li>
     <% end %>
+    <li class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="fw-bold col-6 col-md-3">Рейтинг</div>
+        <div class="col-6 col-md-9">
+          <span style="font-size: 1.2em; margin-right: 10px"><%= "#{@rate['rating']['score']}" %></span>
+          <%= "Голосов: #{@rate['rating']['reviewsWithScoreCount']}" %>
+          <%= "Коментариев: #{@rate['rating']['reviewsCount']}" %>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="fw-bold col-6 col-md-3">Кошелёк</div>
+        <div class="col-6 col-md-9">
+          <%= "Баланс: #{@balance['real']}" %>
+          <%= "Бонусы: #{@balance['bonus']}" %>
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="fw-bold col-6 col-md-3">Баланс тарифа</div>
+        <div class="col-6 col-md-9">
+          <% balance = @bal['result']['balance'] / 100 %>
+          <span style="font-size: 1.2em; <%= balance < 100 ? 'color: red; ' : '' %>margin-right: 10px;">
+            <%= "#{balance}₽" %>
+          </span>
+
+          <% if @bal['result']['debt'] > 0 %>
+            <span style="color: red; margin-right: 10px;"><%= "Долг: #{@bal['result']['debt'] / 100 }₽" %></span>
+          <% end %>
+
+          <span>
+            Aванс текущего месяца: <span style="font-size: 1.1em;"><%= "#{@bal['result']['advance'] / 100}₽" %></span>
+          </span>
+        </div>
+      </div>
+    </li>
   </ul>
 
   <h3 class="mt-3 mb-3">Информация об автозагрузке</h3>
