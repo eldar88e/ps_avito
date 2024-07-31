@@ -61,11 +61,19 @@ ul.pagination {
   right: 0;
   margin: 10px;
   z-index: 2;
+  max-width: 500px;
+  width: 100%;
+  @media (max-width: 575px) {
+    max-width: 300px;
+  }
 
   div {
     opacity: 1;
     transition: height 1s ease-out, margin 1s ease-out, padding 1s ease-out, opacity 0.1s ease-out;
     font-size: 12px;
+    @media (max-width: 575px) {
+      padding: 10px;
+    }
   }
 }
 .del-layer-btn {
