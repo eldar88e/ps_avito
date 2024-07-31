@@ -20,11 +20,11 @@
 
   <% if @reports['meta']['pages'] > 1 %>
     <nav aria-label="Page navigation reports">
-      <ul class="pagination">
+      <ul class="pagination mt-3">
         <% paginator(@reports['meta']['pages']-1).each do |page| %>
           <li class="page-item<%= ' disabled' if page.is_a?(String) %><%= ' active' if page == params['page'].to_i %>">
             <% if page != params['page'].to_i %>
-              <%= link_to "/stores/#{@reports.id}/avito/reports/#{@reports['report_id']}?page=#{page}",
+              <%= link_to "/stores/#{@store.id}/avito/reports/#{@reports['report_id']}?page=#{page}",
                           data: { turbo_prefetch: false, turbo_frame: "reports" }, class: "page-link" do %>
                 <%= page.is_a?(String) ? page : page.to_i + 1 %>
               <% end %>
