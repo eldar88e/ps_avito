@@ -13,7 +13,7 @@ module Avito
 
       session["store_#{@store.id}_size"] ||= @items['resources'].size if page == 1
       @size = session["store_#{@store.id}_size"] || per_page
-      if @items['resources'].size == per_page && page >= session["store_#{@store.id}_end_page"]
+      if @items['resources'].size == per_page && page >= (session["store_#{@store.id}_end_page"] ||= 1)
         session["store_#{@store.id}_end_page"] = page + 1
       end
       @end_page = session["store_#{@store.id}_end_page"] || 1
