@@ -1,26 +1,17 @@
 <ul class="list-group report-items mb-3">
-  <% @items['items'].each do |item| %>
-    <%= render partial: '/avito/reports/item', locals: { item: item } %>
+  <% if @items['items'] %>
+    <% @items['items'].each do |item| %>
+      <%= render partial: '/avito/reports/item', locals: { item: item } %>
+    <% end %>
+  <% else %>
+    Записей не найдено!
   <% end %>
 </ul>
 
 <% if @items['meta']['pages'] > 1 %>
-  <nav aria-label="Page navigation items">
-    <ul class="pagination">
-      <% paginator(@items['meta']['pages']-1).each do |page| %>
-        <li class="page-item<%= ' disabled' if page.is_a?(String) %><%= ' active' if page == params['page'].to_i %>">
-          <% if page != params['page'].to_i %>
-            <%= link_to "/stores/#{@store.id}/avito/reports/#{@items['report_id']}?page=#{page}",
-                        data: { turbo_prefetch: false, turbo_frame: "reports" }, class: "page-link" do %>
-              <%= page.is_a?(String) ? page : page.to_i + 1 %>
-            <% end %>
-          <% else %>
-            <a class="page-link"><%= page.to_i + 1 %></a>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
+  <%= render partial: '/avito/partials/pagy', locals: { end_page: @items['meta']['pages']-1, starts: 0,
+                                                        path: "reports/#{@items['report_id']}",
+                                                        turbo_frame: 'reports' } %>
 <% end %>
 
 <div class="mb-3">

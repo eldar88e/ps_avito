@@ -12,22 +12,20 @@ module ApplicationHelper
     end
   end
 
-  def paginator(ends)
+  def paginator(ends, starts=0)
     if ends > 5
-      page = (params[:page].present? && params[:page].to_i.positive? && params[:page].to_i > 3) ? params[:page].to_i : 2
-      if page == 2
-        [0, page-1, page, page+1, page+2, '...', ends]
-      elsif page == ends - 1
-        [0, '...', page-3, page-2, page-1, page, ends]
-      elsif page == ends - 2
-        [0, '...', page-2, page-1, page, page+1, ends]
-      elsif page == ends
-        [0, '...', page-4, page-3, page-2, page-1, ends]
+      max  = starts == 0 ? 4 : 5
+      page = (params[:page].present? && params[:page].to_i.positive?) ? params[:page].to_i : starts
+      page = ends if page > ends
+      if page < max
+        [starts, starts+1, starts+2, starts+3, starts+4, '...', ends]
+      elsif page >= ends - 3 && page <= ends
+        [starts, '...', ends-4, ends-3, ends-2, ends-1, ends]
       else
-        [0, '...', page-1, page, page+1, '...', ends]
+        [starts, '...', page-1, page, page+1, '...', ends]
       end
     else
-      [*0..ends]
+      [*starts..ends]
     end
   end
 end

@@ -6,7 +6,7 @@ module Avito
     layout 'avito'
 
     def index
-      @reports = fetch_and_parse "https://api.avito.ru/autoload/v2/reports?page=#{params['page']}"
+      @reports = fetch_and_parse "https://api.avito.ru/autoload/v2/reports?page=#{params['page'].to_i}"
     end
 
     def show
@@ -21,7 +21,7 @@ module Avito
         add_breadcrumb @report['report_id']
       end
 
-      @items = fetch_and_parse "#{avito_url}/items?sections=#{params['sections']}&page=#{params['page']}"
+      @items = fetch_and_parse "#{avito_url}/items?sections=#{params['sections']}&page=#{params['page'].to_i}"
 
       if turbo_frame_request?
         return render turbo_stream: turbo_stream.update(:reports, partial: '/avito/reports/item_page')
