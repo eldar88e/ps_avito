@@ -11,7 +11,8 @@ class JobsController < ApplicationController
     FileUtils.mkdir_p(directory_path)
 
     store.addresses.each do |address|
-      w_service = WatermarkService.new(store: store, address: address, size: @size, game: game, main_font: @main_font)
+      w_service = WatermarkService.new(store: store, address: address, settings: @settings,
+                                       game: game, main_font: @main_font)
       next unless w_service.image
 
       image    = w_service.add_watermarks
@@ -26,7 +27,7 @@ class JobsController < ApplicationController
     store = current_user.stores.find_by(active: true, id: params[:store_id])
     if store
       [Game, Product].each do |model|
-        AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, size: @size,
+        AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, settings: @settings,
                                       main_font: @main_font, clean: clean, address_id: params[:address_id])
       end
       msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."
@@ -35,7 +36,7 @@ class JobsController < ApplicationController
   end
 
   def update_products_img
-    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, size: @size,
+    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, settings: @settings,
                                   main_font: @main_font, clean: params[:clean])
     past = params[:clean] ? 'пересозданию' : 'созданию'
     render turbo_stream: [
@@ -70,7 +71,7 @@ class JobsController < ApplicationController
 
   def set_settings
     settings   = current_user.settings
-    @size      = settings.find_by(var: 'game_img_size').value
+    @settings  = settings.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
     blob       = settings.find_by(var: 'main_font')&.font&.blob
     @main_font = if blob
                    raw_path = blob.key.scan(/.{2}/)[0..1].join('/')

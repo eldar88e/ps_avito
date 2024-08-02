@@ -3,7 +3,7 @@ class AddWatermarkJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   def perform(**args)
-    size      = args[:size]
+    settings  = args[:settings]
     font      = args[:main_font]
     model     = args[:model]
     products  = (model == Game ? model.order(:top) : args[:user].send("#{model}s".downcase.to_sym)
@@ -30,12 +30,12 @@ class AddWatermarkJob < ApplicationJob
             end
           end
 
-          w_service = WatermarkService.new(store: store, address: address, size: size,
+          w_service = WatermarkService.new(store: store, address: address, settings: settings,
                                            game: product, main_font: font, product: model == Product)
           next unless w_service.image
 
           image = w_service.add_watermarks
-          name  = "#{product.send(id)}_#{store.id}_#{address.id}_#{size}.jpg"
+          name  = "#{product.send(id)}_#{store.id}_#{address.id}_#{settings[:game_img_size]}.jpg"
           save_image(image: image, product: product, name: name, store_id: store.id, address_id: address.id)
           count += 1
         end
@@ -51,7 +51,7 @@ class AddWatermarkJob < ApplicationJob
     end
   rescue => e
     TelegramService.call(args[:user], "Error #{self.class} || #{e.message}")
-    raise
+    Rails.logger.error("#{self.class} - #{e.message}")
   end
 
   private

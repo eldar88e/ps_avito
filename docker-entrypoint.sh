@@ -7,5 +7,5 @@ if [ -f tmp/pids/server.pid ]; then
 fi
 
 bundle exec ./bin/rails assets:precompile
-bundle exec ./bin/rails s -b 0.0.0.0
+RAILS_LOG_TO_STDOUT=true bundle exec ./bin/rails s -b 0.0.0.0
 # bundle exec puma -p 28080 config/cable/config.ru

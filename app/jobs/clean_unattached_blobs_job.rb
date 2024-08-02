@@ -3,8 +3,8 @@ class CleanUnattachedBlobsJob < ApplicationJob
 
   def perform
     unattached_blobs = ActiveStorage::Blob.unattached
-    size = unattached_blobs.size
     unattached_blobs.each(&:purge)
-    TelegramService.new("⚠️ Cleared #{size} unattached blobs and images.").report
+
+    Rails.logger.info "⚠️ Cleared #{unattached_blobs.size} unattached blobs and images."
   end
 end

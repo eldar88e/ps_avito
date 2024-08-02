@@ -6,7 +6,7 @@ class CleanAttachBlobJob < ApplicationJob
     count = 0
     games.each do |game|
       game.images.each do |image|
-        key = image.blob.key
+        key      = image.blob.key
         raw_path = key.scan(/.{2}/)[0..1].join('/')
         img_path = "./storage/#{raw_path}/#{key}"
         unless File.exist?(img_path)
@@ -15,6 +15,6 @@ class CleanAttachBlobJob < ApplicationJob
         end
       end
     end
-    TelegramService.call("⚠️ Cleared #{count} rows in tables with missing images.")
+    Rails.logger.info "⚠️ Cleared #{count} rows in tables with missing images."
   end
 end

@@ -16,6 +16,6 @@ class PurgeDeletedStoreImgJob < ApplicationJob
       end
     end
 
-    TelegramService.call("⚠️ All images of deleted stores and addresses have been removed!")
+    Rails.logger.info "⚠️ All images of deleted stores and addresses have been removed!"
   end
 end

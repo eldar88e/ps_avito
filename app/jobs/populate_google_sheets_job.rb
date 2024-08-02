@@ -3,12 +3,13 @@ class PopulateGoogleSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    file_id     = nil # current_user.settings.pluck(:var, :value).to_h["tid_#{args[:site]}"]
-    games       = Game.order(:top).with_attached_images
-
-    session     = GoogleDrive::Session.from_service_account_key('key.json')
-    spreadsheet = session.file_by_id(file_id)
-    worksheet   = spreadsheet.worksheets.first
+    user_id      = args[:user_id]
+    current_user = current_user user_id
+    file_id      = nil # TODO current_user.settings.pluck(:var, :value).to_h["tid_#{args[:site]}"]
+    games        = Game.order(:top).with_attached_images # TODO need logic for count for store and ban_list
+    session      = GoogleDrive::Session.from_service_account_key('key.json')
+    spreadsheet  = session.file_by_id(file_id)
+    worksheet    = spreadsheet.worksheets.first
 
     idx = 2
     games.each_slice(100) do |games_slice|
@@ -24,8 +25,7 @@ class PopulateGoogleSheetsJob < ApplicationJob
     end
     nil
   rescue => e
-    TelegramService.new("Error #{self.class} || #{e.message}").report
-    raise
+    TelegramService.call(current_user, "Error #{self.class} || #{e.message}")
   end
 
   private

@@ -1,17 +1,17 @@
 <%= form_with(model: @store, url: url, method: method) do |form| %>
   <div class="mb-3">
     <%= form.label :manager_name, class: 'form-label' %>
-    <%= form.text_field :manager_name, value: @store.manager_name, class: 'form-control', placeholder: 'Manager name' %>
+    <%= form.text_field :manager_name, class: 'form-control', placeholder: 'Manager name' %>
   </div>
 
   <div class="mb-3">
     <%= form.label :var, class: 'form-label' %>
-    <%= form.text_field :var, value: @store.var, class: 'form-control', placeholder: 'var' %>
+    <%= form.text_field :var, class: 'form-control', placeholder: 'var' %>
   </div>
 
   <div class="mb-3">
     <%= form.label :ad_status, class: 'form-label' %>
-    <%= form.text_field :ad_status, value: @store.ad_status, class: 'form-control', placeholder: 'Ad status' %>
+    <%= form.text_field :ad_status, class: 'form-control', placeholder: 'Ad status' %>
   </div>
 
   <div class="mb-3">
@@ -39,20 +39,18 @@
 
   <div class="mb-3">
     <%= form.label :description, 'Общее описание', class: 'form-label' %>
-    <%= form.rich_text_area :description, value: @store.description, size: '50x7',
-                       class: 'form-control', placeholder: 'Description' %>
+    <%= form.rich_text_area :description, size: '50x7', class: 'form-control', placeholder: 'Description' %>
   </div>
 
   <div class="mb-3">
     <label for="desc_game" class="form-label">Описание для Игр</label>
-    <%= form.rich_text_area :desc_game, value: @store.desc_game, size: '50x5',
-                       class: 'form-control', placeholder: 'Описание для Игр' %>
+    <%= form.rich_text_area :desc_game, size: '50x5', class: 'form-control', placeholder: 'Описание для Игр' %>
   </div>
 
   <div class="mb-3">
     <label for="desc_product" class="form-label">Описание для других объявлений</label>
-    <%= form.rich_text_area :desc_product, value: @store.desc_product, size: '50x5',
-                       class: 'form-control', placeholder: 'Описание для других объявлений' %>
+    <%= form.rich_text_area :desc_product, size: '50x5',
+                            class: 'form-control', placeholder: 'Описание для других объявлений' %>
   </div>
 
   <div class="mb-3">
@@ -67,7 +65,7 @@
 
   <div class="mb-3">
     <%= form.label :contact_phone, class: 'form-label' %>
-    <%= form.text_field :contact_phone, value: @store.contact_phone, class: 'form-control', placeholder: 'Телефон' %>
+    <%= form.text_field :contact_phone, class: 'form-control', placeholder: 'Телефон' %>
   </div>
 
   <div class="mb-3">
@@ -78,8 +76,8 @@
 
   <div class="mb-3">
     <label for="game_img_params" class="form-label">Параметры картинки игры</label>
-    <%= form.text_area :game_img_params, value: @store.game_img_params, class: 'form-control', size: '50x1',
-                       placeholder: "нужно указать ввиде json: { pos_x: 448, pos_y: 208, row: 1024, column: 1024 }" %>
+    <%= form.text_field :game_img_params, class: 'form-control',
+                       placeholder: "Нужно указать ввиде json: { pos_x: 448, pos_y: 208, row: 1024, column: 1024 }" %>
   </div>
 
   <div class="mb-3">

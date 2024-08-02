@@ -1,10 +1,11 @@
 class FtpService
-  def initialize(name)
+  def initialize(name, user)
     @name = name
+    @user = user
   end
 
-  def self.call(name)
-    new(name).send_file
+  def self.call(name, user)
+    new(name, user).send_file
   end
 
   def send_file
@@ -12,9 +13,9 @@ class FtpService
       ftp.chdir('/assets')
       ftp.putbinaryfile(@name)
     end
-    TelegramService.new("✅ File #{@name} is updated!").report
+    TelegramService.call(@user,"✅ File #{@name} is updated!")
   rescue => e
     Rails.logger.error e.message
-    TelegramService.new("❌ File #{@name} was not sent!\nError: #{e.message}").report
+    TelegramService.call(@user, "❌ File #{@name} was not sent!\nError: #{e.message}")
   end
 end

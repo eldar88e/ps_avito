@@ -61,5 +61,15 @@ Rails.application.configure do
       kwargs: { user_id: 1 },
       description: "Update ban list from avito report"
     }
-  }
+  } if Rails.env.production?
+
+  config.good_job.cron = {
+    update_feed: {
+      cron: "0 1 29 2 *",
+      kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
+      class: "MainPopulateJob",
+      set: { priority: 10 },
+      description: "Populate the Google Sheet for the Avito."
+    }
+  } if Rails.env.development?
 end
