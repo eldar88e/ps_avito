@@ -31,9 +31,7 @@ class PopulateExcelJob < ApplicationJob
            store.contact_method, make_image(game, store, address)]
         )
       end
-    end
 
-    store.addresses.where(active: true).each do |address|
       products.each do |product|
         ad_id = "#{product.id}_#{store.id}_#{address.id}"
         next if ban_list.include? ad_id
