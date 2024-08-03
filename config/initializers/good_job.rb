@@ -49,7 +49,7 @@ Rails.application.configure do
       set: { priority: 10 },
       description: "Clean up unattached blobs and images."
     },
-    check_avito: {
+    check_avito_shedules: {
       cron: "30 8-23 * * *",
       class: "CheckAvitoShedulesJob",
       set: { priority: 10 },
@@ -57,9 +57,9 @@ Rails.application.configure do
       kwargs: { user_id: 1 },
       description: "Notice for problem avito account"
     },
-    update_ban_list: {
+    check_avito_errors: {
       cron: "0 8 * * 1",
-      class: "UpdateBanListJob",
+      class: "CheckAvitoErrorsJob",
       set: { priority: 10 },
       kwargs: { user_id: 1 },
       description: "Update ban list from avito report"
