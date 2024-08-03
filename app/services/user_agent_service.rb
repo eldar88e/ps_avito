@@ -2,6 +2,7 @@ class UserAgentService
   def self.call
     new.any
   end
+
   def any
     FakeAgentInternal.instance.get
   end

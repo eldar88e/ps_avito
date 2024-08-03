@@ -30,18 +30,15 @@ class GameImageDownloaderJob < ApplicationJob
   private
 
   def download_image(url, user)
-    # response = Faraday.new.get(url)
     response = connect_to(url)
-    if response.status == 200 || response.headers['content-type'].match?(/image/)
-      response.body
-    else
-      Rails.logger.error "Job: #{self.class} || Error message: PS-image is not available! URL: #{url}"
-      TelegramService.call(user, "PS img is not available\n#{url}")
-      nil
-    end
+    return response.body if response&.headers['content-type']&.match?(/image/)
+
+    Rails.logger.error "Job: #{self.class} || Error message: PS img is not available! URL: #{url}"
+    TelegramService.call(user, "PS img is not available\n#{url}")
+    nil
   rescue => e
-    Rails.logger.error "Class: #{e.class} || Error message: #{e.message}"
-    TelegramService.call(user, "Sony image is not available\nError message: #{e.message}\n#{url}")
+    Rails.logger.error "Class: #{e.class} || Error message: #{e.full_message}"
+    TelegramService.call(user, "PS img is not available\nError message: #{e.message}\n#{url}")
     nil
   end
 
