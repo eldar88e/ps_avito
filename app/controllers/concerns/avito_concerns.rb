@@ -13,9 +13,7 @@ module AvitoConcerns
 
   def fetch_and_parse(url, method=:get, payload=nil)
     response = @avito.connect_to(url, method, payload)
-    if response.nil? || response.status != 200
-      raise StandardError, "Ошибка подключения к API Avito. Status: #{response.nil? ? 'nil' : response.status}"
-    end
+    raise StandardError, "Ошибка подключения к API Avito. Status: #{response&.status&.to_i}" if response&.status != 200
 
     JSON.parse(response.body)
   end
@@ -23,14 +21,14 @@ module AvitoConcerns
   def set_store
     @store = current_user.stores.find_by(id: params[:store_id])
     if @store.nil? || @store.client_id.blank? || @store.client_secret.blank?
-      error_notice "Не задан для магазина client_id или client_secret или магазин отсутствует в базе."
+      error_notice t('avito.error.set_store')
     end
   end
 
   def set_avito
     @avito = AvitoService.new(store: @store)
     if @avito.token_status && @avito.token_status != 200
-      error_notice "Ошибка обновления Авито токена! Возможно магазин заблокирован"
+      error_notice t('avito.error.set_avito')
     end
   end
 end

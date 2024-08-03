@@ -22,25 +22,26 @@ module Avito
                            autoload_enabled: autoload_enabled,
                            schedule: [{ rate: params[:store][:rate].to_i, time_slots: time_slots, weekdays: weekdays }]
       }
-      avito_json.merge! autoload_params
-      result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', method=:post, payload=avito_json)
+      keys_to_include = %i[upload_url report_email]
+      avito_json.merge! autoload_params.slice(*keys_to_include)
+      result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, avito_json)
 
       if result&.status == 200
         set_auto_load
         Rails.cache.delete("auto_load_#{@store.id}")
-        msg = 'Успешно обновлены настройки автозагрузки'
+        msg = t 'avito.notice.upd_autoload_conf'
         render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
       else
-        error_notice "Ошибка параметров JSON. Настройки автозагрузки не были изменены."
+        error_notice t('avito.error.upd_autoload_conf')
       end
     end
 
     def update_ads
-      result = @avito.connect_to('https://api.avito.ru/autoload/v1/upload', method=:post)
+      result = @avito.connect_to('https://api.avito.ru/autoload/v1/upload', :post)
       if result&.status == 200
-        render turbo_stream: success_notice('Успешно запущен процес обновления обявлений из Excel-feed.')
+        render turbo_stream: success_notice(t 'avito.notice.upd_ads')
       else
-        error_notice('Ошибка запуска обновления!')
+        error_notice(t 'avito.error.upd_ads')
       end
     end
 
@@ -55,7 +56,7 @@ module Avito
     end
 
     def autoload_params
-      params.require(:store).permit(:upload_url, :report_email)
+      params.require(:store).permit(:upload_url, :report_email, :autoload_enabled, :rate, weekdays: [], time_slots: [])
     end
   end
 end
