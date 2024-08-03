@@ -27,35 +27,7 @@ class UpdateBanListJob < ApplicationJob
       report = JSON.parse(response.body)
       next unless error_sections = report['section_stats']['sections'].find { |i| i['slug'] = 'error' }
 
-      if error_deleted = error_sections['sections'].find { |i| i['slug'] == 'error_deleted' }
-        count_del = error_deleted['count']
-        msg       = <<~MSG.squeeze(' ').chomp
-          ‼️Deleted #{count_del} games for #{store.manager_name}.\nДля выгрузки объявления как нового \
-          измените идентификатор объявления в элементе или воспользуйтесь функцией «Выгрузить как новые»
-        MSG
-        TelegramService.call(current_user, msg)
-      end
-
-      if error_limit = error_sections['sections'].find { |i| i['slug'] == 'error_fee_hard_limit' }
-        count_limit = error_limit['count']
-        msg         = "‼️Лимит на размещения #{count_limit} на аккаунте #{store.manager_name}"
-        TelegramService.call(current_user, msg)
-      end
-
-      if error_other = error_sections['sections'].find { |i| i['slug'] == 'error_other' }
-        count_other = error_other['count']
-        msg         = "‼️Другие ошибки #{count_other} на аккаунте #{store.manager_name}"
-        TelegramService.call(current_user, msg)
-      end
-
-      if error_fee = error_sections['sections'].find { |i| i['slug'] == 'error_fee' }
-        count_fee = error_fee['count']
-        msg       = <<~MSG.squeeze(' ').chomp
-          ‼️Пополните счет! Как только на счёте появятся деньги, #{count_fee} объявлений станут активными \
-          автоматически на аккаунте #{store.manager_name}.
-        MSG
-        TelegramService.call(current_user, msg)
-      end
+      error_sections['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
 
       next unless error_sections['sections'].find { |i| i['slug'] == 'error_blocked' }
 
@@ -81,5 +53,9 @@ class UpdateBanListJob < ApplicationJob
     end
 
     nil
+  end
+
+  def send_error_sections(section, user, account)
+    TelegramService.call(user, "‼️#{section['title']} #{section['count']} на аккаунте #{account}.")
   end
 end
