@@ -6,7 +6,7 @@ Rails.application.configure do
   config.good_job.time_zone = 'Europe/Moscow'
 
   # Cron jobs
-  config.good_job.cron = {
+  all = {
     update_feed: {
       cron: "0 1 29 2 *",
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
@@ -42,7 +42,7 @@ Rails.application.configure do
     }
   }
 
-  config.good_job.cron = {
+  production = {
     clean_images: {
       cron: "0 0 1 * *",
       class: "CleanUnattachedBlobsJob",
@@ -64,5 +64,7 @@ Rails.application.configure do
       kwargs: { user_id: 1 },
       description: "Update ban list from avito report"
     }
-  } if Rails.env.production?
+  }
+
+  config.good_job.cron = Rails.env.production? ? all.merge(production) : all
 end
