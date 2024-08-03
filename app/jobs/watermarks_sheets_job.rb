@@ -2,11 +2,12 @@ class WatermarksSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    stores    = args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true })
-    set_row   = args[:user].settings
-    settings  = set_row.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
-    blob      = set_row.find_by(var: 'main_font')&.font&.blob
-    main_font =
+    args[:user] = current_user(args[:user_id]) unless args[:user]
+    stores      = args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true })
+    set_row     = args[:user].settings
+    settings    = set_row.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
+    blob        = set_row.find_by(var: 'main_font')&.font&.blob
+    main_font   =
       if blob
         raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
         "./storage/#{raw_path}/#{blob.key}"
