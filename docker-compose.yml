@@ -31,9 +31,6 @@ services:
       - ./game_lists:/app/game_lists
     networks:
       - web-net
-    ports:
-      #- 3000:3000
-      #- 28080:28080
     restart: "unless-stopped"
 
   good_job:
