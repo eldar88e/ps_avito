@@ -32,7 +32,7 @@ services:
     networks:
       - web-net
     ports:
-      - 3000:3000
+      #- 3000:3000
       #- 28080:28080
     restart: "unless-stopped"
 
@@ -99,6 +99,8 @@ services:
     volumes:
       - gems:/usr/local/bundle
       - .:/app
+    ports:
+      - 80:80
     depends_on:
       - pg
       - mongodb
