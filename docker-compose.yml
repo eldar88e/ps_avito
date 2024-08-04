@@ -97,7 +97,7 @@ services:
       - gems:/usr/local/bundle
       - .:/app
     ports:
-      - 81:80
+      - 81:81
     depends_on:
       - pg
       - mongodb
