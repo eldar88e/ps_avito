@@ -10,8 +10,8 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      if verified_user = Rails.env.production? ? User.first : env['warden'].user
-        verified_user
+      if verified_user = User.first  # env['warden'].user TODO find a solution for authentication for job and rails
+        verified_user || reject_unauthorized_connection
       else
         reject_unauthorized_connection
       end

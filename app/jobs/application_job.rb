@@ -12,7 +12,7 @@ class ApplicationJob < ActiveJob::Base
   end
 
   def broadcast_notify(message, key='success')
-    #Rails.logger.info "Broadcasting message: #{message}"
+    # Rails.logger.info "Broadcasting message: #{message}"
     Turbo::StreamsChannel.broadcast_append_to(
       :notify,
       target: :notices,
