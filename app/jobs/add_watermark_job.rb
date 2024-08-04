@@ -48,6 +48,8 @@ class AddWatermarkJob < ApplicationJob
       msg = "🏞 Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
       broadcast_notify(msg)
       TelegramService.call(args[:user], msg)
+    else
+      broadcast_notify('Success!', 'primary')
     end
   rescue => e
     TelegramService.call(args[:user], "Error #{self.class} || #{e.message}")
