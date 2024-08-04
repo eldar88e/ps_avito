@@ -92,12 +92,12 @@ services:
     env_file: ./.env
     container_name: cable-ps
     entrypoint: [ ]
-    command: bundle exec puma -p 81 ./config/cable/config.ru
+    command: bundle exec puma -p 28080 ./config/cable/config.ru
     volumes:
       - gems:/usr/local/bundle
       - .:/app
     ports:
-      - 81:81
+      - 28080:28080
     depends_on:
       - pg
       - mongodb
