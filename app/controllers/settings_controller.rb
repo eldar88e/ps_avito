@@ -4,6 +4,10 @@ class SettingsController < ApplicationController
   def index
     @settings = current_user.settings.order(:created_at)
     @setting  = current_user.settings.build
+    Turbo::StreamsChannel
+      .broadcast_append_to(:notify, target: :notices, partial: '/notices/notice',
+                           locals: { notices: '✔ Hello world!',
+                                     key: %w[primary secondary success danger warning info light dark].sample })
   end
 
   def update
