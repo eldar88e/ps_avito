@@ -10,6 +10,13 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
+    <%= javascript_tag do %>
+      window.locale = "<%= I18n.locale %>"
+      //window.upload_endpoint = "<%#= app_config.media_server_upload_endpoint %>"
+      window.noimage_url = "<%= noimage_url %>"
+      //window.base_url = "window.location.origin<%#= Rails.application.config.base_url %>"
+    <% end %>
+
     <%= yield :head %>
   </head>
 

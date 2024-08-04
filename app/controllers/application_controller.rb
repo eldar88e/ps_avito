@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
-
+  helper_method :noimage_url
   before_action :set_search
 
   def error_notice(msg)
@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
 
   def success_notice(msg)
     send_notice(msg, 'success')
+  end
+
+  def noimage_url
+    ActionController::Base.helpers.image_path('noimage.png')
   end
 
   private

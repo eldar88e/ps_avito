@@ -28,7 +28,6 @@ class CheckAvitoErrorsJob < ApplicationJob
       next unless error_sections
 
       error_sections['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
-
       next unless error_sections['sections'].find { |i| i['slug'] == 'error_blocked' }
 
       url     = "#{report_url}/items?sections=error_blocked"
