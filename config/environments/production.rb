@@ -44,14 +44,10 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain.
   #config.action_cable.mount_path = '/cable' # nil
-  #config.action_cable.url = "ws://localhost:28080/cable"
+  config.action_cable.mount_path = nil
+  config.action_cable.url = "ws://localhost:80/cable"
   #config.action_cable.allowed_request_origins = ["http://server.open-ps.ru", /http:\/\/server.open-ps.*/]
   config.action_cable.disable_request_forgery_protection = true
-
-  config.after_initialize do
-    Rails.logger.info "Action Cable URL: #{Rails.application.config.action_cable.url}"
-    Rails.logger.info "Action Cable Mount Path: #{Rails.application.config.action_cable.mount_path}"
-  end
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
@@ -76,7 +72,7 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.cache_store = :redis_cache_store, {
-    url: ENV['REDIS_URL'],
+    url: ENV.fetch("REDIS_URL") { 'redis://localhost:6379/1' },
     namespace: 'cache',
     expires_in: 2.hour
   }

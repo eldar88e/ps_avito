@@ -22,24 +22,19 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  # if Rails.root.join("tmp/caching-dev.txt").exist?
-  #   config.action_controller.perform_caching = true
-  #   config.action_controller.enable_fragment_cache_logging = true
-  #
-  #   config.cache_store = :memory_store
-  #   config.public_file_server.headers = {
-  #     "Cache-Control" => "public, max-age=#{2.days.to_i}"
-  #   }
-  # else
-  #   config.action_controller.perform_caching = false
-  #
-  #   config.cache_store = :null_store
-  # end
-  config.cache_store = :redis_cache_store, {
-    url: ENV['REDIS_URL'],
-    namespace: 'cache',
-    expires_in: 2.hour
-  }
+  if Rails.root.join("tmp/caching-dev.txt").exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+    }
+  else
+    config.action_controller.perform_caching = false
+
+    config.cache_store = :null_store
+  end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -77,7 +72,7 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Uncomment if you wish to allow Action Cable access from any origin.
-  # config.action_cable.disable_request_forgery_protection = true
+  config.action_cable.disable_request_forgery_protection = true
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true

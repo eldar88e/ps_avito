@@ -89,6 +89,24 @@ services:
     networks:
       - web-net
 
+  cable:
+    image: cable
+    build: .
+    env_file: ./.env
+    container_name: cable-ps
+    entrypoint: [ ]
+    command: bundle exec puma -p 80 ./config/cable/config.ru
+    volumes:
+      - gems:/usr/local/bundle
+      - .:/app
+    depends_on:
+      - pg
+      - mongodb
+      - web
+    networks:
+      - web-net
+    restart: "unless-stopped"
+
 volumes:
   gems:
   db_data:
