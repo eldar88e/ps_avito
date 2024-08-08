@@ -43,6 +43,13 @@ Rails.application.configure do
   }
 
   production = {
+    update_feed: {
+      cron: "30 7,16 * * *",
+      kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
+      class: "MainPopulateJob",
+      set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
+      description: "Populate the Google Sheet for the Avito."
+    },
     clean_images: {
       cron: "0 0 1 * *",
       class: "CleanUnattachedBlobsJob",
@@ -51,18 +58,18 @@ Rails.application.configure do
     },
     check_avito_shedules: {
       cron: "30 8-23 * * *",
-      class: "CheckAvitoShedulesJob",
+      class: "CheckAvitoSchedulesJob",
       set: { priority: 10 },
       #args: [42, "life"],
       kwargs: { user_id: 1 },
-      description: "Notice for problem avito account"
+      description: "Check store schedules in avito"
     },
     check_avito_errors: {
       cron: "0 8 * * 1",
       class: "CheckAvitoErrorsJob",
       set: { priority: 10 },
       kwargs: { user_id: 1 },
-      description: "Update ban list from avito report"
+      description: "Check errors in the last report"
     }
   }
 

@@ -5,21 +5,21 @@ gem "rails", "~> 7.1.3"
 
 gem "sprockets-rails"
 gem "pg", "~> 1.5"
-gem "good_job", "~> 3"
-gem "puma", ">= 5.0"
+gem "good_job", "~> 4.1"
+gem "puma", "~> 6.4"
 gem "jsbundling-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "cssbundling-rails"
 gem "jbuilder"
-gem "redis", ">= 4.0.1"
+gem "redis", "~> 5.2"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem 'dotenv'
 gem 'rmagick'
-gem 'google_drive'
+# gem 'google_drive', "~> 3.0"
 gem 'mysql2'
-gem 'telegram-bot-ruby', "~> 0.19"
+gem 'telegram-bot-ruby', "~> 2.0"
 gem 'devise'
 gem 'net-ftp'
 gem 'active_link_to'

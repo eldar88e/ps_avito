@@ -1,4 +1,4 @@
-class CheckAvitoShedulesJob < ApplicationJob
+class CheckAvitoSchedulesJob < ApplicationJob
   queue_as :default
 
   def perform(**args)

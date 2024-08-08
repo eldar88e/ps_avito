@@ -2,8 +2,7 @@ services:
   pg:
     image: postgres:16.1
     container_name: pg-ps
-    hostname: pg
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
@@ -21,6 +20,7 @@ services:
     depends_on:
       - pg
       - redis
+      - mongodb
     volumes:
       - gems:/usr/local/bundle
       - ./node_modules:/app/node_modules
@@ -31,7 +31,7 @@ services:
       - ./game_lists:/app/game_lists
     networks:
       - web-net
-    restart: "unless-stopped"
+    restart: unless-stopped
 
   good_job:
     image: good_job
@@ -51,13 +51,13 @@ services:
       - pg
     networks:
       - web-net
-    restart: "unless-stopped"
+    restart: unless-stopped
 
   redis:
     image: redis:latest
     container_name: redis-ps
     command: redis-server
-    restart: always
+    restart: unless-stopped
     networks:
       - web-net
     volumes:
@@ -75,11 +75,12 @@ services:
     networks:
       - web-net
       - proxy-net
+    restart: always
 
   mongodb:
     image: mongo:latest
     container_name: mongodb-ps
-    restart: always
+    restart: unless-stopped
     env_file: ./.env
     volumes:
       - mongo_data:/data/db
@@ -100,11 +101,11 @@ services:
       - 28080:28080
     depends_on:
       - pg
-      - mongodb
+      - redis
       - web
     networks:
       - web-net
-    restart: "unless-stopped"
+    restart: unless-stopped
 
 volumes:
   gems:
