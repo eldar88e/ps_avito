@@ -171,6 +171,8 @@ class WatermarkService
   def initialize_first_layer
     Image.new(@width, @height) do |c|
       c.background_color = @settings[:avito_back_color] || '#FFFFFF'
+      #c.format           = 'JPEG'
+      #c.interlace        = PlaneInterlace
     end
   end
 end

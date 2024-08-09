@@ -44,7 +44,7 @@ Rails.application.configure do
 
   production = {
     update_feed: {
-      cron: "30 7,16 * * *",
+      cron: "30 10,19 * * *",
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       class: "MainPopulateJob",
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
