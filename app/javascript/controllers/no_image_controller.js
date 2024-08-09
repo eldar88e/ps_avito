@@ -11,15 +11,16 @@ export default class extends Controller {
     }
 
     processImages() {
-        const images = this.element.querySelectorAll('img');
-        images.forEach(img => {
-            img.addEventListener('error', this.handleImageError.bind(this));
+        const divs = this.element.querySelectorAll('.game-img');
+        divs.forEach(div => {
+            const img = new Image();
+            img.src = div.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+
+            img.addEventListener('error', () => this.handleImageError(div));
         });
     }
 
-    handleImageError(event) {
-        const img = event.target;
-        img.src = this.noImageUrlValue;
-        img.removeEventListener('error', this.handleImageError);
+    handleImageError(div) {
+        div.style.backgroundImage = `url(${this.noImageUrlValue})`;
     }
 }

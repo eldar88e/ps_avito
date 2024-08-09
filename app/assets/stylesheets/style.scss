@@ -362,3 +362,20 @@ ul.pagination {
     }
   }
 }
+
+@keyframes shine-loading-image {
+  0% {
+    background-position: -16px
+  }
+
+  40%,100% {
+    background-position: 76px
+  }
+}
+.loading-image {
+  height: 72px;
+  width: 96px;
+  background-image: linear-gradient(90deg, #ececec 0px, #f4f4f4 30px, #ececec 60px);
+  background-size: 86px;
+  animation: shine-loading-image 1.5s infinite ease-out;
+}
