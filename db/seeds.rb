@@ -1,9 +1,5 @@
-if true # Rails.env.development?
+if Rails.env.development?
   user = User.create(email: 'test@test.tt', password: 12345678)
-
-  user.settings.create(var: 'game_img_size', value: 1080)
-  user.settings.create(var: 'telegram_chat_id', value: 123)
-  user.settings.create(var: 'quantity_games', value: 10)
 
   Game.create(name: 'Spider-Man', sony_id: 'EP9000-PPSA08338_00-MARVELSPIDERMAN2', run_id: 1, touched_run_id: 1,
                     price: 8600, top: 1, platform: 'PS5', md5_hash: 'a248d22ae9c2')

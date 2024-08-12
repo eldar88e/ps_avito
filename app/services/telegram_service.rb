@@ -23,6 +23,11 @@ class TelegramService
       return
     end
 
+    if @chat_id.blank? || @bot_token.blank?
+      Rails.logger.error 'Telegram chat ID or bot token not set!'
+      return
+    end
+
     tg_send
   end
 

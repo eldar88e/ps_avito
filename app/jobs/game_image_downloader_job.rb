@@ -21,9 +21,6 @@ class GameImageDownloaderJob < ApplicationJob
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
   rescue => e
-    puts '+' * 130
-    puts e.full_message
-    puts '+' * 130
     Rails.logger.error(e.full_message)
   end
 

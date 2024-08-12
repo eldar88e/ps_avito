@@ -29,7 +29,7 @@ class AddressesController < ApplicationController
         turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: address }),
         turbo_stream.remove(:new_address),
         turbo_stream.before(:addresses, partial: 'addresses/new_address_btn', locals: { store: address.store }),
-        success_notice(msg),
+        success_notice(msg)
       ]
     else
       error_notice(address.errors.full_messages)

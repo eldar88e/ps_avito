@@ -10,8 +10,8 @@ class WatermarkService
     @product   = args[:product]
     @store     = args[:store]
     @settings  = args[:settings]
-    @width     = @settings[:avito_img_width].to_i || 1920
-    @height    = @settings[:avito_img_height].to_i || 1440
+    @width     = (@settings[:avito_img_width] || 1920).to_i
+    @height    = (@settings[:avito_img_height] || 1440).to_i
     @new_image = initialize_first_layer
     img_url    = find_main_ad_img
     @image     = image_exist?(img_url)

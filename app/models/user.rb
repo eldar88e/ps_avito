@@ -17,7 +17,17 @@ class User < ApplicationRecord
   private
 
   def create_default_settings
-    settings = [
+    Setting.transaction do
+      default_settings_params.each do |params|
+        self.settings.create!(params)
+      end
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Failed to create setting: #{e.message}")
+  end
+
+  def default_settings_params
+    [
       { var: 'game_img_size', value: 1080 },
       { var: 'telegram_chat_id' },
       { var: 'telegram_bot_token' },
@@ -26,8 +36,5 @@ class User < ApplicationRecord
       { var: 'avito_img_height', value: 1440 },
       { var: 'avito_back_color', value: '#FFFFFF' }
     ]
-    settings.each { |setting_params| Setting.create!(user: self, **setting_params) }
-  rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error("Failed to create setting: #{e.message}")
   end
 end
