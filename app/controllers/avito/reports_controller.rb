@@ -12,11 +12,11 @@ module Avito
     def show
       avito_url = "https://api.avito.ru/autoload/v2/reports/#{params['id']}"
       unless turbo_frame_request?
-        @cached_report = initialize_cache
-        @cached        = @cached_report.report.present?
-        @report        = set_cache(avito_url, :report)
-        money_url      = "#{avito_url}/items/fees"
-        @money         = set_cache(money_url, :fees)
+        initialize_cache
+        @cached   = @cached_report.report.present?
+        @report   = set_cache(avito_url, :report)
+        money_url = "#{avito_url}/items/fees"
+        @money    = set_cache(money_url, :fees)
 
         add_breadcrumb @report['report_id']
       end
@@ -35,17 +35,21 @@ module Avito
       return result if result
 
       result = fetch_and_parse(url)
-      @cached_report.public_send("#{section}=", result)
-      @cached_report.save if result['status'] != 'processing'
+      if params['no_cache'].nil? && result['status'] != 'processing'
+        @cached_report.public_send("#{section}=", result)
+        @cached_report.save
+      end
       result
     end
 
     def initialize_cache
-      if params['no_cache'].nil?
-        CacheReport.find_or_initialize_by(report_id: params['id'], store_id: @store.id)
-      else
-        CacheReport.new(report_id: params['id'], store_id: @store.id)
-      end
+      @cached_report =
+        if params['no_cache'].nil?
+          CacheReport.find_or_initialize_by(report_id: params['id'], store_id: @store.id)
+        else
+          CacheReport.where(report_id: params['id'], store_id: @store.id).delete_all
+          CacheReport.new(report_id: params['id'], store_id: @store.id)
+        end
     end
 
     def handle_sections_params
