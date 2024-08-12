@@ -7,9 +7,9 @@ class CheckAvitoErrorsJob < ApplicationJob
         [args[:store]]
       else
         return unless args[:user_id]
-        current_user = current_user(args[:user_id])
         current_user.stores.where(active: true)
       end
+    current_user = stores.first.user
 
     stores.each do |store|
       avito = AvitoService.new(store: store)

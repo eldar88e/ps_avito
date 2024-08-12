@@ -1,3 +1,5 @@
+require 'faraday'
+
 class AvitoService
   def initialize(**args)
     @store = args[:store]
