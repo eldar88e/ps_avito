@@ -25,11 +25,15 @@ class CheckAvitoErrorsJob < ApplicationJob
       report     = fetch_and_parse(avito, report_url)
       next unless report
 
-      error_sections = report['section_stats']['sections'].find { |i| i['slug'] = 'error' }
+      error_sections = report['section_stats']['sections'].select { |i| i['slug'] == 'error' }
       next unless error_sections
 
-      error_sections['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
-      next unless error_sections['sections'].find { |i| i['slug'] == 'error_blocked' }
+      error_blocked = false
+      error_sections.each do |error|
+        error_blocked = true if !error_blocked && error['sections'].find { |i| i['slug'] == 'error_blocked' }
+        error['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
+      end
+      next unless error_blocked
 
       url     = "#{report_url}/items?sections=error_blocked"
       blocked = fetch_and_parse(avito, url)
