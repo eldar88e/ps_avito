@@ -82,7 +82,7 @@
 
   <div class="mb-3">
     <%= form.label :menuindex, 'Расположение картинки в слоях изображения для авито', class: 'form-label' %>
-    <%= form.text_field :menuindex, class: 'form-control' %>
+    <%= form.number_field :menuindex, class: 'form-control' %>
   </div>
 
   <div class="mb-3">
@@ -93,6 +93,11 @@
   <div class="mb-3">
     <%= form.label :client_secret, class: 'form-label' %>
     <%= form.text_field :client_secret, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :percent, class: 'form-label' %>
+    <%= form.number_field :percent, class: 'form-control' %>
   </div>
 
   <div class="mb-3">

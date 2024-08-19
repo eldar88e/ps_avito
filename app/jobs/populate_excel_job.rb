@@ -27,7 +27,7 @@ class PopulateExcelJob < ApplicationJob
         worksheet.append_row(
           [ad_id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
            make_local(game), address.store_address, make_title(game), make_description(game, store, address),
-           store.condition, make_price(game.price_tl), store.allow_email, store.manager_name, store.contact_phone,
+           store.condition, make_price(game.price_tl, store), store.allow_email, store.manager_name, store.contact_phone,
            store.contact_method, make_image(game, store, address)]
         )
       end
@@ -151,9 +151,10 @@ class PopulateExcelJob < ApplicationJob
     end
   end
 
-  def make_price(price)
+  def make_price(price, store)
+    percent       = store.percent || 0
     exchange_rate = make_exchange_rate(price)
-    round_up_price(price * exchange_rate)
+    round_up_price(price * exchange_rate * (1 + percent / 100.0))
   end
 
   def round_up_price(price)
