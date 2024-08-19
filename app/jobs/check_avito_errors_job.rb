@@ -7,7 +7,8 @@ class CheckAvitoErrorsJob < ApplicationJob
         [args[:store]]
       else
         return unless args[:user_id]
-        current_user.stores.where(active: true)
+
+        current_user(args[:user_id]).stores.where(active: true)
       end
     current_user = stores.first.user
 
