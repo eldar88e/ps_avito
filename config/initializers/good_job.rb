@@ -65,7 +65,7 @@ Rails.application.configure do
       description: "Check store schedules in avito"
     },
     check_avito_errors: {
-      cron: "0 8 * * 1",
+      cron: "0 18 * * *",
       class: "CheckAvitoErrorsJob",
       set: { priority: 10 },
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
