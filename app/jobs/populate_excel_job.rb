@@ -154,7 +154,8 @@ class PopulateExcelJob < ApplicationJob
   def make_price(price, store)
     percent       = store.percent || 0
     exchange_rate = make_exchange_rate(price)
-    round_up_price(price * exchange_rate * (1 + percent / 100.0))
+    price_rub     = price * exchange_rate
+    round_up_price(price_rub + (price_rub * percent / 100.0))
   end
 
   def round_up_price(price)
