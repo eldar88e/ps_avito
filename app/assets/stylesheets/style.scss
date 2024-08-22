@@ -379,3 +379,17 @@ ul.pagination {
   background-size: 86px;
   animation: shine-loading-image 1.5s infinite ease-out;
 }
+
+.main-h1 {
+  position: relative;
+
+  .percent {
+    background: #dc3545;
+    padding: 3px 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: -12px;
+    font-size: 0.6em;
+    color: white;
+  }
+}

@@ -1,5 +1,8 @@
 <% content_for :title do %>
   Магазин <%= @store.manager_name %>
+  <% if !@store.percent.zero? %>
+    <span class="percent"><%= '+' if @store.percent.positive?  %><%= "#{@store.percent}" %>%</span>
+  <% end %>
 <% end %>
 
 <% content_for :head do %>
