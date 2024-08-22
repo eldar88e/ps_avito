@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_19_170029) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_22_120413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -316,7 +316,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_170029) do
   add_foreign_key "addresses", "stores"
   add_foreign_key "avito_tokens", "stores"
   add_foreign_key "ban_lists", "stores"
-  add_foreign_key "game_black_lists", "games", primary_key: "sony_id"
   add_foreign_key "image_layers", "stores"
   add_foreign_key "products", "users"
   add_foreign_key "settings", "users"

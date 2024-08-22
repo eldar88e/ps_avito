@@ -49,12 +49,12 @@ class WatermarkService
   def rewrite_pos_size(args)
     return {} if args.blank?
 
-    formated_args = {
-      'pos_x' => args['pos_x'].to_i > @width ? @width : args['pos_x'].to_i,
-      'pos_y' => args['pos_y'].to_i > @height ? @height : args['pos_y'].to_i,
-      'row' => args['row'].to_i > @width ? @width : args['row'].to_i,
-      'column' => args['column'].to_i > @height ? @height : args['column'].to_i
-    }
+    formated_args = {}
+    formated_args['pos_x']  = args['pos_x'].to_i > @width ? @width : args['pos_x'].to_i     if args['pos_x'].present?
+    formated_args['pos_y']  = args['pos_y'].to_i > @height ? @height : args['pos_y'].to_i   if args['pos_y'].present?
+    formated_args['row']    = args['row'].to_i > @width ? @width : args['row'].to_i         if args['row'].present?
+    formated_args['column'] = args['column'].to_i > @height ? @height : args['column'].to_i if args['column'].present?
+
     args.merge formated_args
   end
 
@@ -63,7 +63,7 @@ class WatermarkService
 
     params = layer[:params]
     img    = Image.read(layer[:img]).first
-    if params['row'] && params['column'] && !params['row'].zero? && !params['column'].zero?
+    if (params['column'] && !params['column'].zero?) || (params['row'] && !params['row'].zero?)
       img.resize_to_fit!(params['row'], params['column'])
     end
     @new_image.composite!(img, params['pos_x'] || 0, params['pos_y'] || 0, OverCompositeOp)
