@@ -30,7 +30,8 @@ services:
       - ./game_images:/app/game_images
       - ./game_lists:/app/game_lists
     networks:
-      - web-net
+      web-net:
+        ipv4_address: 172.29.0.3
     restart: unless-stopped
 
   good_job:
