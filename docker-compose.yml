@@ -30,8 +30,7 @@ services:
       - ./game_images:/app/game_images
       - ./game_lists:/app/game_lists
     networks:
-      web-net:
-        ipv4_address: 172.29.0.3
+      - web-net
     restart: unless-stopped
 
   good_job:
@@ -74,8 +73,9 @@ services:
     depends_on:
       - web
     networks:
-      - web-net
-      - proxy-net
+      web-net:
+      proxy-net:
+        ipv4_address: 172.29.0.3
     restart: always
 
   mongodb:
