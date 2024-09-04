@@ -40,7 +40,9 @@ class GameImageDownloaderJob < ApplicationJob
   end
 
   def connect_to(url)
-    connection = Faraday.new do |faraday|
+    faraday_params = { proxy: fetch_proxy }
+
+    connection = Faraday.new(faraday_params) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger if Rails.env.development?
       faraday.adapter :net_http
@@ -51,5 +53,9 @@ class GameImageDownloaderJob < ApplicationJob
     end
 
     connection.get(url)
+  end
+
+  def fetch_proxy
+    YAML.load_file('proxies.yml').sample
   end
 end
