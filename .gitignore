@@ -41,3 +41,4 @@
 !/game_images/.keep
 /game_lists/*
 !/game_lists/.keep
+proxies.yml
