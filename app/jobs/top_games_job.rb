@@ -5,7 +5,6 @@ class TopGamesJob < ApplicationJob
     quantity = args[:games] || args[:settings]['quantity_games']
     db       = connect_db
     games    = db.query(query_db(quantity))
-    binding.pry
     run_id   = Run.last_id
     count    = 0
 
