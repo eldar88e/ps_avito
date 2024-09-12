@@ -31,7 +31,7 @@ class AddWatermarkJob < ApplicationJob
             products.each do |product|
               next if product.is_a?(Game) && product.game_black_list
 
-              file_id     = "#{product.send(id)}_#{address.store.id}_#{address.id}"
+              file_id     = "#{product.send(id)}_#{store.id}_#{address.id}"
               current_img = address.ads.find_by(file_id: file_id, deleted: 0)
               (args[:clean] ? current_img.image.purge : next) if current_img&.image&.attached?
 
@@ -40,7 +40,7 @@ class AddWatermarkJob < ApplicationJob
               next unless w_service.image
 
               image = w_service.add_watermarks
-              name  = "#{product.send(id)}_#{store.id}_#{address.id}_#{settings[:game_img_size]}.jpg"
+              name  = "#{file_id}_#{settings[:game_img_size]}.jpg"
               save_image(image: image, product: product, name: name, address: address)
               count += 1
             end
