@@ -25,7 +25,7 @@ class TopGamesJob < ApplicationJob
 
     Game.where.not(touched_run_id: run_id).destroy_all
     Run.finish
-    msg = '✅ Game list updated.'
+    msg = "✅ List updated #{games.size} games."
     msg += " Add #{count} new game(s)." if count > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
