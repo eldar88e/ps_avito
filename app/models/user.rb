@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :settings, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :ads, dependent: :destroy
 
   after_create :create_default_settings
 

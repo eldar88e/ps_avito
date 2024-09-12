@@ -14,6 +14,7 @@ class Store < ApplicationRecord
   has_many :addresses, dependent: :destroy
   has_many :avito_tokens, dependent: :destroy
   has_many :ban_lists, dependent: :destroy
+  has_many :ads, dependent: :destroy
 
   belongs_to :user
 

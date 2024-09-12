@@ -1,0 +1,7 @@
+<div class="swiper-slide">
+  <a data-fancybox="gallery" data-src="<%= url_for(model.image) %>" data-caption="<%= game.send(title) %>">
+    <div class="loading-image" style='width: 96px;'>
+      <div style='background: url(<%= url_for(model.image) %>); width: 96px; height: 72px; background-size: cover;' class="game-img mb-1"></div>
+    </div>
+  </a>
+</div>

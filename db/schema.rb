@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_22_120413) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_11_223059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_22_120413) do
     t.string "description"
     t.integer "total_games"
     t.index ["store_id"], name: "index_addresses_on_store_id"
+  end
+
+  create_table "ads", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.bigint "address_id", null: false
+    t.string "file_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "adable_type", null: false
+    t.bigint "adable_id", null: false
+    t.integer "deleted", default: 0, null: false
+    t.bigint "user_id", null: false
+    t.index ["adable_type", "adable_id"], name: "index_ads_on_adable"
+    t.index ["address_id"], name: "index_ads_on_address_id"
+    t.index ["file_id"], name: "index_ads_on_file_id"
+    t.index ["store_id"], name: "index_ads_on_store_id"
+    t.index ["user_id"], name: "index_ads_on_user_id"
+    t.check_constraint "deleted = ANY (ARRAY[0, 1])", name: "check_deleted_value"
   end
 
   create_table "avito_tokens", force: :cascade do |t|
@@ -314,6 +332,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_22_120413) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "stores"
+  add_foreign_key "ads", "addresses"
+  add_foreign_key "ads", "stores"
+  add_foreign_key "ads", "users"
   add_foreign_key "avito_tokens", "stores"
   add_foreign_key "ban_lists", "stores"
   add_foreign_key "image_layers", "stores"
