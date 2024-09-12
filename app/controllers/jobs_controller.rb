@@ -26,7 +26,9 @@ class JobsController < ApplicationController
     clean = params[:clean]
     store = current_user.stores.find_by(active: true, id: params[:store_id])
     if store
-      [Game, Product].each do |model|
+      models = [Game]
+      models << Product if current_user.products.where(active: true).any?
+      models.each do |model|
         AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, settings: @settings,
                                       main_font: @main_font, clean: clean, address_id: params[:address_id])
       end

@@ -71,6 +71,7 @@ class TopGamesJob < ApplicationJob
       WHERE game.parent IN (217, 218)
         AND game.deleted = 0
         AND game.published = 1
+      GROUP BY game.pagetitle
       ORDER BY game.menuindex
       LIMIT #{quantity}
     SQL
