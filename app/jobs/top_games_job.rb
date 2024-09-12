@@ -5,6 +5,7 @@ class TopGamesJob < ApplicationJob
     quantity = args[:games] || args[:settings]['quantity_games']
     db       = connect_db
     games    = db.query(query_db(quantity))
+    binding.pry
     run_id   = Run.last_id
     count    = 0
 
@@ -58,7 +59,7 @@ class TopGamesJob < ApplicationJob
         additional.janr AS sony_id,
         game.pagetitle AS name,
         game.menuindex AS top,
-        additional.price,
+        MIN(additional.price) AS price,
         additional.old_price,
         additional.price_tl,
         additional.discount_end_date,
