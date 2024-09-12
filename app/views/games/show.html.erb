@@ -8,9 +8,13 @@
       <%= render '/games/game_black_list_buttons' %>
     <% end %>
 
-    <% if @game.images.attached? %>
-      <% @game.images.each do |image| %>
-        <%= image_tag url_for(image), style: 'width: 100%; margin: 1em 0;' %>
+    <% if @game.image.attached? %>
+      <%= image_tag url_for(@game.image), style: 'width: 100%; margin: 1em 0;' %>
+    <% end %>
+
+    <% if @game.ads.present? %>
+      <% @game.ads.each do |ad| %>
+        <%= image_tag url_for(ad.image), style: 'width: 100%; margin: 1em 0;' %>
       <% end %>
     <% end %>
 
