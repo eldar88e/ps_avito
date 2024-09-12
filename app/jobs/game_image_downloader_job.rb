@@ -8,20 +8,14 @@ class GameImageDownloaderJob < ApplicationJob
     games.each do |game|
       next if game.image.attached?
 
-      name         = "#{game.sony_id}_#{size}.jpg"
-      old_img_path = "./game_images/#{name}"
+      url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
+        "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
+      img = download_image(url, args[:user])
+      next if img.nil?
 
-      if File.exist?(old_img_path)
-        game.image.attach(io: File.open(old_img_path), filename: name, content_type: 'image/jpeg')
-      else
-        url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
-          "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
-        img = download_image(url, args[:user])
-        next if img.nil?
-
-        save_image(game, img, name)
-        sleep rand(0.7..2.9)
-      end
+      name = "#{game.sony_id}_#{size}.jpg"
+      save_image(game, img, name)
+      sleep rand(0.7..2.9)
     end
     msg = '✅ All game image downloaded!'
     broadcast_notify(msg)
