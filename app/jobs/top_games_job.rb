@@ -4,8 +4,7 @@ class TopGamesJob < ApplicationJob
   def perform(**args)
     quantity = args[:games] || args[:settings]['quantity_games']
     db       = connect_db
-    games    = db.query(query_db(quantity))
-    binding.pry
+    games    = db.query(query_db(quantity)).to_a
     run_id   = Run.last_id
     count    = 0
 
