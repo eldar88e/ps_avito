@@ -58,7 +58,7 @@ class TopGamesJob < ApplicationJob
         additional.janr AS sony_id,
         game.pagetitle AS name,
         game.menuindex AS top,
-        MIN(additional.price) AS price,
+        additional.price,
         additional.old_price,
         additional.price_tl,
         additional.discount_end_date,
@@ -71,11 +71,13 @@ class TopGamesJob < ApplicationJob
       WHERE game.parent IN (217, 218)
         AND game.deleted = 0
         AND game.published = 1
-      GROUP BY game.pagetitle
       ORDER BY game.menuindex
       LIMIT #{quantity}
     SQL
   end
+
+  # GROUP BY game.pagetitle
+  # MIN(additional.price) AS price,
 
   def md5_hash(hash)
     str = hash.values.join
