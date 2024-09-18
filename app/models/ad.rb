@@ -5,7 +5,7 @@ class Ad < ApplicationRecord
   belongs_to :store
   belongs_to :address
   belongs_to :adable, polymorphic: true
-  has_one_attached :image
+  has_one_attached :image, dependent: :purge
 
   enum deleted: { active: 0, deleted: 1 }
 end

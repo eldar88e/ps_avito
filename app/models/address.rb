@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  has_one_attached :image, dependent: :destroy, service: :local
+  has_one_attached :image, dependent: :purge, service: :local
   belongs_to :store
   has_many :streets, dependent: :destroy
   has_many :ads, dependent: :destroy
