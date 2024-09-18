@@ -12,7 +12,7 @@ Rails.application.configure do
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       class: "MainPopulateJob",
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
-      description: "Populate the Google Sheet for the Avito."
+      description: "Populate excel feed."
     },
     download_images: {
       cron: "0 2 29 2 *",
