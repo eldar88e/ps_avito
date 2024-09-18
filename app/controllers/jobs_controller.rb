@@ -58,7 +58,7 @@ class JobsController < ApplicationController
 
   def update_ban_list
     store = current_user.stores.find_by(active: true, id: params[:store_id])
-    if store && CheckAvitoErrorsJob.perform_later(store: store)
+    if store && Avito::CheckErrorsJob.perform_later(store: store)
       msg = "Фоновая задача по обновлению списка заблокированных объявлений для магазина #{store.manager_name} \
              успешно запущена."
       render turbo_stream: [success_notice(msg)]

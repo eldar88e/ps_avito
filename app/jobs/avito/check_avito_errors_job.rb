@@ -1,4 +1,4 @@
-class CheckAvitoErrorsJob < ApplicationJob
+class Avito::CheckErrorsJob < ApplicationJob
   queue_as :default
 
   def perform(**args)

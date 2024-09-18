@@ -11,6 +11,10 @@ class ApplicationJob < ActiveJob::Base
     User.find(user_id)
   end
 
+  def find_user(args)
+    args[:user] || current_user(args[:user_id])
+  end
+
   def broadcast_notify(message, key='success')
     # Rails.logger.info "Broadcasting message: #{message}"
     Turbo::StreamsChannel.broadcast_append_to(
