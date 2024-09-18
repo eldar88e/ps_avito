@@ -30,8 +30,8 @@ class User < ApplicationRecord
   def default_settings_params
     [
       { var: 'game_img_size', value: 1080 },
-      { var: 'telegram_chat_id' },
-      { var: 'telegram_bot_token' },
+      { var: 'telegram_chat_id', value: 'example_chat_id' },
+      { var: 'telegram_bot_token', value: 'example_bot_token' },
       { var: 'quantity_games', value: 10 },
       { var: 'avito_img_width', value: 1920 },
       { var: 'avito_img_height', value: 1440 },
