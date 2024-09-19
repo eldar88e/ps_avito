@@ -29,7 +29,7 @@ Rails.application.configure do
       description: "Update all excel files with replacing all images"
     },
     clean: {
-      cron: "0 4 29 2 *",
+      cron: "0 1 * * 0",
       class: "Clean::MainCleanerJob",
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       set: { priority: 10 },
