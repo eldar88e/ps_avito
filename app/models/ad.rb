@@ -8,4 +8,12 @@ class Ad < ApplicationRecord
   has_one_attached :image, dependent: :purge
 
   enum deleted: { active: 0, deleted: 1 }
+
+  scope :not_baned, -> {
+    where(banned: false).or(
+      where('banned_until < ?', Time.current)
+    )
+  }
+
+  scope :active_ads, -> { not_baned.where(deleted: :active) }
 end

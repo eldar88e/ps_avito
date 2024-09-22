@@ -31,7 +31,7 @@
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Слои картинки</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="ban-tab" data-bs-toggle="tab" data-bs-target="#ban" type="button" role="tab" aria-controls="ban" aria-selected="false">Заблокированные объявления</button>
+        <button class="nav-link" id="ads-tab" data-bs-toggle="tab" data-bs-target="#ads" type="button" role="tab" aria-controls="ads" aria-selected="false">Объявления</button>
       </li>
     </ul>
 
@@ -65,7 +65,7 @@
         </ol>
       </div>
 
-      <%= render '/stores/ban_list' %>
+      <%= render '/ads/ads_list' %>
     </div>
   </div>
 <% end %>

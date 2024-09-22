@@ -7,7 +7,7 @@ class StoresController < ApplicationController
   end
 
   def show
-    @pagy, @ban = pagy(@store.ban_lists.order(created_at: :desc), items: 36)
+    @pagy, @ads = pagy(@store.ads.order(created_at: :desc), items: 36)
     @whitelist  = { elements: %w[div span ul li br b i strong em p] }
   end
 

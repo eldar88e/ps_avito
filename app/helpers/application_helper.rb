@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def img_resize(attachment, width, height=nil)
+    url_for(attachment.variant(resize_to_limit: [width, height || width]).processed)
+  end
+
   def format_date(date)
     return unless date.present?
 

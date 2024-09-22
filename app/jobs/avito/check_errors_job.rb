@@ -37,21 +37,27 @@ class Avito::CheckErrorsJob < ApplicationJob
 
       url     = "#{report_url}/items?sections=error_blocked"
       blocked = fetch_and_parse(avito, url)
-      add_ban_ad(store, blocked, report_id) if blocked
+      add_ban_ad(store, blocked) if blocked # , report_id
     end
 
     nil
   end
 
-  def add_ban_ad(store, blocked, report_id)
+  def add_ban_ad(store, blocked) # , report_id
     count_ban = 0
     blocked['items'].each do |item|
       id             = item['ad_id']
-      ban_list_entry = store.ban_lists.find_or_initialize_by(ad_id: id)
+      ban_list_entry = store.ads.find_by(id: id)
 
-      if ban_list_entry.new_record? || ban_list_entry.expires_at <= Time.current
-        ban_list_entry.update(expires_at: Time.current + 1.month, report_id: report_id)
+      if ban_list_entry.nil?
+        msg = 'Not existing ad with id ' + id
+        Rails.logger.error msg
+        TelegramService.call(store.user, msg)
+      elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
+        ban_list_entry.update(banned_until: Time.current + 1.month) # report_id: report_id
         count_ban += 1
+      else
+
       end
     end
 
