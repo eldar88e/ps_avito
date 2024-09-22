@@ -54,7 +54,7 @@ class Avito::CheckErrorsJob < ApplicationJob
         Rails.logger.error msg
         TelegramService.call(store.user, msg)
       elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
-        ban_list_entry.update(banned_until: Time.current + 1.month) # report_id: report_id
+        ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
         count_ban += 1
       else
 

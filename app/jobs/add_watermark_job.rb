@@ -27,12 +27,13 @@ class AddWatermarkJob < ApplicationJob
         stores.each do |store|
           addresses = store.addresses.where(addr_args)
           addresses.each do |address|
-            products = products.limit(address.total_games) if model == Game && address.total_games.present?
+            ads = address.ads.active_ads
+            products = products.limit(address&.total_games) if model == Game
             products.each do |product|
               next if product.is_a?(Game) && product.game_black_list
 
               file_id     = "#{product.send(id)}_#{store.id}_#{address.id}"
-              current_img = address.ads.find_by(file_id: file_id, deleted: 0)
+              current_img = ads.find { |i| i[:file_id] == file_id }
               (args[:clean] ? current_img.image.purge : next) if current_img&.image&.attached?
 
               w_service = WatermarkService.new(store: store, address: address, settings: settings,

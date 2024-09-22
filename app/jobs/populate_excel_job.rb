@@ -6,7 +6,6 @@ class PopulateExcelJob < ApplicationJob
     store     = args[:store]
     user      = args[:store].user
     settings  = user.settings.pluck(:var, :value).to_h
-    xlsx_path = "./game_lists/top_1000_#{store.var}.xlsx"
     workbook  = FastExcel.open
     worksheet = workbook.add_worksheet
     products  = user.products.where(active: true).with_attached_image
@@ -14,15 +13,14 @@ class PopulateExcelJob < ApplicationJob
     worksheet.append_row %w[Id AdStatus Category GoodsType AdType Type Platform Localization Address Title
                             Description Condition Price AllowEmail ManagerName	ContactPhone ContactMethod ImageUrls]
 
-    ban_list = store.ban_lists.active.pluck(:ad_id)
     store.addresses.where(active: true).each do |address|
+      ads   = address.ads.active_ads
       games = Game.order(:top).limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
       games.each do |game|
         next if game.game_black_list
 
-        ad_id = "#{game.sony_id}_#{store.id}_#{address.id}"
-        ad    = store.ads.find_by(file_id: ad_id, deleted: 0)
-        next if ban_list.include? ad.id
+        ad = ads.find { |ad| ad[:file_id] == "#{game.sony_id}_#{store.id}_#{address.id}" }
+        next if ad.nil?
 
         worksheet.append_row(
           [ad.id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
@@ -33,9 +31,8 @@ class PopulateExcelJob < ApplicationJob
       end
 
       products.each do |product|
-        ad_id = "#{product.id}_#{store.id}_#{address.id}"
-        ad    = store.ads.find_by(file_id: ad_id, deleted: 0)
-        next if ban_list.include? ad.id
+        ad = ads.find { |ad| ad[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
+        next if ad.nil?
 
         worksheet.append_row(
           [ad.id, product.ad_status || store.ad_status, product.category || store.category,
@@ -48,7 +45,8 @@ class PopulateExcelJob < ApplicationJob
       end
     end
 
-    content = workbook.read_string
+    content   = workbook.read_string
+    xlsx_path = "./game_lists/top_1000_#{store.var}.xlsx"
     File.open(xlsx_path, 'wb') { |f| f.write(content) }
 
     # FtpService.call(xlsx_path) if settings['send_ftp']
