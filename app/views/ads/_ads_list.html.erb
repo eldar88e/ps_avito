@@ -2,15 +2,16 @@
   <% if @ads.present? %>
     <%= button_to 'Очистить бан лист', store_update_all_path(@store.id), class: 'btn btn-primary mb-3' %>
     <%= turbo_frame_tag :ads do %>
+      <%= render '/ads/search' %>
       <ul class="list-group" data-controller="fancybox">
         <li class="list-group-item list-group-item-action active d-none d-md-block">
-          <div class="row">
-            <div class="col-1">№</div>
+          <div class="row sort_ads">
+            <div class="col-1"><%= sort_link(@q_ads, :id, 'File ID') %></div>
             <div class="col-1">Img</div>
-            <div class="col-6">File id</div>
-            <div class="col-1">Deleted</div>
-            <div class="col-1">Baned</div>
-            <div class="col-2">Заблокировано до</div>
+            <div class="col-6"><%= sort_link(@q_ads, :file_id, 'Match ID') %></div>
+            <div class="col-1"><%= sort_link(@q_ads, :deleted, 'Deleted') %></div>
+            <div class="col-1"><%= sort_link(@q_ads, :baned, 'Baned') %></div>
+            <div class="col-2"><%= sort_link(@q_ads, :baned_until, 'Заблокировано до') %></div>
           </div>
         </li>
         <% @ads.each do |item| %>

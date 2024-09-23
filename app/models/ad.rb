@@ -16,4 +16,12 @@ class Ad < ApplicationRecord
   }
 
   scope :active_ads, -> { not_baned.where(deleted: :active) }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[file_id id]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[]
+  end
 end

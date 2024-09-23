@@ -35,26 +35,36 @@ class Avito::CheckErrorsJob < ApplicationJob
       end
       next unless error_blocked
 
-      url     = "#{report_url}/items?sections=error_blocked"
-      blocked = fetch_and_parse(avito, url)
-      add_ban_ad(store, blocked) if blocked # , report_id
+      ads = store.ads.load
+      blocked = fetch_and_add_ban_ad(report_url, avito, store ,ads)
+      if blocked['meta']['pages'] > 1
+        [*1..blocked['meta']['pages']].each do |page|
+          fetch_and_add_ban_ad(report_url, avito, store ,ads, page)
+        end
+      end
     end
 
     nil
   end
 
-  def add_ban_ad(store, blocked) # , report_id
+  def fetch_and_add_ban_ad(report_url, avito, store ,ads, page=nil)
+    url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
+    blocked = fetch_and_parse(avito, url)
+    add_ban_ad(ads, store, blocked) if blocked
+    blocked
+  end
+
+  def add_ban_ad(ads, store, blocked) # , report_id
     count_ban = 0
-    ads       = store.ads.load
     blocked['items'].each do |item|
-      id             = item['ad_id'].to_i
-      ban_list_entry = ads.find_by(id: id)
+      id             = item['ad_id']
+      ban_list_entry = ads.find { |ad| ad.id == id }
 
       if ban_list_entry.nil?
-        msg = 'Not existing ad with id ' + id
+        msg = "Not existing ad with id #{id}"
         Rails.logger.error msg
         TelegramService.call(store.user, msg)
-      elsif true || ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
+      elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
         ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
         count_ban += 1
       end
