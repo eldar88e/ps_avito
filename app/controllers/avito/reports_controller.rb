@@ -35,7 +35,9 @@ module Avito
       return result if result
 
       result = fetch_and_parse(url)
-      if params['no_cache'].nil? && result['status'] != 'processing'
+      will_pub_later = section == :fees ||
+        !result['section_stats']['sections']&.find { |i| i['slug'] == 'will_publish_later' }
+      if params['no_cache'].nil? && result['status'] != 'processing' && will_pub_later
         @cached_report.public_send("#{section}=", result)
         @cached_report.save
       end

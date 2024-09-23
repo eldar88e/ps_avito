@@ -57,7 +57,7 @@ class Avito::CheckErrorsJob < ApplicationJob
   def add_ban_ad(ads, store, blocked) # , report_id
     count_ban = 0
     blocked['items'].each do |item|
-      id             = item['ad_id']
+      id             = item['ad_id'].to_i
       ban_list_entry = ads.find { |ad| ad.id == id }
 
       if ban_list_entry.nil?
