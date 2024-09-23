@@ -45,9 +45,10 @@ class Avito::CheckErrorsJob < ApplicationJob
 
   def add_ban_ad(store, blocked) # , report_id
     count_ban = 0
+    ads       = store.ads.load
     blocked['items'].each do |item|
-      id             = item['ad_id']
-      ban_list_entry = store.ads.find_by(id: id)
+      id             = item['ad_id'].to_i
+      ban_list_entry = ads.find_by(id: id)
 
       if ban_list_entry.nil?
         msg = 'Not existing ad with id ' + id
@@ -56,8 +57,6 @@ class Avito::CheckErrorsJob < ApplicationJob
       elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
         ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
         count_ban += 1
-      else
-
       end
     end
 
