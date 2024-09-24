@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="ads" role="tabpanel" aria-labelledby="ads-tab">
+<div class="tab-pane fade active show" id="ads-block" role="tabpanel" aria-labelledby="ads-tab">
   <% if @ads.present? %>
     <%= button_to 'Очистить бан лист', store_update_all_path(@store.id), class: 'btn btn-primary mb-3' %>
     <%= turbo_frame_tag :ads do %>

@@ -53,10 +53,6 @@ class StoresController < ApplicationController
 
   private
 
-  def set_search_ads
-    @q_ads = @store.ads.order(created_at: :desc).ransack(params[:q])
-  end
-
   def set_store
     @store = current_user.stores.find(params[:id])
   end

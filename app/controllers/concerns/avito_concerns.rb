@@ -3,7 +3,7 @@ module AvitoConcerns
 
   included do
     before_action :authenticate_user!
-    before_action :set_store
+    before_action :set_store_and_check
     before_action :set_avito
     add_breadcrumb "Главная", :root_path
     add_breadcrumb "Avito", :avitos_path
@@ -18,7 +18,7 @@ module AvitoConcerns
     JSON.parse(response.body)
   end
 
-  def set_store
+  def set_store_and_check
     @store = current_user.stores.find_by(id: params[:store_id])
     if @store.nil? || @store.client_id.blank? || @store.client_secret.blank?
       error_notice t('avito.error.set_store')

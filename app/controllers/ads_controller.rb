@@ -1,9 +1,19 @@
 class AdsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_store, only: [:update_all]
+  before_action :set_search_ads, only: [:update_all]
 
   def update_all
     store = current_user.stores.find(params[:store_id])
     store.ads.update_all(banned: false, banned_until: nil)
-    render turbo_stream: success_notice('Все объявления были сняты с бана!')
+    @pagy, @ads = pagy(@q_ads.result, items: 36)
+    msg = 'Все объявления были сняты с бана!'
+    render turbo_stream: [turbo_stream.replace('ads-block', partial: '/ads/ads_list'), success_notice(msg)]
+  end
+
+  private
+
+  def set_store
+    @store = current_user.stores.find(params[:store_id])
   end
 end

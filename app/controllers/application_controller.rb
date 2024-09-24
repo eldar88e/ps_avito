@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_search_ads
+    @q_ads = @store.ads.order(created_at: :desc).ransack(params[:q])
+  end
+
   def set_search
     @q = Game.order(:top).ransack(params[:q])
   end
