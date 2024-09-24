@@ -32,9 +32,9 @@ class AddWatermarkJob < ApplicationJob
             products.each do |product|
               next if product.is_a?(Game) && product.game_black_list
 
-              file_id     = "#{product.send(id)}_#{store.id}_#{address.id}"
-              current_img = ads.find { |i| i[:file_id] == file_id }
-              (args[:clean] ? current_img.image.purge : next) if current_img&.image&.attached?
+              file_id    = "#{product.send(id)}_#{store.id}_#{address.id}"
+              current_ad = ads.find { |i| i[:file_id] == file_id }
+              (args[:clean] ? current_ad.image.purge : next) if current_ad&.image&.attached?
 
               w_service = WatermarkService.new(store: store, address: address, settings: settings,
                                                game: product, main_font: font, product: model == Product)

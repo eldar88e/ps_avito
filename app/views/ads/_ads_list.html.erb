@@ -30,7 +30,7 @@
               <div class="col-6 col-md-6"><%= item.file_id %></div>
               <div class="col-6 col-md-1"><%= item.deleted %></div>
               <div class="col-6 col-md-1"><%= item.banned %></div>
-              <div class="col-6 col-md-2"><%= item.banned_until %></div>
+              <div class="col-6 col-md-2"><%= format_date item.banned_until %></div>
             </div>
           </li>
         <% end %>
