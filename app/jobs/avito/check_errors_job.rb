@@ -70,6 +70,8 @@ class Avito::CheckErrorsJob < ApplicationJob
         ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
         count_ban += 1
       end
+    rescue => e
+      binding.pry
     end
   end
 
