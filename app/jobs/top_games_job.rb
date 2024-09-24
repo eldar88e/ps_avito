@@ -4,7 +4,7 @@ class TopGamesJob < ApplicationJob
   def perform(**args)
     quantity = args[:games] || args[:settings]['quantity_games']
     db       = connect_db
-    games    = db.query(query_db(quantity))
+    games    = db.query(query_db(quantity)).to_a
     run_id   = Run.last_id
     count    = 0
 
@@ -25,7 +25,7 @@ class TopGamesJob < ApplicationJob
 
     Game.where.not(touched_run_id: run_id).destroy_all
     Run.finish
-    msg = '✅ Game list updated.'
+    msg = "✅ List updated #{games.size} games."
     msg += " Add #{count} new game(s)." if count > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
@@ -75,6 +75,9 @@ class TopGamesJob < ApplicationJob
       LIMIT #{quantity}
     SQL
   end
+
+  # GROUP BY game.pagetitle
+  # MIN(additional.price) AS price,
 
   def md5_hash(hash)
     str = hash.values.join

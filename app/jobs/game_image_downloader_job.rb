@@ -4,18 +4,18 @@ class GameImageDownloaderJob < ApplicationJob
   def perform(**args)
     args[:user] = current_user(args[:user_id]) unless args[:user]
     size        = args.dig(:settings, 'game_img_size') || 1024
-    sony_ids    = Game.order(:top).pluck(:sony_id)
-    sony_ids.each do |id|
-      img_path = "./game_images/#{id}_#{size}.jpg"
-      next if File.exist?(img_path)
+    games       = Game.order(:top) # TODO .where(deleted: 0)
+    games.each do |game|
+      next if game.image.attached?
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
-            "#{id}/0/image?w=#{size}&h=#{size}"
+        "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
       img = download_image(url, args[:user])
       next if img.nil?
 
-      File.open(img_path, 'wb') { |local_file| local_file.write(img) }
-      sleep rand(1..3)
+      name = "#{game.sony_id}_#{size}.jpg"
+      save_image(game, img, name)
+      sleep rand(0.7..2.9)
     end
     msg = '✅ All game image downloaded!'
     broadcast_notify(msg)
@@ -25,6 +25,15 @@ class GameImageDownloaderJob < ApplicationJob
   end
 
   private
+
+  def save_image(game, img, name)
+    Tempfile.open(%w[image .jpg], binmode: true) do |temp_file|
+      temp_file.write(img)
+      temp_file.flush
+
+      game.image.attach(io: File.open(temp_file.path), filename: name, content_type: 'image/jpeg')
+    end
+  end
 
   def download_image(url, user)
     response = connect_to(url)

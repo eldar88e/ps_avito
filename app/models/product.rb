@@ -6,9 +6,8 @@ class Product < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true, numericality: { only_integer: true }
 
-  has_one_attached :image, dependent: :destroy
-  has_many_attached :images, dependent: :destroy
-
+  has_one_attached :image, dependent: :purge
+  has_many :ads, as: :adable
   belongs_to :user
 
   self.inheritance_column = :type_

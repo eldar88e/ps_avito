@@ -20,7 +20,7 @@ import FancyboxController from "./fancybox_controller"
 application.register('fancybox', FancyboxController);
 
 import PagyInitializerController from "./pagy_initializer_controller";
-application.register('pagy_initializer', PagyInitializerController);
+application.register('pagy-initializer', PagyInitializerController);
 
 import MapController from "./map_controller";
 application.register('map', MapController);

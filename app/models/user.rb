@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :settings, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :ads, dependent: :destroy
 
   after_create :create_default_settings
 
@@ -29,8 +30,8 @@ class User < ApplicationRecord
   def default_settings_params
     [
       { var: 'game_img_size', value: 1080 },
-      { var: 'telegram_chat_id' },
-      { var: 'telegram_bot_token' },
+      { var: 'telegram_chat_id', value: 'example_chat_id' },
+      { var: 'telegram_bot_token', value: 'example_bot_token' },
       { var: 'quantity_games', value: 10 },
       { var: 'avito_img_width', value: 1920 },
       { var: 'avito_img_height', value: 1440 },

@@ -12,7 +12,7 @@ Rails.application.configure do
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       class: "MainPopulateJob",
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
-      description: "Populate the Google Sheet for the Avito."
+      description: "Populate excel feed."
     },
     download_images: {
       cron: "0 2 29 2 *",
@@ -28,17 +28,12 @@ Rails.application.configure do
       set: { priority: 10 },
       description: "Update all excel files with replacing all images"
     },
-    clean_tables: {
-      cron: "30 3 29 2 *",
-      class: "CleanAttachBlobJob",
+    clean: {
+      cron: "0 1 * * 0",
+      class: "Clean::MainCleanerJob",
+      kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       set: { priority: 10 },
-      description: "Clean up tables of deleted images on local disk."
-    },
-    clean_del_stores: {
-      cron: "0 4 29 2 *",
-      class: "PurgeDeletedStoreImgJob",
-      set: { priority: 10 },
-      description: "Purge deleted stores and addresses images"
+      description: "Job on cleaning unnecessary files, blobs, and attachments"
     }
   }
 
@@ -50,15 +45,9 @@ Rails.application.configure do
       set: { priority: 10 }, # additional ActiveJob properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
       description: "Populate the Google Sheet for the Avito."
     },
-    clean_images: {
-      cron: "0 0 1 * *",
-      class: "CleanUnattachedBlobsJob",
-      set: { priority: 10 },
-      description: "Clean up unattached blobs and images."
-    },
     check_avito_shedules: {
       cron: "30 8-23 * * *",
-      class: "CheckAvitoSchedulesJob",
+      class: "Avito::CheckSchedulesJob",
       set: { priority: 10 },
       #args: [42, "life"],
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
@@ -66,7 +55,7 @@ Rails.application.configure do
     },
     check_avito_errors: {
       cron: "0 18 * * *",
-      class: "CheckAvitoErrorsJob",
+      class: "Avito::CheckErrorsJob",
       set: { priority: 10 },
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       description: "Check errors in the last report"

@@ -33,12 +33,14 @@
           <% end %>
         </li>
 
+        <% sections = @report['section_stats']['sections'] || [] %>
+
         <li class="list-group-item">
-          <% deleted = @report['section_stats']['sections'].find { |i| i['slug'] == 'removed_from_file' }.try(:[], 'count') || 0 %>
+          <% deleted = sections.find { |i| i['slug'] == 'removed_from_file' }.try(:[], 'count') || 0 %>
           <div class="ps-3 ps-md-3 fw-bold ">Объявлений в файле <%= @report['section_stats']['count'] - deleted %></div>
         </li>
 
-        <% @report['section_stats']['sections'].each do |section| %>
+        <% sections.each do |section| %>
           <% if section['slug'] == 'removed_from_file' %>
             <li class="list-group-item"><div class="ps-3 ps-md-3 fw-bold">Удалено</div></li>
           <% end %>
@@ -50,9 +52,8 @@
           <% end %>
         <% end %>
 
-        <% if success = @report['section_stats']['sections'].find { |i| i['slug'] == 'successful' } %>
+        <% if sections.find { |i| i['slug'] == 'successful' } %>
           <li class="list-group-item"><div class="fw-bold">Платные услуги</div></li>
-
           <li class="list-group-item">
             <div class="ps-3 ps-md-3 fw-bold">Размещение из пакета <%= @money['meta']['total'] %></div>
           </li>

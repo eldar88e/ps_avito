@@ -1,13 +1,14 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
   before_action :set_store, only: [:show, :edit, :update, :destroy]
+  before_action :set_search_ads, only: :show
 
   def index
     @stores = current_user.stores.order(active: :desc).order(:created_at)
   end
 
   def show
-    @pagy, @ban = pagy(@store.ban_lists.order(created_at: :desc), items: 36)
+    @pagy, @ads = pagy(@q_ads.result, items: 36)
     @whitelist  = { elements: %w[div span ul li br b i strong em p] }
   end
 

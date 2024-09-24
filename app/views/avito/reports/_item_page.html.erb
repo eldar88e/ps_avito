@@ -3,16 +3,16 @@
     <% @items['items'].each do |item| %>
       <%= render partial: '/avito/reports/item', locals: { item: item } %>
     <% end %>
+
+    <% if @items['meta']['pages'] > 1 %>
+      <%= render partial: '/avito/partials/pagy', locals: { end_page: @items['meta']['pages']-1, starts: 0,
+                                                            path: "reports/#{@items['report_id']}",
+                                                            turbo_frame: 'reports' } %>
+    <% end %>
   <% else %>
     Записей не найдено!
   <% end %>
 </ul>
-
-<% if @items['meta']['pages'] > 1 %>
-  <%= render partial: '/avito/partials/pagy', locals: { end_page: @items['meta']['pages']-1, starts: 0,
-                                                        path: "reports/#{@items['report_id']}",
-                                                        turbo_frame: 'reports' } %>
-<% end %>
 
 <div class="mb-3">
   <% @items['meta'].each do |k, v| %>

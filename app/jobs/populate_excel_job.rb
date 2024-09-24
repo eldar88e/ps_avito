@@ -6,7 +6,6 @@ class PopulateExcelJob < ApplicationJob
     store     = args[:store]
     user      = args[:store].user
     settings  = user.settings.pluck(:var, :value).to_h
-    xlsx_path = "./game_lists/top_1000_#{store.var}.xlsx"
     workbook  = FastExcel.open
     worksheet = workbook.add_worksheet
     products  = user.products.where(active: true).with_attached_image
@@ -14,40 +13,40 @@ class PopulateExcelJob < ApplicationJob
     worksheet.append_row %w[Id AdStatus Category GoodsType AdType Type Platform Localization Address Title
                             Description Condition Price AllowEmail ManagerName	ContactPhone ContactMethod ImageUrls]
 
-    ban_list = store.ban_lists.active.pluck(:ad_id)
     store.addresses.where(active: true).each do |address|
-      games = Game.order(:top).limit(address.total_games || settings['quantity_games'])
-                  .includes(:game_black_list).with_attached_images
+      ads   = address.ads.active_ads
+      games = Game.order(:top).limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
       games.each do |game|
         next if game.game_black_list
 
-        ad_id = "#{game.sony_id}_#{store.id}_#{address.id}"
-        next if ban_list.include? ad_id
+        ad = ads.find { |ad| ad[:file_id] == "#{game.sony_id}_#{store.id}_#{address.id}" }
+        next if ad.nil?
 
         worksheet.append_row(
-          [ad_id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
+          [ad.id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
            make_local(game), address.store_address, make_title(game), make_description(game, store, address),
-           store.condition, make_price(game.price_tl, store), store.allow_email, store.manager_name, store.contact_phone,
-           store.contact_method, make_image(game, store, address)]
+           store.condition, make_price(game.price_tl, store), store.allow_email, store.manager_name,
+           store.contact_phone, store.contact_method, make_image(ad)]
         )
       end
 
       products.each do |product|
-        ad_id = "#{product.id}_#{store.id}_#{address.id}"
-        next if ban_list.include? ad_id
+        ad = ads.find { |ad| ad[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
+        next if ad.nil?
 
         worksheet.append_row(
-          [ad_id, product.ad_status || store.ad_status, product.category || store.category,
+          [ad.id, product.ad_status || store.ad_status, product.category || store.category,
            product.goods_type || store.goods_type, product.ad_type || store.ad_type, product.type || store.type,
            product.platform, product.localization, address.store_address, product.title,
            make_description(product, store, address), product.condition || store.condition, product.price,
            product.allow_email || store.allow_email, store.manager_name, store.contact_phone,
-           product.contact_method || store.contact_method, make_image(product, store, address)]
+           product.contact_method || store.contact_method, make_image(ad)]
         )
       end
     end
 
-    content = workbook.read_string
+    content   = workbook.read_string
+    xlsx_path = "./game_lists/top_1000_#{store.var}.xlsx"
     File.open(xlsx_path, 'wb') { |f| f.write(content) }
 
     # FtpService.call(xlsx_path) if settings['send_ftp']
@@ -115,25 +114,16 @@ class PopulateExcelJob < ApplicationJob
     end
   end
 
-  def make_image(model, store, address)
-    if model.images.attached? && model.images.blobs.any? { |i| i.metadata[:store_id] == store.id && i.metadata[:address_id] == address.id }
-      image  = model.images.find { |i| i.blob.metadata[:store_id] == store.id && i.blob.metadata[:address_id] == address.id }
-      params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-      if image.blob.service_name == "amazon"
-        bucket_name = Rails.application.credentials.dig(:aws, :bucket)
-        key         = image.blob.key
-        "https://#{bucket_name}.s3.amazonaws.com/#{key}"
-      else
-        rails_blob_url(image, params)
-      end
-    end
-  end
-
-  def make_image_product(product)
-    return unless product.image.attached?
+  def make_image(ad)
+    image = ad&.image
+    return unless image
 
     params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-    rails_blob_url(product.image, params)
+    return rails_blob_url(image, params) if image.blob.service_name != "amazon"
+
+    bucket = Rails.application.credentials.dig(:aws, :bucket)
+    key    = image.blob.key
+    "https://#{bucket}.s3.amazonaws.com/#{key}"
   end
 
   def make_description(model, store, address)
@@ -159,13 +149,11 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def round_up_price(price)
-    #(price / settings['round_price'].to_f).round * settings['round_price']
     (price / 10.to_f).round * 10
   end
 
   def make_exchange_rate(price)
     if price < 300
-      # price >= 1 &&
       ENV.fetch("LOWEST_PRICE") { 5.5 }.to_f
     elsif price >= 300 && price < 800
       ENV.fetch("LOW_PRICE") { 5 }.to_f
@@ -174,7 +162,6 @@ class PopulateExcelJob < ApplicationJob
     elsif price >= 1200 && price < 1700
       ENV.fetch("HIGH_PRICE") { 4.3 }.to_f
     else
-      #elsif price >= 1700
       ENV.fetch("HIGHEST_PRICE") { 4 }.to_f
     end
   end

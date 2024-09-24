@@ -16,7 +16,13 @@ ul.pagination {
 
 .product-item {
   .buttons {
-    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+    @media (max-width: 575px) {
+      justify-content: flex-start;
+    }
   }
 }
 
@@ -392,4 +398,15 @@ ul.pagination {
     font-size: 0.6em;
     color: white;
   }
+}
+
+.image-thumbnail {
+  width: 50px;
+  height: 37px;
+  background-size: cover;
+  background-position: center;
+}
+
+.sort_ads a {
+  color: white;
 }

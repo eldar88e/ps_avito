@@ -59,7 +59,7 @@ class WatermarkService
   end
 
   def add_img(layer)
-    return if layer[:layer_type] == 'flag' && !@game.rus_screen && !@game.rus_voice
+    return if layer[:layer_type] == 'flag' && (@product || (!@game.rus_screen && !@game.rus_voice))
 
     params = layer[:params]
     img    = Image.read(layer[:img]).first
@@ -108,7 +108,7 @@ class WatermarkService
   end
 
   def image_exists?(url)
-    return false if url.match?(/\Ahttp/)
+    return false if url.match?(/\Ahttp/) # TODO проверить
 
     uri      = URI.parse(url)
     response = Net::HTTP.get_response(uri)
@@ -116,8 +116,6 @@ class WatermarkService
   end
 
   def find_main_ad_img
-    return "./game_images/#{@game.sony_id}_#{@settings[:game_img_size]}.jpg" if !@product
-
     return unless @game.image.attached?
 
     key = @game.image.blob.key
@@ -153,7 +151,7 @@ class WatermarkService
   end
 
   def image_exist?(url)
-    url && (File.exist?(url) || (@product && @game.image.blob&.service_name == "amazon" && image_exists?(url)))
+    url && (File.exist?(url) || (@game.image.blob&.service_name == "amazon" && image_exists?(url)))
   end
 
   def make_slogan(address)

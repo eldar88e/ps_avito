@@ -1,5 +1,6 @@
-class CheckAvitoErrorsJob < ApplicationJob
+class Avito::CheckErrorsJob < ApplicationJob
   queue_as :default
+  BAN_PERIOD = 2.weeks
 
   def perform(**args)
     stores =
@@ -35,28 +36,42 @@ class CheckAvitoErrorsJob < ApplicationJob
       end
       next unless error_blocked
 
-      url     = "#{report_url}/items?sections=error_blocked"
-      blocked = fetch_and_parse(avito, url)
-      add_ban_ad(store, blocked, report_id) if blocked
+      ads       = store.ads.load
+      count_ban = [0]
+      blocked   = fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban)
+      if blocked['meta']['pages'] > 1
+        [*1..blocked['meta']['pages']-1].each do |page|
+          fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
+        end
+      end
+      msg = "✅ Added #{count_ban[0]} bans for #{store.manager_name}"
+      TelegramService.call(store.user, msg) if count_ban[0] > 0
     end
 
     nil
   end
 
-  def add_ban_ad(store, blocked, report_id)
-    count_ban = 0
-    blocked['items'].each do |item|
-      id             = item['ad_id']
-      ban_list_entry = store.ban_lists.find_or_initialize_by(ad_id: id)
+  def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page=nil)
+    url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
+    blocked = fetch_and_parse(avito, url)
+    add_ban_ad(ads, store, blocked, count_ban) if blocked
+    blocked
+  end
 
-      if ban_list_entry.new_record? || ban_list_entry.expires_at <= Time.current
-        ban_list_entry.update(expires_at: Time.current + 1.month, report_id: report_id)
-        count_ban += 1
+  def add_ban_ad(ads, store, blocked, count_ban) # , report_id
+    blocked['items'].each do |item|
+      id             = item['ad_id'].to_i
+      ban_list_entry = ads.find { |ad| ad.id == id }
+
+      if ban_list_entry.nil?
+        msg = "Not existing ad with id #{id}"
+        Rails.logger.error msg
+        TelegramService.call(store.user, msg)
+      elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
+        ban_list_entry.update(banned: true, banned_until: Time.current + BAN_PERIOD) # report_id: report_id
+        count_ban[0] += 1
       end
     end
-
-    msg = "✅ Added #{count_ban} bans for #{store.manager_name}"
-    TelegramService.call(store.user, msg) if count_ban > 0
   end
 
   def send_error_sections(section, user, account)

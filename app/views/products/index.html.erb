@@ -15,7 +15,7 @@
 
     <a href="<%= new_product_path %>" style="max-height: 38px;" class="btn btn-success mt-3 mt-md-0">Add</a>
   </div>
-  <ul class="list-group mt-3" data-controller="fancybox">
+  <ul class="list-group mt-3" data-controller="fancybox no_image">
     <%= render @products %>
   </ul>
   <%= paginate @products %>

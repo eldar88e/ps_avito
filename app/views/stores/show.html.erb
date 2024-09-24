@@ -31,7 +31,7 @@
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Слои картинки</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="ban-tab" data-bs-toggle="tab" data-bs-target="#ban" type="button" role="tab" aria-controls="ban" aria-selected="false">Заблокированные объявления</button>
+        <button class="nav-link" id="ads-tab" data-bs-toggle="tab" data-bs-target="#ads-block" type="button" role="tab" aria-controls="ads-block" aria-selected="false">Объявления</button>
       </li>
     </ul>
 
@@ -49,7 +49,7 @@
         </ul>
       </div>
 
-      <div class="tab-pane fade show" id="address" role="tabpanel" aria-labelledby="address-tab">
+      <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
         <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
 
         <ul class="list-group" id="addresses">
@@ -65,7 +65,7 @@
         </ol>
       </div>
 
-      <%= render '/stores/ban_list' %>
+      <%= render partial: '/ads/ads_list', locals: { style: '' } %>
     </div>
   </div>
 <% end %>

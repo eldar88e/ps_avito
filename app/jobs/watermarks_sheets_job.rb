@@ -20,7 +20,6 @@ class WatermarksSheetsJob < ApplicationJob
         AddWatermarkJob.perform_now(user: args[:user], model: model, store: store,
                                     settings: settings, main_font: main_font, clean: args[:clean])
       end
-      #PopulateGoogleSheetsJob.perform_now(site: site)
       PopulateExcelJob.perform_now(store: store)
     end
 
