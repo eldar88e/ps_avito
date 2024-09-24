@@ -1,5 +1,6 @@
 class Avito::CheckErrorsJob < ApplicationJob
   queue_as :default
+  BAN_PERIOD = 2.weeks
 
   def perform(**args)
     stores =
@@ -67,7 +68,7 @@ class Avito::CheckErrorsJob < ApplicationJob
         Rails.logger.error msg
         TelegramService.call(store.user, msg)
       elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
-        ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
+        ban_list_entry.update(banned: true, banned_until: Time.current + BAN_PERIOD) # report_id: report_id
         count_ban[0] += 1
       end
     end
