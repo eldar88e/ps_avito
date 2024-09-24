@@ -53,6 +53,7 @@ class Avito::CheckErrorsJob < ApplicationJob
   def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page=nil)
     url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
     blocked = fetch_and_parse(avito, url)
+    binding.pry if blocked['items'].nil?
     add_ban_ad(ads, store, blocked, count_ban) if blocked
     blocked
   end
@@ -70,8 +71,6 @@ class Avito::CheckErrorsJob < ApplicationJob
         ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
         count_ban += 1
       end
-    rescue => e
-      binding.pry
     end
   end
 
