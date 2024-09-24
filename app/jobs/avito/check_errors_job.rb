@@ -43,6 +43,8 @@ class Avito::CheckErrorsJob < ApplicationJob
           fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
         end
       end
+      msg = "✅ Added #{count_ban} bans for #{store.manager_name}"
+      TelegramService.call(store.user, msg) if count_ban > 0
     end
 
     nil
@@ -69,9 +71,6 @@ class Avito::CheckErrorsJob < ApplicationJob
         count_ban += 1
       end
     end
-
-    msg = "✅ Added #{count_ban} bans for #{store.manager_name}"
-    TelegramService.call(store.user, msg) if count_ban > 0
   end
 
   def send_error_sections(section, user, account)
