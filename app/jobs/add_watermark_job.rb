@@ -27,14 +27,14 @@ class AddWatermarkJob < ApplicationJob
         stores.each do |store|
           addresses = store.addresses.where(addr_args)
           addresses.each do |address|
-            ads = address.ads.active_ads
+            ads      = address.ads.active_ads
             products = products.limit(address&.total_games) if model == Game
             products.each do |product|
               next if product.is_a?(Game) && product.game_black_list
 
-              file_id    = "#{product.send(id)}_#{store.id}_#{address.id}"
-              current_ad = ads.find { |i| i[:file_id] == file_id }
-              (args[:clean] ? current_ad.image.purge : next) if current_ad&.image&.attached?
+              file_id = "#{product.send(id)}_#{store.id}_#{address.id}"
+              ad      = find_or_create_ad(ads, product, store, file_id, args[:user])
+              next if ad.image.attached? && !args[:clean]
 
               w_service = WatermarkService.new(store: store, address: address, settings: settings,
                                                game: product, main_font: font, product: model == Product)
@@ -42,7 +42,7 @@ class AddWatermarkJob < ApplicationJob
 
               image = w_service.add_watermarks
               name  = "#{file_id}_#{settings[:game_img_size]}.jpg"
-              save_image(image: image, product: product, name: name, address: address)
+              save_image(ad, name, image)
               count += 1
             end
           end
@@ -64,34 +64,25 @@ class AddWatermarkJob < ApplicationJob
       end
     end
   rescue => e
-    TelegramService.call(args[:user], "Error #{self.class} || #{e.message}")
     Rails.logger.error("#{self.class} - #{e.message}")
+    TelegramService.call(args[:user], "Error #{self.class} || #{e.message}")
   end
 
   private
 
-  def save_image(**args)
-    file_id = args[:name].sub(/_\d+\.jpg\z/, '')
-    item    = args[:address].ads.find_by(file_id: file_id, deleted: 0)
-    return if item&.image&.attached?
+  def find_or_create_ad(ads, product, store, file_id, user)
+    ads.find_or_create_by(file_id: file_id) do |new_ad|
+      new_ad.user   = user
+      new_ad.adable = product
+      new_ad.store  = store
+    end
+  end
 
+  def save_image(ad, name, image)
     Tempfile.open(%w[image .jpg]) do |temp_img|
-      args[:image].write(temp_img.path)
+      image.write(temp_img.path)
       temp_img.flush
-
-      ad = args[:address].ads.find_or_create_by(
-        user: args[:address].store.user,
-        adable: args[:product],
-        store: args[:address].store,
-        file_id: file_id,
-        deleted: 0
-      )
-
-      ad.image.attach(
-        io: File.open(temp_img.path),
-        filename: args[:name],
-        content_type: 'image/jpeg'
-      )
+      ad.image.attach(io: File.open(temp_img.path), filename: name, content_type: 'image/jpeg')
     end
   end
 end
