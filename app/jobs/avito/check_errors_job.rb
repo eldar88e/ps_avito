@@ -39,7 +39,7 @@ class Avito::CheckErrorsJob < ApplicationJob
       count_ban = 0
       blocked   = fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban)
       if blocked['meta']['pages'] > 1
-        [*1..blocked['meta']['pages']].each do |page|
+        [*1..blocked['meta']['pages']-1].each do |page|
           fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
         end
       end
@@ -53,7 +53,6 @@ class Avito::CheckErrorsJob < ApplicationJob
   def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page=nil)
     url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
     blocked = fetch_and_parse(avito, url)
-    binding.pry if blocked['items'].nil?
     add_ban_ad(ads, store, blocked, count_ban) if blocked
     blocked
   end
