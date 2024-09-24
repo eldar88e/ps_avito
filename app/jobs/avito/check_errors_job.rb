@@ -36,16 +36,15 @@ class Avito::CheckErrorsJob < ApplicationJob
       next unless error_blocked
 
       ads       = store.ads.load
-      count_ban = 0
+      count_ban = [0]
       blocked   = fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban)
       if blocked['meta']['pages'] > 1
         [*1..blocked['meta']['pages']-1].each do |page|
           fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
         end
       end
-      binding.pry
-      msg = "✅ Added #{count_ban} bans for #{store.manager_name}"
-      TelegramService.call(store.user, msg) if count_ban > 0
+      msg = "✅ Added #{count_ban[0]} bans for #{store.manager_name}"
+      TelegramService.call(store.user, msg) if count_ban[0] > 0
     end
 
     nil
@@ -69,7 +68,7 @@ class Avito::CheckErrorsJob < ApplicationJob
         TelegramService.call(store.user, msg)
       elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
         ban_list_entry.update(banned: true, banned_until: Time.current + 1.month) # report_id: report_id
-        count_ban += 1
+        count_ban[0] += 1
       end
     end
   end
