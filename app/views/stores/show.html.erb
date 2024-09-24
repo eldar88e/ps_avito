@@ -49,7 +49,7 @@
         </ul>
       </div>
 
-      <div class="tab-pane fade show" id="address" role="tabpanel" aria-labelledby="address-tab">
+      <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
         <%= render partial: '/addresses/new_address_btn', locals: { store: @store } %>
 
         <ul class="list-group" id="addresses">
@@ -65,7 +65,7 @@
         </ol>
       </div>
 
-      <%= render '/ads/ads_list' %>
+      <%= render partial: '/ads/ads_list', locals: { style: '' } %>
     </div>
   </div>
 <% end %>

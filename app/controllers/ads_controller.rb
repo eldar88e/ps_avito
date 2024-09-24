@@ -8,7 +8,10 @@ class AdsController < ApplicationController
     store.ads.update_all(banned: false, banned_until: nil)
     @pagy, @ads = pagy(@q_ads.result, items: 36)
     msg = 'Все объявления были сняты с бана!'
-    render turbo_stream: [turbo_stream.replace('ads-block', partial: '/ads/ads_list'), success_notice(msg)]
+    render turbo_stream: [
+      turbo_stream.replace('ads-block', partial: '/ads/ads_list', locals: { style: 'show active' }),
+      success_notice(msg)
+    ]
   end
 
   private
