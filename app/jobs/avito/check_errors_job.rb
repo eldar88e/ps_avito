@@ -35,11 +35,12 @@ class Avito::CheckErrorsJob < ApplicationJob
       end
       next unless error_blocked
 
-      ads = store.ads.load
-      blocked = fetch_and_add_ban_ad(report_url, avito, store ,ads)
+      ads       = store.ads.load
+      count_ban = 0
+      blocked   = fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban)
       if blocked['meta']['pages'] > 1
         [*1..blocked['meta']['pages']].each do |page|
-          fetch_and_add_ban_ad(report_url, avito, store ,ads, page)
+          fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
         end
       end
     end
@@ -47,15 +48,14 @@ class Avito::CheckErrorsJob < ApplicationJob
     nil
   end
 
-  def fetch_and_add_ban_ad(report_url, avito, store ,ads, page=nil)
+  def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page=nil)
     url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
     blocked = fetch_and_parse(avito, url)
-    add_ban_ad(ads, store, blocked) if blocked
+    add_ban_ad(ads, store, blocked, count_ban) if blocked
     blocked
   end
 
-  def add_ban_ad(ads, store, blocked) # , report_id
-    count_ban = 0
+  def add_ban_ad(ads, store, blocked, count_ban) # , report_id
     blocked['items'].each do |item|
       id             = item['ad_id'].to_i
       ban_list_entry = ads.find { |ad| ad.id == id }
