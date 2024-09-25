@@ -116,7 +116,7 @@ class PopulateExcelJob < ApplicationJob
 
   def make_image(ad)
     image = ad&.image
-    return unless image
+    return if image.nil? || image.blob.nil?
 
     params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
     return rails_blob_url(image, params) if image.blob.service_name != "amazon"
