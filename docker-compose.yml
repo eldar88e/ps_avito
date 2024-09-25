@@ -9,8 +9,6 @@ services:
       TZ: Europe/Moscow
     volumes:
       - db_data:/var/lib/postgresql/data
-    ports:
-      - 5433:5432
     networks:
       - web-net
 
