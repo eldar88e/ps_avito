@@ -67,6 +67,8 @@ class WatermarkService
       img.resize_to_fit!(params['row'], params['column'])
     end
     @new_image.composite!(img, params['pos_x'] || 0, params['pos_y'] || 0, OverCompositeOp)
+  rescue StandardError => e
+    binding.pry
   end
 
   def add_text(layer)
