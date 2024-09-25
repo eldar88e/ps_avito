@@ -41,8 +41,6 @@ class AddWatermarkJob < ApplicationJob
           name  = "#{file_id}_#{settings[:game_img_size]}.jpg"
           save_image(ad, name, image)
           count += 1
-        rescue StandardError => e
-          binding.pry
         end
       end
     end

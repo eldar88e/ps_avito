@@ -39,6 +39,8 @@ class WatermarkService
         end
       layer[:params] = rewrite_pos_size(layer[:params])
       layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer)
+    rescue => e
+      binding.pry
     end
 
     @new_image
