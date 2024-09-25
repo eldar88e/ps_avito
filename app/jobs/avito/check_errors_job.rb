@@ -51,6 +51,8 @@ class Avito::CheckErrorsJob < ApplicationJob
     nil
   end
 
+  private
+
   def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page=nil)
     url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
     blocked = fetch_and_parse(avito, url)
