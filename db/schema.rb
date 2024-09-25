@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_22_110902) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_25_233313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -137,6 +137,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_22_110902) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "price_tl", default: 0, null: false
+    t.integer "deleted", default: 0, null: false
     t.index ["md5_hash"], name: "index_games_on_md5_hash", unique: true
     t.index ["run_id"], name: "index_games_on_run_id"
     t.index ["sony_id"], name: "index_games_on_sony_id", unique: true

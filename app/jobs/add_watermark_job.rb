@@ -38,11 +38,11 @@ class AddWatermarkJob < ApplicationJob
           next unless w_service.image
 
           image = w_service.add_watermarks
-          name  = "#{file_id}_#{settings[:game_img_size]}.jpg"
+          name  = "#{file_id}.jpg"
           save_image(ad, name, image)
           count += 1
         rescue StandardError => e
-          TelegramService.call(user, "#{product.send(id)} || #{e.message}")
+          TelegramService.call(user, "#{product.send(id)} || #{e.message}") # TODO убрать
         end
       end
     end

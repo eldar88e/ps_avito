@@ -2,9 +2,8 @@ class TopGamesJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    quantity = args[:games] || args[:settings]['quantity_games']
-    db       = connect_db
-    games    = db.query(query_db(quantity)).to_a
+    quantity = args[:settings]['quantity_games']
+    games    = fetch_games(quantity)
     run_id   = Run.last_id
     count    = 0
 
@@ -13,17 +12,16 @@ class TopGamesJob < ApplicationJob
       filtered_row         = row.slice(*keys)
       row[:md5_hash]       = md5_hash(filtered_row)
       row[:touched_run_id] = run_id
+      row[:deleted]        = 0
 
       game = Game.find_by(sony_id: row[:sony_id])
-      if game
-        game.update(row)
-      else
-        row[:run_id] = run_id
-        Game.create(row) && count += 1
-      end
+      game.update(row) && next if game
+
+      row[:run_id] = run_id
+      Game.create(row) && count += 1
     end
 
-    Game.where.not(touched_run_id: run_id).destroy_all
+    Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
     msg = "✅ List updated #{games.size} games."
     msg += " Add #{count} new game(s)." if count > 0
@@ -41,6 +39,13 @@ class TopGamesJob < ApplicationJob
   end
 
   private
+
+  def fetch_games(quantity)
+    db = connect_db
+    db.query(query_db(quantity)).to_a
+  ensure
+    db&.close
+  end
 
   def connect_db
     Mysql2::Client.new(
