@@ -33,10 +33,10 @@ gem "image_processing", "~> 1.2"
 gem 'mongoid'
 gem 'aws-sdk-s3'
 gem 'sanitize'
-gem 'pry'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem 'pry'
 end
 
 group :development do
