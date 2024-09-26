@@ -7,7 +7,7 @@ class AddWatermarkJob < ApplicationJob
     settings  = args[:settings]
     font      = args[:main_font]
     model     = args[:model]
-    products  = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym).where(active: true))
+    products  = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym)).active
     addr_args = {}
     stores    =
       if args[:all]

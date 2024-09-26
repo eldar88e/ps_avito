@@ -4,7 +4,7 @@ class GameImageDownloaderJob < ApplicationJob
   def perform(**args)
     args[:user] = current_user(args[:user_id]) unless args[:user]
     size        = args.dig(:settings, 'game_img_size') || 1024
-    games       = Game.order(:top) # TODO .where(deleted: 0)
+    games       = Game.order(:top).active
     games.each do |game|
       next if game.image.attached?
 

@@ -12,6 +12,8 @@ class Product < ApplicationRecord
 
   self.inheritance_column = :type_
 
+  scope :active, -> { where(active: true) }
+
   private
 
   def set_defaults

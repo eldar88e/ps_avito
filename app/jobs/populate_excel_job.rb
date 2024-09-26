@@ -8,14 +8,14 @@ class PopulateExcelJob < ApplicationJob
     settings  = user.settings.pluck(:var, :value).to_h
     workbook  = FastExcel.open
     worksheet = workbook.add_worksheet
-    products  = user.products.where(active: true).with_attached_image
+    products  = user.products.active.with_attached_image
 
     worksheet.append_row %w[Id AdStatus Category GoodsType AdType Type Platform Localization Address Title
                             Description Condition Price AllowEmail ManagerName	ContactPhone ContactMethod ImageUrls]
 
     store.addresses.where(active: true).each do |address|
       ads   = address.ads.active_ads
-      games = Game.order(:top).limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
+      games = Game.order(:top).active.limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
       games.each do |game|
         next if game.game_black_list
 

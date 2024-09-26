@@ -6,6 +6,8 @@ class Game < ApplicationRecord
   has_many :ads, as: :adable
   has_one :game_black_list, foreign_key: 'game_id', primary_key: 'sony_id'
 
+  scope :active, -> { where(deleted: 0) }
+
   def self.ransackable_attributes(auth_object = nil)
     %w[name sony_id]
   end

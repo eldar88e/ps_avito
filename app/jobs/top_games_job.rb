@@ -34,8 +34,6 @@ class TopGamesJob < ApplicationJob
     broadcast_notify(msg, 'danger')
     TelegramService.call(args[:user], msg)
     return 0
-  ensure
-    db&.close
   end
 
   private
