@@ -7,8 +7,9 @@
         <li class="list-group-item list-group-item-action active d-none d-md-block">
           <div class="row sort_ads">
             <div class="col-1"><%= sort_link(@q_ads, :id, 'File ID', data: { turbo_prefetch: false }) %></div>
+            <div class="col-1"><%= sort_link(@q_ads, :avito_id, 'Avito ID', data: { turbo_prefetch: false }) %></div>
             <div class="col-1">Img</div>
-            <div class="col-6"><%= sort_link(@q_ads, :file_id, 'Match ID', data: { turbo_prefetch: false }) %></div>
+            <div class="col-5"><%= sort_link(@q_ads, :file_id, 'Match ID', data: { turbo_prefetch: false }) %></div>
             <div class="col-1"><%= sort_link(@q_ads, :deleted, 'Deleted', data: { turbo_prefetch: false }) %></div>
             <div class="col-1"><%= sort_link(@q_ads, :baned, 'Baned', data: { turbo_prefetch: false }) %></div>
             <div class="col-2"><%= sort_link(@q_ads, :baned_until, 'Заблокировано до', data: { turbo_prefetch: false }) %></div>
@@ -17,8 +18,9 @@
         <% @ads.each do |item| %>
           <li class="list-group-item list-group-item-action">
             <div class="row">
-              <div class="col-6 col-md-1"><%= item.id %></div>
-              <div class="col-6 col-md-1">
+              <div class="col-4 col-md-1"><%= item.id %></div>
+              <div class="col-4 col-md-1"><%= item.avito_id %></div>
+              <div class="col-4 col-md-1">
                 <% if item.image.attached? %>
                   <a data-fancybox="gallery_ad" data-src="<%= url_for(item.image) %>" data-caption="<%= item.file_id %>">
                     <div class="loading-image" style='width: 50px; height: 37px'>
@@ -27,10 +29,10 @@
                   </a>
                 <% end %>
               </div>
-              <div class="col-6 col-md-6"><%= item.file_id %></div>
+              <div class="col-12 col-md-5 mt-3 mb-3 mb-md-0 mt-md-0"><%= item.file_id %></div>
               <div class="col-6 col-md-1"><%= item.deleted %></div>
               <div class="col-6 col-md-1"><%= item.banned %></div>
-              <div class="col-6 col-md-2"><%= format_date item.banned_until %></div>
+              <div class="col-12 col-md-2 mt-3 mt-md-0"><%= format_date item.banned_until %></div>
             </div>
           </li>
         <% end %>
