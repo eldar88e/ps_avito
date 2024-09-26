@@ -15,6 +15,7 @@ class Avito::CheckStatusJob < ApplicationJob
 
     stores.each do |store|
       low_rating = []
+      without_ads = []
       avito = AvitoService.new(store: store)
       next if avito.token_status == 403
 
@@ -48,7 +49,6 @@ class Avito::CheckStatusJob < ApplicationJob
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
           updated  = update_ad(ads_db, **options)
-          low_rating << avito_id
           next if updated
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
@@ -56,6 +56,8 @@ class Avito::CheckStatusJob < ApplicationJob
           next if response.nil?
 
           ad_id = response['items'][0]['ad_id'].to_i
+          without_ads << avito_id if ad_id.zero?
+          low_rating << ad_id if !ad_id.zero?
           options[:id] = ad_id
           update_ad(ads_db, **options)
           sleep rand(0.7..1.5)
@@ -64,7 +66,7 @@ class Avito::CheckStatusJob < ApplicationJob
       rescue => e
         TelegramService.call(user, e.message)
       end
-      msg = "✅ Store #{store.manager_name} have #{low_rating.size} low rating ads.\n#{low_rating.join(", ")}"
+      msg = "✅ Store #{store.manager_name} have #{low_rating.size} low rating and #{without_ads.size} without ads.\n#{low_rating.join(", ")}"
       TelegramService.call(user, msg) if low_rating.size > 0
     end
 
