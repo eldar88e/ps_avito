@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_26_120835) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_26_140137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,11 +77,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_120835) do
     t.bigint "user_id", null: false
     t.boolean "banned", default: false, null: false
     t.datetime "banned_until"
-    t.integer "avito_id"
+    t.bigint "avito_id"
     t.index ["adable_type", "adable_id"], name: "index_ads_on_adable"
     t.index ["address_id"], name: "index_ads_on_address_id"
+    t.index ["avito_id"], name: "index_ads_on_avito_id"
     t.index ["file_id"], name: "index_ads_on_file_id"
-    t.index ["store_id", "avito_id"], name: "index_ads_on_store_id_and_avito_id"
     t.index ["store_id"], name: "index_ads_on_store_id"
     t.index ["user_id"], name: "index_ads_on_user_id"
     t.check_constraint "deleted = ANY (ARRAY[0, 1])", name: "check_deleted_value"
