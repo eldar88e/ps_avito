@@ -9,6 +9,8 @@ class Ad < ApplicationRecord
 
   enum deleted: { active: 0, deleted: 1 }
 
+  scope :active, -> { where(deleted: 0) }
+
   scope :not_baned, -> {
     where(banned: false).or(
       where('banned_until < ?', Time.current)

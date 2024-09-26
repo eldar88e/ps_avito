@@ -14,7 +14,6 @@ RUN apk --update add \
     imagemagick-dev \
     curl \
     libjpeg-turbo \
-    libwebp-dev \
     vips \
     vips-dev \
     && rm -rf /var/cache/apk/*

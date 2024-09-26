@@ -7,7 +7,7 @@
             <%= render partial: '/games/image_block', locals: { game: product, model: product, title: :title } %>
           <% end %>
 
-          <% product.ads.each do |ad| %>
+          <% product.ads.active.each do |ad| %>
             <%= render partial: '/games/image_block', locals: { game: product, model: ad, title: :title } if ad.image.attached? %>
           <% end %>
         </div>

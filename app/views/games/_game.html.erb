@@ -5,7 +5,7 @@
         <div class="swiper-wrapper">
           <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } if game.image.attached? %>
 
-          <% game.ads.each do |ad| %>
+          <% game.ads.active.each do |ad| %>
             <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } if ad.image.attached? %>
           <% end %>
         </div>

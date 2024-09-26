@@ -24,7 +24,7 @@ class AddWatermarkJob < ApplicationJob
     stores.each do |store|
       addresses = store.addresses.where(addr_args)
       addresses.each do |address|
-        ads      = address.ads.where(deleted: 0)
+        ads      = address.ads.active
         products = products.limit(address&.total_games) if model == Game
         products.each do |product|
           next if product.is_a?(Game) && product.game_black_list
