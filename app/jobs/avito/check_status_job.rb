@@ -79,8 +79,9 @@ class Avito::CheckStatusJob < ApplicationJob
     if ad.present?
       options = {}
       # options[:deleted]  = 1 # TODO раскоментировать и проверить
-      options[:avito_id] = avito_id if ad.avito_id.nil?
+      options[:avito_id] = avito_id if ad.avito_id.blank?
       ad.update(options)
+      binding.pry
     end
   end
 
