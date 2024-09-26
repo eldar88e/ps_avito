@@ -14,8 +14,9 @@ class Avito::CheckStatusJob < ApplicationJob
     user = stores.first.user
 
     stores.each do |store|
-      low_rating = []
+      low_rating  = []
       without_ads = []
+      deleted     = []
       avito = AvitoService.new(store: store)
       next if avito.token_status == 403
 
@@ -48,7 +49,7 @@ class Avito::CheckStatusJob < ApplicationJob
 
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
-          updated  = update_ad(ads_db, **options)
+          updated  = update_ad(deleted, ads_db, **options)
           next if updated
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
@@ -59,16 +60,18 @@ class Avito::CheckStatusJob < ApplicationJob
           without_ads << avito_id if ad_id.zero?
           low_rating << ad_id if !ad_id.zero?
           options[:id] = ad_id
-          update_ad(ads_db, **options)
+          update_ad(deleted, ads_db, **options)
           sleep rand(0.7..1.5)
         end
         page += 1
       rescue => e
         TelegramService.call(user, e.message)
       end
-      binding.pry
-      msg = "✅ Store #{store.manager_name} have #{low_rating.size} low rating ads.\n#{low_rating.join(", ")}.\nand have #{without_ads.size} without ads\n#{without_ads.join(", ")}."
-      TelegramService.call(user, msg) if low_rating.size > 0
+      msg = "✅ Store #{store.manager_name} have:\n"
+      msg << "📌 #{low_rating.size} low rating ads.\n#{low_rating.join(', ')}.\n" if low_rating.size > 0
+      msg << "📌 #{without_ads.size} items without ads.\n#{without_ads.join(', ')}." if without_ads.size > 0
+      msg << "📌 #{deleted.size} deleted ads.\n#{deleted.join(', ')}.\n" if deleted.size > 0
+      TelegramService.call(user, msg) if low_rating.size > 0 || without_ads.size > 0 || deleted.size > 0
     end
 
     nil
@@ -76,16 +79,19 @@ class Avito::CheckStatusJob < ApplicationJob
 
   private
 
-  def update_ad(ads_db, **args)
+  def update_ad(deleted, ads_db, **args)
     avito_id = args[:id] ? args.delete(:avito_id) : nil
     #ad       = ads_db.find { |i| i[args.keys.first] == args.values.first }
     ad = ads_db.find_by(args)
-    if ad.present?
-      options = {}
-      # options[:deleted]  = 1 # TODO раскоментировать и проверить
-      options[:avito_id] = avito_id if ad.avito_id.blank?
-      ad.update(options)
+    return unless ad.present?
+
+    options = {}
+    if ad.created_at < Time.current.prev_month
+      options[:deleted] = 1
+      deleted << ad.id
     end
+    options[:avito_id] = avito_id if ad.avito_id.blank?
+    ad.update(options)
   end
 
   def send_error_sections(section, user, account)
