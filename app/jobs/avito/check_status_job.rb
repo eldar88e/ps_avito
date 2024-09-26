@@ -66,7 +66,7 @@ class Avito::CheckStatusJob < ApplicationJob
       rescue => e
         TelegramService.call(user, e.message)
       end
-      msg = "✅ Store #{store.manager_name} have #{low_rating.size} low rating and #{without_ads.size} without ads.\n#{low_rating.join(", ")}"
+      msg = "✅ Store #{store.manager_name} have #{low_rating.size} low rating ads.\n#{low_rating.join(", ")}.\nand have #{without_ads.size} without ads\n#{without_ads.join(", ")}."
       TelegramService.call(user, msg) if low_rating.size > 0
     end
 
