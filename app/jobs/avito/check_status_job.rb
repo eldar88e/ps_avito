@@ -53,7 +53,7 @@ class Avito::CheckStatusJob < ApplicationJob
           response = fetch_and_parse(avito, url)
           next if response.nil?
 
-          ad_id = response['items'][0]['ad_id']
+          ad_id = response['items'][0]['ad_id'].to_i
           low_rating << ad_id
           options[:id] = ad_id
           update_ad(ads_db, **options)
