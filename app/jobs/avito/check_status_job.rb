@@ -1,6 +1,6 @@
 class Avito::CheckStatusJob < ApplicationJob
   queue_as :default
-  PER_PAGE = 50
+  PER_PAGE = 90
 
   def perform(**args)
     stores =
@@ -28,6 +28,7 @@ class Avito::CheckStatusJob < ApplicationJob
       ads_cache   = {}
       items_cache = {}
       loop do
+        puts page
         url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
