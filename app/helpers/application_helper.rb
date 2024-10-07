@@ -1,8 +1,13 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def img_resize(attachment, width, height=nil)
-    url_for(attachment.variant(resize_to_limit: [width, height || width]).processed)
+  def img_resize(image, **args)
+    return unless image.attached?
+
+    attachment = Rails.cache.fetch("image_resize_#{image.id}_#{args.to_s}", expires_in: 1.hour) do
+      image.variant(resize_to_limit: [args[:width], args[:height] || args[:width]]).processed
+    end
+    url_for attachment
   end
 
   def format_date(date)

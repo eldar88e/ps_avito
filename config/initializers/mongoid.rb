@@ -1,10 +1,10 @@
 # rubocop:todo all
-Mongoid.configure do
-  target_version = "9.0"
+# Mongoid.configure do
+#1     target_version = "9.0"
 
   # Load Mongoid behavior defaults. This automatically sets
   # features flags (refer to documentation)
-  config.load_defaults target_version
+#2     config.load_defaults target_version
 
   # It is recommended to use config/mongoid.yml for most Mongoid-related
   # configuration, whenever possible, but if you prefer, you can set
@@ -14,7 +14,7 @@ Mongoid.configure do
   #
   # Note that the settings in config/mongoid.yml always take precedence,
   # whatever else is set here.
-end
+#end
  
 # Enable Mongo driver query cache for Rack
 # Rails.application.config.middleware.use(Mongo::QueryCache::Middleware)

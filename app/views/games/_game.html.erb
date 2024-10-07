@@ -1,12 +1,10 @@
 <li class="list-group-item list-group-item-action game-item<%= ' list-group-item-danger' if game.game_black_list %>">
     <div class="swiper games_swiper" data-controller="swiper">
       <div class="swiper-wrapper">
-        <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } if game.image.attached? %>
+        <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } %>
 
-        <% if game.ads %>
-          <% game.ads.active.each do |ad| %>
-            <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } if ad.image.attached? %>
-          <% end %>
+        <% game.ads.active.each do |ad| %>
+          <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } %>
         <% end %>
       </div>
 

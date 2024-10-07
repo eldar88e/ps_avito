@@ -24,7 +24,7 @@
                 <% if item.image.attached? %>
                   <a data-fancybox="gallery_ad" data-src="<%= url_for(item.image) %>" data-caption="<%= item.file_id %>">
                     <div class="loading-image" style='width: 50px; height: 37px'>
-                      <div class="image-thumbnail" style="background-image: url(<%= img_resize(item.image, 80, 57) %>);"></div>
+                      <div class="image-thumbnail" style="background-image: url(<%= img_resize(item.image, width: 80, height: 57) %>);"></div>
                     </div>
                   </a>
                 <% end %>

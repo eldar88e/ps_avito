@@ -4,11 +4,9 @@
 
 <div class="container">
   <div class="mb-3">
-    <% @report.to_a[0..3].to_h.each do |key, val| %>
-      <% next if key == 'finished_at' %>
-
+    <% @report.slice('report_id', 'started_at', 'status').each do |key, val| %>
       <span class="me-3">
-      <%= t("avito.autoload.report.#{key}") %>:
+        <%= t("avito.autoload.report.#{key}") %>:
         <% if key == 'status' %>
           <span class="badge bg-<%= badge_status(val) %>">
             <%= t("avito.autoload.report.#{val}") %>
@@ -20,7 +18,10 @@
         <% end %>
       </span>
     <% end %>
-    <span class="mb-3 badge bg-success"><%= 'Cached' if @cached %></span>
+
+    <% if @cached %>
+      <span class="mb-3 badge bg-success">Cached</span>
+    <% end %>
   </div>
 
   <div class="row">

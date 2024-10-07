@@ -20,14 +20,13 @@ services:
     depends_on:
       - pg
       - redis
-      - mongodb
+      #- mongodb
     volumes:
       - gems:/usr/local/bundle
       - ./node_modules:/app/node_modules
       - ./log:/app/log
       - ./public:/app/public
       - ./storage:/app/storage
-      - ./game_images:/app/game_images
       - ./game_lists:/app/game_lists
     networks:
       - web-net
@@ -45,7 +44,6 @@ services:
       - ./node_modules:/app/node_modules
       - ./log:/app/log
       - ./storage:/app/storage
-      - ./game_images:/app/game_images
       - ./game_lists:/app/game_lists
     depends_on:
       - pg
@@ -70,50 +68,50 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./public:/app
       - ./game_lists:/app/game_lists
-      - ./game_images:/app/game_images
     depends_on:
       - web
+      - good_job
     networks:
       web-net:
       proxy-net:
         ipv4_address: 172.29.0.3
     restart: always
 
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb-ps
-    restart: unless-stopped
-    env_file: ./.env
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - web-net
+  # mongodb:
+  #  image: mongo:latest
+  #  container_name: mongodb-ps
+  #  restart: unless-stopped
+  #  env_file: ./.env
+  #  volumes:
+  #    - mongo_data:/data/db
+  #  networks:
+  #    - web-net
 
-  cable:
-    image: cable
-    build: .
-    env_file: ./.env
-    container_name: cable-ps
-    entrypoint: [ ]
-    command: bundle exec puma -p 28080 ./config/cable/config.ru
-    volumes:
-      - gems:/usr/local/bundle
-      - .:/app
-    ports:
-      - 28080:28080
-    depends_on:
-      - pg
-      - redis
-      - web
-    networks:
-      - web-net
-    restart: unless-stopped
+  #cable:
+  #  image: cable
+  #  build: .
+  #  env_file: ./.env
+  #  container_name: cable-ps
+  #  entrypoint: []
+  #  command: bundle exec puma -p 28080 ./config/cable/config.ru
+  #  volumes:
+  #    - gems:/usr/local/bundle
+  #    - .:/app
+  #  ports:
+  #    - 28080:28080
+  #  depends_on:
+  #    - pg
+  #    - redis
+  #    - web
+  #  networks:
+  #    - web-net
+  #  restart: unless-stopped
 
 volumes:
   gems:
   db_data:
   redis:
-  mongo_data:
+  # mongo_data:
 
 networks:
   web-net:

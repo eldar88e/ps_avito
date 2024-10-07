@@ -45,13 +45,12 @@ module Avito
     end
 
     def initialize_cache
-      @cached_report =
-        if params['no_cache'].nil?
-          CacheReport.find_or_initialize_by(report_id: params['id'], store_id: @store.id)
-        else
-          CacheReport.where(report_id: params['id'], store_id: @store.id).delete_all
-          CacheReport.new(report_id: params['id'], store_id: @store.id)
-        end
+      @cached_report = current_user.cache_reports.find_or_initialize_by(store: @store, report_id: params['id'])
+
+      if params['no_cache']
+        @cached_report.destroy if @cached_report.persisted?
+        @cached_report = current_user.cache_reports.new(store: @store, report_id: params['id'])
+      end
     end
 
     def handle_sections_params

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_search
-    @q = Game.order(:top).active.ransack(params[:q])
+    @q = Game.order(:top).active.includes(ads: { image_attachment: :blob }).ransack(params[:q])
   end
 
   def send_notice(msg, key)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_26_140137) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_07_174032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_140137) do
     t.integer "report_id"
     t.index ["ad_id"], name: "index_ban_lists_on_ad_id", unique: true
     t.index ["store_id"], name: "index_ban_lists_on_store_id"
+  end
+
+  create_table "cache_reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.integer "report_id", null: false
+    t.jsonb "report", null: false
+    t.jsonb "fees"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_cache_reports_on_report_id"
+    t.index ["store_id"], name: "index_cache_reports_on_store_id"
+    t.index ["user_id", "store_id", "report_id"], name: "index_cache_reports_on_user_id_and_store_id_and_report_id", unique: true
+    t.index ["user_id"], name: "index_cache_reports_on_user_id"
   end
 
   create_table "exception_tracks", force: :cascade do |t|
@@ -342,6 +356,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_140137) do
   add_foreign_key "ads", "users"
   add_foreign_key "avito_tokens", "stores"
   add_foreign_key "ban_lists", "stores"
+  add_foreign_key "cache_reports", "stores"
+  add_foreign_key "cache_reports", "users"
   add_foreign_key "image_layers", "stores"
   add_foreign_key "products", "users"
   add_foreign_key "settings", "users"

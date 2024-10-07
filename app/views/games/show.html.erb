@@ -12,10 +12,8 @@
       <%= image_tag url_for(@game.image), style: 'width: 100%; margin: 1em 0;' %>
     <% end %>
 
-    <% if @game.ads.present? %>
-      <% @game.ads.each do |ad| %>
+    <% @game.ads.each do |ad| %>
         <%= image_tag url_for(ad.image), style: 'width: 100%; margin: 1em 0;' %>
-      <% end %>
     <% end %>
 
     <div style="display: inline-block;">
