@@ -1,20 +1,18 @@
 <li class="list-group-item list-group-item-action game-item<%= ' list-group-item-danger' if game.game_black_list %>">
-  <div>
-    <% if game.ads %>
-      <div class="swiper games_swiper" data-controller="swiper">
-        <div class="swiper-wrapper">
-          <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } if game.image.attached? %>
+    <div class="swiper games_swiper" data-controller="swiper">
+      <div class="swiper-wrapper">
+        <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } if game.image.attached? %>
 
+        <% if game.ads %>
           <% game.ads.active.each do |ad| %>
             <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } if ad.image.attached? %>
           <% end %>
-        </div>
-
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
 
   <div style="display: inline-block;">
     <a href='<%= game_path(game.top) %>'>

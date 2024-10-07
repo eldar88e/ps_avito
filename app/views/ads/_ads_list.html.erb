@@ -16,7 +16,7 @@
           </div>
         </li>
         <% @ads.each do |item| %>
-          <li class="list-group-item list-group-item-action">
+          <li class="list-group-item list-group-item-action" title="created_at: <%= format_date item.created_at %>, updated_at: <%= format_date item.updated_at %>">
             <div class="row">
               <div class="col-4 col-md-1"><%= item.id %></div>
               <div class="col-4 col-md-1"><%= item.avito_id %></div>
