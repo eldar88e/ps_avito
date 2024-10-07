@@ -36,7 +36,7 @@ class GameImageDownloaderJob < ApplicationJob
   end
 
   def download_image(url, user)
-    response = connect_to_ps(url)
+    response = connect_to_ps(url, user)
     return response.body if response&.headers['content-type']&.match?(/image/)
 
     Rails.logger.error "Job: #{self.class} || Error message: PS img is not available! URL: #{url}"
@@ -46,23 +46,26 @@ class GameImageDownloaderJob < ApplicationJob
     TelegramService.call(user, "PS img is not available\nError message: #{e.message}\n#{url}")
   end
 
-  def connect_to_ps(url)
-    faraday_params = { proxy: fetch_proxy }
+  def connect_to_ps(url, user)
+    proxy_url      = fetch_proxy
+    faraday_params = { proxy: proxy_url }
+    begin
+      connection = Faraday.new(faraday_params) do |faraday|
+        faraday.request :url_encoded
+        faraday.response :logger if Rails.env.development?
+        faraday.adapter :net_http
+        faraday.headers['User-Agent']      = UserAgentService.call
+        faraday.headers['Accept']          = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+        faraday.headers['Accept-Encoding'] = 'gzip, deflate, br, zstd'
+        faraday.headers['Accept-Language'] = 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
+      end
 
-    connection = Faraday.new(faraday_params) do |faraday|
-      faraday.request :url_encoded
-      faraday.response :logger if Rails.env.development?
-      faraday.adapter :net_http
-      faraday.headers['User-Agent']      = UserAgentService.call
-      faraday.headers['Accept']          = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
-      faraday.headers['Accept-Encoding'] = 'gzip, deflate, br, zstd'
-      faraday.headers['Accept-Language'] = 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
+      connection.get(url)
+    rescue Faraday::ConnectionFailed => e
+      TelegramService.call(user, "#{e.message}\n#{proxy_url}")
+      faraday_params = { proxy: nil }
+      retry
     end
-
-    binding.pry
-    connection.get(url)
-  rescue => e
-    binding.pry
   end
 
   def fetch_proxy
