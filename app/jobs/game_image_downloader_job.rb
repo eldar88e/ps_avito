@@ -36,23 +36,22 @@ class GameImageDownloaderJob < ApplicationJob
   end
 
   def download_image(url, user)
-    response = connect_to(url)
+    response = connect_to_ps(url)
     return response.body if response&.headers['content-type']&.match?(/image/)
 
+    binding.pry
     Rails.logger.error "Job: #{self.class} || Error message: PS img is not available! URL: #{url}"
     TelegramService.call(user, "PS img is not available\n#{url}")
-    nil
   rescue => e
     Rails.logger.error "Class: #{e.class} || Error message: #{e.full_message}"
     TelegramService.call(user, "PS img is not available\nError message: #{e.message}\n#{url}")
-    nil
   end
 
-  def connect_to(url)
+  def connect_to_ps(url)
     faraday_params = { proxy: fetch_proxy }
 
     connection = Faraday.new(faraday_params) do |faraday|
-      faraday.request  :url_encoded
+      faraday.request :url_encoded
       faraday.response :logger if Rails.env.development?
       faraday.adapter :net_http
       faraday.headers['User-Agent']      = UserAgentService.call
