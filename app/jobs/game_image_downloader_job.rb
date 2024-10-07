@@ -39,7 +39,6 @@ class GameImageDownloaderJob < ApplicationJob
     response = connect_to_ps(url)
     return response.body if response&.headers['content-type']&.match?(/image/)
 
-    binding.pry
     Rails.logger.error "Job: #{self.class} || Error message: PS img is not available! URL: #{url}"
     TelegramService.call(user, "PS img is not available\n#{url}")
   rescue => e
@@ -60,7 +59,10 @@ class GameImageDownloaderJob < ApplicationJob
       faraday.headers['Accept-Language'] = 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
     end
 
+    binding.pry
     connection.get(url)
+  rescue => e
+    binding.pry
   end
 
   def fetch_proxy
