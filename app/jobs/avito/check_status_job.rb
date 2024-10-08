@@ -68,12 +68,13 @@ class Avito::CheckStatusJob < ApplicationJob
           ####
           existing_ad = ads_db.find_by(id: ad_id)
           existing_ad.update(avito_id: avito_id) if existing_ad
-          puts "### #{avito_id} ###" if existing_ad
+          puts "### #{avito_id} ### #{existing_ad.file_id}" if existing_ad
           #####
           without_ads << avito_id if ad_id.zero?
           low_rating << ad_id if !ad_id.zero?
           options[:id] = ad_id
           #update_ad(deleted, response, ads_db, **options)
+          # Avito::CheckStatusJob.perform_now(store: Store.find(5))
           sleep rand(0.7..1.5) # sleep rand(0.1..0.7)
         end
         page += 1
