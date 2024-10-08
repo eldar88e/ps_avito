@@ -89,7 +89,10 @@ class Avito::CheckStatusJob < ApplicationJob
     ad = ads_db.find_by(args)
     return if ad&.avito_id # TODO убрать
 
-    binding.pry unless ad.present? # TODO return
+    unless ad.present?
+      binding.pry if args[:id]
+      return
+    end
 
     options = {}
     if ad.created_at < Time.current.prev_month
