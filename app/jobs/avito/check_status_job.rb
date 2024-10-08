@@ -74,7 +74,7 @@ class Avito::CheckStatusJob < ApplicationJob
           low_rating << ad_id if !ad_id.zero?
           options[:id] = ad_id
           #update_ad(deleted, response, ads_db, **options)
-          sleep rand(0.7..1.5)
+          sleep rand(0.7..1.5) # sleep rand(0.1..0.7)
         end
         page += 1
       rescue => e
