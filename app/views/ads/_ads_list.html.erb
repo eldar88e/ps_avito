@@ -1,8 +1,8 @@
 <div class="tab-pane fade <%= style %>" id="ads-block" role="tabpanel" aria-labelledby="ads-block-tab">
-  <% if @ads.present? %>
-    <%= button_to 'Очистить бан лист', store_update_all_path(@store.id), class: 'btn btn-primary mb-3' %>
-    <%= turbo_frame_tag :ads do %>
-      <%= render '/ads/search' %>
+  <%= button_to 'Очистить бан лист', store_update_all_path(@store.id), class: 'btn btn-primary mb-3' %>
+  <%= turbo_frame_tag :ads do %>
+    <%= render '/ads/search' %>
+    <% if @ads.present? %>
       <ul class="list-group" data-controller="fancybox">
         <li class="list-group-item list-group-item-action active d-none d-md-block">
           <div class="row sort_ads">
@@ -43,8 +43,8 @@
       </div>
 
       <%== pagy_info(@pagy) %>
+    <% else %>
+      <p>Записей не найдено!</p>
     <% end %>
-  <% else %>
-    <p>Записей не найдено!</p>
   <% end %>
 </div>
