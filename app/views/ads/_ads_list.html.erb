@@ -1,5 +1,7 @@
 <div class="tab-pane fade <%= style %>" id="ads-block" role="tabpanel" aria-labelledby="ads-block-tab">
-  <%= button_to 'Очистить бан лист', store_update_all_path(@store.id), class: 'btn btn-primary mb-3' %>
+  <%= button_to 'Очистить бан лист', store_update_all_path(@store.id), class: 'btn btn-danger mb-3',
+                data: { confirm: 'Вы уверены, что хотите очистить бан лист?',
+                        controller: 'confirm', action: 'click->confirm#call' } %>
   <%= turbo_frame_tag :ads do %>
     <%= render '/ads/search' %>
     <% if @ads.present? %>

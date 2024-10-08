@@ -2,12 +2,15 @@ class StoresController < ApplicationController
   before_action :authenticate_user!
   before_action :set_store, only: [:show, :edit, :update, :destroy]
   before_action :set_search_ads, only: :show
+  add_breadcrumb "Главная", :root_path
+  before_action :set_breadcrumb, only: [:index, :show, :new, :edit]
 
   def index
     @stores = current_user.stores.order(active: :desc).order(:created_at)
   end
 
   def show
+    add_breadcrumb @store.manager_name, store_path(@store)
     @pagy, @ads = pagy(@q_ads.result, items: 36)
     @whitelist  = { elements: %w[div span ul li br b i strong em p] }
   end
@@ -52,6 +55,10 @@ class StoresController < ApplicationController
   end
 
   private
+
+  def set_breadcrumb
+    add_breadcrumb 'Аккаунты', stores_path
+  end
 
   def set_store
     @store = current_user.stores.find(params[:id])
