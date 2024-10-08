@@ -46,6 +46,7 @@ class Avito::CheckStatusJob < ApplicationJob
         items_cache[:"#{page}"] ||= fetch_and_parse(avito, url, :post, payload)
         items_raw = items_cache[:"#{page}"]
         items     = items_raw['result']['items']
+        binding.pry
         items.each do |item|
           # ####
           # next if item['stats'].present?
