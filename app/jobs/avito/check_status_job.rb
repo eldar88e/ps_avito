@@ -68,6 +68,7 @@ class Avito::CheckStatusJob < ApplicationJob
           ####
           existing_ad = ads_db.find_by(id: ad_id)
           existing_ad.update(avito_id: avito_id) if existing_ad
+          puts "### #{avito_id} ###" if existing_ad
           #####
           without_ads << avito_id if ad_id.zero?
           low_rating << ad_id if !ad_id.zero?
