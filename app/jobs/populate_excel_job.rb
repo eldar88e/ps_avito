@@ -19,14 +19,22 @@ class PopulateExcelJob < ApplicationJob
       games.each do |game|
         next if game.game_black_list
 
-        ad = ads.find { |ad| ad[:file_id] == "#{game.sony_id}_#{store.id}_#{address.id}" }
+        file_id = "#{game.sony_id}_#{store.id}_#{address.id}"
+        ad      = ads.find { |ad| ad[:file_id] == file_id }
         next if ad.nil?
+
+        img_url = make_image(ad)
+        if img_url.blank?
+          msg = "Skipped because there is no image for #{file_id}"
+          TelegramService.call(user, msg)
+          next
+        end
 
         worksheet.append_row(
           [ad.id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
            make_local(game), address.store_address, make_title(game), make_description(game, store, address),
            store.condition, make_price(game.price_tl, store), store.allow_email, store.manager_name,
-           store.contact_phone, store.contact_method, make_image(ad)]
+           store.contact_phone, store.contact_method, img_url]
         )
       end
 
