@@ -53,7 +53,7 @@ class Avito::CheckStatusJob < ApplicationJob
 
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
-          updated  = update_ad(deleted, ads_db, **options)
+          updated  = update_ad(deleted, item, ads_db, **options)
           next if updated
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
@@ -64,7 +64,7 @@ class Avito::CheckStatusJob < ApplicationJob
           without_ads << avito_id if ad_id.zero?
           low_rating << ad_id if !ad_id.zero?
           options[:id] = ad_id
-          update_ad(deleted, ads_db, **options)
+          update_ad(deleted, response, ads_db, **options)
           sleep rand(0.7..1.5)
         end
         page += 1
@@ -83,7 +83,7 @@ class Avito::CheckStatusJob < ApplicationJob
 
   private
 
-  def update_ad(deleted, ads_db, **args)
+  def update_ad(deleted, item, ads_db, **args)
     avito_id = args[:id] ? args.delete(:avito_id) : nil
     #ad       = ads_db.find { |i| i[args.keys.first] == args.values.first }
     ad = ads_db.find_by(args)
