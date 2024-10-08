@@ -46,7 +46,6 @@ class Avito::CheckStatusJob < ApplicationJob
         items_cache[:"#{page}"] ||= fetch_and_parse(avito, url, :post, payload)
         items_raw = items_cache[:"#{page}"]
         items     = items_raw['result']['items']
-        binding.pry
         items.each do |item|
           # ####
           # next if item['stats'].present?
@@ -88,7 +87,7 @@ class Avito::CheckStatusJob < ApplicationJob
     avito_id = args[:id] ? args.delete(:avito_id) : nil
     #ad       = ads_db.find { |i| i[args.keys.first] == args.values.first }
     ad = ads_db.find_by(args)
-    return if ad.avito_id # TODO убрать
+    return if ad&.avito_id # TODO убрать
 
     binding.pry unless ad.present? # TODO return
 
