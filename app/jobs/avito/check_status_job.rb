@@ -49,6 +49,7 @@ class Avito::CheckStatusJob < ApplicationJob
         items.each do |item|
           # ####
           # next if item['stats'].present?
+          puts item['itemId']
           # #####
 
           avito_id = item['itemId']
