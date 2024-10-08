@@ -32,8 +32,10 @@ class Avito::CheckStatusJob < ApplicationJob
       ads_cache   = {}
       items_cache = {}
       loop do
+        #######
         puts page
-        url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}"
+        #########
+        url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=blocked" #TODO delete &status=blocked
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads["resources"].blank?
@@ -54,19 +56,21 @@ class Avito::CheckStatusJob < ApplicationJob
 
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
-          updated  = update_ad(deleted, item, ads_db, **options)
-          next if updated
+          binding.pry
+
+          #updated  = update_ad(deleted, item, ads_db, **options)
+          #next if updated
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
-          response = fetch_and_parse(avito, url)
-          next if response.nil?
+          #response = fetch_and_parse(avito, url)
+          #next if response.nil?
 
-          ad_id = response['items'][0]['ad_id'].to_i
-          without_ads << avito_id if ad_id.zero?
-          low_rating << ad_id if !ad_id.zero?
-          options[:id] = ad_id
-          update_ad(deleted, response, ads_db, **options)
-          sleep rand(0.7..1.5)
+          #ad_id = response['items'][0]['ad_id'].to_i
+          #without_ads << avito_id if ad_id.zero?
+          #low_rating << ad_id if !ad_id.zero?
+          #options[:id] = ad_id
+          #update_ad(deleted, response, ads_db, **options)
+          #sleep rand(0.7..1.5)
         end
         page += 1
       rescue => e
