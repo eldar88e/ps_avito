@@ -55,7 +55,8 @@ class Avito::CheckStatusJob < ApplicationJob
           # #####
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
-
+          existing_ad = ads_db.find_by(avito_id: avito_id)
+          next if existing_ad
           #updated  = update_ad(deleted, item, ads_db, **options)
           #next if updated
 
