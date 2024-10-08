@@ -87,6 +87,8 @@ class Avito::CheckStatusJob < ApplicationJob
     avito_id = args[:id] ? args.delete(:avito_id) : nil
     #ad       = ads_db.find { |i| i[args.keys.first] == args.values.first }
     ad = ads_db.find_by(args)
+    return if ad.avito_id # TODO убрать
+
     binding.pry unless ad.present? # TODO return
 
     options = {}
