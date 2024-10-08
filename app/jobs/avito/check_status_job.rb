@@ -53,24 +53,26 @@ class Avito::CheckStatusJob < ApplicationJob
           # next if item['stats'].present?
           puts item['itemId']
           # #####
-
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
-          binding.pry
 
           #updated  = update_ad(deleted, item, ads_db, **options)
           #next if updated
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
-          #response = fetch_and_parse(avito, url)
-          #next if response.nil?
+          response = fetch_and_parse(avito, url)
+          next if response.nil?
 
-          #ad_id = response['items'][0]['ad_id'].to_i
-          #without_ads << avito_id if ad_id.zero?
-          #low_rating << ad_id if !ad_id.zero?
-          #options[:id] = ad_id
+          ad_id = response['items'][0]['ad_id'].to_i
+          ####
+          existing_ad = ads_db.find_by(id: ad_id)
+          existing_ad.update(avito_id: avito_id) if existing_ad
+          #####
+          without_ads << avito_id if ad_id.zero?
+          low_rating << ad_id if !ad_id.zero?
+          options[:id] = ad_id
           #update_ad(deleted, response, ads_db, **options)
-          #sleep rand(0.7..1.5)
+          sleep rand(0.7..1.5)
         end
         page += 1
       rescue => e
