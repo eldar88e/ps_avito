@@ -47,7 +47,9 @@ class Avito::CheckStatusJob < ApplicationJob
         items_raw = items_cache[:"#{page}"]
         items     = items_raw['result']['items']
         items.each do |item|
-          next if item['stats'].present?
+          # ####
+          # next if item['stats'].present?
+          # #####
 
           avito_id = item['itemId']
           options  = { avito_id: avito_id }
@@ -85,11 +87,13 @@ class Avito::CheckStatusJob < ApplicationJob
     avito_id = args[:id] ? args.delete(:avito_id) : nil
     #ad       = ads_db.find { |i| i[args.keys.first] == args.values.first }
     ad = ads_db.find_by(args)
-    return unless ad.present?
+    binding.pry unless ad.present? # TODO return
 
     options = {}
     if ad.created_at < Time.current.prev_month
-      options[:deleted] = 1
+      #####
+      # options[:deleted] = 1
+      #####
       deleted << ad.id
     end
     options[:avito_id] = avito_id if ad.avito_id.blank?
