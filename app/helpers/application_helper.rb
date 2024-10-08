@@ -8,6 +8,10 @@ module ApplicationHelper
       image.variant(resize_to_limit: [args[:width], args[:height] || args[:width]]).processed
     end
     url_for attachment
+  rescue => e
+    Rails.logger.error '*' * 100
+    Rails.logger.error e.message
+    Rails.logger.error '*' * 100
   end
 
   def format_date(date)
