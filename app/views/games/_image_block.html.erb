@@ -1,4 +1,4 @@
-<% if game.image.attached? %>
+<% if model.image.attached? %>
   <div class="swiper-slide">
     <a data-fancybox="gallery_<%= game.id %>" data-src="<%= url_for(model.image) %>" data-caption="<%= game.send(title) %>">
       <div class="loading-image" style='width: 96px;'>
