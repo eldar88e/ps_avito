@@ -3,7 +3,7 @@ class Avito::CheckSchedulesJob < ApplicationJob
 
   def perform(**args)
     current_user = User.find args[:user_id]
-    stores       = current_user.stores.where(stores: { active: true })
+    stores       = current_user.stores.active
     stores.each do |store|
       avito = AvitoService.new(store: store)
 

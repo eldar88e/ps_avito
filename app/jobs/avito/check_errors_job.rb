@@ -9,7 +9,7 @@ class Avito::CheckErrorsJob < ApplicationJob
       else
         return unless args[:user_id]
 
-        current_user(args[:user_id]).stores.where(active: true)
+        current_user(args[:user_id]).stores.active
       end
     current_user = stores.first.user
 

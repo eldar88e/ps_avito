@@ -3,15 +3,17 @@ class Avito::CheckStatusJob < ApplicationJob
   PER_PAGE = 90
 
   def perform(**args)
+    user = nil
     stores =
       if args[:store]
         [args[:store]]
       else
         return unless args[:user_id]
 
-        current_user(args[:user_id]).stores.where(active: true)
+        user = find_user(args)
+        user.stores.active
       end
-    user = stores.first.user
+    user ||= stores.first.user
 
     stores.each do |store|
       low_rating  = []
@@ -92,10 +94,6 @@ class Avito::CheckStatusJob < ApplicationJob
     end
     options[:avito_id] = avito_id if ad.avito_id.blank?
     ad.update(options)
-  end
-
-  def send_error_sections(section, user, account)
-    TelegramService.call(user, "‼️#{section['title']} #{section['count']} на аккаунте #{account}.")
   end
 
   def fetch_and_parse(avito, url, method = :get, payload=nil)

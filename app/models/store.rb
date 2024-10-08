@@ -23,6 +23,8 @@ class Store < ApplicationRecord
 
   self.inheritance_column = :type_
 
+  scope :active, -> { where(active: true) }
+
   private
 
   def set_default_layer_params
