@@ -14,7 +14,10 @@ class Avito::CheckBalancesJob < ApplicationJob
       balance = JSON.parse(response.body)['result']['balance']
       size    = balance.to_s.size < 5 ? 100 : 1000
       result  = balance / size
-      TelegramService.call(user, "‼️ #{store.manager_name} — Низкий баланс(#{result}₽, #{balance})!") if result < 70
+      if result < 100
+        msg = result < 40 ? 'Объявления сняты с публикации.' : 'Низкий'
+        TelegramService.call(user, "‼️ #{store.manager_name} — #{msg} баланс(#{result}₽, #{balance})!")
+      end
     end
 
     nil
