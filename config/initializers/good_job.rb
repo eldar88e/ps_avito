@@ -53,6 +53,14 @@ Rails.application.configure do
       kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
       description: "Check store schedules in avito"
     },
+    check_avito_balances: {
+      cron: "0 8,21 * * *",
+      class: "Avito::CheckBalancesJob",
+      set: { priority: 10 },
+      #args: [42, "life"],
+      kwargs: { user_id: ENV.fetch("USER_ID") { 1 }.to_i },
+      description: "Check store balances in avito"
+    },
     check_avito_errors: {
       cron: "0 18 * * *",
       class: "Avito::CheckErrorsJob",

@@ -2,7 +2,7 @@ class Avito::CheckSchedulesJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    current_user = User.find args[:user_id]
+    current_user = find_user args
     stores       = current_user.stores.active
     stores.each do |store|
       avito = AvitoService.new(store: store)
