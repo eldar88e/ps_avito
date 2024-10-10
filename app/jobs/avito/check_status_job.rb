@@ -85,7 +85,11 @@ class Avito::CheckStatusJob < ApplicationJob
       msg << "📌 #{low_rating.size} low rating ads.\n#{low_rating.join(', ')}.\n" if low_rating.size > 0
       msg << "📌 #{without_ads.size} items without ads.\n#{without_ads.join(', ')}." if without_ads.size > 0
       msg << "📌 #{deleted.size} deleted ads.\n#{deleted.join(', ')}.\n" if deleted.size > 0
-      TelegramService.call(user, msg) if low_rating.size > 0 || without_ads.size > 0 || deleted.size > 0
+      #
+      #TelegramService.call(user, msg) if low_rating.size > 0 || without_ads.size > 0 || deleted.size > 0
+      #
+      TelegramService.call(user, 'Populated avito_ID for blocked ad.')
+      #
     end
 
     nil
