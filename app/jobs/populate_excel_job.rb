@@ -10,9 +10,9 @@ class PopulateExcelJob < ApplicationJob
     worksheet = workbook.add_worksheet
     products  = user.products.active.with_attached_image
 
-    worksheet.append_row %w[Id AvitoId AdStatus Category GoodsType AdType Type Platform Localization Address Title
+    worksheet.append_row %w[Id AvitoId DateBegin AdStatus Category GoodsType AdType Type Platform Localization Address Title
                             Description Condition Price AllowEmail ManagerName	ContactPhone ContactMethod ImageUrls]
-
+    current_time = Time.current.strftime('%d.%m.%y')
     store.addresses.where(active: true).each do |address|
       ads   = address.ads.active_ads
       games = Game.order(:top).active.limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
@@ -31,10 +31,10 @@ class PopulateExcelJob < ApplicationJob
         end
 
         worksheet.append_row(
-          [ad.id, ad.avito_id, store.ad_status, store.category, store.goods_type, store.ad_type, store.type, make_platform(game),
-           make_local(game), address.store_address, make_title(game), make_description(game, store, address),
-           store.condition, make_price(game.price_tl, store), store.allow_email, store.manager_name,
-           store.contact_phone, store.contact_method, img_url]
+          [ad.id, ad.avito_id, current_time, store.ad_status, store.category, store.goods_type, store.ad_type,
+           store.type, make_platform(game), make_local(game), address.store_address, make_title(game),
+           make_description(game, store, address), store.condition, make_price(game.price_tl, store), store.allow_email,
+           store.manager_name, store.contact_phone, store.contact_method, img_url]
         )
       end
 
@@ -43,7 +43,7 @@ class PopulateExcelJob < ApplicationJob
         next if ad.nil?
 
         worksheet.append_row(
-          [ad.id, ad.avito_id, product.ad_status || store.ad_status, product.category || store.category,
+          [ad.id, ad.avito_id, current_time, product.ad_status || store.ad_status, product.category || store.category,
            product.goods_type || store.goods_type, product.ad_type || store.ad_type, product.type || store.type,
            product.platform, product.localization, address.store_address, product.title,
            make_description(product, store, address), product.condition || store.condition, product.price,
