@@ -35,7 +35,7 @@ class Avito::CheckDeletedJob < ApplicationJob
         #######
         puts page
         #########
-        url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=deleted"
+        url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=removed"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads["resources"].blank?
@@ -75,7 +75,7 @@ class Avito::CheckDeletedJob < ApplicationJob
           low_rating << ad_id if !ad_id.zero?
           options[:id] = ad_id
           #update_ad(deleted, response, ads_db, **options)
-          # Avito::CheckStatusJob.perform_now(store: Store.find(5))
+          # Avito::CheckDeletedJob.perform_now(store: Store.find(6))
           sleep rand(0.7..1.5) # sleep rand(0.1..0.7)
         end
         page += 1
