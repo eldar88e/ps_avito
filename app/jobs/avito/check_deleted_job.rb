@@ -16,109 +16,53 @@ class Avito::CheckDeletedJob < ApplicationJob
     user ||= stores.first.user
 
     stores.each do |store|
-      low_rating  = []
-      without_ads = []
-      deleted     = []
       avito = AvitoService.new(store: store)
       next if avito.token_status == 403
 
-      url      = 'https://api.avito.ru/core/v1/accounts/self'
-      response = avito.connect_to(url)
-      next if response.status != 200
-
-      account_id  = JSON.parse(response.body)['id']
-      ads_db      = store.ads.load
-      page        = 0
-      ads_cache   = {}
-      items_cache = {}
+      ads_db    = store.ads.load
+      page      = 0
+      ads_cache = {}
       loop do
         #######
         puts page
+        binding.pry
         #########
         url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=removed"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads["resources"].blank?
 
-        ids       = ads["resources"].map { |i| i['id'] }
-        date_from = Time.current.beginning_of_month.to_date.to_s # TODO добавить .prev_month
-        date_to   = Time.current.beginning_of_month.to_date.to_s
-        payload   = { 'dateFrom': date_from, 'itemIds': ids, 'periodGrouping': 'month' } # 'dateTo': date_to,
-        url       = "https://api.avito.ru/stats/v1/accounts/#{account_id}/items"
-        items_cache[:"#{page}"] ||= fetch_and_parse(avito, url, :post, payload)
-        items_raw = items_cache[:"#{page}"]
-        items     = items_raw['result']['items']
-        binding.pry
-        items.each do |item|
+        ids = ads["resources"].map { |i| i['id'] }
+        ids.each do |avito_id|
           # ####
-          # next if item['stats'].present?
-          puts item['itemId']
+          puts avito_id
           # #####
-          avito_id = item['itemId']
-          options  = { avito_id: avito_id }
           existing_ad = ads_db.find_by(avito_id: avito_id)
+          binding.pry
+          #existing_ad.update(deleted: 1)
           next if existing_ad
-          #updated  = update_ad(deleted, item, ads_db, **options)
-          #next if updated
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
           response = fetch_and_parse(avito, url)
           next if response.nil?
 
-          ad_id = response['items'][0]['ad_id'].to_i
-          ####
+          ad_id       = response['items'][0]['ad_id'].to_i
           existing_ad = ads_db.find_by(id: ad_id)
-          existing_ad.update(avito_id: avito_id) if existing_ad
-          puts "### #{avito_id} ### #{existing_ad.file_id}" if existing_ad
-          #####
-          without_ads << avito_id if ad_id.zero?
-          low_rating << ad_id if !ad_id.zero?
-          options[:id] = ad_id
-          #update_ad(deleted, response, ads_db, **options)
-          # Avito::CheckDeletedJob.perform_now(store: Store.find(6))
-          sleep rand(0.7..1.5) # sleep rand(0.1..0.7)
+          binding.pry
+          #existing_ad.update(avito_id: avito_id, deleted: 1) if existing_ad
+          sleep rand(0.3..0.9)
         end
         page += 1
       rescue => e
         TelegramService.call(user, e.message)
       end
-      msg = "✅ Store #{store.manager_name} have:\n"
-      msg << "📌 #{low_rating.size} low rating ads.\n#{low_rating.join(', ')}.\n" if low_rating.size > 0
-      msg << "📌 #{without_ads.size} items without ads.\n#{without_ads.join(', ')}." if without_ads.size > 0
-      msg << "📌 #{deleted.size} deleted ads.\n#{deleted.join(', ')}.\n" if deleted.size > 0
-      #
-      #TelegramService.call(user, msg) if low_rating.size > 0 || without_ads.size > 0 || deleted.size > 0
-      #
-      TelegramService.call(user, 'Populated avito_ID for blocked ad.')
-      #
+      TelegramService.call(user, 'Success pin deleted ads.')
     end
 
     nil
   end
 
   private
-
-  def update_ad(deleted, item, ads_db, **args)
-    avito_id = args[:id] ? args.delete(:avito_id) : nil
-    #ad       = ads_db.find { |i| i[args.keys.first] == args.values.first }
-    ad = ads_db.find_by(args)
-    return if ad&.avito_id # TODO убрать
-
-    unless ad.present?
-      binding.pry if args[:id]
-      return
-    end
-
-    options = {}
-    if ad.created_at < Time.current.prev_month
-      #####
-      # options[:deleted] = 1
-      #####
-      deleted << ad.id
-    end
-    options[:avito_id] = avito_id if ad.avito_id.blank?
-    ad.update(options)
-  end
 
   def fetch_and_parse(avito, url, method = :get, payload=nil)
     response = avito.connect_to(url, method, payload)
