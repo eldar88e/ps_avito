@@ -59,7 +59,7 @@ class Avito::CheckDeletedJob < ApplicationJob
 
     url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
     response = fetch_and_parse(avito, url)
-    next if response.nil?
+    return if response.nil?
 
     sleep rand(0.3..0.9)
     ad_id = response['items'][0]['ad_id'].to_i
