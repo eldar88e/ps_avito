@@ -36,7 +36,7 @@ class Avito::CheckErrorsJob < ApplicationJob
         error_deleted = true if !error_deleted && error['sections'].find { |i| i['slug'] == 'error_deleted' }
         error['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
       end
-      Avito::CheckDeletedJob.perform_later(store: store) if error_deleted
+      Avito::CheckDeletedJob.perform_later(store: store, report_id: report_id) if error_deleted
       next unless error_blocked
 
       ads       = store.ads.active.load
