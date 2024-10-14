@@ -28,7 +28,7 @@ class Avito::CheckStatusJob < ApplicationJob
 
       account_id  = JSON.parse(response.body)['id']
       ads_db      = store.ads.load
-      page        = 0
+      page        = 1
       ads_cache   = {}
       items_cache = {}
       loop do

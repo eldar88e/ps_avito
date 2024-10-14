@@ -1,6 +1,6 @@
 class Avito::CheckDeletedJob < ApplicationJob
   queue_as :default
-  PER_PAGE = 90
+  PER_PAGE = 100
 
   def perform(**args)
     user = nil
@@ -14,6 +14,8 @@ class Avito::CheckDeletedJob < ApplicationJob
         user.stores.active
       end
     user ||= stores.first.user
+    report_id = args[:report_id]
+    avito_url = "https://api.avito.ru/autoload/v2/reports/#{report_id}"
 
     stores.each do |store|
       avito = AvitoService.new(store: store)
@@ -25,21 +27,19 @@ class Avito::CheckDeletedJob < ApplicationJob
       loop do
         #######
         puts page
-        binding.pry
         #########
-        url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=removed"
+        url = "#{avito_url}/items?sections=error_deleted&page=#{page}&per_page=#{PER_PAGE}"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads["resources"].blank?
 
-        ids = ads["resources"].map { |i| i['id'] }
+        ids = ads['items'].map { |i| i['avito_id'] }
         ids.each do |avito_id|
           # ####
           puts avito_id
           # #####
           existing_ad = ads_db.find_by(avito_id: avito_id)
-          binding.pry
-          #existing_ad.update(deleted: 1)
+          existing_ad.update(deleted: 1)
           next if existing_ad
 
           url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
@@ -48,8 +48,8 @@ class Avito::CheckDeletedJob < ApplicationJob
 
           ad_id       = response['items'][0]['ad_id'].to_i
           existing_ad = ads_db.find_by(id: ad_id)
-          binding.pry
-          #existing_ad.update(avito_id: avito_id, deleted: 1) if existing_ad
+          existing_ad.update(avito_id: avito_id, deleted: 1) if existing_ad
+          # Avito::CheckDeletedJob.perform_now(store: Store.find(8))
           sleep rand(0.3..0.9)
         end
         page += 1
