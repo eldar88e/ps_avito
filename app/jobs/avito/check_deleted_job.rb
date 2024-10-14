@@ -1,3 +1,5 @@
+# Avito::CheckDeletedJob.perform_now(store: Store.find(8))
+
 class Avito::CheckDeletedJob < ApplicationJob
   queue_as :default
   PER_PAGE = 100
@@ -15,7 +17,7 @@ class Avito::CheckDeletedJob < ApplicationJob
       end
     user ||= stores.first.user
     report_id = args[:report_id]
-    avito_url = "https://api.avito.ru/autoload/v2/reports/#{report_id}"
+    avito_url = "https://api.avito.ru/autoload/v2/reports/#{report_id ? report_id : 'last_completed_report'}"
 
     stores.each do |store|
       avito = AvitoService.new(store: store)
@@ -23,46 +25,46 @@ class Avito::CheckDeletedJob < ApplicationJob
 
       ads_db    = store.ads.load
       page      = 0
+      deleted   = 0
       ads_cache = {}
       loop do
-        #######
-        puts page
-        #########
         url = "#{avito_url}/items?sections=error_deleted&page=#{page}&per_page=#{PER_PAGE}"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads['items'].blank?
 
-        ids = ads['items'].map { |i| i['avito_id'] }
-        ids.each do |avito_id|
-          # ####
-          puts avito_id
-          # #####
-          existing_ad = ads_db.find_by(avito_id: avito_id)
-          existing_ad.update(deleted: 1)
-          next if existing_ad
-
-          url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
-          response = fetch_and_parse(avito, url)
-          next if response.nil?
-
-          ad_id       = response['items'][0]['ad_id'].to_i
-          existing_ad = ads_db.find_by(id: ad_id)
-          existing_ad.update(avito_id: avito_id, deleted: 1) if existing_ad
-          # Avito::CheckDeletedJob.perform_now(store: Store.find(8))
-          sleep rand(0.3..0.9)
+        ads['items'].each do |item|
+          avito_id    = item['avito_id']
+          existing_ad = find_ad(avito_id, ads_db)
+          if existing_ad
+            existing_ad.update(avito_id: avito_id, deleted: 1)
+            deleted += 1 if existing_ad.saved_changes?
+          end
         end
         page += 1
       rescue => e
         TelegramService.call(user, e.message)
       end
-      TelegramService.call(user, 'Success pin deleted ads.')
+      TelegramService.call(user, "Success pin deleted #{deleted} ad(s) for #{store.manager_name}") if deleted.size > 0
     end
 
     nil
   end
 
   private
+
+  def find_ad(avito_id, ads_db)
+    existing_ad = ads_db.find_by(avito_id: avito_id)
+    return existing_ad if existing_ad
+
+    url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"
+    response = fetch_and_parse(avito, url)
+    next if response.nil?
+
+    sleep rand(0.3..0.9)
+    ad_id = response['items'][0]['ad_id'].to_i
+    ads_db.find_by(id: ad_id)
+  end
 
   def fetch_and_parse(avito, url, method = :get, payload=nil)
     response = avito.connect_to(url, method, payload)
