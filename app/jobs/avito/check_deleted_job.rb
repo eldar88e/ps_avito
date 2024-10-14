@@ -31,7 +31,7 @@ class Avito::CheckDeletedJob < ApplicationJob
         url = "#{avito_url}/items?sections=error_deleted&page=#{page}&per_page=#{PER_PAGE}"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
-        break if ads.nil? || ads["resources"].blank?
+        break if ads.nil? || ads['items'].blank?
 
         ids = ads['items'].map { |i| i['avito_id'] }
         ids.each do |avito_id|
