@@ -41,7 +41,7 @@ class Avito::CheckDeletedJob < ApplicationJob
 
         ads['items'].each do |item|
           avito_id    = item['avito_id']
-          existing_ad = find_ad(avito_id, ads_db)
+          existing_ad = find_ad(avito_id, ads_db, avito)
           if existing_ad
             existing_ad.update(avito_id: avito_id, deleted: 1)
             deleted += 1 if existing_ad.saved_changes?
@@ -59,7 +59,7 @@ class Avito::CheckDeletedJob < ApplicationJob
 
   private
 
-  def find_ad(avito_id, ads_db)
+  def find_ad(avito_id, ads_db, avito)
     existing_ad = ads_db.find_by(avito_id: avito_id)
     return existing_ad if existing_ad
 
@@ -72,8 +72,8 @@ class Avito::CheckDeletedJob < ApplicationJob
     ads_db.find_by(id: ad_id)
   end
 
-  def fetch_and_parse(avito, url, method = :get, payload=nil)
-    response = avito.connect_to(url, method, payload)
+  def fetch_and_parse(avito, url)
+    response = avito.connect_to(url)
     return if response.nil? || response.status != 200
 
     JSON.parse(response.body)
