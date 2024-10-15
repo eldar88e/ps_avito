@@ -26,25 +26,13 @@ class Avito::CheckBlockedJob < ApplicationJob
       ads_cache = {}
       updated   = 0
       loop do
-        #######
-        puts page
-        #########
         url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=blocked"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
-        binding.pry
         break if ads.nil? || ads["resources"].blank?
 
-        ads["resources"].each do |item|
-          avito_id = item['id']
-          # ####
-          puts avito_id
-          # ####
-          find_ad(avito_id, ads_db, updated, avito)
-        end
+        ads["resources"].each { |i| find_ad(i['id'], ads_db, updated, avito) }
         page += 1
-      rescue => e
-        TelegramService.call(user, e.message)
       end
       msg = "✅ Updated AvitoID for blocked #{updated} ads for #{store.manager_name}"
       TelegramService.call(user, msg) if updated > 0
@@ -64,8 +52,7 @@ class Avito::CheckBlockedJob < ApplicationJob
 
     sleep rand(0.7..1.5)
     ad_id       = response['items'][0]['ad_id'].to_i
-    existing_ad = ads_db.find_by(id: ad_id) || ads_db.find_by(file_id: ad_id)
-    binding.pry
+    existing_ad = ads_db.find_by(id: ad_id) || ads_db.find_by(file_id: ad_id) #TODO 1-11-24 убрать ads_db.find_by(file_id: ad_id)
     (existing_ad.update(avito_id: avito_id) && (updated += 1)) if existing_ad
   end
 
