@@ -1,4 +1,6 @@
 # Avito::CheckBlockedJob.perform_now(store: Store.find(5))
+# job временный пока не удалятся с авито объявления с file ID подобные этому:
+# HP6545-PPSA23226_00-GAME000000000000_2_5
 
 class Avito::CheckBlockedJob < ApplicationJob
   queue_as :default
@@ -52,7 +54,7 @@ class Avito::CheckBlockedJob < ApplicationJob
 
     sleep rand(0.7..1.5)
     ad_id       = response['items'][0]['ad_id'].to_i
-    existing_ad = ads_db.find_by(id: ad_id) || ads_db.find_by(file_id: ad_id) #TODO 1-11-24 убрать ads_db.find_by(file_id: ad_id)
+    existing_ad = ads_db.find_by(file_id: ad_id)
     (existing_ad.update(avito_id: avito_id) && (updated += 1)) if existing_ad
   end
 
