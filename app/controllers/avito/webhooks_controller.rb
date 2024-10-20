@@ -15,7 +15,7 @@ class Avito::WebhooksController < ApplicationController
     # else
     #   # Логика для других событий
     # end
-    head :ok
+    render json: { status: 'ok' }, status: :ok
   rescue => e
     TelegramService.call(User.first, e.message)
   end
