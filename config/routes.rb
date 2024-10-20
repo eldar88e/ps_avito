@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       patch '/autoload', to: 'autoload#update'
       get '/autoload', to: 'autoload#show'
       post '/autoload/update_ads', to: 'autoload#update_ads'
+
+      post '/webhooks/receive', to: 'webhooks#receive'
     end
 
     match '/avito', to: 'avito/dashboard#index', via: :get
