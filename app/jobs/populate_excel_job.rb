@@ -24,11 +24,9 @@ class PopulateExcelJob < ApplicationJob
         next if ad.nil?
 
         img_url = make_image(ad)
-        if img_url.blank?
-          msg = "Skipped because there is no image for #{file_id}"
-          TelegramService.call(user, msg)
-          next
-        end
+        next if img_url.blank?
+        # msg = "Skipped because there is no image for #{file_id}"
+        # TelegramService.call(user, msg)
 
         worksheet.append_row(
           [ad.id, ad.avito_id, current_time, store.ad_status, store.category, store.goods_type, store.ad_type,
