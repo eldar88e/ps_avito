@@ -16,5 +16,7 @@ class WebhooksController < ApplicationController
     #   # Логика для других событий
     # end
     head :ok
+  rescue => e
+    TelegramService.call(User.first, e.message)
   end
 end
