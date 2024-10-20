@@ -2,8 +2,8 @@ class Avito::WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def receive
-    data = request.body.read
-    TelegramService.call(User.first, data)
+    #data = request.body.read
+    TelegramService.call(User.first, 'work')
 
     # webhook_event = JSON.parse(data)
     # Обработайте событие
