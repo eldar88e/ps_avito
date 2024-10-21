@@ -5,11 +5,9 @@ class Avito::WebhooksController < ApplicationController
     data          = request.body.read
     webhook_event = JSON.parse(data)
     msg           = webhook_event['payload']['value']['content']['text']
-    # webhook_event.dig('payload', 'value', 'content', 'text')
     return head :ok if webhook_event.dig('payload', 'value', 'user_id') == webhook_event.dig('payload', 'value', 'author_id')
 
     broadcast_notify(msg)
-    TelegramService.call(User.first, msg)
     render json: { status: 'ok' }, status: :ok
     # head :ok
   rescue => e
@@ -21,7 +19,6 @@ class Avito::WebhooksController < ApplicationController
   private
 
   def broadcast_notify(message, key='success')
-    # Rails.logger.info "Broadcasting message: #{message}"
     Turbo::StreamsChannel.broadcast_append_to(
       :notify,
       target: :notices,

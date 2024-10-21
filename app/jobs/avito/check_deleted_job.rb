@@ -1,6 +1,6 @@
 # Avito::CheckDeletedJob.perform_now(store: Store.find(8))
 
-class Avito::CheckDeletedJob < ApplicationJob
+class Avito::CheckDeletedJob < Avito::BaseApplicationJob
   queue_as :default
   PER_PAGE = 100
 
@@ -70,12 +70,5 @@ class Avito::CheckDeletedJob < ApplicationJob
     sleep rand(0.3..0.9)
     ad_id = response['items'][0]['ad_id'].to_i
     ads_db.find_by(id: ad_id)
-  end
-
-  def fetch_and_parse(avito, url)
-    response = avito.connect_to(url)
-    return if response.nil? || response.status != 200
-
-    JSON.parse(response.body)
   end
 end

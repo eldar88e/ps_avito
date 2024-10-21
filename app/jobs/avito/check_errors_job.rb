@@ -1,4 +1,4 @@
-class Avito::CheckErrorsJob < ApplicationJob
+class Avito::CheckErrorsJob < Avito::BaseApplicationJob
   queue_as :default
   BAN_PERIOD = 2.weeks
 
@@ -81,12 +81,5 @@ class Avito::CheckErrorsJob < ApplicationJob
 
   def send_error_sections(section, user, account)
     TelegramService.call(user, "‼️#{section['title']} #{section['count']} на аккаунте #{account}.")
-  end
-
-  def fetch_and_parse(avito, url)
-    response = avito.connect_to(url)
-    return if response.nil? || response.status != 200
-
-    JSON.parse(response.body)
   end
 end

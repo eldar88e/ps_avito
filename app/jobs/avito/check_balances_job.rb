@@ -1,4 +1,4 @@
-class Avito::CheckBalancesJob < ApplicationJob
+class Avito::CheckBalancesJob < Avito::BaseApplicationJob
   queue_as :default
 
   def perform(**args)

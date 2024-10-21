@@ -2,7 +2,7 @@
 # job временный пока не удалятся с авито объявления с file ID подобные этому:
 # HP6545-PPSA23226_00-GAME000000000000_2_5
 
-class Avito::CheckBlockedJob < ApplicationJob
+class Avito::CheckBlockedJob < Avito::BaseApplicationJob
   queue_as :default
   PER_PAGE = 100
 
@@ -26,18 +26,18 @@ class Avito::CheckBlockedJob < ApplicationJob
       ads_db    = store.ads.load
       page      = 1
       ads_cache = {}
-      updated   = 0
+      updated   = [0]
       loop do
         url = "https://api.avito.ru/core/v1/items?page=#{page}&per_page=#{PER_PAGE}&status=blocked"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads["resources"].blank?
 
-        ads["resources"].each { |i| find_ad(i['id'], ads_db, updated, avito) }
+        ads["resources"].each { |i| find_ad(i['id'], ads_db, updated[0], avito) }
         page += 1
       end
-      msg = "✅ Updated AvitoID for blocked #{updated} ads for #{store.manager_name}"
-      TelegramService.call(user, msg) if updated > 0
+      msg = "✅ Updated AvitoID for blocked #{updated[0]} ads for #{store.manager_name}"
+      TelegramService.call(user, msg) if updated[0] > 0
     end
 
     nil
@@ -55,13 +55,6 @@ class Avito::CheckBlockedJob < ApplicationJob
     sleep rand(0.7..1.5)
     ad_id       = response['items'][0]['ad_id'].to_i
     existing_ad = ads_db.find_by(file_id: ad_id)
-    (existing_ad.update(avito_id: avito_id) && (updated += 1)) if existing_ad
-  end
-
-  def fetch_and_parse(avito, url)
-    response = avito.connect_to(url)
-    return if response.nil? || response.status != 200
-
-    JSON.parse(response.body)
+    (existing_ad.update(avito_id: avito_id) && (updated[0] += 1)) if existing_ad
   end
 end

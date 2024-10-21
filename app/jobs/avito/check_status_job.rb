@@ -1,4 +1,4 @@
-class Avito::CheckStatusJob < ApplicationJob
+class Avito::CheckStatusJob < Avito::BaseApplicationJob
   queue_as :default
   PER_PAGE = 100
 
@@ -91,12 +91,5 @@ class Avito::CheckStatusJob < ApplicationJob
     end
     options[:avito_id] = avito_id if ad.avito_id.blank?
     ad.update(options)
-  end
-
-  def fetch_and_parse(avito, url, method = :get, payload=nil)
-    response = avito.connect_to(url, method, payload)
-    return if response.nil? || response.status != 200
-
-    JSON.parse(response.body)
   end
 end
