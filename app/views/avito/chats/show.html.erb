@@ -7,7 +7,7 @@
    <%= render partial: '/avito/chats/left_bar' %>
 
    <div class="col-12 col-md-9">
-     <div class="list-messages">
+     <div class="list-messages" data-controller="fancybox">
        <ul class="list-group">
          <% @messages.each do |message| %>
            <li class="list-group-item list-group-item-action">
@@ -18,9 +18,9 @@
                      <i class="bi bi-check2-all"></i>
                    <% end %>
                    <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
-                   <%= message['content']['text'] %>
+                   <%= formit_msg message['content'] %>
                  <% else %>
-                   <div><%= message['content']['text'] %></div>
+                   <div><%= formit_msg message['content'] %></div>
                    <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
                  <% end %>
                </div>

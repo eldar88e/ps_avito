@@ -14,6 +14,7 @@ class Avito::ChatsController < ApplicationController
     url_msg   = "https://api.avito.ru/messenger/v3/accounts/#{@account_id}/chats/#{@chat_id}/messages/"
     response  = fetch_and_parse(url_msg)
     @messages = response['messages']&.reverse || []
+    # TODO post request for read chat 'https://api.avito.ru/messenger/v1/accounts/{user_id}/chats/{chat_id}/read'
   end
 
   def create

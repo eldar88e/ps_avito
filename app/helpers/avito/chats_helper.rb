@@ -19,4 +19,26 @@ module Avito::ChatsHelper
 
     'Объявление временно недоступно'
   end
+
+  def formit_msg(content)
+    return if content.nil?
+
+    case
+    when content['text']
+      content['text']
+    when content['image']
+      img = content['image']['sizes']['640x480']
+      str = <<-EOF
+        <a data-fancybox="msg_img" data-src="#{content['image']['sizes']['1280x960']}" data-caption="1280x960" style="cursor:pointer;">
+          <img src='#{img}' style='height: 200px;' />
+        </a>
+      EOF
+
+      str.html_safe
+    when content['link']
+      content['text']['link']
+    else
+      TelegramService.call(User.first, "Неизвестный тип сообщения #{content}") #TODO Убрать
+    end
+  end
 end

@@ -424,19 +424,29 @@ ul.pagination {
 
 .list-messages {
   max-height: 600px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding-right: 15px;
 
   .msg {
     max-width: 65%;
+    word-break: break-all;
   }
 
   .your-msg {
     float: right;
+
+    .msg-date {
+      margin-left: 0;
+      margin-right: 3px;
+    }
   }
   .msg-date {
     color: #757575;
     font-size: 12px;
+    min-width: 45px;
+    text-align: right;
+    padding: 2px 0;
+    margin-left: 3px;
   }
 }
 
