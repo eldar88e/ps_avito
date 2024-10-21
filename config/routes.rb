@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       post '/autoload/update_ads', to: 'autoload#update_ads'
 
       post '/webhooks/receive', to: 'webhooks#receive'
-      resources :chats, only: [:index, :show]
+      resources :chats, only: [:index, :show, :create]
     end
 
     match '/avito', to: 'avito/dashboard#index', via: :get

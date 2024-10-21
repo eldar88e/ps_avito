@@ -1,6 +1,6 @@
 class Avito::ChatsController < ApplicationController
   include AvitoConcerns
-  before_action :set_account_id, only: [:index, :show]
+  before_action :set_account_id, only: [:index, :show, :create]
   layout 'avito'
 
   def index
@@ -10,10 +10,18 @@ class Avito::ChatsController < ApplicationController
   end
 
   def show
-    chat_id   = params[:id].presence
-    url_msg   = "https://api.avito.ru/messenger/v3/accounts/#{@account_id}/chats/#{chat_id}/messages/"
+    @chat_id   = params[:id].presence
+    url_msg   = "https://api.avito.ru/messenger/v3/accounts/#{@account_id}/chats/#{@chat_id}/messages/"
     response  = fetch_and_parse(url_msg)
-    @messages = response['messages']
+    @messages = response['messages']&.reverse || []
+  end
+
+  def create
+    chat_id = params[:chat_id]
+    url = "https://api.avito.ru/messenger/v1/accounts/#{@account_id}/chats/#{chat_id}/messages"
+    msg = params[:msg]
+    payload = { message: { text: msg }, type: 'text' }
+    fetch_and_parse(url, :post, payload)
   end
 
   private

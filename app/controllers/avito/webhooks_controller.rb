@@ -6,9 +6,11 @@ class Avito::WebhooksController < ApplicationController
     webhook_event = JSON.parse(data)
     msg           = webhook_event['payload']['value']['content']['text']
     # webhook_event.dig('payload', 'value', 'content', 'text')
-    render json: { status: 'ok' }, status: :ok
+    return head :ok if webhook_event.dig('payload', 'value', 'user_id') == webhook_event.dig('payload', 'value', 'author_id')
+
     broadcast_notify(msg)
     TelegramService.call(User.first, msg)
+    render json: { status: 'ok' }, status: :ok
     # head :ok
   rescue => e
     render json: { error: e.message }, status: :not_found

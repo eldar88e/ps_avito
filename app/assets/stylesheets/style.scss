@@ -423,8 +423,16 @@ ul.pagination {
 }
 
 .list-messages {
+  max-height: 600px;
+  overflow: scroll;
+  padding-right: 15px;
+
+  .msg {
+    max-width: 65%;
+  }
+
   .your-msg {
-    text-align: right;
+    float: right;
   }
   .msg-date {
     color: #757575;

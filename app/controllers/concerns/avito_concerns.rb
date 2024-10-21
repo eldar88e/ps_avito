@@ -14,8 +14,8 @@ module AvitoConcerns
   def fetch_and_parse(url, method=:get, payload=nil)
     response = @avito.connect_to(url, method, payload)
 
-    #raise StandardError, "Ошибка подключения к API Avito. Status: #{response&.status&.to_i}" if response&.status != 200
-    return error_notice("Ошибка подключения к API Avito. Status: #{response&.status&.to_i}") if response&.status != 200
+    #raise StandardError, "Ошибка подключения к API Avito. Status: #{response&.status}" if response&.status != 200
+    return error_notice("Ошибка подключения к API Avito. Status: #{response&.status}") if response&.status != 200
 
     JSON.parse(response.body)
   end
@@ -23,7 +23,6 @@ module AvitoConcerns
   def set_store_and_check
     @store = current_user.stores.find_by(id: params[:store_id])
     if @store.nil? || @store.client_id.blank? || @store.client_secret.blank?
-      binding.pry
       error_notice t('avito.error.set_store')
     end
   end
