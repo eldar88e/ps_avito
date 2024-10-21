@@ -143,6 +143,8 @@
               <div class="row">
                 <span class="badge bg-<%= if val.match?(/warning/)
                                             'warning text-dark'
+                                          elsif val.match?(/error/)
+                                            'danger'
                                           elsif val.match?(/success/)
                                             'success'
                                           else
@@ -164,12 +166,12 @@
     <div class="list-group-item list-group-item-action">
       <div class="row">
         <div class="fw-bold col-6 col-md-3">Обработано объявлений</div>
-        <div class="col-6 col-md-9"><%= @report['section_stats']['sections'].map { |i| i['count'] }.sum %></div>
+        <div class="col-6 col-md-9"><%= @report.dig('section_stats', 'sections')&.sum { |i| i['count'] } || 0 %></div>
       </div>
     </div>
 
     <div class="list-group-item list-group-item-action">
-      <% deleted = @report['section_stats']['sections'].find { |i| i['slug'] == 'removed_from_file' }.try(:[], 'count') || 0 %>
+      <% deleted = @report.dig('section_stats', 'sections')&.find { |i| i['slug'] == 'removed_from_file' }.try(:[], 'count') || 0 %>
       <div class="row">
         <div class="ps-3 ps-md-3 fw-bold col-6 col-md-3">Объявлений в файле</div>
         <div class="col-6 col-md-9"><%= @report['section_stats']['count'] - deleted %></div>

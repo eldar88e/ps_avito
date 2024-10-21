@@ -29,6 +29,14 @@
           <span class="title">Items</span>
         <% end %>
       </li>
+
+      <li>
+        <%= active_link_to store_avito_chats_path(params[:store_id]),
+                           data: { turbo_prefetch: false }, active: :exclusive do %>
+          <i class="bi bi-chat-dots"></i>
+          <span class="title">Chats</span>
+        <% end %>
+      </li>
     </ul>
 
     <%= tag.div class: 'collapse-bar-button', data: { action: 'click->collapse#call' } do %>

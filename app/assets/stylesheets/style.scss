@@ -410,3 +410,35 @@ ul.pagination {
 .sort_ads a {
   color: white;
 }
+
+.list-chats {
+  a {
+    color: black;
+    text-decoration: none;
+
+    .msg-last, .msg-date {
+      color: #8f8f8f;
+    }
+  }
+}
+
+.list-messages {
+  .your-msg {
+    text-align: right;
+  }
+  .msg-date {
+    color: #757575;
+    font-size: 12px;
+  }
+}
+
+.list-accounts {
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .active a {
+    color: white;
+  }
+}

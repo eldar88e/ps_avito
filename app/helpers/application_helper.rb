@@ -41,4 +41,10 @@ module ApplicationHelper
       [*starts..ends]
     end
   end
+
+  def truncate_string(str, max_length)
+    return if str.nil?
+
+    str.length > max_length ? str[0, max_length] + '...' : str
+  end
 end

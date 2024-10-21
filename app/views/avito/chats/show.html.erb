@@ -1,0 +1,30 @@
+<% content_for :title do %>
+  Сообщения
+<% end %>
+
+<div class="container">
+ <div class="row">
+   <%= render partial: '/avito/chats/left_bar' %>
+
+   <div class="col-12 col-md-9">
+     <ul class="list-group list-messages">
+       <% @messages.each do |message| %>
+         <li class="list-group-item list-group-item-action">
+            <div class="<%= 'your-msg' if @account_id == message['author_id'] %>">
+              <% if @account_id == message['author_id'] %>
+                <% if message['isRead'] %>
+                  <i class="bi bi-check2-all"></i>
+                <% end %>
+                <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
+                <%= message['content']['text'] %>
+              <% else %>
+                <%= message['content']['text'] %>
+                <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
+              <% end %>
+            </div>
+         </li>
+       <% end %>
+     </ul>
+   </div>
+ </div>
+</div>

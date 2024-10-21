@@ -1,10 +1,11 @@
 <% content_for :title do %>
-  Статистика и настроики автозагрузки
+  Авито
 <% end %>
 
 <div class="container">
+  <h2>Статистика и настроики автозагрузки</h2>
   <ul class="list-group">
-    <% @stores.select { |i| i.active }.each do |store| %>
+    <% @stores.active.each do |store| %>
       <li class="list-group-item list-group-item-action">
         <%= link_to store.manager_name, store_avito_dashboard_path(store), data: { turbo_prefetch: false } %>
       </li>
@@ -21,4 +22,7 @@
       <% end %>
     </ul>
   <% end %>
+
+  <h2 class="mt-3">Чат</h2>
+  <%= link_to 'Перейти в чат', store_avito_chats_path(@stores&.active.first) %>
 </div>
