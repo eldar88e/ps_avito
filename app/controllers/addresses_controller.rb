@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: [:show, :update, :destroy, :new, create]
+  before_action :set_store, only: [:show, :update, :destroy, :new, :create]
   before_action :set_address, only: [:show, :update, :destroy]
 
   def show
