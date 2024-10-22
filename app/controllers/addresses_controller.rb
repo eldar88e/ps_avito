@@ -1,5 +1,6 @@
 class AddressesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_store, only: [:show, :update, :destroy, :new, create]
   before_action :set_address, only: [:show, :update, :destroy]
 
   def show
@@ -13,7 +14,7 @@ class AddressesController < ApplicationController
   end
 
   def new
-    @address = current_user.stores.find(params[:store_id]).addresses.build
+    @address = @store.addresses.build
     render turbo_stream: [
       turbo_stream.prepend(:addresses, partial: 'addresses/new', locals: { address: @address }),
       turbo_stream.remove(:new_address_btn)
@@ -21,7 +22,7 @@ class AddressesController < ApplicationController
   end
 
   def create
-    address = current_user.stores.find(params[:store_id]).addresses.build(address_params)
+    address = @store.addresses.build(address_params)
     if address.save
       msg = ["Город #{address.city} был успешно добавлен."]
       msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
@@ -61,8 +62,7 @@ class AddressesController < ApplicationController
   private
 
   def set_address
-    store    = current_user.stores.find(params[:store_id])
-    @address = store.addresses.find(params[:id])
+    @address = @store.addresses.find(params[:id])
   end
 
   def address_params

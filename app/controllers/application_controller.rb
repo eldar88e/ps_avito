@@ -17,6 +17,17 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_store
+    if params[:store_id]
+      @store = Rails.cache.fetch("user_#{current_user.id}_store_#{params[:store_id]}", expires_in: 6.hours) do
+        current_user.stores.find(params[:store_id])
+      end
+    else
+      @store = current_user.stores.find(params[:id])
+      Rails.cache.write("user_#{current_user.id}_store_#{params[:id]}", @store, expires_in: 6.hours)
+    end
+  end
+
   def set_search_ads
     @q_ads = @store.ads.order(created_at: :desc).ransack(params[:q])
   end

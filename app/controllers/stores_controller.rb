@@ -60,10 +60,6 @@ class StoresController < ApplicationController
     add_breadcrumb 'Аккаунты', stores_path
   end
 
-  def set_store
-    @store = current_user.stores.find(params[:id])
-  end
-
   def store_params
     params.require(:store)
           .permit(:manager_name, :var, :ad_status, :category, :goods_type, :ad_type, :type, :desc_game,

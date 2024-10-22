@@ -1,9 +1,10 @@
 class ImageLayersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_store, only: [:new, :create, :update, :destroy]
   before_action :set_layer, only: [:update, :destroy]
 
   def new
-    @image_layer = current_user.stores.find(params[:store_id]).image_layers.build
+    @image_layer = @store.image_layers.build
     render turbo_stream: [
       turbo_stream.prepend(:image_layers, partial: 'image_layers/new'),
       turbo_stream.remove(:new_image_layer_btn)
@@ -11,7 +12,7 @@ class ImageLayersController < ApplicationController
   end
 
   def create
-    layer = current_user.stores.find(params[:store_id]).image_layers.build(image_layer_params)
+    layer = @store.image_layers.build(image_layer_params)
 
     if layer.save
       msg = ["Слой под номером #{layer.menuindex} был успешно добавлен."]
@@ -52,8 +53,7 @@ class ImageLayersController < ApplicationController
   private
 
   def set_layer
-    store  = current_user.stores.find(params[:store_id])
-    @layer = store.image_layers.find(params[:id])
+    @layer = @store.image_layers.find(params[:id])
   end
 
   def image_layer_params

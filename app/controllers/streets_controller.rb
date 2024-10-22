@@ -1,5 +1,6 @@
 class StreetsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_store, only: [:index, :create, :update, :destroy]
   before_action :set_address, only: [:index, :create, :update, :destroy]
   before_action :set_street, only: [:update, :destroy]
 
@@ -48,8 +49,7 @@ class StreetsController < ApplicationController
   private
 
   def set_address
-    store    = current_user.stores.find(params[:store_id])
-    @address = store.addresses.find(params[:address_id]) if store
+    @address = @store.addresses.find(params[:address_id]) if @store
   end
 
   def set_street

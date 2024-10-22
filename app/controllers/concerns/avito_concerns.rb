@@ -21,7 +21,7 @@ module AvitoConcerns
   end
 
   def set_store_and_check
-    @store = current_user.stores.find_by(id: params[:store_id])
+    set_store
     if @store.nil? || @store.client_id.blank? || @store.client_secret.blank?
       error_notice t('avito.error.set_store')
     end
