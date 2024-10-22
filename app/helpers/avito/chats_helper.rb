@@ -36,9 +36,14 @@ module Avito::ChatsHelper
 
       str.html_safe
     when content['link']
-      content['text']['link']
+      content['text']['text']
+    when content['voice']
+      content['voice']['voice_id']
+    when content['location']
+      content['location']['text']
     else
       TelegramService.call(User.first, "Неизвестный тип сообщения #{content}") #TODO Убрать
+      'Неизвестный тип сообщения:' + "#{content}"
     end
   end
 end
