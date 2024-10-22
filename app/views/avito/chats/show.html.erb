@@ -10,22 +10,7 @@
      <div class="list-messages" data-controller="fancybox">
        <ul class="list-group">
          <% @messages.each do |message| %>
-           <li class="list-group-item list-group-item-action">
-             <div class="msg<%= ' your-msg' if @account_id == message['author_id'] %>">
-               <div class="d-flex">
-                 <% if @account_id == message['author_id'] %>
-                   <% if message['isRead'] %>
-                     <i class="bi bi-check2-all"></i>
-                   <% end %>
-                   <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
-                   <%= formit_msg message['content'] %>
-                 <% else %>
-                   <div><%= formit_msg message['content'] %></div>
-                   <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
-                 <% end %>
-               </div>
-             </div>
-           </li>
+           <%= render partial: 'message', locals: { message: message } %>
          <% end %>
        </ul>
      </div>
