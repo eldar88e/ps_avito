@@ -3,17 +3,6 @@
 <% end %>
 
 <div class="container">
-  <% if @setting&.errors&.any? %>
-    <div id="error_explanation">
-      <h3>Возникли ошибки:</h3>
-      <ul>
-        <% @setting.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <ul class="list-group">
     <li class="list-group-item list-group-item-action active mobile-none">
       <div class="row">

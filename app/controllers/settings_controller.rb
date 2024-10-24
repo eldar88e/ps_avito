@@ -6,23 +6,25 @@ class SettingsController < ApplicationController
     @setting  = current_user.settings.build
   end
 
-  def update
-    @setting = current_user.settings.find(params[:id])
-
-    if @setting.update(setting_params)
-      flash[:success] = "Настройка #{@setting.var} была успешно обновлена."
-      redirect_to settings_path
+  def create
+    @setting = current_user.settings.build(setting_new_params)
+    if @setting.save
+      render turbo_stream: [
+        turbo_stream.before("settings_new", partial: 'settings/setting', locals: { setting: @setting }),
+        success_notice(t('settings.create.success', var: @setting.var))
+      ]
     else
       error_notice(@setting.errors.full_messages)
     end
   end
 
-  def create
-    @setting = current_user.settings.build(setting_new_params)
-
-    if @setting.save
-      flash[:success] = "Настройка #{@setting.var} была успешно добавлена."
-      redirect_to settings_path
+  def update
+    @setting = current_user.settings.find(params[:id])
+    if @setting.update(setting_params)
+      render turbo_stream: [
+        turbo_stream.replace("setting_#{@setting.id}", partial: 'settings/setting', locals: { setting: @setting }),
+        success_notice(t('settings.update.success', var: @setting.var))
+      ]
     else
       error_notice(@setting.errors.full_messages)
     end

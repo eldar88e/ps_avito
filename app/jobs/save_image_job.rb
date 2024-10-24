@@ -21,7 +21,7 @@ class SaveImageJob < ApplicationJob
     name  = "#{file_id}.jpg"
     save_image(ad, name, image)
   rescue StandardError => e
-    msg = "#{product.send(id)} || #{e.message}"
+    msg = "Store: #{store.manager_name}\nID: #{product.send(id)}\nError: #{e.message}"
     msg << "\nhttps://store.playstation.com/en-tr/product/#{product.send(id)}" if file_id.match?(/[A-Z]/)
     TelegramService.call(user, msg)
   end
