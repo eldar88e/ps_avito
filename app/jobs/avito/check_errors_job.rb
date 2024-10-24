@@ -29,14 +29,14 @@ class Avito::CheckErrorsJob < Avito::BaseApplicationJob
       error_sections = report['section_stats']['sections'].select { |i| i['slug'] == 'error' }
       next unless error_sections
 
-      error_blocked = false
-      error_deleted = false
+      error_blocked = error_deleted = false
       error_sections.each do |error|
-        error_blocked = true if !error_blocked && error['sections'].find { |i| i['slug'] == 'error_blocked' }
-        error_deleted = true if !error_deleted && error['sections'].find { |i| i['slug'] == 'error_deleted' }
+        error_blocked ||= error['sections'].any? { |i| i['slug'] == 'error_blocked' }
+        error_deleted ||= error['sections'].any? { |i| i['slug'] == 'error_deleted' }
+
         error['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
       end
-      Avito::CheckDeletedJob.perform_later(store: store, report_id: report_id) if error_deleted
+      Avito::CheckDeletedJob.send(job_method, store: store, report_id: report_id) if error_deleted
       next unless error_blocked
 
       ads       = store.ads.active.load

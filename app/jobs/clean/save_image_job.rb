@@ -1,4 +1,4 @@
-class Clean::MainCleanerJob < ApplicationJob
+class Clean::SaveImageJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
@@ -13,7 +13,9 @@ class Clean::MainCleanerJob < ApplicationJob
     name  = "#{file_id}.jpg"
     save_image(ad, name, image)
   rescue StandardError => e
-    TelegramService.call(user, "#{product.send(id)} || #{e.message}")
+    msg = "#{product.send(id)} || #{e.message}"
+    msg << "\nhttps://store.playstation.com/en-tr/product/#{file_id}" if file_id.match?(/[A-Z]/)
+    TelegramService.call(user, msg)
   end
 
   private

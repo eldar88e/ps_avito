@@ -36,7 +36,7 @@ class AddWatermarkJob < ApplicationJob
                                            game: product, main_font: font, product: model == Product)
           next unless w_service.image
 
-          MainCleanerJob.perform_later(ad: ad, product: product, id: id, file_id: file_id, user: user, photo: w_service)
+          SaveImageJob.send(job_method, d: ad, product: product, id: id, file_id: file_id, user: user, photo: w_service)
           count += 1
         end
       end
