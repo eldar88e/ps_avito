@@ -8,8 +8,7 @@ class ApplicationJob < ActiveJob::Base
   private
 
   def job_method
-    #Rails.env.development? ? :perform_now : :perform_later
-    :perform_later
+    Rails.env.development? ? :perform_now : :perform_later
   end
 
   def current_user(user_id)
