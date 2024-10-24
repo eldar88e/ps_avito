@@ -66,22 +66,33 @@ ul.pagination {
   top: 0;
   right: 0;
   margin: 10px;
-  z-index: 2;
-  max-width: 500px;
-  width: 100%;
+  z-index: 3;
+  width: 400px;
   @media (max-width: 575px) {
+    width: 100%;
     max-width: 300px;
   }
 
-  div {
+  &>div {
     opacity: 1;
-    transition: height 1s ease-out, margin 1s ease-out, padding 1s ease-out, opacity 0.1s ease-out;
+    transition: opacity 0.7s ease-out;
     font-size: 12px;
     @media (max-width: 575px) {
       padding: 10px;
     }
+
+    .notice-close {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 4px;
+    }
+  }
+  &>div.fade-out {
+    opacity: 0;
   }
 }
+
 .del-layer-btn {
   position: absolute;
   top: 0;

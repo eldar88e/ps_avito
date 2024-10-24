@@ -2,14 +2,22 @@ class SaveImageJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    user    = args[:user]
-    photo   = args[:photo]
-    file_id = args[:file_id]
-    id      = args[:id]
-    ad      = args[:ad]
-    product = args[:product]
+    user     = args[:user]
+    model    = args[:model]
+    store    = args[:store]
+    address  = args[:address]
+    font     = args[:font]
+    settings = args[:settings]
+    file_id  = args[:file_id]
+    id       = args[:id]
+    ad       = args[:ad]
+    product  = args[:product]
 
-    image = photo.add_watermarks
+    w_service = WatermarkService.new(store: store, address: address, settings: settings,
+                                     game: product, main_font: font, product: model == Product)
+    return unless w_service.image
+
+    image = w_service.add_watermarks
     name  = "#{file_id}.jpg"
     save_image(ad, name, image)
   rescue StandardError => e

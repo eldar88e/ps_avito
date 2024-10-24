@@ -54,10 +54,8 @@
 
 <%= turbo_frame_tag :notices, class: "notice-group" do %>
   <% flash.each do |key, value| %>
-    <% [value].flatten.each do |i| %>
-      <div class="alert alert-<%= key %>" role="alert" data-controller="notices">
-        <%= i %>
-      </div>
+    <% [value].flatten.each do |notices| %>
+      <%= render partial: '/notices/notice', locals: { notices: notices, key: key } %>
     <% end %>
   <% end %>
 <% end %>

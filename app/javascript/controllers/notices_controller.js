@@ -7,12 +7,21 @@ export default class extends Controller {
 
     startTimer() {
         this.timer = setInterval(() => {
-            this.removeAlert();
-        }, 5000)
+            this.fadeOutAndRemove();
+        }, 7000)
     }
 
-    removeAlert() {
-        const alerts = this.element;
-        alerts.remove();
+    fadeOutAndRemove() {
+        // Добавляем класс для анимации прозрачности
+        this.element.classList.add("fade-out");
+        // Ждем 0.5 секунды (время анимации) и удаляем элемент
+        setTimeout(() => {
+            this.element.remove();
+        }, 1000);
+    }
+
+    close() {
+        clearInterval(this.timer);
+        this.fadeOutAndRemove();
     }
 }

@@ -32,11 +32,8 @@ class AddWatermarkJob < ApplicationJob
           ad      = find_or_create_ad(ads, product, store, file_id, user)
           next if ad.image.attached? && !args[:clean]
 
-          w_service = WatermarkService.new(store: store, address: address, settings: settings,
-                                           game: product, main_font: font, product: model == Product)
-          next unless w_service.image
-
-          SaveImageJob.send(job_method, ad: ad, product: product, id: id, file_id: file_id, user: user, photo: w_service)
+          SaveImageJob.send(job_method, ad: ad, product: product, store: store, address: address, font: font,
+                            id: id, file_id: file_id, user: user, model: model, settings: settings)
           count += 1
         end
       end
