@@ -1,6 +1,5 @@
 class AddWatermarkJob < ApplicationJob
   queue_as :default
-  include Rails.application.routes.url_helpers
 
   def perform(**args)
     user      = find_user(args)
@@ -37,12 +36,8 @@ class AddWatermarkJob < ApplicationJob
                                            game: product, main_font: font, product: model == Product)
           next unless w_service.image
 
-          image = w_service.add_watermarks
-          name  = "#{file_id}.jpg"
-          save_image(ad, name, image)
+          MainCleanerJob.perform_later(ad: ad, product: product, id: id, file_id: file_id, user: user, photo: w_service)
           count += 1
-        rescue StandardError => e
-          TelegramService.call(user, "#{product.send(id)} || #{e.message}") # TODO убрать
         end
       end
     end
@@ -54,7 +49,7 @@ class AddWatermarkJob < ApplicationJob
       broadcast_notify(msg)
       TelegramService.call(user, msg)
     else
-      broadcast_notify('Success!', 'primary')
+      broadcast_notify('All pictures successfully prepared!', 'primary')
     end
   rescue => e
     Rails.logger.error("#{self.class} - #{e.message}")
@@ -68,14 +63,6 @@ class AddWatermarkJob < ApplicationJob
       new_ad.user   = user
       new_ad.adable = product
       new_ad.store  = store
-    end
-  end
-
-  def save_image(ad, name, image)
-    Tempfile.open(%w[image .jpg]) do |temp_img|
-      image.write(temp_img.path)
-      temp_img.flush
-      ad.image.attach(io: File.open(temp_img.path), filename: name, content_type: 'image/jpeg')
     end
   end
 end
