@@ -1,4 +1,4 @@
-class Clean::SaveImageJob < ApplicationJob
+class SaveImageJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
