@@ -11,17 +11,17 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
       avito = AvitoService.new(store: store)
       next if avito.token_status == 403
 
-      report = fetch_and_parse(avito, avito_url)
+      last_report_url = 'https://api.avito.ru/autoload/v2/reports/last_completed_report'
+      report          = fetch_and_parse(avito, last_report_url)
       next if report.nil?
 
-      avito_url = "https://api.avito.ru/autoload/v2/reports/#{report['report_id']}"
-
-      ads_db    = store.ads.load
-      page      = 0
-      deleted   = 0
-      ads_cache = {}
+      report_url = "https://api.avito.ru/autoload/v2/reports/#{report['report_id']}"
+      ads_db     = store.ads.load
+      page       = 0
+      deleted    = 0
+      ads_cache  = {}
       loop do
-        url = "#{avito_url}/items?page=#{page}&per_page=#{PER_PAGE}&sections=error_deleted"
+        url = "#{report_url}/items?page=#{page}&per_page=#{PER_PAGE}&sections=error_deleted"
         ads_cache[:"#{page}"] ||= fetch_and_parse(avito, url)
         ads = ads_cache[:"#{page}"]
         break if ads.nil? || ads['items'].blank?
