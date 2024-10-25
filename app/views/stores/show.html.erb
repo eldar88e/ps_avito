@@ -31,7 +31,7 @@
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Слои картинки</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="ads-block-tab" data-bs-toggle="tab" data-bs-target="#ads-block" type="button" role="tab" aria-controls="ads-block" aria-selected="false">Объявления</button>
+        <button class="nav-link" id="adss-tab" data-bs-toggle="tab" data-bs-target="#adss" type="button" role="tab" aria-controls="adss-block" aria-selected="false">Объявления</button>
       </li>
     </ul>
 
@@ -65,7 +65,11 @@
         </ol>
       </div>
 
-      <%= render partial: '/ads/ads_list', locals: { style: '' } %>
+      <div class="tab-pane fade" id="adss" role="tabpanel" aria-labelledby="adss-tab">
+        <%= turbo_frame_tag :ads do %>
+          <%= render partial: '/ads/ads_list' %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
