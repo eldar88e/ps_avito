@@ -2,7 +2,7 @@ module Avito::ChatsHelper
   def parse_date(raw_date)
     return if raw_date.nil?
 
-    date = Time.at raw_date
+    date = Time.zone.at raw_date
     current_date = Date.current
     return date.strftime("%H:%M") if current_date == date.to_date
 
