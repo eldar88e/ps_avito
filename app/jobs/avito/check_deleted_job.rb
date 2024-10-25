@@ -5,30 +5,17 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
   PER_PAGE = 100
 
   def perform(**args)
-    user = nil
-    stores =
-      if args[:store]
-        [args[:store]]
-      else
-        return unless args[:user_id]
-
-        user = find_user(args)
-        user.stores.active
-      end
-    user ||= stores.first.user
-    report_id = args[:report_id]
-    avito_url = "https://api.avito.ru/autoload/v2/reports/#{report_id ? report_id : 'last_completed_report'}"
-
+    user   = find_user(args)
+    stores = [args[:store]] || user&.stores
     stores.each do |store|
       avito = AvitoService.new(store: store)
       next if avito.token_status == 403
 
-      if report_id.nil?
-        report = fetch_and_parse(avito, avito_url)
-        next if report.nil?
+      report = fetch_and_parse(avito, avito_url)
+      next if report.nil?
 
-        avito_url = "https://api.avito.ru/autoload/v2/reports/#{report['report_id']}"
-      end
+      avito_url = "https://api.avito.ru/autoload/v2/reports/#{report['report_id']}"
+
       ads_db    = store.ads.load
       page      = 0
       deleted   = 0
