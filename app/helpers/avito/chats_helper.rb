@@ -36,7 +36,7 @@ module Avito::ChatsHelper
 
       str.html_safe
     when content['link']
-      content['text']['text']
+      content['link']['text']
     when content['voice']
       content['voice']['voice_id']
     when content['location']
