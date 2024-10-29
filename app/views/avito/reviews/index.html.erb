@@ -1,0 +1,21 @@
+<% content_for :title do %>
+  Отзывы <%= @store.manager_name %>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <% if @reviews.present? %>
+      <%= turbo_frame_tag :reviews do %>
+        <ul class="list-group" data-controller="fancybox">
+          <% @reviews.each do |review| %>
+            <%= render partial: 'review', locals: { review: review } %>
+          <% end %>
+        </ul>
+        <%= render partial: '/avito/partials/pagy', locals: { end_page: (@reviews.size >= 30 ? @page + 1 : @page),
+                                                              starts: 0, path: "reviews", turbo_frame: 'reviews' } %>
+      <% end %>
+    <% else %>
+      <p>Записей не найдено!</p>
+    <% end %>
+  </div>
+</div>

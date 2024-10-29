@@ -15,9 +15,12 @@ module AvitoConcerns
     response = @avito.connect_to(url, method, payload)
 
     #raise StandardError, "Ошибка подключения к API Avito. Status: #{response&.status}" if response&.status != 200
-    return error_notice("Ошибка подключения к API Avito. Status: #{response&.status}") if response&.status != 200
+    #return error_notice("Ошибка подключения к API Avito. Status: #{response&.status}") if response&.status != 200
+    return { error: "Ошибка подключения к API Avito. Status: #{response&.status}" } if response&.status != 200
 
     JSON.parse(response.body)
+  rescue JSON::ParserError => e
+    { error: "Ошибка парсинга JSON: #{e.message}" }
   end
 
   def set_store_and_check
@@ -31,6 +34,13 @@ module AvitoConcerns
     @avito = AvitoService.new(store: @store)
     if @avito.token_status && @avito.token_status != 200
       error_notice t('avito.error.set_avito')
+    end
+  end
+
+  def set_account
+    @account = Rails.cache.fetch("account_#{@store.id}", expires_in: 6.hour) do
+      url = 'https://api.avito.ru/core/v1/accounts/self'
+      fetch_and_parse(url)
     end
   end
 end

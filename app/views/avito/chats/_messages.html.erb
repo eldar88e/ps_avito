@@ -1,0 +1,9 @@
+<div class="list-messages" data-controller="fancybox">
+  <ul class="list-group">
+    <% @messages.each do |message| %>
+      <%= render partial: 'message', locals: { message: message } %>
+    <% end %>
+  </ul>
+</div>
+
+<%= render partial: '/avito/chats/form' %>

@@ -7,7 +7,6 @@ module Avito
 
     def show
       @report = fetch_and_parse 'https://api.avito.ru/autoload/v2/reports/last_completed_report'
-      @tz     = TZInfo::Timezone.get(Rails.application.config.time_zone)
     end
 
     def edit

@@ -1,5 +1,5 @@
 <li class="list-group-item list-group-item-action">
-  <%= link_to store_avito_chat_path(id: chat['id']) do %>
+  <%= link_to store_avito_chat_path(id: chat['id']), data: { turbo_prefetch: false } do %>
     <div class="row">
       <div class="col-3 col-md-1">
         <%= image_tag (chat.dig('context', 'value', 'images', 'main', '140x105') || noimage_url), style: "height: 50px" %>
@@ -10,7 +10,7 @@
         <div class="msg-last"><%= truncate_string(chat.dig('last_message', 'content', 'text'), 90) %></div>
       </div>
       <div class="col-2 col-md-1 msg-date">
-        <%= parse_date(Time.at chat.dig('last_message', 'created')) %>
+        <%= parse_date(chat.dig('last_message', 'created')) %>
       </div>
     </div>
   <% end %>

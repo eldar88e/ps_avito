@@ -7,11 +7,16 @@
    <%= render partial: '/avito/chats/left_bar' %>
 
    <div class="col-12 col-md-9">
-     <ul class="list-group list-chats">
-       <% @chats.each do |chat| %>
-         <%= render partial: 'chat', locals: { chat: chat } %>
+     <%= turbo_frame_tag :chats do %>
+       <ul class="list-group list-chats">
+         <% @chats.each do |chat| %>
+           <%= render partial: 'chat', locals: { chat: chat } %>
+         <% end %>
+       </ul>
+       <%= render partial: '/avito/partials/pagy', locals: { end_page: (@chats.size >= 30 ? @page + 1 : @page), starts: 0,
+                                                             path: "chats",
+                                                             turbo_frame: 'chats' } %>
        <% end %>
-     </ul>
    </div>
  </div>
 </div>

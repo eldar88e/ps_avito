@@ -5,11 +5,11 @@
         <% if message['isRead'] %>
           <i class="bi bi-check2-all"></i>
         <% end %>
-        <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
+        <span class="msg-date"><%= parse_date(message['created']) %></span>
         <%= formit_msg message['content'] %>
       <% else %>
         <div class="<%= 'fw-bold' unless message['isRead'] %>"><%= formit_msg message['content'] %></div>
-        <span class="msg-date"><%= parse_date(Time.at message['created']) %></span>
+        <span class="msg-date"><%= parse_date(message['created']) %></span>
       <% end %>
     </div>
   </div>

@@ -3,19 +3,11 @@
 <% end %>
 
 <div class="container">
- <div class="row">
-   <%= render partial: '/avito/chats/left_bar' %>
+  <div class="row">
+    <%= render partial: '/avito/chats/left_bar' %>
 
-   <div class="col-12 col-md-9">
-     <div class="list-messages" data-controller="fancybox">
-       <ul class="list-group">
-         <% @messages.each do |message| %>
-           <%= render partial: 'message', locals: { message: message } %>
-         <% end %>
-       </ul>
-     </div>
-
-     <%= render partial: '/avito/chats/form' %>
-   </div>
- </div>
+    <div class="col-12 col-md-9">
+      <%= render partial: '/avito/chats/messages' %>
+    </div>
+  </div>
 </div>
