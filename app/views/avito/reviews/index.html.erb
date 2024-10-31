@@ -11,8 +11,9 @@
             <%= render partial: 'review', locals: { review: review } %>
           <% end %>
         </ul>
-        <%= render partial: '/avito/partials/pagy', locals: { end_page: (@reviews.size >= 30 ? @page + 1 : @page),
-                                                              starts: 0, path: "reviews", turbo_frame: 'reviews' } %>
+        <%= render partial: '/avito/partials/pagy',
+                   locals: { end_page: (@reviews.size >= 30 ? @page + 1 : @page), starts: 0,
+                             path: "reviews", turbo_frame: 'reviews' } if @reviews.size >= 30 || @page > 0 %>
       <% end %>
     <% else %>
       <p>Записей не найдено!</p>
