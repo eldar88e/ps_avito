@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="row">
-    <%= render partial: '/avito/chats/left_bar' %>
+    <%= render partial: '/avito/partials/left_bar', locals: { path: :store_avito_chats_path } %>
 
     <div class="col-12 col-md-9">
       <%= render partial: '/avito/chats/messages' %>

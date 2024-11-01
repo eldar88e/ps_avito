@@ -28,9 +28,13 @@
       <div class="row">
         <div class="fw-bold col-6 col-md-3">Рейтинг</div>
         <div class="col-6 col-md-9">
-          <span style="font-size: 1.2em; margin-right: 10px"><%= "#{@rate['rating']['score']}" %></span>
-          <%= "Голосов: #{@rate['rating']['reviewsWithScoreCount']}" %>
-          <%= "Коментариев: #{@rate['rating']['reviewsCount']}" %>
+          <% if @rate.blank? || !@rate[:error]  %>
+              <span style="font-size: 1.2em; margin-right: 10px"><%= "#{@rate['rating']['score']}" %></span>
+              <%= "Голосов: #{@rate['rating']['reviewsWithScoreCount']}" %>
+              <%= "Коментариев: #{@rate['rating']['reviewsCount']}" %>
+          <% else %>
+            Ошибка получения рейтинга: <%= @rate[:error] %>
+          <% end %>
         </div>
       </div>
     </li>

@@ -38,9 +38,25 @@ module AvitoConcerns
   end
 
   def set_account
-    @account = Rails.cache.fetch("account_#{@store.id}", expires_in: 6.hour) do
-      url = 'https://api.avito.ru/core/v1/accounts/self'
-      fetch_and_parse(url)
+    cache_key = "account_#{@store.id}"
+    url       = 'https://api.avito.ru/core/v1/accounts/self'
+    @account  = fetch_cached(cache_key, 6.hour, url: url)
+  end
+
+  def fetch_cached(key, expires_in=5.minute, **args)
+    result = Rails.cache.fetch(key, expires_in: expires_in) { fetch_and_parse(args[:url], args[:method] || :get, args[:payload]) }
+    Rails.cache.delete(key) if result.is_a?(Hash) && result.key?(:error)
+    result
+  end
+
+  def set_store_breadcrumbs
+    add_breadcrumb @store.manager_name, store_avito_dashboard_path
+  end
+
+  def set_stores
+    cache_key = "user_#{current_user.id}_active_stores"
+    @stores   = Rails.cache.fetch(cache_key, expires_in: 1.hour) do
+      current_user.stores.active.select(:id, :manager_name).as_json
     end
   end
 end

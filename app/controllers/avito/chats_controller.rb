@@ -2,6 +2,7 @@ class Avito::ChatsController < ApplicationController
   include AvitoConcerns
   before_action :set_account, only: [:index, :show, :create]
   before_action :set_stores, only: [:index, :show]
+  before_action :set_store_breadcrumbs, only: [:index, :show]
   layout 'avito'
   LIMIT = 30
 
@@ -37,14 +38,5 @@ class Avito::ChatsController < ApplicationController
     msg     = params[:msg]
     payload = { message: { text: msg }, type: 'text' }
     fetch_and_parse(url, :post, payload)
-  end
-
-  private
-
-  def set_stores
-    cache_key = "user_#{current_user.id}_active_stores"
-    @stores   = Rails.cache.fetch(cache_key, expires_in: 1.hour) do
-      current_user.stores.active.select(:id, :manager_name).as_json
-    end
   end
 end
