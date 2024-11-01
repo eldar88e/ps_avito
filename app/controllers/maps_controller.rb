@@ -1,7 +1,5 @@
 class MapsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_store, only: [:show]
-  before_action :set_address, only: [:show]
+  before_action :authenticate_user!, :set_store, :set_address
 
   def show
     return error_notice('Error getting address') if @address.nil?

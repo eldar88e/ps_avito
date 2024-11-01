@@ -1,7 +1,5 @@
 class StreetsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_store, only: [:index, :create, :update, :destroy]
-  before_action :set_address, only: [:index, :create, :update, :destroy]
+  before_action :authenticate_user!, :set_store, :set_address
   before_action :set_street, only: [:update, :destroy]
 
   def index

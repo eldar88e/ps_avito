@@ -2,9 +2,7 @@ module AvitoConcerns
   extend ActiveSupport::Concern
 
   included do
-    before_action :authenticate_user!
-    before_action :set_store_and_check
-    before_action :set_avito
+    before_action :authenticate_user!, :set_store_and_check, :set_avito
     add_breadcrumb "Главная", :root_path
     add_breadcrumb "Avito", :avitos_path
   end

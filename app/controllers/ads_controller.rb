@@ -1,6 +1,5 @@
 class AdsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_store, only: [:update_all]
+  before_action :authenticate_user!, :set_store
 
   def update_all
     @store.ads.update_all(banned: false, banned_until: nil)

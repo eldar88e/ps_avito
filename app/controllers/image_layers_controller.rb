@@ -1,6 +1,5 @@
 class ImageLayersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_store, only: [:new, :create, :update, :destroy]
+  before_action :authenticate_user!, :set_store
   before_action :set_layer, only: [:update, :destroy]
 
   def new

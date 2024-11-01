@@ -1,8 +1,7 @@
 class Avito::ChatsController < ApplicationController
   include AvitoConcerns
   before_action :set_account, only: [:index, :show, :create]
-  before_action :set_stores, only: [:index, :show]
-  before_action :set_store_breadcrumbs, only: [:index, :show]
+  before_action :set_stores, :set_store_breadcrumbs, only: [:index, :show]
   layout 'avito'
   LIMIT = 30
 

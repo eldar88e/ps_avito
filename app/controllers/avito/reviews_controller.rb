@@ -1,8 +1,6 @@
 class Avito::ReviewsController < ApplicationController
   include AvitoConcerns
-  before_action :set_store_breadcrumbs, only: [:index]
-  before_action :set_stores, only: [:index]
-  before_action :set_rate, only: [:index]
+  before_action :set_store_breadcrumbs, :set_stores, :set_rate, only: [:index]
   layout 'avito'
   LIMIT = 30
 

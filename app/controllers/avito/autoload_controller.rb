@@ -1,8 +1,7 @@
 module Avito
   class AutoloadController < ApplicationController
     include AvitoConcerns
-    before_action :ensure_turbo_stream_request, only: [:edit, :show]
-    before_action :set_auto_load, only: [:show, :edit]
+    before_action :ensure_turbo_stream_request, :set_auto_load, only: [:show, :edit]
     layout 'avito'
 
     def show
