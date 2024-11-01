@@ -1,5 +1,4 @@
 class PopulateGoogleSheetsJob < ApplicationJob
-  include Rails.application.routes.url_helpers
   queue_as :default
 
   def perform(**args)
@@ -14,8 +13,8 @@ class PopulateGoogleSheetsJob < ApplicationJob
     games.each_slice(100) do |games_slice|
       games_slice.each do |game|
         worksheet[idx, 7]  = game.sony_id
-        worksheet[idx, 12] = make_name(game)
-        worksheet[idx, 13] = description(game, args[:site])
+        worksheet[idx, 12] = make_title(game)
+        worksheet[idx, 13] = make_description(game, args[:site])
         worksheet[idx, 14] = make_price(game.price_tl)
         worksheet[idx, 15] = make_image(game, args[:site])
         idx += 1
@@ -23,7 +22,5 @@ class PopulateGoogleSheetsJob < ApplicationJob
       worksheet.save
     end
     nil
-  rescue => e
-    TelegramService.call(current_user, "Error #{self.class} || #{e.message}")
   end
 end

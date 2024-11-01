@@ -29,7 +29,7 @@ class AddWatermarkJob < ApplicationJob
           next if product.is_a?(Game) && product.game_black_list
 
           file_id = "#{product.send(id)}_#{store.id}_#{address.id}"
-          ad      = find_or_create_ad(ads, product, store, file_id, user)
+          ad      = find_or_create_ad(ads, product, store, file_id, user, address)
           next if ad.image.attached? && !args[:clean]
 
           SaveImageJob.send(job_method, ad: ad, product: product, store: store, address: address, font: font,
@@ -55,11 +55,14 @@ class AddWatermarkJob < ApplicationJob
 
   private
 
-  def find_or_create_ad(ads, product, store, file_id, user)
+  def find_or_create_ad(ads, product, store, file_id, user, address)
     ads.find_or_create_by(file_id: file_id) do |new_ad|
       new_ad.user   = user
       new_ad.adable = product
       new_ad.store  = store
+      new_ad.full_address = address.store_address
+    rescue => e
+      binding.pry
     end
   end
 end

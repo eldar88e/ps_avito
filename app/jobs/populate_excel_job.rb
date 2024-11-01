@@ -30,7 +30,7 @@ class PopulateExcelJob < ApplicationJob
 
         worksheet.append_row(
           [ad.id, ad.avito_id, current_time, store.ad_status, store.category, store.goods_type, store.ad_type,
-           store.type, make_platform(game), make_local(game), address.store_address, make_title(game),
+           store.type, make_platform(game), make_local(game), ad.full_address || address.store_address, make_title(game),
            make_description(game, store, address), store.condition, make_price(game.price_tl, store), store.allow_email,
            store.manager_name, store.contact_phone, store.contact_method, img_url]
         )
@@ -43,7 +43,7 @@ class PopulateExcelJob < ApplicationJob
         worksheet.append_row(
           [ad.id, ad.avito_id, current_time, product.ad_status || store.ad_status, product.category || store.category,
            product.goods_type || store.goods_type, product.ad_type || store.ad_type, product.type || store.type,
-           product.platform, product.localization, address.store_address, product.title,
+           product.platform, product.localization, ad.full_address || address.store_address, product.title,
            make_description(product, store, address), product.condition || store.condition, product.price,
            product.allow_email || store.allow_email, store.manager_name, store.contact_phone,
            product.contact_method || store.contact_method, make_image(ad)]

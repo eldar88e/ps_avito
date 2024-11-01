@@ -47,7 +47,7 @@ class GameImageDownloaderJob < ApplicationJob
   end
 
   def connect_to_ps(url, user)
-    proxy_url      = fetch_proxy
+    proxy_url      = nil # if need use with proxy change nil to fetch_proxy
     faraday_params = { proxy: proxy_url }
     begin
       connection = Faraday.new(faraday_params) do |faraday|

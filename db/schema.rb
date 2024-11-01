@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_07_174032) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_01_201900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_07_174032) do
     t.boolean "banned", default: false, null: false
     t.datetime "banned_until"
     t.bigint "avito_id"
+    t.string "full_address"
     t.index ["adable_type", "adable_id"], name: "index_ads_on_adable"
     t.index ["address_id"], name: "index_ads_on_address_id"
     t.index ["avito_id"], name: "index_ads_on_avito_id"
