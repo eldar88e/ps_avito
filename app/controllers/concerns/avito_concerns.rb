@@ -38,13 +38,17 @@ module AvitoConcerns
   end
 
   def set_account
-    cache_key = "account_#{@store.id}"
-    url       = 'https://api.avito.ru/core/v1/accounts/self'
-    @account  = fetch_cached(cache_key, 6.hour, url: url)
+    @account = fetch_cached("account_#{@store.id}", 6.hour, url: 'https://api.avito.ru/core/v1/accounts/self')
+  end
+
+  def set_rate
+    @rate = fetch_cached("rate_#{@store.id}", 1.hour, url: 'https://api.avito.ru/ratings/v1/info')
   end
 
   def fetch_cached(key, expires_in=5.minute, **args)
-    result = Rails.cache.fetch(key, expires_in: expires_in) { fetch_and_parse(args[:url], args[:method] || :get, args[:payload]) }
+    result = Rails.cache.fetch(key, expires_in: expires_in) do
+      fetch_and_parse(args[:url], args[:method] || :get, args[:payload])
+    end
     Rails.cache.delete(key) if result.is_a?(Hash) && result.key?(:error)
     result
   end

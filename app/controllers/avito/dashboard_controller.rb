@@ -1,7 +1,7 @@
 module Avito
   class DashboardController < ApplicationController
     include AvitoConcerns
-    before_action :set_account, only: [:index]
+    before_action :set_account, :set_rate
     add_breadcrumb "Dashboard", :store_avito_dashboard_path
     layout 'avito'
 
@@ -13,7 +13,6 @@ module Avito
                                  url: 'https://api.avito.ru/cpa/v2/balanceInfo', method: :post, payload: {})
       @balance   = fetch_cached("balance_#{@store.id}",
                                 url: "https://api.avito.ru/core/v1/accounts/#{@account['id']}/balance/")
-      @rate      = fetch_cached("rate_#{@store.id}", 1.hour, url: 'https://api.avito.ru/ratings/v1/info')
       # return error_notice(@report[:error]) if @report[:error]
     end
   end

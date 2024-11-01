@@ -30,8 +30,10 @@
         <div class="col-6 col-md-9">
           <% if @rate.blank? || !@rate[:error]  %>
               <span style="font-size: 1.2em; margin-right: 10px"><%= "#{@rate['rating']['score']}" %></span>
-              <%= "Голосов: #{@rate['rating']['reviewsWithScoreCount']}" %>
-              <%= "Коментариев: #{@rate['rating']['reviewsCount']}" %>
+              <%= "Голосов: #{@rate['rating']['reviewsWithScoreCount']}" %>&nbsp;&nbsp;
+              Отзывов: <span style="<%= @rate['rating']['reviewsCount'] < 30 ? 'color: red; ' : '' %>">
+                         <%= @rate['rating']['reviewsCount'] %>
+                       </span>
           <% else %>
             Ошибка получения рейтинга: <%= @rate[:error] %>
           <% end %>
@@ -42,7 +44,7 @@
       <div class="row">
         <div class="fw-bold col-6 col-md-3">Кошелёк</div>
         <div class="col-6 col-md-9">
-          <%= "Баланс: #{@balance['real']}" %>
+          <%= "Баланс: #{@balance['real']}" %>&nbsp;&nbsp;
           <%= "Бонусы: #{@balance['bonus']}" %>
         </div>
       </div>
@@ -61,9 +63,7 @@
             <span style="color: red; margin-right: 10px;"><%= "Долг: #{@bal['result']['debt'] / 100}₽" %></span>
           <% end %>
 
-          <span>
-            Aванс текущего месяца: <span style="font-size: 1.1em;"><%= "#{@bal['result']['advance'] / 100}₽" %></span>
-          </span>
+          <span>Aванс текущего месяца: <%= "#{@bal['result']['advance'] / 100}₽" %></span>
         </div>
       </div>
     </li>

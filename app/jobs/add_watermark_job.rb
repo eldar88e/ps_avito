@@ -61,8 +61,6 @@ class AddWatermarkJob < ApplicationJob
       new_ad.adable = product
       new_ad.store  = store
       new_ad.full_address = address.store_address
-    rescue => e
-      binding.pry
     end
   end
 end
