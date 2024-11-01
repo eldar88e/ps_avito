@@ -303,6 +303,11 @@ ul.pagination {
   @media (min-width: 1630px) {
     width: 160px;
   }
+  &.hidden-left-bar {
+    @media (max-width: 768px) {
+      left: -56px;
+    }
+  }
 
   .store-name {
     opacity: 0;
@@ -476,4 +481,57 @@ ul.pagination {
 .game-img {
   width: 96px;
   height: 72px;
+}
+
+.list-avito-ads {
+  .address, .category {
+    font-size: 12px;
+  }
+}
+
+.mobile-bar {
+  display: none;
+  @media (max-width: 768px) {
+    background-color: #eddfdf;
+    height: 50px;
+    z-index: 5;
+    display: block;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 13px 20px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      display: inline-block;
+      padding: 0 10px;
+
+      a {
+        padding: 5px;
+      }
+
+      &.btn-left-bar {
+        display: none;
+      }
+    }
+  }
+}
+
+body.avito {
+  .btn-left-bar {
+    display: inline-block !important;
+  }
+}
+
+footer {
+  padding: 20px 0;
+  @media (max-width: 768px) {
+    margin-bottom: 50px;
+  }
 }

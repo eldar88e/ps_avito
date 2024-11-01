@@ -39,3 +39,6 @@ application.register('layer', LayerController);
 
 import NoImageController from "./no_image_controller";
 application.register('no_image', NoImageController);
+
+import MobileBarController from "./mobile_bar_controller";
+application.register('mobile-bar', MobileBarController);

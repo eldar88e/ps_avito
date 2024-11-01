@@ -22,7 +22,7 @@
 
   <body>
     <header>
-      <%= render '/layouts/header' %>
+      <%= render '/layouts/partials/header' %>
     </header>
     <main>
       <div class="container">
@@ -36,10 +36,6 @@
 
       <%= yield %>
     </main>
-    <footer>
-      <div class="container mb-3 mt-4">
-        <h3><%= link_to 'PsAvito', root_path, title: 'На главную' %></h3>
-      </div>
-    </footer>
+    <%= render '/layouts/partials/footer' %>
   </body>
 </html>

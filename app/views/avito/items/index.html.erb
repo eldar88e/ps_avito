@@ -4,15 +4,22 @@
 
 <div class="container">
   <%= turbo_frame_tag :items do %>
+    <div class="mb-3">
+      <%= link_to 'Активные', store_avito_items_path(status: 'active'), class: 'btn btn-success btn-sm mt-1 mt-md-0' %>
+      <%= link_to 'С ошибками', store_avito_items_path(status: 'blocked'), class: 'btn btn-danger btn-sm mt-1 mt-md-0' %>
+      <%= link_to 'Архив', store_avito_items_path(status: 'old'), class: 'btn btn-primary btn-sm mt-1 mt-md-0' %>
+      <%= link_to 'Удаленные', store_avito_items_path(status: 'removed'), class: 'btn btn-dark btn-sm mt-1 mt-md-0' %>
+      <%= link_to 'rejected', store_avito_items_path(status: 'rejected'), class: 'btn btn-warning btn-sm mt-1 mt-md-0' %>
+    </div>
     <% if @items['resources'].present? %>
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-action active">
+      <ul class="list-group list-avito-ads">
+        <li class="list-group-item list-group-item-action active d-md-block d-none">
           <div class="row">
-            <div class="col-2">Id</div>
+            <div class="col-1">Id</div>
             <div class="col-3">Название</div>
             <div class="col-1">Статус</div>
-            <div class="col-1">Статус</div>
-            <div class="col-3">Цена</div>
+            <div class="col-1">Цена</div>
+            <div class="col-4">Адрес</div>
             <div class="col-2">Категория</div>
           </div>
         </li>
@@ -25,11 +32,8 @@
       Записей не найдено!
     <% end %>
 
-    <% if @size == 100 %>
-      <%= render partial: '/avito/partials/pagy', locals: { end_page: @end_page, starts: 1, path: 'items',
-                                                           turbo_frame: 'items' } %>
-    <% end %>
-
+    <%= render partial: '/avito/partials/pagy', locals: { end_page: @end_page, starts: 1, path: 'items',
+                                                           turbo_frame: 'items' } if @size == 100 %>
     <div class="mt-3 mb-3">
       <% @items['meta'].each do |k, v| %>
         <span class="px-2"><%= t("avito.autoload.report.#{k}") + ": #{v}" %></span>
