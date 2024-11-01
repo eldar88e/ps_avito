@@ -52,14 +52,13 @@
       <div class="row">
         <div class="fw-bold col-6 col-md-3">Баланс тарифа</div>
         <div class="col-6 col-md-9">
-          <% size = @bal['result']['balance'].to_s.size < 5 ? 100 : 1000 %>
-          <% balance = @bal['result']['balance'] / size %>
+          <% balance = @bal['result']['balance'] / 100 %>
           <span style="font-size: 1.2em; <%= balance < 100 ? 'color: red; ' : '' %>margin-right: 10px;">
             <%= "#{balance}₽" %>
           </span>
 
           <% if @bal['result']['debt'] > 0 %>
-            <span style="color: red; margin-right: 10px;"><%= "Долг: #{@bal['result']['debt'] / 100 }₽" %></span>
+            <span style="color: red; margin-right: 10px;"><%= "Долг: #{@bal['result']['debt'] / 100}₽" %></span>
           <% end %>
 
           <span>
