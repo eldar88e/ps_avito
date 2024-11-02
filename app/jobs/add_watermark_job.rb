@@ -55,10 +55,10 @@ class AddWatermarkJob < ApplicationJob
 
   def find_or_create_ad(product, file_id, address)
     product.ads.active.find_or_create_by(file_id: file_id) do |new_ad|
-      store         = address.store
-      new_ad.user   = store.user
-      new_ad.adable = product
-      new_ad.store  = store
+      store          = address.store
+      new_ad.user    = store.user
+      new_ad.address = address
+      new_ad.store   = store
       new_ad.full_address = address.store_address
     end
   end
