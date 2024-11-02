@@ -12,7 +12,8 @@ class Avito::ChatsController < ApplicationController
     response  = fetch_and_parse(url_chats)
     return error_notice(response[:error]) if response[:error]
 
-    @chats    = response['chats']
+    @chats = response['chats']
+    set_cache_end_page
   end
 
   def show
@@ -37,5 +38,18 @@ class Avito::ChatsController < ApplicationController
     msg     = params[:msg]
     payload = { message: { text: msg }, type: 'text' }
     fetch_and_parse(url, :post, payload)
+  end
+
+  private
+
+  def set_cache_end_page
+    cache_key    = "chat_#{@store.id}_end_page"
+    current_page = @chats.size == LIMIT ? @page + 1 : @page
+    @end_page    = Rails.cache.fetch(cache_key, expires_in: 24.hour) { current_page }
+
+    if @end_page < current_page && @chats.size == LIMIT
+      Rails.cache.write(cache_key, current_page, expires_in: 24.hour)
+      @end_page = current_page
+    end
   end
 end

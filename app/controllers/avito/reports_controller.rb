@@ -2,6 +2,7 @@ module Avito
   class ReportsController < ApplicationController
     include AvitoConcerns
     before_action :set_breadcrumb, only: [:index, :show]
+    before_action :set_stores, only: [:index]
     before_action :handle_sections_params, only: [:show]
     layout 'avito'
 

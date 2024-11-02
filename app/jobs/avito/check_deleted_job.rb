@@ -35,10 +35,9 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
           end
         end
         page += 1
-      rescue => e
-        TelegramService.call(user, e.message)
       end
-      TelegramService.call(user, "Success pin deleted #{deleted} ad(s) for #{store.manager_name}") if deleted > 0
+      msg = "✅ На аккаунте #{store.manager_name} удалено #{deleted} объявления."
+      TelegramService.call(user, msg) if deleted > 0
     end
 
     nil

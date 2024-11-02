@@ -1,7 +1,7 @@
 module Avito
   class DashboardController < ApplicationController
     include AvitoConcerns
-    before_action :set_account, :set_rate
+    before_action :set_account, :set_rate, :set_stores
     add_breadcrumb "Dashboard", :store_avito_dashboard_path
     layout 'avito'
 
