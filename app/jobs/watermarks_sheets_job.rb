@@ -2,23 +2,19 @@ class WatermarksSheetsJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    args[:user] = current_user(args[:user_id]) unless args[:user]
-    stores      = args[:user].stores.includes(:addresses).where(active: true, addresses: { active: true })
-    set_row     = args[:user].settings
-    settings    = set_row.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
-    blob        = set_row.find_by(var: 'main_font')&.font&.blob
-    main_font   =
-      if blob
-        raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
-        "./storage/#{raw_path}/#{blob.key}"
-      else
-        nil
-      end
+    user     = find_user(args)
+    stores   = user.stores.includes(:addresses).where(active: true, addresses: { active: true })
+    set_row  = user.settings
+    settings = set_row.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
+    if (blob = set_row.find_by(var: 'main_font')&.font&.blob)
+      raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
+      settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
+    end
 
     stores.each do |store|
       [Game, Product ].each do |model|
         AddWatermarkJob.perform_now(user: args[:user], model: model, store: store,
-                                    settings: settings, main_font: main_font, clean: args[:clean])
+                                    settings: settings, clean: args[:clean])
       end
       PopulateExcelJob.perform_now(store: store)
     end

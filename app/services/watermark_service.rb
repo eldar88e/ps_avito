@@ -5,11 +5,11 @@ class WatermarkService
   attr_reader :image
 
   def initialize(**args)
-    @main_font = args[:main_font]
     @game      = args[:game]
     @product   = args[:product]
     @store     = args[:store]
     @settings  = args[:settings]
+    @main_font = @settings[:main_font]
     @width     = (@settings[:avito_img_width] || 1920).to_i
     @height    = (@settings[:avito_img_height] || 1440).to_i
     @new_image = initialize_first_layer

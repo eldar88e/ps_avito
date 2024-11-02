@@ -11,8 +11,7 @@ class JobsController < ApplicationController
     FileUtils.mkdir_p(directory_path)
 
     store.addresses.each do |address|
-      w_service = WatermarkService.new(store: store, address: address, settings: @settings,
-                                       game: game, main_font: @main_font)
+      w_service = WatermarkService.new(store: store, address: address, settings: @settings, game: game)
       next unless w_service.image
 
       image    = w_service.add_watermarks
@@ -30,7 +29,7 @@ class JobsController < ApplicationController
       models << Product if current_user.products.active.any?
       models.each do |model|
         AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, settings: @settings,
-                                      main_font: @main_font, clean: clean, address_id: params[:address_id])
+                                      clean: clean, address_id: params[:address_id])
       end
       msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."
       render turbo_stream: [success_notice(msg)]
@@ -38,8 +37,8 @@ class JobsController < ApplicationController
   end
 
   def update_products_img
-    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product, settings: @settings,
-                                  main_font: @main_font, clean: params[:clean])
+    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product,
+                                  settings: @settings, clean: params[:clean])
     past = params[:clean] ? 'пересозданию' : 'созданию'
     render turbo_stream: [
       success_notice("Фоновая задача по #{past} картинок для всех объявлений кроме игр успешно запущена.")
@@ -72,13 +71,14 @@ class JobsController < ApplicationController
   private
 
   def set_settings
-    settings   = current_user.settings
-    @settings  = settings.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
-    blob       = settings.find_by(var: 'main_font')&.font&.blob
-    @main_font = if blob
-                   raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
-                   "./storage/#{raw_path}/#{blob.key}"
-                 end
+    settings  = current_user.settings
+    @settings = settings.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
+    if (main_font_setting = settings.find_by(var: 'main_font'))
+      if (blob = main_font_setting.font&.blob)
+        raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
+        @settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
+      end
+    end
   end
 
   def save_image(image, img_path)

@@ -6,7 +6,6 @@ class SaveImageJob < ApplicationJob
     model    = args[:model]
     store    = args[:store]
     address  = args[:address]
-    font     = args[:font]
     settings = args[:settings]
     file_id  = args[:file_id]
     id       = args[:id]
@@ -14,7 +13,7 @@ class SaveImageJob < ApplicationJob
     product  = args[:product]
 
     w_service = WatermarkService.new(store: store, address: address, settings: settings,
-                                     game: product, main_font: font, product: model == Product)
+                                     game: product, product: model == Product)
     return unless w_service.image
 
     image = w_service.add_watermarks
