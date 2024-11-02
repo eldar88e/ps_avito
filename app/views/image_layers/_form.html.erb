@@ -6,7 +6,7 @@
           <% if image_layer.layer.blob.content_type.match?(/font/) %>
             <%= image_layer.layer.blob.filename %>
           <% else %>
-            <%= link_to '#', data: { controller: "fancybox", fancybox: "gallery", src: url_for(image_layer.layer), caption: image_layer.layer.blob.filename } do %>
+            <%= link_to '', data: { controller: "fancybox", fancybox: "gallery", src: url_for(image_layer.layer) } do %>
               <div style="background-image: url(<%= url_for(image_layer.layer) %>); background-size: contain;
                 width: 100%; height: 70px; background-repeat: no-repeat;"></div>
             <% end %>
@@ -19,17 +19,19 @@
 
     <div class="col-8 col-md-3">
       <%= form.label :layer, 'Картинка или шрифт', class: 'form-label' %>
-      <%= form.file_field :layer, value: image_layer.layer.blob&.filename, class: 'form-control' %>
+      <%= form.file_field :layer, value: image_layer.layer.blob&.filename, class: 'form-control',
+                          accept: 'image/jpeg, image/png, image/webp, font/ttf' %>
     </div>
 
     <div class="col-8 col-md-2">
       <%= form.label :layer_type, class: 'form-label' %>
-      <%= form.select :layer_type, ImageLayer.layer_types.keys.map { |type| [type.humanize, type] }, {}, { class: 'form-select' } %>
+      <%= form.select :layer_type,
+                      ImageLayer.layer_types.keys.map { |type| [type.humanize, type] }, {}, { class: 'form-select' } %>
     </div>
 
     <div class="col-4 col-md-1">
       <%= form.label :menuindex, class: 'form-label' %>
-      <%= form.text_field :menuindex, value: image_layer.menuindex, class: 'form-control', style: 'width: 100%' %>
+      <%= form.text_field :menuindex, value: image_layer.menuindex, class: 'form-control' %>
     </div>
 
     <div class="col-12 col-md-5 mb-3 mb-md-0">

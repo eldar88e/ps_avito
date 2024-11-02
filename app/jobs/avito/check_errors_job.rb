@@ -1,6 +1,6 @@
 class Avito::CheckErrorsJob < Avito::BaseApplicationJob
   queue_as :default
-  BAN_PERIOD = 2.weeks
+  BAN_PERIOD = 3.weeks
 
   def perform(**args)
     stores =
