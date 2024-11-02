@@ -2,15 +2,15 @@ class GameImageDownloaderJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    args[:user] = current_user(args[:user_id]) unless args[:user]
-    size        = args.dig(:settings, 'game_img_size') || 1024
-    games       = Game.order(:top).active
+    user  = find_user args
+    size  = args.dig(:settings, 'game_img_size')
+    games = Game.order(:top).active
     games.each do |game|
       next if game.image.attached?
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
         "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
-      img = download_image(url, args[:user])
+      img = download_image(url, user)
       next if img.nil?
 
       name = "#{game.sony_id}_#{size}.jpg"
@@ -19,9 +19,10 @@ class GameImageDownloaderJob < ApplicationJob
     end
     msg = '✅ All game image downloaded!'
     broadcast_notify(msg)
-    TelegramService.call(args[:user], msg)
+    TelegramService.call(user, msg)
   rescue => e
     Rails.logger.error(e.full_message)
+    TelegramService.call(user, "Error #{self.class} \n#{e.full_message}")
   end
 
   private
@@ -39,11 +40,13 @@ class GameImageDownloaderJob < ApplicationJob
     response = connect_to_ps(url, user)
     return response.body if response&.headers['content-type']&.match?(/image/)
 
-    Rails.logger.error "Job: #{self.class} || Error message: PS img is not available! URL: #{url}"
-    TelegramService.call(user, "PS img is not available\n#{url}")
+    msg = "Job: #{self.class} \nError message: PS img is not available! \nURL: #{url}"
+    Rails.logger.error msg
+    TelegramService.call(user, msg)
   rescue => e
-    Rails.logger.error "Class: #{e.class} || Error message: #{e.full_message}"
-    TelegramService.call(user, "PS img is not available\nError message: #{e.message}\n#{url}")
+    msg.sub!(/PS img is not available!/, e.full_message)
+    Rails.logger.error msg
+    TelegramService.call(user, msg)
   end
 
   def connect_to_ps(url, user)
@@ -62,6 +65,7 @@ class GameImageDownloaderJob < ApplicationJob
 
       connection.get(url)
     rescue Faraday::ConnectionFailed => e
+      Rails.logger.error "#{e.full_message}\n#{proxy_url}"
       TelegramService.call(user, "#{e.message}\n#{proxy_url}")
       faraday_params = { proxy: nil }
       retry

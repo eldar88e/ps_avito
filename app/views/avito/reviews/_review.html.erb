@@ -21,11 +21,11 @@
     </div>
   <% end %>
   <% if review['answer'].present? %>
-    <div class="d-flex gap-3">
+    <div class="d-flex gap-3 mt-3">
       <div>
         <b>Ответ:</b>
         <%= button_to store_avito_review_path(id: review['answer']['id']),
-                      method: :delete, class: 'btn btn-danger btn-sm',
+                      method: :delete, class: 'btn btn-danger btn-sm mt-2',
                       data: { confirm: 'Вы уверены, что хотите удалить данный ответ на коментарий?',
                               controller: 'confirm', action: 'click->confirm#call' } do %>
           <i class="bi bi-trash"></i>
