@@ -1,6 +1,5 @@
-class GoogleSheetsController < ApplicationController
+class FeedsController < ApplicationController
   before_action :authenticate_user!
-  include Turbo::StreamsHelper
 
   def index
     @stores = current_user.stores.order(:created_at)

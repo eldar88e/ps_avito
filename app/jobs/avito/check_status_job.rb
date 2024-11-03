@@ -1,3 +1,5 @@
+# Job для поиска объявлений с низким рейтингом и если надо то помечать deleted
+
 class Avito::CheckStatusJob < Avito::BaseApplicationJob
   queue_as :default
   PER_PAGE = 100
@@ -86,7 +88,7 @@ class Avito::CheckStatusJob < Avito::BaseApplicationJob
 
     options = {}
     if ad.created_at < Time.current.prev_month
-      # options[:deleted] = 1
+      # options[:deleted] = 1 # TODO Если нужно удалять нужно раскомментировать
       deleted << ad.id
     end
     options[:avito_id] = avito_id if ad.avito_id.blank?

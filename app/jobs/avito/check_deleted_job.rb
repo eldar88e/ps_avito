@@ -6,7 +6,7 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
 
   def perform(**args)
     user   = find_user(args)
-    stores = [args[:store]] || user&.stores
+    stores = [args[:store] || user&.stores&.active].flatten.compact
     stores.each do |store|
       avito = AvitoService.new(store: store)
       next if avito.token_status == 403
@@ -36,8 +36,8 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
         end
         page += 1
       end
-      msg = "✅ На аккаунте #{store.manager_name} удалено #{deleted} объявления."
-      TelegramService.call(user, msg) if deleted > 0
+      user = store.user if user.nil?
+      TelegramService.call(user, t('avito.job.check_deleted', num: deleted, name: store.manager_name)) if deleted > 0
     end
 
     nil

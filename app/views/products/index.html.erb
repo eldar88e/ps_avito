@@ -5,10 +5,10 @@
 <div class="container">
   <div class="d-flex align-content-center gap-3 justify-content-between">
     <div class='d-flex align-content-center gap-3 mt-3 mt-md-0 flex-column flex-sm-row'>
-      <%= button_to 'Создать картинки', update_products_img_path, class: 'loader-btn btn btn-success',
+      <%= button_to 'Создать картинки', update_img_path(product: true), class: 'loader-btn btn btn-success',
                     data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' }%>
 
-      <%= button_to 'Обновить картинки', update_products_img_path(clean: true), class: 'btn btn-dark',
+      <%= button_to 'Обновить картинки', update_img_path(product: true, clean: true), class: 'btn btn-dark',
                     data: { confirm: 'Вы уверены, что хотите удалить все текущие картинки со всех объявлений, кроме игр, и создать новые?',
                             controller: 'confirm', action: 'click->confirm#call' } %>
     </div>

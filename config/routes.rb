@@ -11,11 +11,11 @@ Rails.application.routes.draw do
   resources :products
   resources :image_layers, only: [:new, :create, :show, :update, :destroy]
   resources :avitos, only: [:index]
+  post '/update_img', to: 'jobs#update_img'
 
   resources :stores do
-    post '/update_img', to: 'jobs#update_img', as: 'update_img'
     post '/update_feed', to: 'jobs#update_feed', as: 'update_feed'
-    post '/update_ban_list', to: 'jobs#update_ban_list', as: 'update_ban_list'
+    post '/update_ban_list', to: 'jobs#update_ban_list'
     patch '/update_all', to: 'ads#update_all'
 
     resources :streets, only: [:index, :create, :update, :destroy]
@@ -40,10 +40,8 @@ Rails.application.routes.draw do
     match '/avito', to: 'avito/dashboard#index', via: :get
   end
 
-  post '/update_products_img', to: 'jobs#update_products_img', as: 'update_products_img'
-
-  root 'google_sheets#index'
-  get '/google_sheets', to: 'google_sheets#index'
+  root 'feeds#index'
+  get '/feeds', to: 'feeds#index'
 
   authenticate :user do
     mount GoodJob::Engine => '/good_job'

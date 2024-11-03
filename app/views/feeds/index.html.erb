@@ -19,7 +19,7 @@
     </li>
 
     <% @stores.select { |i| i.active }.each do |store| %>
-      <%= render partial: '/google_sheets/store', locals: { store: store } %>
+      <%= render partial: '/feeds/store', locals: { store: store } %>
     <% end %>
 
     <% if @stores.any? { |i| !i.active } %>
@@ -30,7 +30,7 @@
       </li>
 
       <% @stores.reject { |i| i.active }.each do |store| %>
-        <%= render partial: '/google_sheets/store', locals: { store: store } %>
+        <%= render partial: '/feeds/store', locals: { store: store } %>
       <% end %>
     <% end %>
   </ul>

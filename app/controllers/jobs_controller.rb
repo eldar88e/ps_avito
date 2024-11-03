@@ -1,9 +1,9 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_settings, only: [:update_img, :update_products_img, :update_store_test_img]
+  before_action :set_settings, only: [:update_img, :update_store_test_img]
 
   def update_store_test_img
-    store = current_user.stores.includes(:addresses).where(active: true, id: params[:store_id]).first
+    store = current_user.stores.active.includes(:addresses).find_by(id: params[:store_id])
     game  = Game.order(:top).first
 
     directory_path = Rails.root.join('app', 'assets', 'images', "img_#{store.id}")
@@ -22,27 +22,29 @@ class JobsController < ApplicationController
   end
 
   def update_img
-    clean = params[:clean]
-    store = current_user.stores.find_by(active: true, id: params[:store_id])
-    if store
-      models = [Game]
-      models << Product if current_user.products.active.any?
-      models.each do |model|
-        AddWatermarkJob.perform_later(user: current_user, notify: true, model: model, store: store, settings: @settings,
-                                      clean: clean, address_id: params[:address_id])
-      end
-      msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок успешно запущена."
-      render turbo_stream: [success_notice(msg)]
-    end
-  end
+    store  = current_user.stores.active.find_by(id: params[:store_id])
+    models = []
+    models << Game if params[:game]
+    models << Product if params[:product] || current_user.products.active.exists?
 
-  def update_products_img
-    AddWatermarkJob.perform_later(user: current_user, all: true, model: Product,
-                                  settings: @settings, clean: params[:clean])
-    past = params[:clean] ? 'пересозданию' : 'созданию'
-    render turbo_stream: [
-      success_notice("Фоновая задача по #{past} картинок для всех объявлений кроме игр успешно запущена.")
-    ]
+    clean  = !!params[:clean]
+    all    = !!params[:product]
+    notify = !params[:product]
+
+    models.each do |model|
+      AddWatermarkJob.perform_later(
+        user: current_user,
+        notify: notify,
+        model: model,
+        store: store,
+        clean: clean,
+        address_id: params[:address_id],
+        all: all,
+        settings: @settings
+      )
+    end
+    msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для #{models.join(', ')} успешно запущена."
+    render turbo_stream: success_notice(msg)
   end
 
   def update_feed
@@ -56,15 +58,11 @@ class JobsController < ApplicationController
   end
 
   def update_ban_list
-    store = current_user.stores.find_by(active: true, id: params[:store_id])
+    store = current_user.stores.active.find_by(id: params[:store_id])
     if store && Avito::CheckErrorsJob.perform_later(store: store)
-      msg = "Фоновая задача по обновлению списка заблокированных объявлений для магазина #{store.manager_name} \
-             успешно запущена."
-      render turbo_stream: [success_notice(msg)]
+      render turbo_stream: success_notice(t('jobs_controller.update_ban_list.success', name: store.manager_name))
     else
-      msg = "Ошибка запуска фоновой задачи по обновлению списка заблокированных объявлений для магазина \
-             #{store.manager_name}, возможно магазин не активен!"
-      error_notice(msg)
+      error_notice(t('jobs_controller.update_ban_list.error', name: store.manager_name))
     end
   end
 

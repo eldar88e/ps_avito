@@ -18,5 +18,8 @@
     </a>
     <div><%= game.sony_id %></div>
     <div>Platform: <%= game.platform %></div>
+    <span class="badge bg-<%= game.deleted == 0 ? 'success' : 'danger' %>">
+        <%= game.deleted == 0 ? 'Активна' : 'Удален'  %>
+    </span>
   </div>
 </li>

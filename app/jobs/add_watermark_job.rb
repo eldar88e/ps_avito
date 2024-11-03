@@ -12,7 +12,7 @@ class AddWatermarkJob < ApplicationJob
         user.stores.includes(:addresses).where(active: true, addresses: { active: true })
       else
         addr_args[:active] = true
-        [args[:store]]
+        [args[:store]].compact
       end
     id             = model == Game ? :sony_id : :id
     addresses      = nil
