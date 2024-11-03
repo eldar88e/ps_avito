@@ -2,6 +2,7 @@ class GameBlackListsController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    binding.pry
     @game = Game.find(params[:game_id])
     bl = @game.build_game_black_list(comment: params[:game_black_list][:comment])
     if bl.save

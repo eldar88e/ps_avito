@@ -13,13 +13,18 @@
     </div>
 
   <div style="display: inline-block;">
-    <a href='<%= game_path(game.top) %>'>
+    <a href='<%= game_path(game) %>'>
       <h4><%= "#{game.top}. #{game.name}" %></h4>
     </a>
     <div><%= game.sony_id %></div>
     <div>Platform: <%= game.platform %></div>
-    <span class="badge bg-<%= game.deleted == 0 ? 'success' : 'danger' %>">
+    <div class="d-flex gap-3">
+      <span class="badge text-bg-<%= game.deleted == 0 ? 'success' : 'danger' %>">
         <%= game.deleted == 0 ? 'Активна' : 'Удален'  %>
-    </span>
+      </span>
+      <% if game.game_black_list %>
+        <span class="badge text-bg-warning">Добавлен в блэк лист</span>
+      <% end %>
+    </div>
   </div>
 </li>

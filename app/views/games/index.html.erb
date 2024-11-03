@@ -1,6 +1,8 @@
-<div class="container">
-  <h1>Игры PlayStation</h1>
+<% content_for :title do %>
+  Игры PlayStation
+<% end %>
 
+<div class="container">
   <% if @games.present? %>
     <ul class="list-group" data-controller="fancybox no_image">
       <%= render @games %>
