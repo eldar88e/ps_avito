@@ -20,9 +20,10 @@ class SaveImageJob < ApplicationJob
     name  = "#{file_id}.jpg"
     save_image(ad, name, image)
   rescue StandardError => e
-    msg = "Store: #{store.manager_name}\nID: #{product.send(id)}\nError: #{e.message}"
+    msg = "Аккаунт: #{store.manager_name}\nID: #{product.send(id)}\nError: #{e.message}"
+    msg << "\nТовар: #{product.is_a?(Game) ? product.name : product.title}"
     if file_id.match?(/[A-Z]/)
-      msg << "\nhttps://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{product.send(id)}/0/image"
+      # msg << "\nhttps://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/#{product.send(id)}/0/image"
     end
     TelegramService.call(user, msg)
   end
