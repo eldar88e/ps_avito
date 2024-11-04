@@ -4,6 +4,7 @@ class MapsController < ApplicationController
   def show
     return error_notice('Error getting address') if @address.nil?
 
+    @all_store = current_user.stores.active.includes(:addresses).where(addresses: { active: true }) if params[:all]
     render turbo_stream: [
       turbo_stream.replace("address_#{@address.id}", partial: '/maps/map', locals: { address: @address })
     ]

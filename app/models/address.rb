@@ -6,6 +6,8 @@ class Address < ApplicationRecord
 
   before_validation :check_slogan_params_blank
 
+  scope :active, -> { where(active: true) }
+
   validates :city, presence: true
 
   def store_address
