@@ -1,14 +1,20 @@
 class GameBlackListsController < ApplicationController
   before_action :authenticate_user!
+  add_breadcrumb "Главная", :root_path
+
+  def index
+    add_breadcrumb "Игры", games_path
+    add_breadcrumb "Блэк лист"
+    @pagy, @black_lists = pagy(GameBlackList.all, items: 36)
+  end
 
   def create
-    binding.pry
     @game = Game.find(params[:game_id])
-    bl = @game.build_game_black_list(comment: params[:game_black_list][:comment])
+    bl    = @game.build_game_black_list(comment: params[:game_black_list][:comment])
     if bl.save
       render turbo_stream: [
-        turbo_stream.update(:game_black_list_buttons, partial: '/games/game_black_list_buttons'),
-        success_notice('Игра была добавлена в черный список!')
+        turbo_stream.update(:game_black_list_buttons, partial: '/game_black_lists/buttons'),
+        success_notice('Игра была добавлена в блэк лист!')
       ]
     else
       error_notice(bl.errors.full_messages)
@@ -19,10 +25,14 @@ class GameBlackListsController < ApplicationController
     bl = GameBlackList.find(params[:id])
     if bl.destroy
       @game = bl.game
-      render turbo_stream: [
-        turbo_stream.update(:game_black_list_buttons, partial: '/games/game_black_list_buttons'),
-        success_notice('Игра была удалена из черного списока!')
-      ]
+      if @game
+        render turbo_stream: [
+          turbo_stream.update(:game_black_list_buttons, partial: '/game_black_lists/buttons'),
+          success_notice('Игра была удалена из черного списока!')
+        ]
+      else
+        render turbo_stream: success_notice('Игра была удалена из черного списока!')
+      end
     else
       error_notice(bl.errors.full_messages)
     end

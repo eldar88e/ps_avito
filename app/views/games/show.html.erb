@@ -6,7 +6,7 @@
     <div class="mb-3">Platform: <%= @game.platform %></div>
 
     <%= turbo_frame_tag :game_black_list_buttons, class: 'mt-3' do %>
-      <%= render '/games/game_black_list_buttons' %>
+      <%= render '/game_black_lists/buttons' %>
     <% end %>
 
     <% if @game.image.attached? %>

@@ -3,6 +3,7 @@
 <% end %>
 
 <div class="container">
+  <%= link_to 'Блэк лист', game_black_lists_path, class: 'mb-3 btn btn-dark btn-sm' %>
   <% if @games.present? %>
     <ul class="list-group" data-controller="fancybox no_image">
       <%= render @games %>

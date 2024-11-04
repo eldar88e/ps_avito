@@ -42,3 +42,6 @@ application.register('no_image', NoImageController);
 
 import MobileBarController from "./mobile_bar_controller";
 application.register('mobile-bar', MobileBarController);
+
+import AutoScrollDownController from "./auto_scroll_down_controller";
+application.register('auto-scroll-down', AutoScrollDownController);

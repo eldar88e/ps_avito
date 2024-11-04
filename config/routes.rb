@@ -5,9 +5,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :settings, only: [:index, :create, :update]
-  resources :games, only: [:index, :show] do
-    resources :game_black_lists, only: [:create, :destroy]
-  end
+  resources :games, only: [:index, :show]
+  resources :game_black_lists, only: [:index, :create, :destroy]
   resources :products
   resources :image_layers, only: [:new, :create, :show, :update, :destroy]
   resources :avitos, only: [:index]

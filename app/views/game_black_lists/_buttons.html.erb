@@ -1,11 +1,11 @@
 <% if @game.game_black_list %>
   <p class="text-danger"><span class="fw-bold">Причина добавления в черный список: </span><%= @game.game_black_list.comment %></p>
-  <%= button_to 'Убрать из черного списка', game_game_black_list_path(id: @game.game_black_list, game_id: @game),
-                method: :delete, class: 'btn btn-primary',
+  <%= button_to 'Убрать из черного списка', game_black_list_path(id: @game.game_black_list, game_id: @game),
+                method: :delete, class: 'btn btn-success',
                 data: { confirm: 'Вы уверены, что хотите удалить игру из Черного списка?',
                         controller: 'confirm', action: 'click->confirm#call' } %>
 <% else %>
-  <%= form_with(model: GameBlackList, url: game_game_black_lists_path(@game)) do |form| %>
+  <%= form_with(model: GameBlackList, url: game_black_lists_path(game_id: @game)) do |form| %>
     <div class="row">
       <div class="col-12 col-md-4 mb-3 mb-md-0">
         <%= form.text_field :comment, class: 'form-control', placeholder: 'Напишите коментарий...' %>

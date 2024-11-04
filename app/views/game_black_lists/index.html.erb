@@ -1,0 +1,51 @@
+<% content_for :title do %>
+  Блэк лист
+<% end %>
+
+<div class="container">
+  <% if @black_lists.present? %>
+    <ul class="list-group" data-controller="fancybox" class="">
+      <% @black_lists.each do |item| %>
+        <li class="list-group-item list-group-item-action" title="created_at: <%= format_date item.created_at %>, updated_at: <%= format_date item.updated_at %>">
+          <div class="row">
+            <% if item.game.present? %>
+              <div class="col-2 col-md-1">
+                <% if item.game.image.attached? %>
+                  <a data-fancybox="gallery_ad" data-src="<%= url_for(item.game.image) %>" data-caption="<%= item.game.name %>">
+                    <div class="loading-image" style='width: 31px; height: 31px;'>
+                      <div class="image-thumbnail" style="width: 31px; height: 31px; background-image: url(<%= img_resize(item.game.image, width: 50, height: 50) %>);"></div>
+                    </div>
+                  </a>
+                <% end %>
+              </div>
+              <div class="col-12 col-md-3">
+                <%= link_to item.game.name, game_path(item.game) %>
+              </div>
+            <% else %>
+              <div class="col-2 col-md-1"></div>
+              <div class="col-12 col-md-3"></div>
+            <% end %>
+            <div class="col-12 col-md-4"><%= item.game_id %></div>
+            <div class="col-12 col-md-3"><%= item.comment %></div>
+            <div class="col-12 col-md-1">
+              <%= button_to game_black_list_path(id: item), title: 'Восстановить?',
+                            method: :delete, class: 'btn btn-success btn-sm',
+                            data: { confirm: 'Вы уверены, что хотите удалить игру из Черного списка?',
+                                    controller: 'confirm', action: 'click->confirm#call' } do %>
+                <i class="bi bi-arrow-clockwise"></i>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <div data-controller="pagy-initializer" class="mt-3 mb-3">
+      <%== pagy_bootstrap_nav_js(@pagy, data: { turbo_prefetch: false }) if @pagy.pages > 1 %>
+    </div>
+
+    <%== pagy_info(@pagy) %>
+  <% else %>
+    <p>Записей не найдено!</p>
+  <% end %>
+</div>

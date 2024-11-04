@@ -440,7 +440,7 @@ ul.pagination {
 }
 
 .list-messages {
-  max-height: 600px;
+  max-height: 700px;
   overflow-y: scroll;
   padding-right: 15px;
 
@@ -533,4 +533,8 @@ footer {
   @media (max-width: 768px) {
     margin-bottom: 50px;
   }
+}
+
+.chat-form {
+  padding: 10px 0 20px;
 }
