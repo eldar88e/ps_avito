@@ -23,9 +23,7 @@ class Avito::ChatsController < ApplicationController
     return error_notice(response[:error]) if response[:error]
 
     @messages = response['messages']&.reverse || []
-    render turbo_stream: [
-      turbo_stream.replace(:chats, partial: 'avito/chats/messages'),
-    ]
+    render turbo_stream: turbo_stream.replace(:chats, partial: 'avito/chats/messages')
 
     # TODO post request for read chat
     # url = "https://api.avito.ru/messenger/v1/accounts/#{@account['id']}/chats/#{@chat_id}/read"

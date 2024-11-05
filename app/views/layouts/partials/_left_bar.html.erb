@@ -1,8 +1,11 @@
 <div class="left-bar hidden-left-bar" data-controller="collapse" >
   <div>
     <div class="store-name mb-3">
-      <%= link_to @store.manager_name, store_path(@store), data: { turbo_prefetch: false },
-                  title: "Перейти к управлению магазином #{@store.manager_name}" %>
+      <%= link_to store_path(@store), data: { turbo_prefetch: false },
+                  title: "Перейти к управлению магазином #{@store.manager_name}" do %>
+        <div class="logo-store-name"><%= @store.manager_name[0..0] %></div>
+        <div class="store-name-title"><%= @store.manager_name %></div>
+      <% end %>
     </div>
 
     <ul class="left-bar-menu">

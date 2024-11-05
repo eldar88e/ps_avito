@@ -7,7 +7,9 @@
     <%= render partial: '/avito/partials/left_bar', locals: { path: :store_avito_chats_path } %>
 
     <div class="col-12 col-md-9">
-      <%= render partial: '/avito/chats/messages' %>
+      <%= turbo_frame_tag :store do %>
+        <%= render partial: '/avito/chats/messages' %>
+      <% end %>
     </div>
   </div>
 </div>

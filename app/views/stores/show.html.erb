@@ -18,6 +18,7 @@
 
       <%= button_to 'Обновить Black list', store_update_ban_list_path(@store),
                     class: 'loader-btn btn btn-dark' %>
+      <%= link_to 'Авито', store_avito_dashboard_path(@store), class: 'btn btn-primary', data: { turbo: false } %>
     </div>
 
     <ul class="nav nav-tabs mt-2 mt-md-3" id="myTab" role="tablist">

@@ -6,8 +6,15 @@
   <h2>Статистика и настроики автозагрузки</h2>
   <ul class="list-group">
     <% @stores.active.each do |store| %>
-      <li class="list-group-item list-group-item-action">
+      <li class="list-group-item list-group-item-action d-flex gap-3">
         <%= link_to store.manager_name, store_avito_dashboard_path(store), data: { turbo_prefetch: false } %>
+        <% report = Rails.cache.read("auto_load_#{store.id}") %>
+        <% if report %>
+          <div>
+            <%= report['schedule'][0]['weekdays'].map { |i| Avito::DashboardHelper::WEEKDAYS[i][:name] }.join(', ') %>
+            <%= report['schedule'][0]['time_slots'].sort.map { |i| "#{i}.00" }.join(', ') %>
+          </div>
+        <% end %>
       </li>
     <% end %>
   </ul>

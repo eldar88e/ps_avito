@@ -6,7 +6,7 @@ module Avito
     layout 'avito'
 
     def index
-      @auto_load = fetch_cached("auto_load_#{@store.id}", url: 'https://api.avito.ru/autoload/v1/profile')
+      @auto_load = fetch_cached("auto_load_#{@store.id}", 30.minute, url: 'https://api.avito.ru/autoload/v1/profile')
       @report    = fetch_cached("report_#{@store.id}",
                                 url: 'https://api.avito.ru/autoload/v2/reports/last_completed_report')
       @bal       = fetch_cached( "bal_#{@store.id}",
