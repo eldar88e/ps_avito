@@ -11,7 +11,7 @@ class Avito::AutoLoadJob < Avito::BaseApplicationJob
 
     if result&.status == 200
       Rails.cache.delete("auto_load_#{store.id}")
-      broadcast_notify('!!!') # I18n.t('avito.notice.upd_autoload_conf')
+      broadcast_notify(I18n.t('avito.notice.upd_autoload_conf'))
     else
       broadcast_notify(I18n.t('avito.error.upd_autoload_conf'), 'danger')
     end
