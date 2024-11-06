@@ -37,7 +37,7 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
         page += 1
       end
       user = store.user if user.nil?
-      TelegramService.call(user, t('avito.job.check_deleted', count: deleted, name: store.manager_name)) if deleted > 0
+      TelegramService.call(user, I18n.t('avito.job.check_deleted', count: deleted, name: store.manager_name)) if deleted > 0
     end
 
     nil
