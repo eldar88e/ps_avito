@@ -1,37 +1,44 @@
 module Avito
   class AutoloadController < ApplicationController
     include AvitoConcerns
-    before_action :ensure_turbo_stream_request, :set_auto_load, only: [:show, :edit]
+    before_action :ensure_turbo_stream_request, only: [:show, :edit]
+    before_action :set_auto_load, only: [:show, :edit, :update]
     layout 'avito'
 
     def show
-      @report = fetch_and_parse 'https://api.avito.ru/autoload/v2/reports/last_completed_report'
+      render turbo_stream: turbo_stream.replace(@store, partial: '/avito/autoload/show')
     end
 
     def edit
-      render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/edit')]
+      render turbo_stream: turbo_stream.replace(@store, partial: '/avito/autoload/edit')
     end
 
     def update
-      weekdays         = params[:store][:weekdays].reject(&:blank?).map { |i| i.to_i }
-      time_slots       = params[:store][:time_slots].reject(&:blank?).map { |i| i.to_i }
-      autoload_enabled = params[:store][:autoload_enabled] == '1'
-      avito_json       = { agreement: true,
-                           autoload_enabled: autoload_enabled,
-                           schedule: [{ rate: params[:store][:rate].to_i, time_slots: time_slots, weekdays: weekdays }]
+      weekdays = params[:store][:weekdays].reject(&:blank?).map { |i| i.to_i }
+      times    = params[:store][:time_slots].reject(&:blank?).map { |i| i.to_i }
+      enabled  = params[:store][:autoload_enabled] == '1'
+      a_params = { agreement: true, autoload_enabled: enabled,
+                   schedule: [{ rate: params[:store][:rate].to_i, time_slots: times, weekdays: weekdays }]
       }
       keys_to_include = %i[upload_url report_email]
-      avito_json.merge! autoload_params.slice(*keys_to_include)
-      result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, avito_json)
+      a_params.merge! autoload_params.slice(*keys_to_include)
 
-      if result&.status == 200
-        set_auto_load
-        Rails.cache.delete("auto_load_#{@store.id}")
-        msg = t 'avito.notice.upd_autoload_conf'
-        render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
-      else
-        error_notice t('avito.error.upd_autoload_conf')
-      end
+      Avito::AutoLoadJob.perform_later(store: @store, params: a_params)
+      binding.pry
+      msg = "Запущен процес обновления параметров автозагрузки Авито аккаунта #{@store.manager_name}"
+
+      render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
+
+      # result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, a_params)
+
+      # if result&.status == 200
+      # Rails.cache.delete("auto_load_#{@store.id}")
+      #   set_auto_load
+      #   msg = t 'avito.notice.upd_autoload_conf'
+      #   render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
+      # else
+      #   error_notice t('avito.error.upd_autoload_conf')
+      # end
     end
 
     def update_ads
@@ -47,10 +54,6 @@ module Avito
 
     def ensure_turbo_stream_request
       redirect_to store_avito_dashboard_path unless turbo_frame_request?
-    end
-
-    def set_auto_load
-      @auto_load = fetch_and_parse 'https://api.avito.ru/autoload/v1/profile'
     end
 
     def autoload_params

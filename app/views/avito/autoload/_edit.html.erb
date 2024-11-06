@@ -40,8 +40,14 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <%= form.submit 'Save', class: 'btn btn-primary' %>
-    </div>
+    <%= link_to store_avito_autoload_path(@store),
+                title: 'Назад',
+                class: 'btn btn-danger btn-sm me-2',
+                data: { turbo_prefetch: false } do %>
+      <i class="bi bi-backspace"></i>
+    <% end %>
+
+    <%= form.submit 'Сохранить', class: 'btn btn-primary btn-sm' do %>
+    <% end %>
   <% end %>
 <% end %>

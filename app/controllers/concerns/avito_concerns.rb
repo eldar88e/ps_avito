@@ -43,6 +43,10 @@ module AvitoConcerns
     @rate = fetch_cached("rate_#{@store.id}", 1.hour, url: 'https://api.avito.ru/ratings/v1/info')
   end
 
+  def set_auto_load
+    @auto_load = fetch_cached("auto_load_#{@store.id}", 30.minute, url: 'https://api.avito.ru/autoload/v1/profile')
+  end
+
   def fetch_cached(key, expires_in=5.minute, **args)
     result = Rails.cache.fetch(key, expires_in: expires_in) do
       fetch_and_parse(args[:url], args[:method] || :get, args[:payload])
