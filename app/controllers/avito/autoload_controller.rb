@@ -24,9 +24,8 @@ module Avito
       a_params.merge! autoload_params.slice(*keys_to_include)
 
       Avito::AutoLoadJob.perform_later(store: @store, params: a_params)
-      binding.pry
-      msg = "Запущен процес обновления параметров автозагрузки Авито аккаунта #{@store.manager_name}"
 
+      msg = "Запущен процес обновления параметров автозагрузки Авито аккаунта #{@store.manager_name}"
       render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
 
       # result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, a_params)
