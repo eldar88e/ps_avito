@@ -310,7 +310,7 @@ ul.pagination {
   }
 
   .store-name {
-    padding: 4px;
+    padding: 10px 4px;
     transition: all 0.9ms;
     text-align: center;
     @media (min-width: 1630px) {
@@ -336,6 +336,7 @@ ul.pagination {
       .store-name-title {
         white-space: nowrap;
         overflow: hidden;
+        font-size: 14px;
         opacity: 0;
         width: 0;
         @media (min-width: 1630px) {
