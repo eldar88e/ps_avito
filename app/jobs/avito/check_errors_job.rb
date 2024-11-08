@@ -47,7 +47,7 @@ class Avito::CheckErrorsJob < Avito::BaseApplicationJob
           fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
         end
       end
-      msg = "✅ Для аккаунта #{store.manager_name} добавлено #{count_ban[0]} объявления в бан."
+      msg = I18n.t('avito.job.check_errors', count: count_ban[0], name: store.manager_name)
       TelegramService.call(store.user, msg) if count_ban[0] > 0
     end
 

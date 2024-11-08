@@ -43,18 +43,17 @@ class JobsController < ApplicationController
         settings: @settings
       )
     end
-    msg = "Фоновая задача по #{clean ? 'пересозданию' : 'созданию'} картинок для #{models.join(', ')} успешно запущена."
+    job_type = clean ? 'пересозданию' : 'созданию'
+    msg      = t('jobs_controller.update_img.success', job_type: job_type, models: models.join(', '))
     render turbo_stream: success_notice(msg)
   end
 
   def update_feed
     store = current_user.stores.find_by(active: true, id: params[:store_id])
-    if store && PopulateExcelJob.perform_later(store: store)
-      msg = "Фоновая задача по обновлению фида для магазина #{store.manager_name} успешно запущена."
-      render turbo_stream: [success_notice(msg)]
-    else
-      error_notice "Ошибка запуска фоновой задачи по обновлению фида, возможно магазин не активен!"
-    end
+    return error_notice t('jobs_controller.update_feed.error') unless store
+
+    WatermarksSheetsJob.perform_later(store: store, user: current_user)
+    render turbo_stream: success_notice(t('jobs_controller.update_feed.success', name: store.manager_name))
   end
 
   def update_ban_list

@@ -3,7 +3,7 @@ class WatermarksSheetsJob < ApplicationJob
 
   def perform(**args)
     user     = find_user(args)
-    stores   = user.stores.includes(:addresses).where(active: true, addresses: { active: true })
+    stores   = args[:store] || user.stores.includes(:addresses).where(active: true, addresses: { active: true })
     set_row  = user.settings
     settings = set_row.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
     if (blob = set_row.find_by(var: 'main_font')&.font&.blob)
@@ -11,7 +11,7 @@ class WatermarksSheetsJob < ApplicationJob
       settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
     end
 
-    stores.each do |store|
+    [stores].flatten.each do |store|
       [Game, Product ].each do |model|
         AddWatermarkJob.perform_now(user: args[:user], model: model, store: store,
                                     settings: settings, clean: args[:clean])
