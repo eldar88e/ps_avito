@@ -2,19 +2,21 @@
   <%= "#{@game.name} top: #{@game.top}" %>
 <% end %>
 
-<div class="container">
+<div class="container game-info">
     <div class="mb-3">Platform: <%= @game.platform %></div>
 
-    <%= turbo_frame_tag :game_black_list_buttons, class: 'mt-3' do %>
+    <%= turbo_frame_tag :game_black_list_buttons do %>
       <%= render '/game_black_lists/buttons' %>
     <% end %>
 
     <% if @game.image.attached? %>
-      <%= image_tag url_for(@game.image), style: 'width: 100%; margin: 1em 0;' %>
+      <%= image_tag url_for(@game.image), class: 'mt-3 mb-5' %>
     <% end %>
 
     <% @game.ads.each do |ad| %>
-        <%= image_tag url_for(ad.image), style: 'width: 100%; margin: 1em 0;' %>
+        <% next unless ad.image.attached? %>
+
+        <%= image_tag url_for(ad.image), class: 'mb-5' %>
     <% end %>
 
     <div style="display: inline-block;">

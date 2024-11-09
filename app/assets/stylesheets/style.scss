@@ -585,3 +585,10 @@ footer {
   opacity: 0;
   transition: all 0.5ms;
 }
+
+.game-info {
+  img {
+    width: 49%;
+    display: inline-block;
+  }
+}
