@@ -3,23 +3,29 @@
 <% end %>
 
 <div class="container game-info">
-    <div class="mb-3">Platform: <%= @game.platform %></div>
+  <div class="mb-3">Platform: <%= @game.platform %></div>
 
-    <%= turbo_frame_tag :game_black_list_buttons do %>
-      <%= render '/game_black_lists/buttons' %>
-    <% end %>
+  <%= turbo_frame_tag :game_black_list_buttons do %>
+    <%= render '/game_black_lists/buttons' %>
+  <% end %>
 
-    <% if @game.image.attached? %>
-      <%= image_tag url_for(@game.image), class: 'mt-3 mb-5' %>
-    <% end %>
+  <% if @game.image.attached? %>
+    <%= image_tag url_for(@game.image), class: 'mt-3 mb-5' %>
+  <% end %>
 
-    <% @game.ads.each do |ad| %>
-        <% next unless ad.image.attached? %>
+  <% @game.ads.each do |ad| %>
+    <% next unless ad.image.attached? %>
 
-        <%= image_tag url_for(ad.image), class: 'mb-5' %>
-    <% end %>
+    <%= image_tag url_for(ad.image), class: 'mb-5' %>
+  <% end %>
 
-    <div style="display: inline-block;">
-      <div><%= @game.sony_id %></div>
-    </div>
+  <div class="mb-3">
+    <div><%= @game.sony_id %></div>
+  </div>
+
+  <%= button_to game_path(@game), method: :delete, class: 'btn btn-danger',
+                data: { confirm: 'Вы уверены, что хотите удалить игру?',
+                        controller: 'confirm', action: 'click->confirm#call' } do %>
+    <i class="bi bi-trash"></i>
+  <% end %>
 </div>

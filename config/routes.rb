@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :settings, only: [:index, :create, :update]
-  resources :games, only: [:index, :show]
+  resources :games, only: [:index, :show, :destroy]
   resources :game_black_lists, only: [:index, :create, :destroy]
   resources :products
   resources :image_layers, only: [:new, :create, :show, :update, :destroy]
