@@ -15,11 +15,10 @@ class AddWatermarkJob < ApplicationJob
         [args[:store]].compact
       end
     id             = model == Game ? :sony_id : :id
-    addresses      = nil
-    count          = 0
     addr_args[:id] = args[:address_id].to_i if args[:address_id]
 
     stores.each do |store|
+      count     = 0
       addresses = store.addresses.where(addr_args)
       addresses.each do |address|
         products = products.limit(address&.total_games).includes(:ads) if model == Game
@@ -35,16 +34,11 @@ class AddWatermarkJob < ApplicationJob
           count += 1
         end
       end
-    end
-
-    if addresses && args[:notify]
       address = addresses.size == 1 ? addresses.first.city : addresses.map { |i| i.city }.join("\n")
-      address = 'No active address!' if addresses.size.zero?
       msg     = "🏞 Added #{count} image(s) for #{model} for #{stores.first.manager_name} for:\n#{address}"
+      msg     = 'No active address!' if addresses.size.zero?
       broadcast_notify(msg)
-      TelegramService.call(user, msg)
-    else
-      broadcast_notify('All pictures successfully prepared!', 'primary')
+      TelegramService.call(user, msg) if addresses && args[:notify]
     end
   rescue => e
     Rails.logger.error("#{self.class} - #{e.message}")
