@@ -1,54 +1,54 @@
-<div class="container mt-3">
-  <nav class="navbar navbar-expand-lg bg-light mb-3">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/" title="На главную">PsAvito</a>
+<nav class="navbar navbar-expand-lg bg-light mb-3 mt-3">
+  <div class="container container-fluid">
+    <a class="navbar-brand" href="/" title="На главную">PsAvito</a>
 
-      <% if user_signed_in? %>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <% if user_signed_in? %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <%= active_link_to 'Games', games_path, class: 'nav-link', active: :exclusive %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to 'Settings', settings_path, class: 'nav-link', active: :exclusive %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to 'Stores', stores_path, class: 'nav-link', active: :exclusive %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to 'Products', products_path, class: 'nav-link', active: :exclusive %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to 'Feeds', feeds_path, class: 'nav-link', active: :exclusive %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to 'Avito', avitos_path, class: 'nav-link', active: :exclusive %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Errors', '/exception-track', class: 'nav-link', target: '_blank' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Jobs', '/good_job', class: 'nav-link', target: '_blank' %>
-            </li>
-          </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%= active_link_to 'Games', games_path, class: 'nav-link', active: :exclusive %>
+          </li>
+          <li class="nav-item">
+            <%= active_link_to 'Settings', settings_path, class: 'nav-link', active: :exclusive %>
+          </li>
+          <li class="nav-item">
+            <%= active_link_to 'Stores', stores_path, class: 'nav-link', active: :exclusive %>
+          </li>
+          <li class="nav-item">
+            <%= active_link_to 'Products', products_path, class: 'nav-link', active: :exclusive %>
+          </li>
+          <li class="nav-item">
+            <%= active_link_to 'Feeds', feeds_path, class: 'nav-link', active: :exclusive %>
+          </li>
+          <li class="nav-item">
+            <%= active_link_to 'Avito', avitos_path, class: 'nav-link', active: :exclusive %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Errors', '/exception-track', class: 'nav-link', target: '_blank' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Jobs', '/good_job', class: 'nav-link', target: '_blank' %>
+          </li>
+        </ul>
 
-          <div style="display: flex; align-items: center;">
-            <div style="margin-right: 5px;">
-              Hello<span style="font-weight: bold;"> <%= current_user.email %></span>!
-            </div>
-            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
+        <div style="display: flex; align-items: center;">
+          <div style="margin-right: 5px;">
+            Hello<span style="font-weight: bold;"> <%= current_user.email %></span>!
           </div>
+          <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
         </div>
-      <% else %>
-          <%= button_to "Sign in", new_user_session_path, class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-  </nav>
+      </div>
+    <% else %>
+        <%= button_to "Sign in", new_user_session_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</nav>
 
+<div class="container mt-3">
   <%= render '/games/search' if user_signed_in? %>
 </div>
 
