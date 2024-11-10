@@ -26,6 +26,6 @@ class Avito::SettingsController < ApplicationController
   private
 
   def set_webhook_url
-    @webhook_url = "http://services.avito.ru/stores/#{@store.id}/avito/webhooks/receive"
+    @webhook_url = "http://server.open-ps.ru/stores/#{@store.id}/avito/webhooks/receive"
   end
 end
