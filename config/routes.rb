@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       post '/webhooks/receive', to: 'webhooks#receive'
       resources :chats, only: [:index, :show, :create]
       resources :reviews, only: [:index, :edit, :update, :destroy]
+      resources :settings, only: [:index, :update]
     end
 
     match '/avito', to: 'avito/dashboard#index', via: :get

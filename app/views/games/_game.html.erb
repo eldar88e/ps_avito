@@ -1,16 +1,16 @@
 <li class="list-group-item list-group-item-action game-item<%= ' list-group-item-danger' if game.game_black_list %>">
-    <div class="swiper games_swiper" data-controller="swiper">
-      <div class="swiper-wrapper">
-        <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } %>
+  <div class="swiper games_swiper" data-controller="swiper">
+    <div class="swiper-wrapper">
+      <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } %>
 
-        <% game.ads.active.each do |ad| %>
-          <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } %>
-        <% end %>
-      </div>
-
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <% game.ads.active.each do |ad| %>
+        <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } %>
+      <% end %>
     </div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
 
   <div style="display: inline-block;">
     <a href='<%= game_path(game) %>'>
@@ -25,8 +25,8 @@
       <% if game.game_black_list %>
         <span class="badge text-bg-warning">Добавлен в блэк лист</span>
       <% end %>
-        <%= link_to "https://store.playstation.com/en-tr/product/#{game.sony_id}" do %>
-          <svg aria-hidden="true" focusable="false" class="shared-nav-ps-logo" width="21px" height="21px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+        <%= link_to "https://store.playstation.com/en-tr/product/#{game.sony_id}", target: '_blank', style: 'width: 21px; height: 21px; overflow: hidden; margin-top: -3px;' do %>
+          <svg aria-hidden="true" focusable="false" class="shared-nav-ps-logo" width="24px" height="24px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
             <g>
               <g>
                 <path d="M5.8,32.1C4.3,33.1,4.8,35,8,35.9c3.3,1.1,6.9,1.4,10.4,0.8c0.2,0,0.4-0.1,0.5-0.1v-3.4l-3.4,1.1
