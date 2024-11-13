@@ -42,7 +42,6 @@ module Avito::ChatsHelper
     when content['location']
       content['location']['text']
     else
-      TelegramService.call(User.first, "Неизвестный тип сообщения #{content}") #TODO Убрать
       'Неизвестный тип сообщения:' + "#{content}"
     end
   end

@@ -10,7 +10,7 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      if verified_user = env['warden'].user # User.first TODO find a solution for authentication for job and rails
+      if verified_user = env['warden'].user
         verified_user || reject_unauthorized_connection
       else
         reject_unauthorized_connection

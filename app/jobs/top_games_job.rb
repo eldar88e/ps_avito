@@ -1,21 +1,20 @@
 class TopGamesJob < ApplicationJob
   queue_as :default
+  KEYS = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
 
   def perform(**args)
     quantity = args[:settings]['quantity_games']
     games    = fetch_games(quantity)
     run_id   = Run.last_id
     count    = 0
-
+    edited   = []
     games.each do |row|
-      keys = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
-      filtered_row         = row.slice(*keys)
+      filtered_row         = row.slice(*KEYS)
       row[:md5_hash]       = md5_hash(filtered_row)
       row[:touched_run_id] = run_id
       row[:deleted]        = 0
 
-      game = Game.find_by(sony_id: row[:sony_id])
-      game.update(row) && next if game
+      update_game(row, edited) && next
 
       row[:run_id] = run_id
       Game.create(row) && count += 1
@@ -23,8 +22,9 @@ class TopGamesJob < ApplicationJob
 
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
-    msg = "✅ List updated #{games.size} games."
-    msg += " Add #{count} new game(s)." if count > 0
+    msg = "✅ Обновлено ТОП #{games.size} игр."
+    msg += "\n Добавлено #{count} новых игр." if count > 0
+    msg += "\n Обновленна цена у #{edited.size} игр:\n#{edited.join(",\n")}" if edited.size > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
@@ -37,6 +37,15 @@ class TopGamesJob < ApplicationJob
   end
 
   private
+
+  def update_game(row, edited)
+    game = Game.find_by(sony_id: row[:sony_id])
+    return if game.nil?
+
+    game.update(row)
+    edited << game.sony_id if game.md5_hash != row[:md5_hash]
+    true
+  end
 
   def fetch_games(quantity)
     db = connect_db

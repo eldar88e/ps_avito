@@ -1,5 +1,3 @@
-# Avito::CheckDeletedJob.perform_now(store: Store.find(8))
-
 class Avito::CheckDeletedJob < Avito::BaseApplicationJob
   queue_as :default
   PER_PAGE = 100
