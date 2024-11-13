@@ -1,6 +1,7 @@
 class Avito::SettingsController < ApplicationController
   include AvitoConcerns
   before_action :set_webhook_url
+  before_action :set_stores, only: [:index]
   layout 'avito'
 
   def index

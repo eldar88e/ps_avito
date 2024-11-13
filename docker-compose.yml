@@ -12,7 +12,7 @@ services:
     networks:
       - web-net
 
-  web:
+  web: &web_base
     image: web
     build: .
     container_name: web-ps
@@ -33,23 +33,24 @@ services:
     restart: unless-stopped
 
   good_job:
-    image: good_job
-    build: .
-    env_file: ./.env
+    <<: *web_base
     container_name: good_job-ps
     entrypoint: []
     command: bundle exec good_job start
-    volumes:
-      - gems:/usr/local/bundle
-      - ./node_modules:/app/node_modules
-      - ./log:/app/log
-      - ./storage:/app/storage
-      - ./game_lists:/app/game_lists
-    depends_on:
-      - pg
-    networks:
-      - web-net
-    restart: unless-stopped
+    # image: good_job
+    # build: .
+    # env_file: ./.env
+    # volumes:
+    #  - gems:/usr/local/bundle
+    #  - ./node_modules:/app/node_modules
+    #  - ./log:/app/log
+    #  - ./storage:/app/storage
+    #  - ./game_lists:/app/game_lists
+    # depends_on:
+    #  - pg
+    # networks:
+    #  - web-net
+    # restart: unless-stopped
 
   redis:
     image: redis:latest
