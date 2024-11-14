@@ -27,7 +27,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
         url    = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
         price  = GamePriceService.call(ad.adable.price_tl, store)
         result = fetch_and_parse(avito, url, :post, { price: price })
-        count += 1 if result.dig(:result, :success)
+        count += 1 if result&.dig('result', 'success')
       end
       user = store.user
       msg  = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
