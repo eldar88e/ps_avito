@@ -57,16 +57,10 @@
           <div class="row">
             <div class="fw-bold col-6 col-md-3">Баланс тарифа</div>
             <div class="col-6 col-md-9">
-              <% balance = @bal['result']['balance'] / 100 %>
+              <% balance = @bal['balance'] / 100 %>
               <span style="font-size: 1.2em; <%= balance < 100 ? 'color: red; ' : '' %>margin-right: 10px;">
                 <%= "#{balance}₽" %>
               </span>
-
-              <% if @bal['result']['debt'] > 0 %>
-                <span style="color: red; margin-right: 10px;"><%= "Долг: #{@bal['result']['debt'] / 100}₽" %></span>
-              <% end %>
-
-              <span>Aванс текущего месяца: <%= "#{@bal['result']['advance'] / 100}₽" %></span>
             </div>
           </div>
         </li>
