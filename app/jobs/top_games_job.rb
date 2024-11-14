@@ -42,6 +42,7 @@ class TopGamesJob < ApplicationJob
     game = Game.find_by(sony_id: row[:sony_id])
     return if game.nil?
 
+    # row[:price_updated] = row[:touched_run_id] if game.md5_hash != row[:md5_hash]
     game.update(row)
     edited << game.sony_id if game.md5_hash != row[:md5_hash]
     true
