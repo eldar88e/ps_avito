@@ -1,9 +1,9 @@
 class Avito::UpdatePriceJob < Avito::BaseApplicationJob
   queue_as :default
 
-  def perform(**args)
+  def perform
     last_run = Run.last
-    return if last_run&.status == 'finish'
+    return if last_run&.status != 'finish'
 
     games = Game.where(price_updated: last_run.id)&.ids
     ads   = Ad.includes(:adable).where(adable_type: 'Game', adable_id: games)
@@ -27,5 +27,10 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
       broadcast_notify(msg)
       TelegramService.call(user, msg)
     end
+
+    nil
+  rescue => e
+    msg = "Error #{self.class} || #{e.message}"
+    Rails.logger.error(msg)
   end
 end
