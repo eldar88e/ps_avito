@@ -6,7 +6,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     return if last_run&.status == 'finish'
 
     games = Game.where(price_updated: last_run.id)&.ids
-    ads   = Ad.where(adable_type: 'Game', adable_id: games).include(:adable)
+    ads   = Ad.includes(:adable).where(adable_type: 'Game', adable_id: games)
     ads.group_by(&:store_id).each do |key, ads|
       store = Store.find(key)
       avito = AvitoService.new(store: store)
