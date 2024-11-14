@@ -24,7 +24,7 @@ class TopGamesJob < ApplicationJob
     Run.finish
     msg = "✅ Обновлено ТОП #{games.size} игр."
     msg += "\n#{I18n.t('jobs.top_games.add', count: count)}" if count > 0
-    msg += "\n#{I18n.t('jobs.top_games.price', count: edited.size)}:\n#{edited.join(",\n")}" if edited.size > 0
+    msg += "\n#{I18n.t('jobs.top_games.price', count: edited.size)}" if edited.size > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
