@@ -18,7 +18,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
         item_id = ad.avito_id
         if item_id.nil?
           url     = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{ad.id}"
-          item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('avito_id')
+          item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('ad_id')
           next if item_id.nil?
 
           ad.update(avito_id: item_id)
@@ -27,7 +27,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
         url    = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
         price  = GamePriceService.call(ad.adable.price_tl, store)
         result = fetch_and_parse(avito, url, :post, { price: price })
-        binding.pry
+        ad.update(avito_id: item_id) unless result
         puts result
         count += 1 if result&.dig('result', 'success')
       end
