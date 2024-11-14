@@ -9,15 +9,17 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     ads   = Ad.includes(:adable).where(adable_type: 'Game', adable_id: games)
     ads.group_by(&:store_id).each do |key, ads|
       store = Store.find(key)
+      puts store
       avito = AvitoService.new(store: store)
       count = 0
       ads.each do |ad|
         item_id = ad.avito_id
         url     = "https://api.avito.ru/autoload/v2/items/#{ad.id}"
+        puts "1. #{item_id}"
         item_id = fetch_and_parse(avito, url) if item_id.nil?
+        puts "2. #{item_id}"
         url     = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
         price   = GamePriceService.call(ad.adable.price_tl, store)
-        puts item_id
         puts price
         # fetch_and_parse(avito, url, :post, { price: price })
         count += 1
