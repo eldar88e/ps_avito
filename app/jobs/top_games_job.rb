@@ -23,8 +23,8 @@ class TopGamesJob < ApplicationJob
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
     msg = "✅ Обновлено ТОП #{games.size} игр."
-    msg += "\n Добавлено #{count} новых игр." if count > 0
-    msg += "\n Обновленна цена у #{edited.size} игр:\n#{edited.join(",\n")}" if edited.size > 0
+    msg += "\nДобавлено #{count} новых игр." if count > 0
+    msg += "\nОбновленна цена у #{edited.size} игр:\n#{edited.join(",\n")}" if edited.size > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
