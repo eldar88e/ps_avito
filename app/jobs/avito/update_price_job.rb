@@ -5,13 +5,17 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     last_run = Run.last
     return if last_run&.status != 'finish'
 
-    games = Game.where(price_updated: last_run.id)&.ids
-    ads   = Ad.includes(:adable).active_ads.where(adable_type: 'Game', adable_id: games)
+    game_ids = Game.where(price_updated: last_run.id)&.ids
+    ads      = Ad.includes(:adable).active_ads.where(adable_type: 'Game', adable_id: game_ids)
+    ############
+    msg = "Игры к обновлению цен:\n" + Game.where(id: game_ids).pluck(:name).join(",\n")
+    broadcast_notify(msg)
+    TelegramService.call(User.first, msg)
+    #############
     ads.group_by(&:store_id).each do |key, ads|
       store = Store.find_by(id: key, active: true)
       next unless store
 
-      puts store.manager_name
       avito = AvitoService.new(store: store)
       count = 0
       ads.each do |ad|
@@ -22,24 +26,21 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
           next unless item_id
 
           ad.update(avito_id: item_id)
-          puts "writed #{ad.avito_id}"
         end
         url    = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
         price  = GamePriceService.call(ad.adable.price_tl, store)
         result = fetch_and_parse(avito, url, :post, { price: price })
-        puts result
         count += 1 if result&.dig('result', 'success')
       end
       user = store.user
       msg  = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
       broadcast_notify(msg)
-      TelegramService.call(user, msg)
+      TelegramService.call(user, msg) if count > 0
     end
 
     nil
   rescue => e
-    msg = "Error #{self.class} || #{e.message}"
-    Rails.logger.error(msg)
+    Rails.logger.error "Error #{self.class} || #{e.message}"
   end
 end
 
