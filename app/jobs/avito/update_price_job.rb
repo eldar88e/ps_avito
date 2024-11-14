@@ -6,7 +6,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     return if last_run&.status != 'finish'
 
     games = Game.where(price_updated: last_run.id)&.ids
-    ads   = Ad.includes(:adable).where(adable_type: 'Game', adable_id: games)
+    ads   = Ad.includes(:adable).active_ads.where(adable_type: 'Game', adable_id: games)
     ads.group_by(&:store_id).each do |key, ads|
       store = Store.find(key)
       puts store.manager_name
@@ -38,3 +38,5 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     Rails.logger.error(msg)
   end
 end
+
+# Avito::UpdatePriceJob.perform_now
