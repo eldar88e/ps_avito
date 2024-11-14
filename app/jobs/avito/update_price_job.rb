@@ -9,7 +9,9 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     ads   = Ad.includes(:adable).where(adable_type: 'Game', adable_id: games)
     ads.group_by(&:store_id).each do |key, ads|
       store = Store.find(key)
-      puts store
+      puts store.manager_name
+      next unless store.active
+
       avito = AvitoService.new(store: store)
       count = 0
       ads.each do |ad|
