@@ -16,15 +16,18 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
       count = 0
       ads.each do |ad|
         item_id = ad.avito_id
-        url     = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{ad.id}"
-        puts "1. #{item_id}"
-        item_id = fetch_and_parse(avito, url) if item_id.nil?
-        puts "2. #{item_id}"
-        url     = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
-        price   = GamePriceService.call(ad.adable.price_tl, store)
-        puts price
-        # fetch_and_parse(avito, url, :post, { price: price })
-        count += 1
+        if item_id.nil?
+          url     = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{ad.id}"
+          item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('avito_id')
+          next if item_id.nil?
+
+          ad.update(avito_id: item_id)
+          puts "writed #{ad.avito_id}"
+        end
+        url    = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
+        price  = GamePriceService.call(ad.adable.price_tl, store)
+        result = fetch_and_parse(avito, url, :post, { price: price })
+        count += 1 if result['result']['success']
       end
       user = store.user
       msg  = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
