@@ -21,8 +21,8 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
       ads.each do |ad|
         item_id = ad.avito_id
         if item_id.nil?
-          url     = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{ad.id}"
-          item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('ad_id')
+          url     = "https://api.avito.ru/autoload/v2/items/avito_ids?query=#{ad.id}"
+          item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('avito_id')
           next unless item_id
 
           ad.update(avito_id: item_id)
