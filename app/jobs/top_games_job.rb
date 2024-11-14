@@ -23,8 +23,8 @@ class TopGamesJob < ApplicationJob
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
     msg = "✅ Обновлено ТОП #{games.size} игр."
-    msg += "\nДобавлено #{count} новых игр." if count > 0
-    msg += "\nОбновленна цена у #{edited.size} игр:\n#{edited.join(",\n")}" if edited.size > 0
+    msg += "\n#{I18n.t('jobs.top_games.add', count: count)}" if count > 0
+    msg += "\n#{I18n.t('jobs.top_games.price', count: edited.size)}:\n#{edited.join(",\n")}" if edited.size > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
@@ -42,9 +42,11 @@ class TopGamesJob < ApplicationJob
     game = Game.find_by(sony_id: row[:sony_id])
     return if game.nil?
 
-    # row[:price_updated] = row[:touched_run_id] if game.md5_hash != row[:md5_hash]
+    if game.md5_hash != row[:md5_hash]
+      row[:price_updated] = row[:touched_run_id]
+      edited << game.sony_id
+    end
     game.update(row)
-    edited << game.sony_id if game.md5_hash != row[:md5_hash]
     true
   end
 
