@@ -16,7 +16,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
       count = 0
       ads.each do |ad|
         item_id = ad.avito_id
-        url     = "https://api.avito.ru/autoload/v2/items/#{ad.id}"
+        url     = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{ad.id}"
         puts "1. #{item_id}"
         item_id = fetch_and_parse(avito, url) if item_id.nil?
         puts "2. #{item_id}"
