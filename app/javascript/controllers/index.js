@@ -45,3 +45,6 @@ application.register('mobile-bar', MobileBarController);
 
 import AutoScrollDownController from "./auto_scroll_down_controller";
 application.register('auto-scroll-down', AutoScrollDownController);
+
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)

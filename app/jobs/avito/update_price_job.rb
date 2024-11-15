@@ -8,7 +8,8 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     game_ids = Game.where(price_updated: last_run.id)&.ids
     ads      = Ad.includes(:adable).active_ads.where(adable_type: 'Game', adable_id: game_ids)
     ############
-    msg = "Игры к обновлению цен:\n" + Game.where(id: game_ids).pluck(:name).join(",\n")
+    game_names = Game.where(id: game_ids).pluck(:name).map.with_index(1) { |name, index| "#{index}. `#{name}`" }
+    msg        = "Игры к обновлению цен:\n#{game_names.join("\n")}"
     broadcast_notify(msg)
     TelegramService.call(User.first, msg)
     #############
