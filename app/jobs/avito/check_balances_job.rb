@@ -5,7 +5,7 @@ class Avito::CheckBalancesJob < Avito::BaseApplicationJob
     user   = find_user args
     stores = user.stores.active
     stores.each do |store|
-      avito = AvitoService.new(store: store)
+      avito = AvitoService.new(store:)
       next if avito.token_status == 403
 
       balance_raw = fetch_and_parse(avito, 'https://api.avito.ru/cpa/v3/balanceInfo', :post, {})

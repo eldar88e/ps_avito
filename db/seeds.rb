@@ -1,8 +1,8 @@
 if Rails.env.development?
-  user = User.create(email: 'test@test.tt', password: 12345678)
+  user = User.create(email: 'test@test.tt', password: 12_345_678)
 
   Game.create(name: 'Spider-Man', sony_id: 'EP9000-PPSA08338_00-MARVELSPIDERMAN2', run_id: 1, touched_run_id: 1,
-                    price: 8600, top: 1, platform: 'PS5', md5_hash: 'a248d22ae9c2')
+              price: 8600, top: 1, platform: 'PS5', md5_hash: 'a248d22ae9c2')
 
   user.stores.create(
     var: 'test_ps',
@@ -14,7 +14,7 @@ if Rails.env.development?
     condition: 'Новое',
     allow_email: 'Нет',
     manager_name: 'Test Account',
-    contact_phone: 79780001133,
+    contact_phone: 79_780_001_133,
     active: true,
     game_img_params: { pos_x: 448, pos_y: 208, row: 1024, column: 1024 }
   )
@@ -42,8 +42,8 @@ if Rails.env.development?
     description: 'Подписка Hello world!',
     price: 5000,
     category: 'Test',
-    goods_type: 'Под тест',
+    goods_type: 'Под тест'
   )
 
-  puts "Seed done!"
+  puts 'Seed done!'
 end

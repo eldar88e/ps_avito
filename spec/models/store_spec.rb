@@ -23,14 +23,14 @@ RSpec.describe Store, type: :model do
   it { should belong_to(:user) }
 
   describe 'callbacks' do
-    let!(:store) { create(:store, game_img_params: '', description: "  Example description  ") }
+    let!(:store) { create(:store, game_img_params: '', description: '  Example description  ') }
 
     it 'sets default game_img_params before save' do
       expect(store.game_img_params).to be_nil
     end
 
     it 'cleans up description before save' do
-      expect(store.description).to eq("Example description")
+      expect(store.description).to eq('Example description')
     end
   end
 end

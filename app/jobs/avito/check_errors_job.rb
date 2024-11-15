@@ -14,7 +14,7 @@ class Avito::CheckErrorsJob < Avito::BaseApplicationJob
     current_user = stores.first.user
 
     stores.each do |store|
-      avito = AvitoService.new(store: store)
+      avito = AvitoService.new(store:)
       next if avito.token_status == 403
 
       url         = 'https://api.avito.ru/autoload/v2/reports/last_completed_report'
@@ -36,14 +36,14 @@ class Avito::CheckErrorsJob < Avito::BaseApplicationJob
 
         error['sections'].each { |section| send_error_sections(section, current_user, store.manager_name) }
       end
-      Avito::CheckDeletedJob.send(job_method, user: current_user, store: store) if error_deleted
+      Avito::CheckDeletedJob.send(job_method, user: current_user, store:) if error_deleted
       next unless error_blocked
 
       ads       = store.ads.active.load
       count_ban = [0]
       blocked   = fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban)
       if blocked['meta']['pages'] > 1
-        [*1..blocked['meta']['pages']-1].each do |page|
+        [*1..blocked['meta']['pages'] - 1].each do |page|
           fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page)
         end
       end
@@ -56,7 +56,7 @@ class Avito::CheckErrorsJob < Avito::BaseApplicationJob
 
   private
 
-  def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page=nil)
+  def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page = nil)
     url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
     blocked = fetch_and_parse(avito, url)
     add_ban_ad(ads, store, blocked, count_ban) if blocked

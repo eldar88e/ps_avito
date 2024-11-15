@@ -1,8 +1,8 @@
 module Avito
   class AutoloadController < ApplicationController
     include AvitoConcerns
-    before_action :ensure_turbo_stream_request, only: [:show, :edit]
-    before_action :set_auto_load, only: [:show, :edit, :update]
+    before_action :ensure_turbo_stream_request, only: %i[show edit]
+    before_action :set_auto_load, only: %i[show edit update]
     layout 'avito'
 
     def show
@@ -18,8 +18,7 @@ module Avito
       times    = params[:store][:time_slots].reject(&:blank?).map { |i| i.to_i }
       enabled  = params[:store][:autoload_enabled] == '1'
       a_params = { agreement: true, autoload_enabled: enabled,
-                   schedule: [{ rate: params[:store][:rate].to_i, time_slots: times, weekdays: weekdays }]
-      }
+                   schedule: [{ rate: params[:store][:rate].to_i, time_slots: times, weekdays: }] }
       keys_to_include = %i[upload_url report_email]
       a_params.merge! autoload_params.slice(*keys_to_include)
 
@@ -43,9 +42,9 @@ module Avito
     def update_ads
       result = @avito.connect_to('https://api.avito.ru/autoload/v1/upload', :post)
       if result&.status == 200
-        render turbo_stream: success_notice(t 'avito.notice.upd_ads')
+        render turbo_stream: success_notice(t('avito.notice.upd_ads'))
       else
-        error_notice(t 'avito.error.upd_ads')
+        error_notice(t('avito.error.upd_ads'))
       end
     end
 

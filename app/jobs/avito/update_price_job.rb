@@ -17,7 +17,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
       store = Store.find_by(id: key, active: true)
       next unless store
 
-      avito = AvitoService.new(store: store)
+      avito = AvitoService.new(store:)
       count = 0
       ads.each do |ad|
         item_id = ad.avito_id
@@ -30,7 +30,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
         end
         url    = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
         price  = GamePriceService.call(ad.adable.price_tl, store)
-        result = fetch_and_parse(avito, url, :post, { price: price })
+        result = fetch_and_parse(avito, url, :post, { price: })
         count += 1 if result&.dig('result', 'success')
       end
       user = store.user
@@ -40,7 +40,7 @@ class Avito::UpdatePriceJob < Avito::BaseApplicationJob
     end
 
     nil
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error "Error #{self.class} || #{e.message}"
   end
 end

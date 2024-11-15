@@ -1,6 +1,6 @@
 class ImageLayersController < ApplicationController
   before_action :authenticate_user!, :set_store
-  before_action :set_layer, only: [:update, :destroy]
+  before_action :set_layer, only: %i[update destroy]
 
   def new
     @image_layer = @store.image_layers.build
@@ -32,7 +32,8 @@ class ImageLayersController < ApplicationController
       msg = ["Слой под номером #{@layer.menuindex} был успешно обновлен."]
       msg << 'Внимание слой не активен!' if image_layer_params[:active].to_i.zero?
       render turbo_stream: [
-        turbo_stream.replace("image_layer_#{@layer.id}", partial: 'image_layers/image_layer', locals: { image_layer: @layer }),
+        turbo_stream.replace("image_layer_#{@layer.id}", partial: 'image_layers/image_layer',
+                                                         locals: { image_layer: @layer }),
         success_notice(msg)
       ]
     else
@@ -43,7 +44,7 @@ class ImageLayersController < ApplicationController
   def destroy
     if @layer.destroy
       msg = "Слой #{@layer.menuindex} был успешно удален."
-      render turbo_stream: [ turbo_stream.remove("image_layer_#{@layer.id}"), success_notice(msg)]
+      render turbo_stream: [turbo_stream.remove("image_layer_#{@layer.id}"), success_notice(msg)]
     else
       error_notice(@layer.errors.full_messages)
     end

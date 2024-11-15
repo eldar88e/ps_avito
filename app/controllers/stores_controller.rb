@@ -1,9 +1,9 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: [:show, :edit, :update, :destroy]
+  before_action :set_store, only: %i[show edit update destroy]
   before_action :set_search_ads, only: :show
-  add_breadcrumb "Главная", :root_path
-  before_action :set_breadcrumb, only: [:index, :show, :new, :edit]
+  add_breadcrumb 'Главная', :root_path
+  before_action :set_breadcrumb, only: %i[index show new edit]
 
   def index
     @stores = current_user.stores.order(active: :desc).order(:created_at)
@@ -19,6 +19,8 @@ class StoresController < ApplicationController
     @store = current_user.stores.build
   end
 
+  def edit; end
+
   def create
     @store = current_user.stores.build(store_params)
 
@@ -31,8 +33,6 @@ class StoresController < ApplicationController
       error_notice(@store.errors.full_messages)
     end
   end
-
-  def edit; end
 
   def update
     if @store.update(store_params)
@@ -48,7 +48,7 @@ class StoresController < ApplicationController
   def destroy
     if @store.destroy
       msg = "Магазин #{@store.manager_name} был успешно удален."
-      render turbo_stream: [ turbo_stream.remove("store_#{@store.id}"), success_notice(msg)]
+      render turbo_stream: [turbo_stream.remove("store_#{@store.id}"), success_notice(msg)]
     else
       error_notice(@store.errors.full_messages)
     end

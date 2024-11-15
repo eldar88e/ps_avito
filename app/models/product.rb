@@ -26,9 +26,9 @@ class Product < ApplicationRecord
   end
 
   def cleanup_description
-    if description.present?
-      description.squeeze!(' ')
-      description.chomp!
-    end
+    return unless description.present?
+
+    description.squeeze!(' ')
+    description.chomp!
   end
 end

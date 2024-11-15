@@ -6,7 +6,7 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
     user   = find_user(args)
     stores = [args[:store] || user&.stores&.active].flatten.compact
     stores.each do |store|
-      avito = AvitoService.new(store: store)
+      avito = AvitoService.new(store:)
       next if avito.token_status == 403
 
       last_report_url = 'https://api.avito.ru/autoload/v2/reports/last_completed_report'
@@ -28,14 +28,17 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
           avito_id    = item['avito_id']
           existing_ad = find_ad(avito_id, ads_db, avito)
           if existing_ad
-            existing_ad.update(avito_id: avito_id, deleted: 1)
+            existing_ad.update(avito_id:, deleted: 1)
             deleted += 1 if existing_ad.saved_changes?
           end
         end
         page += 1
       end
       user = store.user if user.nil?
-      TelegramService.call(user, I18n.t('avito.job.check_deleted', count: deleted, name: store.manager_name)) if deleted > 0
+      if deleted > 0
+        TelegramService.call(user,
+                             I18n.t('avito.job.check_deleted', count: deleted, name: store.manager_name))
+      end
     end
 
     nil
@@ -44,7 +47,7 @@ class Avito::CheckDeletedJob < Avito::BaseApplicationJob
   private
 
   def find_ad(avito_id, ads_db, avito)
-    existing_ad = ads_db.find_by(avito_id: avito_id)
+    existing_ad = ads_db.find_by(avito_id:)
     return existing_ad if existing_ad
 
     url      = "https://api.avito.ru/autoload/v2/items/ad_ids?query=#{avito_id}"

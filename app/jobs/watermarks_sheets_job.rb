@@ -12,11 +12,11 @@ class WatermarksSheetsJob < ApplicationJob
     end
 
     [stores].flatten.each do |store|
-      [Game, Product ].each do |model|
-        AddWatermarkJob.perform_now(user: args[:user], model: model, store: store,
-                                    settings: settings, clean: args[:clean])
+      [Game, Product].each do |model|
+        AddWatermarkJob.perform_now(user: args[:user], model:, store:,
+                                    settings:, clean: args[:clean])
       end
-      PopulateExcelJob.perform_now(store: store)
+      PopulateExcelJob.perform_now(store:)
     end
 
     nil

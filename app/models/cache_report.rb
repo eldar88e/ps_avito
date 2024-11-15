@@ -10,7 +10,7 @@ class CacheReport < ApplicationRecord
 
   validates :report_id, presence: true
   validates :report, presence: true
-  validates :user_id, uniqueness: { scope: [:store_id, :report_id] }
+  validates :user_id, uniqueness: { scope: %i[store_id report_id] }
 
   belongs_to :user
   belongs_to :store

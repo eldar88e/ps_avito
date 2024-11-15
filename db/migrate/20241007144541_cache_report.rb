@@ -10,7 +10,7 @@ class CacheReport < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :cache_reports, [:user_id, :store_id, :report_id], unique: true
+    add_index :cache_reports, %i[user_id store_id report_id], unique: true
     add_index :cache_reports, :report_id
   end
 end

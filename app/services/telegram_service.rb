@@ -8,7 +8,7 @@ class TelegramService
     @bot_token = settings['telegram_bot_token']
   end
 
-  def self.call(user=nil, message)
+  def self.call(user = nil, message)
     if user.nil?
       Rails.logger.error("User not specified for #{self.class}")
       return
@@ -36,7 +36,7 @@ class TelegramService
   def tg_send
     [@chat_id.to_s.split(',')].flatten.each do |user_id|
       message_limit = 4000
-      message_count = @message.size / message_limit + 1
+      message_count = (@message.size / message_limit) + 1
       Telegram::Bot::Client.run(@bot_token) do |bot|
         message_count.times do
           splitted_text = @message.chars
@@ -44,7 +44,7 @@ class TelegramService
           text_part     = splitted_text.shift(message_limit).join
           bot.api.send_message(chat_id: user_id, text: escape(text_part), parse_mode: 'MarkdownV2')
         end
-      rescue => e
+      rescue StandardError => e
         Rails.logger.error e.message
       end
     end

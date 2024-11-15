@@ -10,7 +10,6 @@ class MapsController < ApplicationController
     ]
   end
 
-
   private
 
   def set_address

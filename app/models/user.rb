@@ -21,7 +21,7 @@ class User < ApplicationRecord
   def create_default_settings
     Setting.transaction do
       default_settings_params.each do |params|
-        self.settings.create!(params)
+        settings.create!(params)
       end
     end
   rescue ActiveRecord::RecordInvalid => e

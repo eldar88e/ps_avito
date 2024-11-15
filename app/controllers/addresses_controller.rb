@@ -1,12 +1,12 @@
 class AddressesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_store, only: [:show, :update, :destroy, :new, :create]
-  before_action :set_address, only: [:show, :update, :destroy]
+  before_action :set_store, only: %i[show update destroy new create]
+  before_action :set_address, only: %i[show update destroy]
 
   def show
     if @address
       render turbo_stream: [
-        turbo_stream.replace("address_#{@address.id}", partial: 'addresses/address', locals: { address: @address }),
+        turbo_stream.replace("address_#{@address.id}", partial: 'addresses/address', locals: { address: @address })
       ]
     else
       error_notice(@address.errors.full_messages)
@@ -27,7 +27,7 @@ class AddressesController < ApplicationController
       msg = ["Город #{address.city} был успешно добавлен."]
       msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
       render turbo_stream: [
-        turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: address }),
+        turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: }),
         turbo_stream.remove(:new_address),
         turbo_stream.before(:addresses, partial: 'addresses/new_address_btn', locals: { store: address.store }),
         success_notice(msg)
@@ -53,7 +53,7 @@ class AddressesController < ApplicationController
   def destroy
     if @address.destroy
       msg = "Город #{@address.city} был успешно удален."
-      render turbo_stream: [ turbo_stream.remove("address_#{@address.id}"), success_notice(msg)]
+      render turbo_stream: [turbo_stream.remove("address_#{@address.id}"), success_notice(msg)]
     else
       error_notice(@address.errors.full_messages)
     end

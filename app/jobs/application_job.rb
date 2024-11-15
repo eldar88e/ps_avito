@@ -19,13 +19,13 @@ class ApplicationJob < ActiveJob::Base
     args[:user] || current_user(args[:user_id])
   end
 
-  def broadcast_notify(message, key='success')
+  def broadcast_notify(message, key = 'success')
     # Rails.logger.info "Broadcasting message: #{message}"
     Turbo::StreamsChannel.broadcast_append_to(
       :notify,
       target: :notices,
       partial: '/notices/notice',
-      locals: { notices: message, key: key }
+      locals: { notices: message, key: }
     )
   end
 end

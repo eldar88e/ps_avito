@@ -29,8 +29,8 @@ class AddWatermarkJob < ApplicationJob
           ad      = find_or_create_ad(product, file_id, address)
           next if ad.image.attached? && !args[:clean]
 
-          SaveImageJob.send(job_method, ad: ad, product: product, store: store, address: address,
-                            id: id, file_id: file_id, user: user, model: model, settings: settings)
+          SaveImageJob.send(job_method, ad:, product:, store:, address:,
+                                        id:, file_id:, user:, model:, settings:)
           count += 1
         end
       end
@@ -40,7 +40,7 @@ class AddWatermarkJob < ApplicationJob
       broadcast_notify(msg)
       TelegramService.call(user, msg) if addresses && args[:notify]
     end
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("#{self.class} - #{e.message}")
     TelegramService.call(user, "Error #{self.class} || #{e.message}")
   end
@@ -48,7 +48,7 @@ class AddWatermarkJob < ApplicationJob
   private
 
   def find_or_create_ad(product, file_id, address)
-    product.ads.active.find_or_create_by(file_id: file_id) do |new_ad|
+    product.ads.active.find_or_create_by(file_id:) do |new_ad|
       store          = address.store
       new_ad.user    = store.user
       new_ad.address = address

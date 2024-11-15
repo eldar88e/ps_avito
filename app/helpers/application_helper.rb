@@ -4,11 +4,11 @@ module ApplicationHelper
   def img_resize(image, **args)
     return unless image.attached?
 
-    attachment = Rails.cache.fetch("image_resize_#{image.id}_#{args.to_s}", expires_in: 1.hour) do
+    attachment = Rails.cache.fetch("image_resize_#{image.id}_#{args}", expires_in: 1.hour) do
       image.variant(resize_to_limit: [args[:width], args[:height] || args[:width]]).processed
     end
     url_for attachment
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error '*' * 100
     Rails.logger.error e.message
     Rails.logger.error '*' * 100
@@ -25,17 +25,17 @@ module ApplicationHelper
     end
   end
 
-  def paginator(ends, starts=0)
+  def paginator(ends, starts = 0)
     if ends > 5
       max  = starts == 0 ? 4 : 5
-      page = (params[:page].present? && params[:page].to_i.positive?) ? params[:page].to_i : starts
+      page = params[:page].present? && params[:page].to_i.positive? ? params[:page].to_i : starts
       page = ends if page > ends
       if page < max
-        [starts, starts+1, starts+2, starts+3, starts+4, '...', ends]
+        [starts, starts + 1, starts + 2, starts + 3, starts + 4, '...', ends]
       elsif page >= ends - 3 && page <= ends
-        [starts, '...', ends-4, ends-3, ends-2, ends-1, ends]
+        [starts, '...', ends - 4, ends - 3, ends - 2, ends - 1, ends]
       else
-        [starts, '...', page-1, page, page+1, '...', ends]
+        [starts, '...', page - 1, page, page + 1, '...', ends]
       end
     else
       [*starts..ends]

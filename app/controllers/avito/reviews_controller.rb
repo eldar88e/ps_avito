@@ -41,7 +41,7 @@ class Avito::ReviewsController < ApplicationController
   private
 
   def close_modal
-    turbo_stream.append "mainModal", <<~JS
+    turbo_stream.append 'mainModal', <<~JS
       <script>
         if (document.getElementById('mainModal')) {
           document.getElementById('mainModal').classList.remove('show');

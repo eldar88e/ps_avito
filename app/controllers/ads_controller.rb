@@ -8,7 +8,7 @@ class AdsController < ApplicationController
     render turbo_stream: [
       # turbo_stream.replace(:ads, partial: '/ads/ads_list'),
       # TODO к ссылкам пагинации пристыковывается update_all /stores/10?page=3
-      success_notice(t('ads.update_all.success'))
+      success_notice(t('.success'))
     ]
   end
 end

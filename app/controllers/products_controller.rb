@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: %i[show edit update destroy]
 
   def index
     @products = current_user.products.order(:id).page(params[:page]).per(12)
@@ -11,6 +11,8 @@ class ProductsController < ApplicationController
   def new
     @product = current_user.products.build
   end
+
+  def edit; end
 
   def create
     @product = current_user.products.build(product_params)
@@ -24,8 +26,6 @@ class ProductsController < ApplicationController
       error_notice(@product.errors.full_messages)
     end
   end
-
-  def edit; end
 
   def update
     if @product.update(product_params)
@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
   def destroy
     if @product.destroy
       msg = "Объявление #{@product.title} было успешно удалено."
-      render turbo_stream: [ turbo_stream.remove("product_#{@product.id}"), success_notice(msg)]
+      render turbo_stream: [turbo_stream.remove("product_#{@product.id}"), success_notice(msg)]
     else
       error_notice(@product.errors.full_messages)
     end

@@ -1,6 +1,6 @@
 class TopGamesJob < ApplicationJob
   queue_as :default
-  KEYS = [:sony_id, :name, :rus_voice, :rus_screen, :price_tl, :platform]
+  KEYS = %i[sony_id name rus_voice rus_screen price_tl platform]
 
   def perform(**args)
     quantity = args[:settings]['quantity_games']
@@ -23,17 +23,17 @@ class TopGamesJob < ApplicationJob
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
     msg = "✅ Обновлено ТОП #{games.size} игр."
-    msg += "\n#{I18n.t('jobs.top_games.add', count: count)}" if count > 0
+    msg += "\n#{I18n.t('jobs.top_games.add', count:)}" if count > 0
     msg += "\n#{I18n.t('jobs.top_games.price', count: edited.size)}" if edited.size > 0
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
-  rescue => e
+  rescue StandardError => e
     msg = "Error #{self.class} || #{e.message}"
     Rails.logger.error(msg)
     broadcast_notify(msg, 'danger')
     TelegramService.call(args[:user], msg)
-    return 0
+    0
   end
 
   private

@@ -25,6 +25,7 @@ class PopulateExcelJob < ApplicationJob
 
         img_url = make_image(ad)
         next if img_url.blank?
+
         # msg = "Skipped because there is no image for #{file_id}"
         # TelegramService.call(user, msg)
 
@@ -54,7 +55,7 @@ class PopulateExcelJob < ApplicationJob
 
     content   = workbook.read_string
     xlsx_path = "./game_lists/top_1000_#{store.var}.xlsx"
-    File.open(xlsx_path, 'wb') { |f| f.write(content) }
+    File.binwrite(xlsx_path, content)
 
     # FtpService.call(xlsx_path) if settings['send_ftp']
 
@@ -62,9 +63,9 @@ class PopulateExcelJob < ApplicationJob
     msg    = "✅ File http://#{domain}#{xlsx_path[1..-1]} is updated!"
     broadcast_notify(msg)
     TelegramService.call(user, msg)
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Error #{self.class} || #{e.message}")
-    TelegramService.call(user,"Error #{self.class} || #{e.message}")
+    TelegramService.call(user, "Error #{self.class} || #{e.message}")
   end
 
   private
@@ -98,20 +99,18 @@ class PopulateExcelJob < ApplicationJob
         else
           raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix
         end
+      elsif raw_name.downcase.match?(/ps5/)
+        raw_name.sub('(PS5)', '').sub('PS5', '')[0..39] + prefix
       else
-        if raw_name.downcase.match?(/ps5/)
-          raw_name.sub('(PS5)', '').sub('PS5', '')[0..39] + prefix
-        else
-          raw_name.strip[0..39] + prefix
-        end
+        raw_name.strip[0..39] + prefix
       end
-    elsif platform.match?(/PS5/) #ps5
+    elsif platform.match?(/PS5/) # ps5
       if raw_name.downcase.match?(/ps5/)
         raw_name
       else
         raw_name.strip[0..45] + ' PS5'
       end
-    else #ps4
+    else # ps4
       prefix_old = ' ps4 и ps5'
       if raw_name.downcase.match?(/ps4/)
         raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix_old
@@ -126,7 +125,7 @@ class PopulateExcelJob < ApplicationJob
     return if image.nil? || image.blob.nil?
 
     params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
-    return rails_blob_url(image, params) if image.blob.service_name != "amazon"
+    return rails_blob_url(image, params) if image.blob.service_name != 'amazon'
 
     bucket = Rails.application.credentials.dig(:aws, :bucket)
     key    = image.blob.key

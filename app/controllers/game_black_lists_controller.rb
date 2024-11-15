@@ -1,10 +1,10 @@
 class GameBlackListsController < ApplicationController
   before_action :authenticate_user!
-  add_breadcrumb "Главная", :root_path
+  add_breadcrumb 'Главная', :root_path
 
   def index
-    add_breadcrumb "Игры", games_path
-    add_breadcrumb "Блэк лист"
+    add_breadcrumb 'Игры', games_path
+    add_breadcrumb 'Блэк лист'
     @pagy, @black_lists = pagy(GameBlackList.all, items: 36)
   end
 

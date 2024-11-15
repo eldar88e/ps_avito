@@ -19,13 +19,11 @@ class Run < ApplicationRecord
     last_run.update status: 'finish'
   end
 
-  private
-
   def self.last_run
-    self.last
+    last
   end
 
   def self.set_new_id
-    self.create.id
+    create.id
   end
 end

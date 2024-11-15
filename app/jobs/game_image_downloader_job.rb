@@ -9,7 +9,7 @@ class GameImageDownloaderJob < ApplicationJob
       next if game.image.attached?
 
       url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
-        "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
+            "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
       img = download_image(url, user)
       next if img.nil?
 
@@ -20,7 +20,7 @@ class GameImageDownloaderJob < ApplicationJob
     msg = '✅ All game image downloaded!'
     broadcast_notify(msg)
     TelegramService.call(user, msg)
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error(e.full_message)
     TelegramService.call(user, "Error #{self.class} \n#{e.full_message}")
   end
@@ -38,13 +38,13 @@ class GameImageDownloaderJob < ApplicationJob
 
   def download_image(url, user)
     response = connect_to_ps(url, user)
-    return response.body if response&.headers['content-type']&.match?(/image/)
+    return response.body if response&.headers&.[]('content-type')&.match?(/image/)
 
     msg = "Job: #{self.class} \nError message: PS img is not available! \nURL: #{url}"
     Rails.logger.error msg
     TelegramService.call(user, msg)
-  rescue => e
-    msg.sub!(/PS img is not available!/, e.full_message)
+  rescue StandardError => e
+    msg.sub!('PS img is not available!', e.full_message)
     Rails.logger.error msg
     TelegramService.call(user, msg)
   end
@@ -58,7 +58,8 @@ class GameImageDownloaderJob < ApplicationJob
         faraday.response :logger if Rails.env.development?
         faraday.adapter :net_http
         faraday.headers['User-Agent']      = UserAgentService.call
-        faraday.headers['Accept']          = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+        faraday.headers['Accept']          =
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
         faraday.headers['Accept-Encoding'] = 'gzip, deflate, br, zstd'
         faraday.headers['Accept-Language'] = 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
       end

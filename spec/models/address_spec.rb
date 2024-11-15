@@ -27,7 +27,7 @@ RSpec.describe Address, type: :model do
 
   describe '#store_address' do
     context 'when there is at least one street' do
-      let!(:street) { create(:street, address: address) }
+      let!(:street) { create(:street, address:) }
 
       it 'returns a string with city and street title' do
         expect(address.store_address).to eq("#{address.city}, #{street.title}")

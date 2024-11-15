@@ -2,9 +2,9 @@ class ImageLayer < ApplicationRecord
   has_one_attached :layer, dependent: :purge, service: :local
   belongs_to :store
 
-  validate :check_img_title, on: [:update, :create]
+  validate :check_img_title, on: %i[update create]
 
-  enum layer_type: [:img, :platform, :text, :flag]
+  enum layer_type: { img: 0, platform: 1, text: 2, flag: 3 }
 
   before_save :set_default_menuindex, :set_default_layer_params
 

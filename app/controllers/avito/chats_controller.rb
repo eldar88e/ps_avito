@@ -1,7 +1,7 @@
 class Avito::ChatsController < ApplicationController
   include AvitoConcerns
-  before_action :set_account, only: [:index, :show, :create]
-  before_action :set_stores, :set_store_breadcrumbs, only: [:index, :show]
+  before_action :set_account, only: %i[index show create]
+  before_action :set_stores, :set_store_breadcrumbs, only: %i[index show]
   layout 'avito'
   LIMIT = 30
 
@@ -25,7 +25,7 @@ class Avito::ChatsController < ApplicationController
     @messages = response['messages']&.reverse || []
     render turbo_stream: turbo_stream.replace(:chats, partial: 'avito/chats/messages')
 
-    # TODO post request for read chat
+    # TODO: post request for read chat
     # url = "https://api.avito.ru/messenger/v1/accounts/#{@account['id']}/chats/#{@chat_id}/read"
     # fetch_and_parse(url, :post)
   end
@@ -43,11 +43,11 @@ class Avito::ChatsController < ApplicationController
   def set_cache_end_page
     cache_key    = "chat_#{@store.id}_end_page"
     current_page = @chats.size == LIMIT ? @page + 1 : @page
-    @end_page    = Rails.cache.fetch(cache_key, expires_in: 24.hour) { current_page }
+    @end_page    = Rails.cache.fetch(cache_key, expires_in: 24.hours) { current_page }
 
-    if @end_page < current_page && @chats.size == LIMIT
-      Rails.cache.write(cache_key, current_page, expires_in: 24.hour)
-      @end_page = current_page
-    end
+    return unless @end_page < current_page && @chats.size == LIMIT
+
+    Rails.cache.write(cache_key, current_page, expires_in: 24.hours)
+    @end_page = current_page
   end
 end

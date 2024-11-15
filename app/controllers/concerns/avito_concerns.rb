@@ -3,17 +3,17 @@ module AvitoConcerns
 
   included do
     before_action :authenticate_user!, :set_store_and_check, :set_avito
-    add_breadcrumb "Главная", :root_path
-    add_breadcrumb "Avito", :avitos_path
+    add_breadcrumb 'Главная', :root_path
+    add_breadcrumb 'Avito', :avitos_path
   end
 
   private
 
-  def fetch_and_parse(url, method=:get, payload=nil)
+  def fetch_and_parse(url, method = :get, payload = nil)
     response = @avito.connect_to(url, method, payload)
 
-    #raise StandardError, "Ошибка подключения к API Avito. Status: #{response&.status}" if response&.status != 200
-    #return error_notice("Ошибка подключения к API Avito. Status: #{response&.status}") if response&.status != 200
+    # raise StandardError, "Ошибка подключения к API Avito. Status: #{response&.status}" if response&.status != 200
+    # return error_notice("Ошибка подключения к API Avito. Status: #{response&.status}") if response&.status != 200
     return { error: "Ошибка подключения к API Avito. Status: #{response&.status}" } if response&.status != 200
 
     JSON.parse(response.body)
@@ -23,20 +23,20 @@ module AvitoConcerns
 
   def set_store_and_check
     set_store
-    if @store.nil? || @store.client_id.blank? || @store.client_secret.blank?
-      error_notice t('avito.error.set_store')
-    end
+    return unless @store.nil? || @store.client_id.blank? || @store.client_secret.blank?
+
+    error_notice t('avito.error.set_store')
   end
 
   def set_avito
     @avito = AvitoService.new(store: @store)
-    if @avito.token_status && @avito.token_status != 200
-      error_notice t('avito.error.set_avito')
-    end
+    return unless @avito.token_status && @avito.token_status != 200
+
+    error_notice t('avito.error.set_avito')
   end
 
   def set_account
-    @account = fetch_cached("account_#{@store.id}", 6.hour, url: 'https://api.avito.ru/core/v1/accounts/self')
+    @account = fetch_cached("account_#{@store.id}", 6.hours, url: 'https://api.avito.ru/core/v1/accounts/self')
   end
 
   def set_rate
@@ -44,11 +44,11 @@ module AvitoConcerns
   end
 
   def set_auto_load
-    @auto_load = fetch_cached("auto_load_#{@store.id}", 30.minute, url: 'https://api.avito.ru/autoload/v1/profile')
+    @auto_load = fetch_cached("auto_load_#{@store.id}", 30.minutes, url: 'https://api.avito.ru/autoload/v1/profile')
   end
 
-  def fetch_cached(key, expires_in=5.minute, **args)
-    result = Rails.cache.fetch(key, expires_in: expires_in) do
+  def fetch_cached(key, expires_in = 5.minutes, **args)
+    result = Rails.cache.fetch(key, expires_in:) do
       fetch_and_parse(args[:url], args[:method] || :get, args[:payload])
     end
     Rails.cache.delete(key) if result.is_a?(Hash) && result.key?(:error)

@@ -32,9 +32,9 @@ class Store < ApplicationRecord
   end
 
   def cleanup_description
-    if description.present?
-      description.squeeze!(' ')
-      description.strip!
-    end
+    return unless description.present?
+
+    description.squeeze!(' ')
+    description.strip!
   end
 end

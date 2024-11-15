@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable' if Rails.env.production?
-  #get "up" => "rails/health#show", as: :rails_health_check
+  # get "up" => "rails/health#show", as: :rails_health_check
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
-  resources :settings, only: [:index, :create, :update]
-  resources :games, only: [:index, :show, :destroy]
-  resources :game_black_lists, only: [:index, :create, :destroy]
+  resources :settings, only: %i[index create update]
+  resources :games, only: %i[index show destroy]
+  resources :game_black_lists, only: %i[index create destroy]
   resources :products
-  resources :image_layers, only: [:new, :create, :show, :update, :destroy]
+  resources :image_layers, only: %i[new create show update destroy]
   resources :avitos, only: [:index]
   post '/update_img', to: 'jobs#update_img'
 
@@ -17,9 +17,9 @@ Rails.application.routes.draw do
     post '/update_ban_list', to: 'jobs#update_ban_list'
     patch '/update_all', to: 'ads#update_all'
 
-    resources :streets, only: [:index, :create, :update, :destroy]
+    resources :streets, only: %i[index create update destroy]
     resources :maps, only: [:show]
-    resources :addresses, only: [:new, :create, :show, :update, :destroy]
+    resources :addresses, only: %i[new create show update destroy]
 
     namespace :avito do
       get '/dashboard', to: 'dashboard#index'
@@ -32,12 +32,12 @@ Rails.application.routes.draw do
       post '/autoload/update_ads', to: 'autoload#update_ads'
 
       post '/webhooks/receive', to: 'webhooks#receive'
-      resources :chats, only: [:index, :show, :create]
-      resources :reviews, only: [:index, :edit, :update, :destroy]
-      resources :settings, only: [:index, :update]
+      resources :chats, only: %i[index show create]
+      resources :reviews, only: %i[index edit update destroy]
+      resources :settings, only: %i[index update]
     end
 
-    match '/avito', to: 'avito/dashboard#index', via: :get
+    get '/avito', to: 'avito/dashboard#index'
   end
 
   root 'feeds#index'
@@ -45,6 +45,6 @@ Rails.application.routes.draw do
 
   authenticate :user do
     mount GoodJob::Engine => '/good_job'
-    mount ExceptionTrack::Engine => "/exception-track"
+    mount ExceptionTrack::Engine => '/exception-track'
   end
 end

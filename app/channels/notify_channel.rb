@@ -1,5 +1,6 @@
 class NotifyChannel < ActionCable::Channel::Base
-  extend Turbo::Streams::Broadcasts, Turbo::Streams::StreamName
+  extend Turbo::Streams::StreamName
+  extend Turbo::Streams::Broadcasts
   include Turbo::Streams::StreamName::ClassMethods
 
   def subscribed

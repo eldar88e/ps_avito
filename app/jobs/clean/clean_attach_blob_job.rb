@@ -9,9 +9,9 @@ class Clean::CleanAttachBlobJob < ApplicationJob
     count       = 0
     attachments.each do |attach|
       key      = attach.blob.key
-      raw_path = key.scan(/.{2}/)[0..1].join('/') #TODO уточнить по поводу уровней вложенности
+      raw_path = key.scan(/.{2}/)[0..1].join('/') # TODO: уточнить по поводу уровней вложенности
       img_path = "./storage/#{raw_path}/#{key}"
-      (attach.purge && count += 1) unless File.exist?(img_path)
+      attach.purge && count += 1 unless File.exist?(img_path)
     end
     msg = "⚠️ Cleared #{count} rows in tables(attachments and blobs) with missing files."
     # Rails.logger.info msg

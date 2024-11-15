@@ -1,4 +1,4 @@
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -41,7 +41,7 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = '/cable' # nil
-  config.action_cable.url = "ws://server.open-ps.ru/cable"
+  config.action_cable.url = 'ws://server.open-ps.ru/cable'
   config.action_cable.allowed_request_origins = %w[http://server.open-ps.ru]
   # config.action_cable.disable_request_forgery_protection = true
 
@@ -50,27 +50,27 @@ Rails.application.configure do
   # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  #config.force_ssl = true
+  # config.force_ssl = true
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
+                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.cache_store = :redis_cache_store, {
-    url: ENV.fetch("REDIS_URL") { 'redis://localhost:6379/1' },
+    url: ENV.fetch('REDIS_URL') { 'redis://localhost:6379/1' },
     namespace: 'cache',
-    expires_in: 2.hour
+    expires_in: 2.hours
   }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).

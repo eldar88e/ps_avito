@@ -4,18 +4,18 @@ module Avito::ChatsHelper
 
     date = Time.zone.at raw_date
     current_date = Date.current
-    return date.strftime("%H:%M") if current_date == date.to_date
+    return date.strftime('%H:%M') if current_date == date.to_date
 
-    return date.strftime("%d %b") if current_date.year == date.year
+    return date.strftime('%d %b') if current_date.year == date.year
 
-    date.strftime("%d %b %y")
+    date.strftime('%d %b %y')
   end
 
   def formit_ad_title(ad)
     return if ad.nil?
 
     title = ad['title'].presence
-    return title + ' — ' + (ad['price_string'] || "") if title
+    return title + ' — ' + (ad['price_string'] || '') if title
 
     'Объявление временно недоступно'
   end
@@ -23,10 +23,9 @@ module Avito::ChatsHelper
   def formit_msg(content)
     return if content.nil?
 
-    case
-    when content['text']
+    if content['text']
       content['text']
-    when content['image']
+    elsif content['image']
       img = content['image']['sizes']['640x480']
       str = <<-EOF
         <a data-fancybox="msg_img" data-src="#{content['image']['sizes']['1280x960']}" data-caption="1280x960" style="cursor:pointer;">
@@ -35,11 +34,11 @@ module Avito::ChatsHelper
       EOF
 
       str.html_safe
-    when content['link']
+    elsif content['link']
       content['link']['text']
-    when content['voice']
+    elsif content['voice']
       content['voice']['voice_id']
-    when content['location']
+    elsif content['location']
       content['location']['text']
     else
       'Неизвестный тип сообщения:' + "#{content}"

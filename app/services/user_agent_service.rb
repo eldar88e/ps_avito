@@ -7,8 +7,6 @@ class UserAgentService
     FakeAgentInternal.instance.get
   end
 
-  private
-
   class FakeAgentInternal
     include Singleton
 

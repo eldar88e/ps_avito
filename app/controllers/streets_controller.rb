@@ -1,10 +1,10 @@
 class StreetsController < ApplicationController
   before_action :authenticate_user!, :set_store, :set_address
-  before_action :set_street, only: [:update, :destroy]
+  before_action :set_street, only: %i[update destroy]
 
   def index
     render turbo_stream: [
-      turbo_stream.replace("address_#{@address.id}", partial: '/streets/streets_list', locals: { address: @address }),
+      turbo_stream.replace("address_#{@address.id}", partial: '/streets/streets_list', locals: { address: @address })
     ]
   end
 
@@ -14,7 +14,7 @@ class StreetsController < ApplicationController
       msg = "Улица #{street.title} была успешно добавлена."
       render turbo_stream: [
         turbo_stream.append("streets_#{params[:address_id]}", partial: 'streets/form',
-                            locals: { street: street, method: :patch, url: store_street_path(id: street, address_id: @address) }),
+                                                              locals: { street:, method: :patch, url: store_street_path(id: street, address_id: @address) }),
         success_notice(msg)
       ]
     else
@@ -27,7 +27,7 @@ class StreetsController < ApplicationController
       msg = "Улица #{@street.title} была успешно обновлена."
       render turbo_stream: [
         turbo_stream.replace("street_#{@street.id}", partial: 'streets/form',
-                             locals: { street: @street, method: :patch, url: store_street_path(id: @street, address_id: @address) }),
+                                                     locals: { street: @street, method: :patch, url: store_street_path(id: @street, address_id: @address) }),
         success_notice(msg)
       ]
     else

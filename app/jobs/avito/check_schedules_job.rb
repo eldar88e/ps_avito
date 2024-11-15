@@ -24,7 +24,7 @@ class Avito::CheckSchedulesJob < Avito::BaseApplicationJob
   end
 
   def initialize_avito(store, user)
-    avito = AvitoService.new(store: store)
+    avito = AvitoService.new(store:)
     return avito if avito.token_status != 403
 
     msg = "‼️Доступ запрещён. Возможно аккаунт #{store.manager_name} заблокирован"
