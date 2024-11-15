@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Rails.env.development?
   user = User.create(email: 'test@test.tt', password: 12_345_678)
 
@@ -27,7 +29,7 @@ if Rails.env.development?
 
   user.stores.each do |store|
     %w[Москва Санкт-Петербург Новосибирск].each_with_index do |city, idx|
-      address = store.addresses.create(city: city, active: true, total_games: [500, 1000].sample)
+      address = store.addresses.create(city:, active: true, total_games: [500, 1000].sample)
       streets[idx].each do |street|
         address.streets.create(title: street)
       end

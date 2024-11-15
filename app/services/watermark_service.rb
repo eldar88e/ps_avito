@@ -70,7 +70,7 @@ class WatermarkService
   end
 
   def add_text(layer)
-    return unless layer[:title].present?
+    return if layer[:title].blank?
 
     params             = layer[:params]
     text_obj           = Draw.new
@@ -101,13 +101,13 @@ class WatermarkService
       @platforms.find { |i| i[:title] == 'ps4_ps5' }
     elsif @game.platform == 'PS5'
       @platforms.find { |i| i[:title] == 'ps5' }
-    elsif @game.platform.match?(/PS4/)
+    elsif @game.platform.include?(/PS4/)
       @platforms.find { |i| i[:title] == 'ps4' }
     end
   end
 
   def image_exists?(url)
-    return false if url.match?(/\Ahttp/) # TODO: проверить
+    return false if url.start_with?('http') # TODO: проверить
 
     uri      = URI.parse(url)
     response = Net::HTTP.get_response(uri)
@@ -132,18 +132,23 @@ class WatermarkService
       next if !i.active || (@product && i.layer_type == 'flag')
 
       if i.layer.attached?
-        key      = i.layer.blob.key
-        raw_path = key.scan(/.{2}/)[0..1].join('/')
-        img_path = "./storage/#{raw_path}/#{key}"
-        { img: img_path,
-          params: i.layer_params.presence || {},
-          menuindex: i.menuindex,
-          layer_type: i.layer_type,
-          title: i.title }
+        form_layer_with_img(i)
       elsif i.layer_type == 'text' && i.title.present?
         { params: i.layer_params.presence || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title }
       end
     end
+  end
+
+  def form_layer_with_img(layer)
+    key  = layer.layer.blob.key
+    path = key.scan(/.{2}/)[0..1].join('/')
+    {
+      img: "./storage/#{path}/#{key}",
+      params: layer.layer_params.presence || {},
+      menuindex: layer.menuindex,
+      layer_type: layer.layer_type,
+      title: layer.title
+    }
   end
 
   def image_exist?(url)
@@ -156,7 +161,7 @@ class WatermarkService
       blob                = address.image.blob
       raw_path            = blob.key.scan(/.{2}/)[0..1].join('/')
       slogan[:img]        = "./storage/#{raw_path}/#{blob.key}"
-      slogan[:layer_type] = 'img' if blob[:content_type].match?(/image/)
+      slogan[:layer_type] = 'img' if blob[:content_type].include?(/image/)
     end
     slogan[:layer_type] = 'text' unless slogan[:layer_type]
     slogan

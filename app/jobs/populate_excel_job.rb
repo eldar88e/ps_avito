@@ -39,7 +39,7 @@ class PopulateExcelJob < ApplicationJob
       end
 
       products.each do |product|
-        ad = ads.find { |ad| ad[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
+        ad = ads.find { |i| i[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
         next if ad.nil?
 
         worksheet.append_row(
@@ -60,7 +60,7 @@ class PopulateExcelJob < ApplicationJob
     # FtpService.call(xlsx_path) if settings['send_ftp']
 
     domain = Rails.env.production? ? 'server.open-ps.ru' : 'localhost:3000'
-    msg    = "✅ File http://#{domain}#{xlsx_path[1..-1]} is updated!"
+    msg    = "✅ File http://#{domain}#{xlsx_path[1..]} is updated!"
     broadcast_notify(msg)
     TelegramService.call(user, msg)
   rescue StandardError => e

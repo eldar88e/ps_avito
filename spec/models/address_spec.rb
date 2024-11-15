@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Address, type: :model do
@@ -6,7 +8,6 @@ RSpec.describe Address, type: :model do
   it { should belong_to(:store) }
   it { should have_many(:streets).dependent(:destroy) }
   it { should have_one_attached(:image) }
-
   it { should validate_presence_of(:city) }
 
   describe '#check_slogan_params_blank' do

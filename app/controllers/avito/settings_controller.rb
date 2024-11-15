@@ -10,18 +10,17 @@ class Avito::SettingsController < ApplicationController
   end
 
   def update
-    url = if params[:subscription_del]
-            'https://api.avito.ru/messenger/v1/webhook/unsubscribe'
-          else
-            'https://api.avito.ru/messenger/v3/webhook'
-          end
+    url =
+      if params[:subscription_del]
+        'https://api.avito.ru/messenger/v1/webhook/unsubscribe'
+      else
+        'https://api.avito.ru/messenger/v3/webhook'
+      end
     result = fetch_and_parse(url, :post, { url: @webhook_url })
-    if result['ok']
-      flash[:notice] = 'Успешно обновлены настройки webhook.'
-      redirect_to "/stores/#{@store.id}/avito/webhooks/receive"
-    else
-      error_notice('Ошибка обновления webhook.')
-    end
+    return error_notice('Ошибка обновления webhook.') unless result['ok']
+
+    flash[:notice] = 'Успешно обновлены настройки webhook.'
+    redirect_to "/stores/#{@store.id}/avito/webhooks/receive"
   end
 
   private

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :good_job do
   desc 'Clear all jobs from the GoodJob queue'
   task clear: :environment do

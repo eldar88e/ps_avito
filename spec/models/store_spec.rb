@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Store, type: :model do
   let!(:store) { create(:store) }
-
   it { should validate_presence_of(:var) }
   it { should validate_uniqueness_of(:var) }
   it { should validate_presence_of(:category) }
@@ -15,7 +16,6 @@ RSpec.describe Store, type: :model do
   it { should validate_presence_of(:manager_name) }
   it { should validate_presence_of(:contact_phone) }
   it { should validate_uniqueness_of(:contact_phone).case_insensitive }
-
   it { should have_many(:image_layers).dependent(:destroy) }
   it { should have_many(:addresses).dependent(:destroy) }
   it { should have_many(:avito_tokens).dependent(:destroy) }
