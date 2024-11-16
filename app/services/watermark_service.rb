@@ -26,17 +26,15 @@ class WatermarkService
     @layers << make_slogan(args[:address])
   end
 
-  def image_exist?(url)
-    return false if url.blank?
+  def image_exist?
+    return false if @main_img_url.blank?
 
-    return File.exist?(url) if @game.image.blob&.service_name == 'local'
+    return File.exist?(@main_img_url) if @game.image.blob&.service_name == 'local'
 
-    check_img?(url)
+    check_img?(@main_img_url)
   end
 
   def add_watermarks
-    return Rails.logger.error "Not exist main image for #{@game.name}" unless image_exist? @main_img_url
-
     @layers.each do |layer|
       layer[:params] =
         if layer[:params].is_a?(Hash)

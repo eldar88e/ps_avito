@@ -13,6 +13,8 @@ class JobsController < ApplicationController
     store.addresses.each do |address|
       w_service = WatermarkService.new(store:, address:, settings: @settings, game:)
       image     = w_service.add_watermarks
+     next unless w_service.image_exist?
+
       img_path  = File.join(directory_path, "#{store.id}_#{address.id}.jpg")
       save_image(image, img_path)
     end

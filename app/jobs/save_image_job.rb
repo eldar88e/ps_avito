@@ -13,8 +13,10 @@ class SaveImageJob < ApplicationJob
     product  = args[:product]
 
     w_service = WatermarkService.new(store:, address:, settings:, game: product, product: model == Product)
-    image     = w_service.add_watermarks
-    name      = "#{file_id}.jpg"
+    return Rails.logger.error("Not exist main image for #{@game.name}") unless w_service.image_exist?
+
+    image = w_service.add_watermarks
+    name  = "#{file_id}.jpg"
     save_image(ad, name, image)
   rescue StandardError => e
     msg = "Аккаунт: #{store.manager_name}\nID: #{product.send(id)}\nError: #{e.message}"
