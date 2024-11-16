@@ -2,23 +2,20 @@ class WatermarkService
   include Rails.application.routes.url_helpers
   include Magick
 
-  attr_reader :image
-
   def initialize(**args)
-    @game      = args[:game]
-    @product   = args[:product]
-    @store     = args[:store]
-    @settings  = args[:settings]
-    @main_font = @settings[:main_font]
-    @width     = (@settings[:avito_img_width] || 1920).to_i
-    @height    = (@settings[:avito_img_height] || 1440).to_i
-    @new_image = initialize_first_layer
-    img_url    = find_main_ad_img
-    @image     = image_exist?(img_url)
-    layers_row = make_layers_row
+    @game         = args[:game]
+    @product      = args[:product]
+    @store        = args[:store]
+    @settings     = args[:settings]
+    @main_font    = @settings[:main_font]
+    @width        = (@settings[:avito_img_width] || 1920).to_i
+    @height       = (@settings[:avito_img_height] || 1440).to_i
+    @new_image    = initialize_first_layer
+    @main_img_url = find_main_ad_img
+    layers_row    = make_layers_row
 
     @platforms, @layers = layers_row.compact.partition { |i| i[:layer_type] == 'platform' }
-    @layers << { img: img_url, menuindex: @store.menuindex,
+    @layers << { img: @main_img_url, menuindex: @store.menuindex,
                  params: @store.game_img_params.presence || {}, layer_type: 'img' }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
@@ -29,7 +26,17 @@ class WatermarkService
     @layers << make_slogan(args[:address])
   end
 
+  def image_exist?(url)
+    return false if url.blank?
+
+    return File.exist?(url) if @game.image.blob&.service_name == 'local'
+
+    check_img?(url)
+  end
+
   def add_watermarks
+    return Rails.logger.error "Not exist main image for #{@game.name}" unless image_exist? @main_img_url
+
     @layers.each do |layer|
       layer[:params] =
         if layer[:params].is_a?(Hash)
@@ -101,13 +108,13 @@ class WatermarkService
       @platforms.find { |i| i[:title] == 'ps4_ps5' }
     elsif @game.platform == 'PS5'
       @platforms.find { |i| i[:title] == 'ps5' }
-    elsif @game.platform.include?(/PS4/)
+    elsif @game.platform.include?('PS4')
       @platforms.find { |i| i[:title] == 'ps4' }
     end
   end
 
-  def image_exists?(url)
-    return false if url.start_with?('http') # TODO: проверить
+  def check_img?(url)
+    return false if !url.start_with?('http')
 
     uri      = URI.parse(url)
     response = Net::HTTP.get_response(uri)
@@ -121,6 +128,8 @@ class WatermarkService
     if @game.image.blob.service_name == 'amazon'
       bucket_name = Rails.application.credentials.dig(:aws, :bucket)
       "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+    elsif @game.image.blob.service_name == 'minio'
+      @game.image.url(expires_in: 1.hour)
     else
       raw_path = key.scan(/.{2}/)[0..1].join('/')
       "./storage/#{raw_path}/#{key}"
@@ -151,17 +160,13 @@ class WatermarkService
     }
   end
 
-  def image_exist?(url)
-    url && (File.exist?(url) || (@game.image.blob&.service_name == 'amazon' && image_exists?(url)))
-  end
-
   def make_slogan(address)
     slogan = { title: address.slogan, params: address.slogan_params || {} }
     if address.image.attached?
       blob                = address.image.blob
       raw_path            = blob.key.scan(/.{2}/)[0..1].join('/')
       slogan[:img]        = "./storage/#{raw_path}/#{blob.key}"
-      slogan[:layer_type] = 'img' if blob[:content_type].include?(/image/)
+      slogan[:layer_type] = 'img' if blob[:content_type].include?('image')
     end
     slogan[:layer_type] = 'text' unless slogan[:layer_type]
     slogan

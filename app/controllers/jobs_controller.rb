@@ -12,10 +12,8 @@ class JobsController < ApplicationController
 
     store.addresses.each do |address|
       w_service = WatermarkService.new(store:, address:, settings: @settings, game:)
-      next unless w_service.image
-
-      image    = w_service.add_watermarks
-      img_path = File.join(directory_path, "#{store.id}_#{address.id}.jpg")
+      image     = w_service.add_watermarks
+      img_path  = File.join(directory_path, "#{store.id}_#{address.id}.jpg")
       save_image(image, img_path)
     end
     redirect_to store_path(store), alert: 'Images updated!'

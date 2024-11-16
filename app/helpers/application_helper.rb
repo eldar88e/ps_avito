@@ -4,14 +4,8 @@ module ApplicationHelper
   def img_resize(image, **args)
     return unless image.attached?
 
-    attachment = Rails.cache.fetch("image_resize_#{image.id}_#{args}", expires_in: 1.hour) do
-      image.variant(resize_to_limit: [args[:width], args[:height] || args[:width]]).processed
-    end
-    url_for attachment
-  rescue StandardError => e
-    Rails.logger.error '*' * 100
-    Rails.logger.error e.message
-    Rails.logger.error '*' * 100
+    height = args[:height] || args[:width]
+    url_for image.variant(resize_to_limit: [args[:width], height]).processed
   end
 
   def format_date(date)

@@ -12,12 +12,9 @@ class SaveImageJob < ApplicationJob
     ad       = args[:ad]
     product  = args[:product]
 
-    w_service = WatermarkService.new(store:, address:, settings:,
-                                     game: product, product: model == Product)
-    return unless w_service.image
-
-    image = w_service.add_watermarks
-    name  = "#{file_id}.jpg"
+    w_service = WatermarkService.new(store:, address:, settings:, game: product, product: model == Product)
+    image     = w_service.add_watermarks
+    name      = "#{file_id}.jpg"
     save_image(ad, name, image)
   rescue StandardError => e
     msg = "Аккаунт: #{store.manager_name}\nID: #{product.send(id)}\nError: #{e.message}"
@@ -33,5 +30,7 @@ class SaveImageJob < ApplicationJob
       temp_img.flush
       ad.image.attach(io: File.open(temp_img.path), filename: name, content_type: 'image/jpeg')
     end
+  rescue => e
+    binding.pry
   end
 end
