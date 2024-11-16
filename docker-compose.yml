@@ -13,6 +13,8 @@ services:
       - web-net
 
   web: &web_base
+    tty: true
+    stdin_open: true
     image: web
     build: .
     container_name: web-ps
@@ -20,7 +22,6 @@ services:
     depends_on:
       - pg
       - redis
-      #- mongodb
     volumes:
       - gems:/usr/local/bundle
       - ./node_modules:/app/node_modules
@@ -34,25 +35,9 @@ services:
 
   good_job:
     <<: *web_base
-    tty: true
-    stdin_open: true
     container_name: good_job-ps
     entrypoint: []
     command: bundle exec good_job start
-    # image: good_job
-    # build: .
-    # env_file: ./.env
-    # volumes:
-    #  - gems:/usr/local/bundle
-    #  - ./node_modules:/app/node_modules
-    #  - ./log:/app/log
-    #  - ./storage:/app/storage
-    #  - ./game_lists:/app/game_lists
-    # depends_on:
-    #  - pg
-    # networks:
-    #  - web-net
-    # restart: unless-stopped
 
   redis:
     image: redis:latest
@@ -80,41 +65,10 @@ services:
         ipv4_address: 172.29.0.3
     restart: always
 
-  # mongodb:
-  #  image: mongo:latest
-  #  container_name: mongodb-ps
-  #  restart: unless-stopped
-  #  env_file: ./.env
-  #  volumes:
-  #    - mongo_data:/data/db
-  #  networks:
-  #    - web-net
-
-  #cable:
-  #  image: cable
-  #  build: .
-  #  env_file: ./.env
-  #  container_name: cable-ps
-  #  entrypoint: []
-  #  command: bundle exec puma -p 28080 ./config/cable/config.ru
-  #  volumes:
-  #    - gems:/usr/local/bundle
-  #    - .:/app
-  #  ports:
-  #    - 28080:28080
-  #  depends_on:
-  #    - pg
-  #    - redis
-  #    - web
-  #  networks:
-  #    - web-net
-  #  restart: unless-stopped
-
 volumes:
   gems:
   db_data:
   redis:
-  # mongo_data:
 
 networks:
   web-net:
