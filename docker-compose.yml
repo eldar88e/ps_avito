@@ -34,6 +34,8 @@ services:
 
   good_job:
     <<: *web_base
+    tty: true
+    stdin_open: true
     container_name: good_job-ps
     entrypoint: []
     command: bundle exec good_job start
