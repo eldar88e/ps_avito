@@ -1,9 +1,15 @@
 <% if model.image.attached? %>
   <div class="swiper-slide">
-    <%= link_to '', data: { fancybox: "gallery_#{game.id}", src: url_for(model.image), caption: "#{game.send(title)} — #{model.store.manager_name + ' - ' + model.address.city if model.is_a?(Ad)}" } do %>
-      <div class="loading-image">
-        <div style='background: url(<%= img_resize(model.image, width: 140, height: 100) %>); background-size: cover;' class="game-img mb-1"></div>
-      </div>
+    <% begin %>
+      <%= link_to '', data: { fancybox: "gallery_#{game.id}", src: url_for(model.image),
+                              caption: "#{game.send(title)} — #{model.store.manager_name + ' - ' + model.address.city if model.is_a?(Ad)}" } do %>
+        <div class="loading-image">
+          <div style='background: url(<%= img_resize(model.image, width: 140, height: 100) %>); background-size: cover;' class="game-img mb-1"></div>
+        </div>
+      <% end %>
+    <% rescue => e %>
+      <%= puts e.message %>
+      <% binding.pry %>
     <% end %>
   </div>
 <% else %>
