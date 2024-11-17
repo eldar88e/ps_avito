@@ -15,15 +15,15 @@ class GamePriceService
 
     def make_exchange_rate(price)
       if price < 300
-        ENV.fetch('LOWEST_PRICE') { 5.5 }.to_f
+        ENV.fetch('LOWEST_PRICE', 5.5).to_f
       elsif price >= 300 && price < 800
-        ENV.fetch('LOW_PRICE') { 5 }.to_f
+        ENV.fetch('LOW_PRICE', 5).to_f
       elsif price >= 800 && price < 1200
-        ENV.fetch('MEDIAN_PRICE') { 4.5 }.to_f
+        ENV.fetch('MEDIAN_PRICE', 4.5).to_f
       elsif price >= 1200 && price < 1700
-        ENV.fetch('HIGH_PRICE') { 4.3 }.to_f
+        ENV.fetch('HIGH_PRICE', 4.3).to_f
       else
-        ENV.fetch('HIGHEST_PRICE') { 4 }.to_f
+        ENV.fetch('HIGHEST_PRICE', 4).to_f
       end
     end
   end

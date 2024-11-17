@@ -112,7 +112,7 @@ class WatermarkService
   end
 
   def check_img?(url)
-    return false if !url.start_with?('http')
+    return false unless url.start_with?('http')
 
     uri      = URI.parse(url)
     response = Net::HTTP.get_response(uri)

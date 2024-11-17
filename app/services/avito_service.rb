@@ -1,6 +1,8 @@
 require 'faraday'
 
 class AvitoService
+  AVITO_TOKEN_URL = 'https://api.avito.ru/token'
+
   def initialize(**args)
     @store = args[:store]
     raise 'Not set store' if @store.nil?
@@ -22,10 +24,10 @@ class AvitoService
 
   attr_reader :token_status
 
-  def connect_to(url, method = :get, payload = nil)
-    return if @token.blank? || @client_id.blank? || @client_secret.blank?
+  def connect_to(url, method = :get, payload = nil, **args)
+    return if (@token.blank? || @client_id.blank? || @client_secret.blank?) && args[:headers].blank?
 
-    request    = method == :get ? :url_encoded : :json
+    request    = method == :get || args[:url_encoded] ? :url_encoded : :json
     connection = Faraday.new(url:) do |faraday|
       faraday.request request
       faraday.response :logger if Rails.env.development?
@@ -33,8 +35,8 @@ class AvitoService
     end
 
     connection.send(method) do |req|
-      req.headers = @headers
-      req.body    = payload.to_json if payload
+      req.headers = args[:headers] || @headers
+      req.body    = args[:form] ? payload : payload.to_json if payload
     end
   rescue StandardError => e
     Rails.logger.error e.message
@@ -58,27 +60,27 @@ class AvitoService
   def refresh_token
     return if @client_id.blank? || @client_secret.blank?
 
-    conn = Faraday.new(url: 'https://api.avito.ru') do |faraday|
-      faraday.request :url_encoded
-      faraday.adapter Faraday.default_adapter
-    end
+    payload = URI.encode_www_form({ grant_type: 'client_credentials',
+                                    client_id: @client_id,
+                                    client_secret: @client_secret })
+    headers  = { 'Content-Type' => 'application/x-www-form-urlencoded' }
+    params   = { headers: headers, form: true, url_encoded: true }
+    response = connect_to(AVITO_TOKEN_URL, :post, payload, **params)
+    return log_bad_token(response) unless response.success?
 
-    response = conn.post('/token/') do |req|
-      req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-      req.body = URI.encode_www_form({ grant_type: 'client_credentials',
-                                       client_id: @client_id,
-                                       client_secret: @client_secret })
-    end
+    parse_token(response)
+  end
 
-    if response.success?
-      token_info = JSON.parse(response.body)
-      @store.avito_tokens.create token_info
-      token_info['access_token']
-    else
-      msg = "Failed to get token! Status: (#{response.status}), Account: #{@store.manager_name}, Error: #{response.body}"
-      Rails.logger.error msg
-      @token_status = response.status
-      nil
-    end
+  def parse_token(response)
+    token_info = JSON.parse(response.body)
+    @store.avito_tokens.create token_info
+    token_info['access_token']
+  end
+
+  def log_bad_token(response)
+    msg = "Failed to get token! Status: (#{response.status}), Account: #{@store.manager_name}, Error: #{response.body}"
+    Rails.logger.error msg
+    @token_status = response.status
+    nil
   end
 end

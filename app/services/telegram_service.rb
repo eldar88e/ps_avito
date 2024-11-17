@@ -18,7 +18,7 @@ class TelegramService
   end
 
   def report
-    unless @message.present?
+    if @message.blank?
       Rails.logger.error 'An empty message has been sent to Telegram!'
       return
     end
