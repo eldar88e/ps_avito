@@ -15,7 +15,7 @@ class JobsController < ApplicationController
       image     = w_service.add_watermarks
      next unless w_service.image_exist?
 
-      img_path  = File.join(directory_path, "#{store.id}_#{address.id}.jpg")
+      img_path = File.join(directory_path, "#{store.id}_#{address.id}.jpg")
       save_image(image, img_path)
     end
     redirect_to store_path(store), alert: 'Images updated!'

@@ -32,10 +32,5 @@ class SaveImageJob < ApplicationJob
       temp_img.flush
       ad.image.attach(io: File.open(temp_img.path), filename: name, content_type: 'image/jpeg')
     end
-  rescue => e
-    puts e.message
-    puts e.full_message
-    puts '*' * 50
-    binding.pry
   end
 end

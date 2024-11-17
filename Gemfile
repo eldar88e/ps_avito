@@ -33,10 +33,9 @@ gem 'telegram-bot-ruby', '~> 2.0'
 # gem 'mongoid'
 gem 'aws-sdk-s3'
 gem 'sanitize'
-gem 'pry'
 
 group :development, :test do
-
+  gem 'pry'
 end
 
 group :development do

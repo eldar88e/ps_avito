@@ -28,7 +28,6 @@ Rails.application.configure do
   else
     # config.action_controller.perform_caching = false
     # config.cache_store = :null_store
-
     config.action_controller.perform_caching = true
     config.cache_store = :redis_cache_store, {
       url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1'),
@@ -37,7 +36,6 @@ Rails.application.configure do
     }
   end
 
-  # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
