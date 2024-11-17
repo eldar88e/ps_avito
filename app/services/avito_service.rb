@@ -64,7 +64,7 @@ class AvitoService
                                     client_id: @client_id,
                                     client_secret: @client_secret })
     headers  = { 'Content-Type' => 'application/x-www-form-urlencoded' }
-    params   = { headers: headers, form: true, url_encoded: true }
+    params   = { headers:, form: true, url_encoded: true }
     response = connect_to(AVITO_TOKEN_URL, :post, payload, **params)
     return log_bad_token(response) unless response.success?
 

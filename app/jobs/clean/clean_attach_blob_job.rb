@@ -8,7 +8,8 @@ class Clean::CleanAttachBlobJob < ApplicationJob
     count       = 0
     attachments.each do |attach|
       next if attach.blob.service_name != 'local'
-      # TODO возможно нужно сделать проверку на сущ. аттач в s3
+
+      # TODO: возможно нужно сделать проверку на сущ. аттач в s3
 
       key      = attach.blob.key
       raw_path = key.scan(/.{2}/)[0..1].join('/')

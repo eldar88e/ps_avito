@@ -22,37 +22,21 @@ class AddressesController < ApplicationController
   end
 
   def create
-    address = @store.addresses.build(address_params)
-    if address.save
-      msg = ["Город #{address.city} был успешно добавлен."]
-      msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
-      render turbo_stream: [
-        turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: }),
-        turbo_stream.remove(:new_address),
-        turbo_stream.before(:addresses, partial: 'addresses/new_address_btn', locals: { store: address.store }),
-        success_notice(msg)
-      ]
-    else
-      error_notice(address.errors.full_messages)
-    end
+    @address = @store.addresses.build(address_params)
+    return handle_successful_save if @address.save
+
+    error_notice(@address.errors.full_messages)
   end
 
   def update
-    if @address.update(address_params)
-      msg = ["Город #{@address.city} был успешно обновлен."]
-      msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
-      render turbo_stream: [
-        turbo_stream.replace("address_#{@address.id}", partial: 'addresses/address', locals: { address: @address }),
-        success_notice(msg)
-      ]
-    else
-      error_notice(@address.errors.full_messages)
-    end
+    return handle_successful_update if @address.update(address_params)
+
+    error_notice(@address.errors.full_messages)
   end
 
   def destroy
     if @address.destroy
-      msg = "Город #{@address.city} был успешно удален."
+      msg = t('controllers.address', @address.city)
       render turbo_stream: [turbo_stream.remove("address_#{@address.id}"), success_notice(msg)]
     else
       error_notice(@address.errors.full_messages)
@@ -67,5 +51,25 @@ class AddressesController < ApplicationController
 
   def address_params
     params.require(:address).permit(:city, :slogan, :slogan_params, :active, :image, :description, :total_games)
+  end
+
+  def handle_successful_save
+    msg = ["Город #{@address.city} был успешно добавлен."]
+    msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
+    render turbo_stream: [
+      turbo_stream.append(:addresses, partial: 'addresses/address', locals: { address: @address }),
+      turbo_stream.remove(:new_address),
+      turbo_stream.before(:addresses, partial: 'addresses/new_address_btn', locals: { store: @store }),
+      success_notice(msg)
+    ]
+  end
+
+  def handle_successful_update
+    msg = ["Город #{@address.city} был успешно обновлен."]
+    msg << 'Внимание адрес не активен!' if address_params[:active].to_i.zero?
+    render turbo_stream: [
+      turbo_stream.replace("address_#{@address.id}", partial: 'addresses/address', locals: { address: @address }),
+      success_notice(msg)
+    ]
   end
 end

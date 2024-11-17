@@ -7,6 +7,7 @@ class Avito::WebhooksController < ApplicationController
     msg           = webhook_event['payload']['value']['content']['text']
     return head :ok if webhook_event.dig('payload', 'value',
                                          'user_id') == webhook_event.dig('payload', 'value', 'author_id')
+
     broadcast_notify(msg)
     render json: { status: 'ok' }, status: :ok # head :ok
   rescue StandardError => e
