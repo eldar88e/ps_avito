@@ -13,7 +13,7 @@ class PopulateExcelJob < ApplicationJob
     worksheet.append_row %w[Id AvitoId DateBegin AdStatus Category GoodsType AdType Type Platform Localization Address Title
                             Description Condition Price AllowEmail ManagerName	ContactPhone ContactMethod ImageUrls]
     current_time = Time.current.strftime('%d.%m.%y')
-    store.addresses.where(active: true).each do |address|
+    store.addresses.where(active: true).find_each do |address|
       ads   = address.ads.active_ads
       games = Game.order(:top).active.limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
       games.each do |game|
@@ -108,7 +108,7 @@ class PopulateExcelJob < ApplicationJob
       if raw_name.downcase.include?('ps5')
         raw_name
       else
-        raw_name.strip[0..45] + ' PS5'
+        "#{raw_name.strip[0..45]} PS5"
       end
     else # ps4
       prefix_old = ' ps4 и ps5'

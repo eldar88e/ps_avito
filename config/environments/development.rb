@@ -17,8 +17,8 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
+  config.action_controller.perform_caching = true
   if Rails.root.join('tmp/caching-dev.txt').exist?
-    config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
@@ -28,7 +28,6 @@ Rails.application.configure do
   else
     # config.action_controller.perform_caching = false
     # config.cache_store = :null_store
-    config.action_controller.perform_caching = true
     config.cache_store = :redis_cache_store, {
       url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1'),
       namespace: 'cache',

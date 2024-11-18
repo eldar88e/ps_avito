@@ -1,19 +1,20 @@
 module Avito
   module ReportsHelper
     def badge_style(slug)
-      if slug == 'error_rejected'
+      case slug
+      when 'error_rejected'
         'bg-warning text-dark'
-      elsif slug.match?(/error_deleted|removed_complete/)
+      when /error_deleted|removed_complete/
         'bg-danger'
-      elsif slug == 'error_blocked'
+      when 'error_blocked'
         'bg-dark'
-      elsif slug == 'success_added'
+      when 'success_added'
         'bg-success'
-      elsif slug == 'success_activated_updated'
+      when 'success_activated_updated'
         'bg-info text-dark'
-      elsif slug == 'success_skipped'
+      when 'success_skipped'
         'bg-light text-dark'
-      elsif slug == 'stopped_by_expiration'
+      when 'stopped_by_expiration'
         'bg-secondary'
       else
         'bg-primary'
