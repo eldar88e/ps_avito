@@ -4,18 +4,22 @@ class WatermarksSheetsJob < ApplicationJob
   def perform(**args)
     user     = find_user(args)
     stores   = args[:store] || user.stores.includes(:addresses).where(active: true, addresses: { active: true })
-    set_row  = user.settings
-    settings = set_row.pluck(:var, :value).to_h { |var, value| [var.to_sym, value] }
-    find_main_font(settings, set_row)
-
-    [stores].flatten.each do |store|
-      [Game, Product].each do |model|
-        AddWatermarkJob.perform_now(user: args[:user], model:, store:, settings:, clean: args[:clean])
-      end
-      PopulateExcelJob.perform_now(store:)
-    end
-
+    settings = fetch_settings(user)
+    [stores].flatten.each { |store| process_store(user, store, settings, args[:clean]) }
     nil
+  end
+
+  private
+
+  def fetch_settings(user)
+    set_row  = user.settings
+    settings = set_row.pluck(:var, :value).to_h.transform_keys(&:to_sym)
+    find_main_font(settings, set_row)
+  end
+
+  def process_store(user, store, settings, clean)
+    [Game, Product].each { |model| AddWatermarkJob.perform_now(user:, model:, store:, settings:, clean:) }
+    PopulateExcelJob.perform_now(store:)
   end
 
   def find_main_font(settings, set_row)

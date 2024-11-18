@@ -5,10 +5,15 @@ require 'rails_helper'
 RSpec.describe Address, type: :model do
   let(:address) { create(:address) }
 
-  it { should belong_to(:store) }
-  it { should have_many(:streets).dependent(:destroy) }
-  it { should have_one_attached(:image) }
-  it { should validate_presence_of(:city) }
+  context 'validations' do
+    it { should validate_presence_of(:city) }
+  end
+
+  context 'associations' do
+    it { should belong_to(:store) }
+    it { should have_many(:streets).dependent(:destroy) }
+    it { should have_one_attached(:image) }
+  end
 
   describe '#check_slogan_params_blank' do
     context 'when slogan_params is present' do

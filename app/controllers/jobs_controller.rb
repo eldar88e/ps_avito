@@ -69,7 +69,7 @@ class JobsController < ApplicationController
 
   def set_settings
     settings  = current_user.settings
-    @settings = settings.pluck(:var, :value).to_h { |var, value| [var.to_sym, value] }
+    @settings = settings.pluck(:var, :value).to_h.transform_keys(&:to_sym)
     return unless (main_font_setting = settings.find_by(var: 'main_font'))
     return unless (blob = main_font_setting.font&.blob)
 

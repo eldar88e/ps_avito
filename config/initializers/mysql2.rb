@@ -1,6 +1,7 @@
-Rails.application.configure do
-  OPEN_PS_HOST     = ENV.fetch('OPEN_PS_HOST')
-  OPEN_PS_BD       = ENV.fetch('OPEN_PS_BD')
-  OPEN_PS_USER     = ENV.fetch('OPEN_PS_USER')
-  OPEN_PS_PASSWORD = ENV.fetch('OPEN_PS_PASSWORD')
-end
+Rails.application.config.mysql2_adapter_config = {
+  host: ENV.fetch('OPEN_PS_HOST'),
+  database: ENV.fetch('OPEN_PS_BD'),
+  username: ENV.fetch('OPEN_PS_USER'),
+  password: ENV.fetch('OPEN_PS_PASSWORD'),
+  symbolize_keys: true
+}

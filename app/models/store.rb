@@ -1,5 +1,5 @@
 class Store < ApplicationRecord
-  validates :var, presence: true, uniqueness: { scope: :user }
+  validates :var, presence: true, uniqueness: { scope: :user_id }
   validates :category, presence: true
   validates :goods_type, presence: true
   validates :ad_type, presence: true

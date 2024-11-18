@@ -6,7 +6,7 @@ class DescriptionService
   end
 
   def make_description
-    method_name = "handle_#{@model.class.name.downcase}_desc".to_sym
+    method_name = :"handle_#{@model.class.name.downcase}_desc"
     send(method_name)
   end
 
@@ -39,7 +39,7 @@ class DescriptionService
   end
 
   def build_description(description, **replacements)
-    replacements.each { |key, value| description = description.gsub("[#{key.to_s}]", value.to_s) }
+    replacements.each { |key, value| description = description.gsub("[#{key}]", value.to_s) }
     description.squeeze(' ').strip
   end
 end

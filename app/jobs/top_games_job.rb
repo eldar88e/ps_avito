@@ -51,20 +51,10 @@ class TopGamesJob < ApplicationJob
   end
 
   def fetch_games(quantity)
-    db = connect_db
+    db = Mysql2::Client.new(Rails.application.config.mysql2_adapter_config)
     db.query(query_db(quantity)).to_a
   ensure
     db&.close
-  end
-
-  def connect_db
-    Mysql2::Client.new(
-      host: OPEN_PS_HOST,
-      database: OPEN_PS_BD,
-      username: OPEN_PS_USER,
-      password: OPEN_PS_PASSWORD,
-      symbolize_keys: true
-    )
   end
 
   def query_db(quantity)

@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  PRESENCE_ATTR = %i[ad_status category goods_type ad_type condition allow_email].freeze
+
   before_validation :set_defaults
   before_save :cleanup_description
 
@@ -17,18 +19,10 @@ class Product < ApplicationRecord
   private
 
   def set_defaults
-    self.ad_status   = nil if ad_status.blank?
-    self.category    = nil if category.blank?
-    self.goods_type  = nil if goods_type.blank?
-    self.ad_type     = nil if ad_type.blank?
-    self.condition   = nil if condition.blank?
-    self.allow_email = nil if allow_email.blank?
+    PRESENCE_ATTR.each { |attr| self[attr] = self[attr].presence }
   end
 
   def cleanup_description
-    return if description.blank?
-
-    description.squeeze!(' ')
-    description.chomp!
+    description.presence&.squeeze(' ')&.strip
   end
 end

@@ -12,8 +12,28 @@ class WatermarkService
     @height       = (@settings[:avito_img_height] || 1440).to_i
     @new_image    = initialize_first_layer
     @main_img_url = find_main_ad_img
-    layers_row    = make_layers_row
+    handle_layers
+  end
 
+  def image_exist?
+    return false if @main_img_url.blank?
+
+    @game.image.blob&.service_name == 'local' ? File.exist?(@main_img_url) : check_img?(@main_img_url)
+  end
+
+  def add_watermarks
+    @layers.each do |layer|
+      layer[:params] = make_layer(layer)
+      layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer)
+    end
+
+    @new_image
+  end
+
+  private
+
+  def handle_layers
+    layers_row = make_layers_row
     @platforms, @layers = layers_row.compact.partition { |i| i[:layer_type] == 'platform' }
     @layers << { img: @main_img_url, menuindex: @store.menuindex,
                  params: @store.game_img_params.presence || {}, layer_type: 'img' }
@@ -26,30 +46,15 @@ class WatermarkService
     @layers << make_slogan(args[:address])
   end
 
-  def image_exist?
-    return false if @main_img_url.blank?
-
-    return File.exist?(@main_img_url) if @game.image.blob&.service_name == 'local'
-
-    check_img?(@main_img_url)
+  def make_layer(layer)
+    result =
+      if layer[:params].is_a?(Hash)
+        layer[:params]
+      elsif layer[:params].present?
+        eval(layer[:params]).transform_keys(&:to_s) # TODO: убрать eval
+      end
+    rewrite_pos_size(result)
   end
-
-  def add_watermarks
-    @layers.each do |layer|
-      layer[:params] =
-        if layer[:params].is_a?(Hash)
-          layer[:params]
-        elsif layer[:params].present?
-          eval(layer[:params]).transform_keys(&:to_s) # TODO: убрать eval
-        end
-      layer[:params] = rewrite_pos_size(layer[:params])
-      layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer)
-    end
-
-    @new_image
-  end
-
-  private
 
   def rewrite_pos_size(args)
     return {} if args.blank?
@@ -139,15 +144,24 @@ class WatermarkService
   end
 
   def make_layers_row
-    @store.image_layers.map do |i|
-      next if !i.active || (@product && i.layer_type == 'flag')
+    @store.image_layers.map { |i| process_layer(i) }
+  end
 
-      if i.layer.attached?
-        form_layer_with_img(i)
-      elsif i.layer_type == 'text' && i.title.present?
-        { params: i.layer_params.presence || {}, menuindex: i.menuindex, layer_type: i.layer_type, title: i.title }
-      end
+  def process_layer(layer)
+    return if !layer.active || (@product && layer.layer_type == 'flag')
+
+    if layer.layer.attached?
+      form_layer_with_img(layer)
+    elsif layer.layer_type == 'text' && layer.title.present?
+      build_text_layer(layer)
     end
+  end
+
+  def build_text_layer(layer)
+    { params: layer.layer_params.presence || {},
+      menuindex: layer.menuindex,
+      layer_type: layer.layer_type,
+      title: layer.title }
   end
 
   def form_layer_with_img(layer)

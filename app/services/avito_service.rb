@@ -8,22 +8,14 @@ class AvitoService
     @client_id     = @store.client_id
     @client_secret = @store.client_secret
     @token_status  = nil
-
-    if @client_id.blank? || @client_secret.blank?
-      Rails.logger.error "Not set client_id & client_secret for #{@store.manager_name}"
-    end
-
-    @token   = fetch_token
-    @headers = {
-      'Authorization' => "Bearer #{@token}",
-      'Content-Type' => 'application/json'
-    }
+    @token         = fetch_token
+    @headers       = { 'Authorization' => "Bearer #{@token}", 'Content-Type' => 'application/json' }
   end
 
   attr_reader :token_status
 
   def connect_to(url, method = :get, payload = nil, **args)
-    return if missing_required_params?(args)
+    return if @token.blank? && args[:headers].blank?
 
     send_request(url, method, payload, **args)
   rescue StandardError => e
@@ -33,8 +25,10 @@ class AvitoService
 
   private
 
-  def missing_required_params?(args)
-    (@token.blank? || @client_id.blank? || @client_secret.blank?) && args[:headers].blank?
+  def exist_credentials?
+    result = @client_id.present? && @client_secret.present
+    Rails.logger.error "Not set client_id & client_secret for #{@store.manager_name}" unless result
+    result
   end
 
   def send_request(url, method, payload, **args)
@@ -60,7 +54,7 @@ class AvitoService
   end
 
   def refresh_token
-    return if @client_id.blank? || @client_secret.blank?
+    return unless exist_credentials?
 
     payload = URI.encode_www_form({ grant_type: 'client_credentials',
                                     client_id: @client_id,

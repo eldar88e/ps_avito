@@ -13,9 +13,9 @@ module Avito
         deleted = [0]
         process_store(store, avito, deleted)
         user ||= store.user
-        if deleted[0].positive?
-          TelegramService.call(user, I18n.t('avito.job.check_deleted', count: deleted[0], name: store.manager_name))
-        end
+        next unless deleted[0].positive?
+
+        TelegramService.call(user, I18n.t('avito.job.check_deleted', count: deleted[0], name: store.manager_name))
       end
 
       nil
