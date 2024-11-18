@@ -36,14 +36,15 @@ module Avito
         break if ads&.dig('items').blank?
 
         ads['items'].each do |item|
-          existing_ad = find_ad(item['avito_id'], ads_db, avito)
-          update_ad(existing_ad, deleted)
+          avito_id = item['avito_id']
+          existing_ad = find_ad(avito_id, ads_db, avito)
+          update_ad(avito_id, existing_ad, deleted)
         end
         page += 1
       end
     end
 
-    def update_ad(ad, deleted)
+    def update_ad(avito_id, ad, deleted)
       return unless ad
 
       ad.update(avito_id:, deleted: 1)
