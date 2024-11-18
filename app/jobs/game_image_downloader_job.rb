@@ -38,7 +38,7 @@ class GameImageDownloaderJob < ApplicationJob
 
   def download_image(url, user)
     response = connect_to_ps(url, user)
-    return response.body if response&.headers&.[]('content-type')&.match?(/image/)
+    return response.body if response&.headers&.[]('content-type')&.include?('image')
 
     msg = "Job: #{self.class} \nError message: PS img is not available! \nURL: #{url}"
     Rails.logger.error msg

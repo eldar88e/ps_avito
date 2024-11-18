@@ -40,7 +40,7 @@ class WatermarkService
         if layer[:params].is_a?(Hash)
           layer[:params]
         elsif layer[:params].present?
-          eval(layer[:params]).transform_keys { |key| key.to_s }
+          eval(layer[:params]).transform_keys(&:to_s) # TODO: убрать eval
         end
       layer[:params] = rewrite_pos_size(layer[:params])
       layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer)
@@ -54,13 +54,17 @@ class WatermarkService
   def rewrite_pos_size(args)
     return {} if args.blank?
 
-    formated_args = {}
-    formated_args['pos_x']  = args['pos_x'].to_i > @width ? @width : args['pos_x'].to_i     if args['pos_x'].present?
-    formated_args['pos_y']  = args['pos_y'].to_i > @height ? @height : args['pos_y'].to_i   if args['pos_y'].present?
-    formated_args['row']    = args['row'].to_i > @width ? @width : args['row'].to_i         if args['row'].present?
-    formated_args['column'] = args['column'].to_i > @height ? @height : args['column'].to_i if args['column'].present?
+    formated_args           = {}
+    formated_args['pos_x']  = min_value(args['pos_x'], @width)
+    formated_args['pos_y']  = min_value(args['pos_y'], @height)
+    formated_args['row']    = min_value(args['row'], @width)
+    formated_args['column'] = min_value(args['column'], @height)
 
     args.merge formated_args
+  end
+
+  def min_value(value, max_value)
+    value.present? ? [value.to_i, max_value].min : nil
   end
 
   def add_img(layer)

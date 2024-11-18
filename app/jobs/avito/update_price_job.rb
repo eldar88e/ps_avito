@@ -20,7 +20,7 @@ module Avito
         next unless store
 
         avito = AvitoService.new(store:)
-        count = group_ads.reduce(0) { |count, ad| process_ad(avito, ad) ? count + 1 : count }
+        count = group_ads.reduce(0) { |acc, ad| process_ad(avito, ad) ? acc + 1 : acc }
         msg   = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
         broadcast_notify(msg)
         TelegramService.call(user, msg) if count.positive?
@@ -35,18 +35,20 @@ module Avito
     private
 
     def process_ad(avito, ad)
-      item_id = ad.avito_id
-      if item_id.nil?
-        url     = "https://api.avito.ru/autoload/v2/items/avito_ids?query=#{ad.id}"
-        item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('avito_id')
-        return unless item_id
-
-        ad.update(avito_id: item_id)
-      end
-      url    = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
-      price  = GamePriceService.call(ad.adable.price_tl, store)
-      result = fetch_and_parse(avito, url, :post, { price: })
+      item_id = ad.avito_id || fetch_avito_id(avito, ad)
+      url     = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
+      price   = GamePriceService.call(ad.adable.price_tl, store)
+      result  = fetch_and_parse(avito, url, :post, { price: })
       result&.dig('result', 'success').present?
+    end
+
+    def fetch_avito_id(avito, ad)
+      url     = "https://api.avito.ru/autoload/v2/items/avito_ids?query=#{ad.id}"
+      item_id = fetch_and_parse(avito, url)&.dig('items')&.at(0)&.dig('avito_id')
+      return unless item_id
+
+      ad.update(avito_id: item_id)
+      item_id
     end
   end
 end

@@ -142,8 +142,8 @@ class PopulateExcelJob < ApplicationJob
     rus_text  = model.rus_screen ? 'Есть' : 'Нет'
     build_description(desc_game,
                       name: model.name,
-                      rus_voice: rus_voice,
-                      rus_text: rus_text,
+                      rus_voice:,
+                      rus_text:,
                       platform: model.platform,
                       manager: store.manager_name,
                       addr_desc: address.description.to_s)

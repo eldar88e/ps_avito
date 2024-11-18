@@ -23,8 +23,21 @@ class AvitoService
   attr_reader :token_status
 
   def connect_to(url, method = :get, payload = nil, **args)
-    return if (@token.blank? || @client_id.blank? || @client_secret.blank?) && args[:headers].blank?
+    return if missing_required_params?(args)
 
+    send_request(url, method, payload, **args)
+  rescue StandardError => e
+    Rails.logger.error e.message
+    nil
+  end
+
+  private
+
+  def missing_required_params?(args)
+    (@token.blank? || @client_id.blank? || @client_secret.blank?) && args[:headers].blank?
+  end
+
+  def send_request(url, method, payload, **args)
     request    = method == :get || args[:url_encoded] ? :url_encoded : :json
     connection = Faraday.new(url:) do |faraday|
       faraday.request request
@@ -36,12 +49,7 @@ class AvitoService
       req.headers = args[:headers] || @headers
       req.body    = args[:form] ? payload : payload.to_json if payload
     end
-  rescue StandardError => e
-    Rails.logger.error e.message
-    nil
   end
-
-  private
 
   def fetch_token
     cache_key = "store_#{@store.id}_avito_token"

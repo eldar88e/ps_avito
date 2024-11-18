@@ -40,8 +40,8 @@ class StreetsController < ApplicationController
   def handle_successful_save
     render turbo_stream: [
       turbo_stream.append("streets_#{params[:address_id]}", partial: 'streets/form',
-                          locals: { street: @street, method: :patch,
-                                    url: store_street_path(id: @street, address_id: @address) }),
+                                                            locals: { street: @street, method: :patch,
+                                                                      url: store_street_path(id: @street, address_id: @address) }),
       success_notice(t('controllers.streets.create', name: @street.title))
     ]
   end
@@ -49,8 +49,8 @@ class StreetsController < ApplicationController
   def handle_successful_update
     render turbo_stream: [
       turbo_stream.replace("street_#{@street.id}", partial: 'streets/form',
-                           locals: { street: @street, method: :patch,
-                                     url: store_street_path(id: @street, address_id: @address) }),
+                                                   locals: { street: @street, method: :patch,
+                                                             url: store_street_path(id: @street, address_id: @address) }),
       success_notice(t('controllers.streets.update', name: @street.title))
     ]
   end
