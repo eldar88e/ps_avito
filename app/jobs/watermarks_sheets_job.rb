@@ -6,7 +6,7 @@ class WatermarksSheetsJob < ApplicationJob
     stores   = args[:store] || user.stores.includes(:addresses).where(active: true, addresses: { active: true })
     set_row  = user.settings
     settings = set_row.pluck(:var, :value).to_h { |var, value| [var.to_sym, value] }
-    find_main_font(settings)
+    find_main_font(settings, set_row)
 
     [stores].flatten.each do |store|
       [Game, Product].each do |model|
@@ -18,7 +18,7 @@ class WatermarksSheetsJob < ApplicationJob
     nil
   end
 
-  def find_main_font(settings)
+  def find_main_font(settings, set_row)
     blob = set_row.find_by(var: 'main_font')&.font&.blob
     return unless blob
 
