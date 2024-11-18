@@ -55,12 +55,10 @@ module Avito
     end
 
     def handle_sections_params
-      if params['sections'].to_s == 'nil'
-        session[:sections] = params['sections'] = nil
-      else
-        session[:sections] = params['sections'] if params['sections'].present?
-        params['sections'] ||= session[:sections]
-      end
+      return session[:sections] = params['sections'] = nil if params['sections'].to_s == 'nil'
+
+      session[:sections] = params['sections'] if params['sections'].present?
+      params['sections'] ||= session[:sections]
     end
 
     def set_breadcrumb

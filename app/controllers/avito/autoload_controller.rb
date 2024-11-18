@@ -14,8 +14,8 @@ module Avito
     end
 
     def update
-      weekdays = params[:store][:weekdays].reject(&:blank?).map { |i| i.to_i }
-      times    = params[:store][:time_slots].reject(&:blank?).map { |i| i.to_i }
+      weekdays = params[:store][:weekdays].compact_blank.map(&:to_i)
+      times    = params[:store][:time_slots].compact_blank.map(&:to_i)
       enabled  = params[:store][:autoload_enabled] == '1'
       a_params = { agreement: true, autoload_enabled: enabled,
                    schedule: [{ rate: params[:store][:rate].to_i, time_slots: times, weekdays: }] }
@@ -24,8 +24,10 @@ module Avito
 
       Avito::AutoLoadJob.perform_later(store: @store, params: a_params)
 
-      msg = "Запущен процес обновления параметров автозагрузки Авито аккаунта #{@store.manager_name}"
-      render turbo_stream: [turbo_stream.replace(@store, partial: '/avito/autoload/show'), success_notice(msg)]
+      render turbo_stream: [
+        turbo_stream.replace(@store, partial: '/avito/autoload/show'),
+        success_notice(t('controllers.avito.autoload.update', name: @store.manager_name))
+      ]
 
       # result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, a_params)
 

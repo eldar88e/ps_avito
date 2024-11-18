@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { only_integer: true }
 
   has_one_attached :image, dependent: :purge
-  has_many :ads, as: :adable
+  has_many :ads, as: :adable, dependent: :destroy
   belongs_to :user
 
   self.inheritance_column = :type_
@@ -26,7 +26,7 @@ class Product < ApplicationRecord
   end
 
   def cleanup_description
-    return unless description.present?
+    return if description.blank?
 
     description.squeeze!(' ')
     description.chomp!

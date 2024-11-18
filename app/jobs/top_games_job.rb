@@ -1,6 +1,6 @@
 class TopGamesJob < ApplicationJob
   queue_as :default
-  KEYS = %i[sony_id name rus_voice rus_screen price_tl platform]
+  KEYS = %i[sony_id name rus_voice rus_screen price_tl platform].freeze
 
   def perform(**args)
     quantity = args[:settings]['quantity_games']
@@ -23,8 +23,8 @@ class TopGamesJob < ApplicationJob
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
     msg = "✅ Обновлено ТОП #{games.size} игр."
-    msg += "\n#{I18n.t('jobs.top_games.add', count:)}" if count > 0
-    msg += "\n#{I18n.t('jobs.top_games.price', count: edited.size)}" if edited.size > 0
+    msg += "\n#{I18n.t('jobs.top_games.add', count:)}" if count.positive?
+    msg += "\n#{I18n.t('jobs.top_games.price', count: edited.size)}" if edited.size.positive?
     broadcast_notify(msg)
     TelegramService.call(args[:user], msg)
     count
@@ -68,7 +68,7 @@ class TopGamesJob < ApplicationJob
   end
 
   def query_db(quantity)
-    <<~SQL
+    <<~SQL.squish
       SELECT
         additional.janr AS sony_id,
         game.pagetitle AS name,

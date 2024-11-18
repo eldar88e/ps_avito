@@ -27,8 +27,8 @@ class JobsController < ApplicationController
     models << Game if params[:game]
     models << Product if params[:product] || current_user.products.active.exists?
 
-    clean  = !!params[:clean]
-    all    = !!params[:product]
+    clean  = params[:clean].present?
+    all    = params[:product].present?
     notify = !params[:product]
 
     models.each do |model|
@@ -44,24 +44,24 @@ class JobsController < ApplicationController
       )
     end
     job_type = clean ? 'пересозданию' : 'созданию'
-    msg      = t('jobs_controller.update_img.success', job_type:, models: models.join(', '))
+    msg      = t('controllers.jobs.update_img.success', job_type:, models: models.join(', '))
     render turbo_stream: success_notice(msg)
   end
 
   def update_feed
     store = current_user.stores.find_by(active: true, id: params[:store_id])
-    return error_notice t('jobs_controller.update_feed.error') unless store
+    return error_notice t('controllers.jobs.update_feed.error') unless store
 
     WatermarksSheetsJob.perform_later(store:, user: current_user)
-    render turbo_stream: success_notice(t('jobs_controller.update_feed.success', name: store.manager_name))
+    render turbo_stream: success_notice(t('controllers.jobs.update_feed.success', name: store.manager_name))
   end
 
   def update_ban_list
     store = current_user.stores.active.find_by(id: params[:store_id])
     if store && Avito::CheckErrorsJob.perform_later(store:)
-      render turbo_stream: success_notice(t('jobs_controller.update_ban_list.success', name: store.manager_name))
+      render turbo_stream: success_notice(t('controllers.jobs.update_ban_list.success', name: store.manager_name))
     else
-      error_notice(t('jobs_controller.update_ban_list.error', name: store.manager_name))
+      error_notice(t('controllers.jobs.update_ban_list.error', name: store.manager_name))
     end
   end
 
@@ -69,7 +69,7 @@ class JobsController < ApplicationController
 
   def set_settings
     settings  = current_user.settings
-    @settings = settings.pluck(:var, :value).map { |var, value| [var.to_sym, value] }.to_h
+    @settings = settings.pluck(:var, :value).to_h { |var, value| [var.to_sym, value] }
     return unless (main_font_setting = settings.find_by(var: 'main_font'))
     return unless (blob = main_font_setting.font&.blob)
 

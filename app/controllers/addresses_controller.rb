@@ -36,7 +36,7 @@ class AddressesController < ApplicationController
 
   def destroy
     if @address.destroy
-      msg = t('controllers.address', @address.city)
+      msg = t('controllers.address', city: @address.city)
       render turbo_stream: [turbo_stream.remove("address_#{@address.id}"), success_notice(msg)]
     else
       error_notice(@address.errors.full_messages)

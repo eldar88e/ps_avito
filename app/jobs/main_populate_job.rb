@@ -7,6 +7,6 @@ class MainPopulateJob < ApplicationJob
     new_games = TopGamesJob.perform_now(settings:, user:)
     GameImageDownloaderJob.perform_now(settings:, user:) if new_games.positive?
     WatermarksSheetsJob.perform_later(user:)
-    Avito::UpdatePriceJob.perform_later if Rails.env.production?
+    Avito::UpdatePriceJob.perform_later(user:) if Rails.env.production?
   end
 end

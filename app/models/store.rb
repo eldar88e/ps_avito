@@ -1,5 +1,5 @@
 class Store < ApplicationRecord
-  validates :var, presence: true, uniqueness: true
+  validates :var, presence: true, uniqueness: { scope: :user }
   validates :category, presence: true
   validates :goods_type, presence: true
   validates :ad_type, presence: true
@@ -32,7 +32,7 @@ class Store < ApplicationRecord
   end
 
   def cleanup_description
-    return unless description.present?
+    return if description.blank?
 
     description.squeeze!(' ')
     description.strip!

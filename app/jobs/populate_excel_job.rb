@@ -72,7 +72,7 @@ class PopulateExcelJob < ApplicationJob
 
   def make_platform(game)
     platform = game.platform
-    return 'PlayStation 5' if platform.match?(/PS5/)
+    return 'PlayStation 5' if platform.include?('PS5')
 
     'PlayStation 4'
   end
@@ -92,27 +92,27 @@ class PopulateExcelJob < ApplicationJob
     platform = game.platform
     prefix   = ' PS5 и PS4'
 
-    if platform == 'PS5, PS4' # || platform.match?(/PS4/) #ps4, ps5
-      if raw_name.downcase.match?(/ps4/)
-        if raw_name.downcase.match?(/ps5/)
+    if platform == 'PS5, PS4'
+      if raw_name.downcase.include?('ps4')
+        if raw_name.downcase.include?('ps5')
           raw_name
         else
           raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix
         end
-      elsif raw_name.downcase.match?(/ps5/)
+      elsif raw_name.downcase.include?('ps5')
         raw_name.sub('(PS5)', '').sub('PS5', '')[0..39] + prefix
       else
         raw_name.strip[0..39] + prefix
       end
-    elsif platform.match?(/PS5/) # ps5
-      if raw_name.downcase.match?(/ps5/)
+    elsif platform.include?('PS5') # ps5
+      if raw_name.downcase.include?('ps5')
         raw_name
       else
         raw_name.strip[0..45] + ' PS5'
       end
     else # ps4
       prefix_old = ' ps4 и ps5'
-      if raw_name.downcase.match?(/ps4/)
+      if raw_name.downcase.include?('ps4')
         raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix_old
       else
         raw_name.strip[0..39] + prefix_old
@@ -133,17 +133,36 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def make_description(model, store, address)
-    if model.is_a?(Game)
-      desc_game = store.desc_game.to_s + store.description
-      rus_voice = model.rus_voice ? 'Есть' : 'Нет'
-      rus_text  = model.rus_screen ? 'Есть' : 'Нет'
-      desc_game.gsub('[name]', model.name).gsub('[rus_voice]', rus_voice).gsub('[manager]', store.manager_name)
-               .gsub('[rus_text]', rus_text).gsub('[platform]', model.platform)
-               .gsub('[addr_desc]', address.description.to_s).squeeze(' ').strip
-    else
-      desc_product = store.description + store.desc_product.to_s
-      desc_product.gsub('[name]', model.title).gsub('[addr_desc]', address.description || '')
-                  .gsub('[manager]', store.manager_name).gsub('[desc_product]', model.description).squeeze(' ').strip
+    model.is_a?(Game) ? handle_game_desc(model, store, address) : handle_product_desc(model, store, address)
+  end
+
+  def handle_game_desc(model, store, address)
+    desc_game = store.desc_game.to_s + store.description
+    rus_voice = model.rus_voice ? 'Есть' : 'Нет'
+    rus_text  = model.rus_screen ? 'Есть' : 'Нет'
+    build_description(desc_game,
+                      name: model.name,
+                      rus_voice: rus_voice,
+                      rus_text: rus_text,
+                      platform: model.platform,
+                      manager: store.manager_name,
+                      addr_desc: address.description.to_s)
+  end
+
+  def handle_product_desc(store, model, address)
+    desc_product = store.description + store.desc_product.to_s
+    build_description(desc_product,
+                      name: model.title,
+                      desc_product: model.description,
+                      manager: store.manager_name,
+                      addr_desc: address.description || '')
+  end
+
+  def build_description(description, **replacements)
+    updated_description = nil
+    replacements.each do |key, value|
+      updated_description = description.gsub("[#{key}]", value.to_s)
     end
+    updated_description.squeeze(' ').strip
   end
 end

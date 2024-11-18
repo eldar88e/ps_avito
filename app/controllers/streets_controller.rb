@@ -9,39 +9,22 @@ class StreetsController < ApplicationController
   end
 
   def create
-    street = @address.streets.build(title: params[:street][:title])
-    if street.save
-      msg = "Улица #{street.title} была успешно добавлена."
-      render turbo_stream: [
-        turbo_stream.append("streets_#{params[:address_id]}", partial: 'streets/form',
-                                                              locals: { street:, method: :patch, url: store_street_path(id: street, address_id: @address) }),
-        success_notice(msg)
-      ]
-    else
-      error_notice(street.errors.full_messages)
-    end
+    @street = @address.streets.build(title: params[:street][:title])
+    return handle_successful_save if @street.save
+
+    error_notice(@street.errors.full_messages)
   end
 
   def update
-    if @street.update(title: params[:street][:title])
-      msg = "Улица #{@street.title} была успешно обновлена."
-      render turbo_stream: [
-        turbo_stream.replace("street_#{@street.id}", partial: 'streets/form',
-                                                     locals: { street: @street, method: :patch, url: store_street_path(id: @street, address_id: @address) }),
-        success_notice(msg)
-      ]
-    else
-      error_notice(@street.errors.full_messages)
-    end
+    return handle_successful_update if @street.update(title: params[:street][:title])
+
+    error_notice(@street.errors.full_messages)
   end
 
   def destroy
-    if @street.destroy
-      msg = "Улица #{@street.title} была успешно удалена."
-      render turbo_stream: [turbo_stream.remove(@street), success_notice(msg)]
-    else
-      error_notice(@street.errors.full_messages)
-    end
+    return handle_successful_destroy if @street.destroy
+
+    error_notice(@street.errors.full_messages)
   end
 
   private
@@ -52,5 +35,30 @@ class StreetsController < ApplicationController
 
   def set_street
     @street = @address.streets.find(params[:id]) if @address
+  end
+
+  def handle_successful_save
+    render turbo_stream: [
+      turbo_stream.append("streets_#{params[:address_id]}", partial: 'streets/form',
+                          locals: { street: @street, method: :patch,
+                                    url: store_street_path(id: @street, address_id: @address) }),
+      success_notice(t('controllers.streets.create', name: @street.title))
+    ]
+  end
+
+  def handle_successful_update
+    render turbo_stream: [
+      turbo_stream.replace("street_#{@street.id}", partial: 'streets/form',
+                           locals: { street: @street, method: :patch,
+                                     url: store_street_path(id: @street, address_id: @address) }),
+      success_notice(t('controllers.streets.update', name: @street.title))
+    ]
+  end
+
+  def handle_successful_destroy
+    render turbo_stream: [
+      turbo_stream.remove(@street),
+      success_notice(t('controllers.streets.destroy', name: @street.title))
+    ]
   end
 end

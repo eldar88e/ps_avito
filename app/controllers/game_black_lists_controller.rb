@@ -23,18 +23,14 @@ class GameBlackListsController < ApplicationController
 
   def destroy
     bl = GameBlackList.find(params[:id])
-    if bl.destroy
-      @game = bl.game
-      if @game
-        render turbo_stream: [
-          turbo_stream.update(:game_black_list_buttons, partial: '/game_black_lists/buttons'),
-          success_notice('Игра была удалена из черного списока!')
-        ]
-      else
-        render turbo_stream: success_notice('Игра была удалена из черного списока!')
-      end
-    else
-      error_notice(bl.errors.full_messages)
-    end
+    return unless bl.destroy
+
+    @game = bl.game
+    @game unless render turbo_stream: success_notice('Игра была удалена из черного списока!')
+
+    render turbo_stream: [
+      turbo_stream.update(:game_black_list_buttons, partial: '/game_black_lists/buttons'),
+      success_notice('Игра была удалена из черного списока!')
+    ]
   end
 end

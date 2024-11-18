@@ -1,12 +1,10 @@
 require 'faraday'
 
 class AvitoService
-  AVITO_TOKEN_URL = 'https://api.avito.ru/token'
+  AVITO_TOKEN_URL = 'https://api.avito.ru/token'.freeze
 
   def initialize(**args)
-    @store = args[:store]
-    raise 'Not set store' if @store.nil?
-
+    @store         = args[:store]
     @client_id     = @store.client_id
     @client_secret = @store.client_secret
     @token_status  = nil
@@ -15,7 +13,7 @@ class AvitoService
       Rails.logger.error "Not set client_id & client_secret for #{@store.manager_name}"
     end
 
-    @token   = get_token
+    @token   = fetch_token
     @headers = {
       'Authorization' => "Bearer #{@token}",
       'Content-Type' => 'application/json'
@@ -45,16 +43,12 @@ class AvitoService
 
   private
 
-  def get_token
+  def fetch_token
     cache_key = "store_#{@store.id}_avito_token"
-    Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
-      last_token = @store.avito_tokens.order(created_at: :desc).first
-      valid_token?(last_token) ? last_token.access_token : refresh_token
+    Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+      last_token = @store.avito_tokens.latest_valid.first
+      last_token&.access_token || refresh_token
     end
-  end
-
-  def valid_token?(model)
-    model&.created_at.to_i + model&.expires_in.to_i - 10.minutes > Time.current.to_i
   end
 
   def refresh_token

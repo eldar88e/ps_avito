@@ -9,7 +9,7 @@ class TransferFilesToMinioJob < ApplicationJob
 
   private
 
-  def transfer(klass = Game, column)
+  def transfer(klass, column)
     klass.find_each do |item| # get default 1000 items
       next if !item.image.attached? || item.image.blob.service_name != 'local'
 

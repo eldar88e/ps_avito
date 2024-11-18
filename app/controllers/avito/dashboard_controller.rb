@@ -13,10 +13,8 @@ module Avito
                               url: 'https://api.avito.ru/cpa/v3/balanceInfo', method: :post, payload: {})
       @balance = fetch_cached("balance_#{@store.id}",
                               url: "https://api.avito.ru/core/v1/accounts/#{@account['id']}/balance/")
-      error    = instance_variables[-6..-1].map { |var| instance_variable_get(var) }.find { |i| i[:error] }
+      error    = instance_variables[-6..].map { |var| instance_variable_get(var) }.find { |i| i[:error] }
       error_notice(error[:error], :bad_gateway) if error
-
-      # return error_notice(@report[:error]) if @report[:error]
     end
   end
 end

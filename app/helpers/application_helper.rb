@@ -9,14 +9,12 @@ module ApplicationHelper
   end
 
   def format_date(date)
-    return unless date.present?
+    return if date.blank?
 
     tz = TZInfo::Timezone.get(Rails.application.config.time_zone)
-    if date.class == ActiveSupport::TimeWithZone
-      date.strftime('%H:%M %d.%m.%Yг.')
-    else
-      tz.utc_to_local(Time.parse(date)).strftime('%H:%M %d.%m.%Yг.')
-    end
+    return date.strftime('%H:%M %d.%m.%Yг.') if date.instance_of?(ActiveSupport::TimeWithZone)
+
+    tz.utc_to_local(Time.parse(date)).strftime('%H:%M %d.%m.%Yг.')
   end
 
   def paginator(ends, starts = 0)

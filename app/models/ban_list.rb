@@ -1,5 +1,4 @@
 class BanList < ApplicationRecord
-  validates :store, presence: true
   validates :ad_id, presence: true
   validates :expires_at, presence: true
 
