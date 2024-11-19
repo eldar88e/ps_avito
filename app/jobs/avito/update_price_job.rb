@@ -20,7 +20,7 @@ module Avito
         next unless store
 
         avito = AvitoService.new(store:)
-        count = group_ads.reduce(0) { |acc, ad| process_ad(avito, ad) ? acc + 1 : acc }
+        count = group_ads.reduce(0) { |acc, ad| process_ad(store, avito, ad) ? acc + 1 : acc }
         msg   = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
         broadcast_notify(msg)
         TelegramService.call(user, msg) if count.positive?
@@ -34,7 +34,7 @@ module Avito
 
     private
 
-    def process_ad(avito, ad)
+    def process_ad(store, avito, ad)
       item_id = ad.avito_id || fetch_avito_id(avito, ad)
       url     = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
       price   = GamePriceService.call(ad.adable.price_tl, store)
