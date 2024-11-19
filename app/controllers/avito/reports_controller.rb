@@ -12,24 +12,23 @@ module Avito
 
     def show
       avito_url = "https://api.avito.ru/autoload/v2/reports/#{params['id']}"
-      unless turbo_frame_request?
-        initialize_cache
-        @cached   = @cached_report.report.present?
-        @report   = set_cache(avito_url, :report)
-        money_url = "#{avito_url}/items/fees"
-        @money    = set_cache(money_url, :fees)
-
-        add_breadcrumb @report['report_id']
-      end
-
+      handle_turbo_request(avito_url) unless turbo_frame_request?
       @items = fetch_and_parse "#{avito_url}/items?sections=#{params['sections']}&page=#{params['page'].to_i}"
-
       return unless turbo_frame_request?
 
       render turbo_stream: turbo_stream.update(:reports, partial: '/avito/reports/item_page')
     end
 
     private
+
+    def handle_turbo_request(avito_url)
+      initialize_cache
+      @cached   = @cached_report.report.present?
+      @report   = set_cache(avito_url, :report)
+      money_url = "#{avito_url}/items/fees"
+      @money    = set_cache(money_url, :fees)
+      add_breadcrumb @report['report_id']
+    end
 
     def set_cache(url, section)
       result = @cached_report&.send(section)

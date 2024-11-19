@@ -12,7 +12,7 @@ class WatermarkService
     @height       = (@settings[:avito_img_height] || 1440).to_i
     @new_image    = initialize_first_layer
     @main_img_url = find_main_ad_img
-    handle_layers
+    handle_layers(args[:address])
   end
 
   def image_exist?
@@ -32,7 +32,7 @@ class WatermarkService
 
   private
 
-  def handle_layers
+  def handle_layers(address)
     layers_row = make_layers_row
     @platforms, @layers = layers_row.compact.partition { |i| i[:layer_type] == 'platform' }
     @layers << { img: @main_img_url, menuindex: @store.menuindex,
@@ -43,7 +43,7 @@ class WatermarkService
       platform = make_platform
       @layers << platform if platform.present?
     end
-    @layers << make_slogan(args[:address])
+    @layers << make_slogan(address)
   end
 
   def make_layer(layer)

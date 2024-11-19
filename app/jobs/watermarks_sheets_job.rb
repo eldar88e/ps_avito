@@ -15,6 +15,7 @@ class WatermarksSheetsJob < ApplicationJob
     set_row  = user.settings
     settings = set_row.pluck(:var, :value).to_h.transform_keys(&:to_sym)
     find_main_font(settings, set_row)
+    settings
   end
 
   def process_store(user, store, settings, clean)
