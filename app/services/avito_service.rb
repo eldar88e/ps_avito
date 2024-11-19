@@ -26,7 +26,7 @@ class AvitoService
   private
 
   def exist_credentials?
-    result = @client_id.present? && @client_secret.present
+    result = @client_id.present? && @client_secret.present?
     Rails.logger.error "Not set client_id & client_secret for #{@store.manager_name}" unless result
     result
   end
