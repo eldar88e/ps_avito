@@ -32,6 +32,9 @@ RUN yarn install --check-files
 
 COPY . /app/
 
+RUN chmod +x ./s3-entrypoint.sh
+ENTRYPOINT ["./s3-entrypoint.sh"]
+
 EXPOSE 3000
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

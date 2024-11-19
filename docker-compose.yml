@@ -31,6 +31,7 @@ services:
       - ./game_lists:/app/game_lists
     networks:
       - web-net
+      - s3
     restart: unless-stopped
 
   good_job:
@@ -73,4 +74,6 @@ volumes:
 networks:
   web-net:
   proxy-net:
+    external: true
+  s3:
     external: true

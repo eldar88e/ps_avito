@@ -13,7 +13,7 @@ minio:
   access_key_id: <%= ENV.fetch('MINIO_ROOT_USER') %>
   secret_access_key: <%= ENV.fetch('MINIO_ROOT_PASSWORD') %>
   region: us-east-1
-  endpoint: http://s3.open-ps.ru:9000
+  endpoint: http://<%= ENV.fetch('MINIO_HOST') %>:9000
   bucket: <%= ENV.fetch('MINIO_BUCKET') %>
   force_path_style: true
 
