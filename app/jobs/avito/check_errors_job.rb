@@ -53,7 +53,7 @@ module Avito
       blocked
     end
 
-    def add_ban_ad(ads, store, blocked, count_ban) # report_id
+    def add_ban_ad(ads, store, blocked, count_ban)
       blocked['items'].each do |item|
         id             = item['ad_id'].to_i
         ban_list_entry = ads.find { |ad| ad.id == id }

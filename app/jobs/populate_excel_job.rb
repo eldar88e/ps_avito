@@ -15,9 +15,9 @@ class PopulateExcelJob < ApplicationJob
     store.addresses.where(active: true).find_each do |address|
       game_ads = address.ads.active_ads.for_game
       games    = active_game(address, settings)
-      games.each { |game| process_game(game, store, address, game_ads, worksheet) }
+      games.each { |game| process_game(game, address, game_ads, worksheet) }
       product_ads = address.ads.active_ads.for_product
-      products.each { |product| process_product(product, store, address, product_ads, worksheet) }
+      products.each { |product| process_product(product, address, product_ads, worksheet) }
     end
 
     content   = workbook.read_string
@@ -38,9 +38,10 @@ class PopulateExcelJob < ApplicationJob
     Game.order(:top).active.limit(address.total_games || settings['quantity_games']).includes(:game_black_list)
   end
 
-  def process_game(game, store, address, ads, worksheet)
+  def process_game(game, address, ads, worksheet)
     return if game.game_black_list
 
+    store        = address.store
     current_time = Time.current.strftime('%d.%m.%y')
     file_id      = "#{game.sony_id}_#{store.id}_#{address.id}"
     ad           = ads.find { |i| i[:file_id] == file_id }
@@ -56,11 +57,12 @@ class PopulateExcelJob < ApplicationJob
     )
   end
 
-  def process_product(product, store, address, ads, worksheet)
-    current_time = Time.current.strftime('%d.%m.%y')
-    ad = ads.find { |i| i[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
+  def process_product(product, address, ads, worksheet)
+    store = address.store
+    ad    = ads.find { |i| i[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
     return if ad.nil?
 
+    current_time = Time.current.strftime('%d.%m.%y')
     worksheet.append_row(
       [ad.id, ad.avito_id, current_time, product.ad_status || store.ad_status, product.category || store.category,
        product.goods_type || store.goods_type, product.ad_type || store.ad_type, product.type || store.type,
@@ -134,6 +136,6 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def make_description(model, store, address)
-    DescriptionService.call(model: model, store: store, address_desc: address.description)
+    DescriptionService.call(model:, store:, address_desc: address.description)
   end
 end
