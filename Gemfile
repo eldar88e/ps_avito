@@ -34,6 +34,9 @@ gem 'telegram-bot-ruby', '~> 2.0'
 gem 'aws-sdk-s3'
 gem 'sanitize'
 
+# gem 'newrelic_rpm'
+# gem 'lograge'
+
 group :development, :test do
   gem 'pry'
 end
