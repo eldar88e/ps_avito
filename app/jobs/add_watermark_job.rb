@@ -6,20 +6,13 @@ class AddWatermarkJob < ApplicationJob
     settings  = args[:settings]
     model     = args[:model]
     products  = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym)).active
-    addr_args = {}
-    stores    =
-      if args[:all]
-        user.stores.includes(:addresses).where(active: true, addresses: { active: true })
-      else
-        addr_args[:active] = true
-        [args[:store]].compact
-      end
-    id             = model == Game ? :sony_id : :id
-    addr_args[:id] = args[:address_id].to_i if args[:address_id]
+    stores    = make_stores(args, user)
+    id        = model == Game ? :sony_id : :id
 
     stores.each do |store|
       count     = 0
-      addresses = store.addresses.where(addr_args)
+      addresses = store.addresses.active
+      addresses = addresses.where(id: args[:address_id].to_i) if args[:address_id]
       addresses.each do |address|
         products = products.limit(address&.total_games).includes(:ads) if model == Game
         products.each do |product|
@@ -29,8 +22,7 @@ class AddWatermarkJob < ApplicationJob
           ad      = find_or_create_ad(product, file_id, address)
           next if ad.image.attached? && !args[:clean]
 
-          SaveImageJob.send(job_method, ad:, product:, store:, address:,
-                                        id:, file_id:, user:, model:, settings:)
+          SaveImageJob.send(job_method, ad:, product:, store:, address:, id:, file_id:, user:, model:, settings:)
           count += 1
         end
       end
@@ -46,6 +38,12 @@ class AddWatermarkJob < ApplicationJob
   end
 
   private
+
+  def make_stores(args, user)
+    return user.stores.includes(:addresses).active if args[:all]
+
+    [args[:store]].compact
+  end
 
   def find_or_create_ad(product, file_id, address)
     product.ads.active.find_or_create_by(file_id:) do |new_ad|

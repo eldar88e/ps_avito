@@ -14,11 +14,8 @@ class TransferFilesToMinioJob < ApplicationJob
       next if !item.image.attached? || item.image.blob.service_name != 'local'
 
       local_file = item.image.download
-      item.image.attach(
-        io: StringIO.new(local_file),
-        filename: item.image.filename.to_s,
-        content_type: item.image.content_type
-      )
+      item.image.attach(io: StringIO.new(local_file), filename: item.image.filename.to_s,
+                        content_type: item.image.content_type)
       Rails.logger.info "File for #{klass} #{item.send(column)} successfully transferred to MinIO."
     rescue StandardError => e
       Rails.logger.error "Failed to transfer file for #{klass} #{item.send(column)}: #{e.message}"

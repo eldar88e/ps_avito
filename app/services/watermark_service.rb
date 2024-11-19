@@ -4,7 +4,7 @@ class WatermarkService
 
   def initialize(**args)
     @game         = args[:game]
-    @product      = args[:product]
+    @is_product   = args[:product]
     @store        = args[:store]
     @settings     = args[:settings]
     @main_font    = @settings[:main_font]
@@ -34,12 +34,12 @@ class WatermarkService
 
   def handle_layers(address)
     layers_row = make_layers_row
-    @platforms, @layers = layers_row.compact.partition { |i| i[:layer_type] == 'platform' }
+    @platforms, @layers = layers_row.partition { |i| i[:layer_type] == 'platform' }
     @layers << { img: @main_img_url, menuindex: @store.menuindex,
                  params: @store.game_img_params.presence || {}, layer_type: 'img' }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
-    if @platforms.present? && !@product
+    if @platforms.present?
       platform = make_platform
       @layers << platform if platform.present?
     end
@@ -73,8 +73,6 @@ class WatermarkService
   end
 
   def add_img(layer)
-    return if layer[:layer_type] == 'flag' && (@product || (!@game.rus_screen && !@game.rus_voice))
-
     params = layer[:params]
     img    = Image.read(layer[:img]).first
     if (params['column'] && !params['column'].zero?) || (params['row'] && !params['row'].zero?)
@@ -144,36 +142,37 @@ class WatermarkService
   end
 
   def make_layers_row
-    @store.image_layers.map { |i| process_layer(i) }
+    @store.image_layers.active.filter_map { |i| process_layer(i) }
   end
 
   def process_layer(layer)
-    return if !layer.active || (@product && layer.layer_type == 'flag')
+    return if available_layer?(layer)
 
     if layer.layer.attached?
-      form_layer_with_img(layer)
+      form_img_layer(layer)
     elsif layer.layer_type == 'text' && layer.title.present?
-      build_text_layer(layer)
+      build_layer(layer)
     end
   end
 
-  def build_text_layer(layer)
+  def available_layer?(layer)
+    return layer.layer_type.match?(/flag|platform/) if @is_product
+
+    layer.layer_type == 'flag' && !@game.rus_screen && !@game.rus_voice
+  end
+
+  def build_layer(layer)
     { params: layer.layer_params.presence || {},
       menuindex: layer.menuindex,
       layer_type: layer.layer_type,
       title: layer.title }
   end
 
-  def form_layer_with_img(layer)
-    key  = layer.layer.blob.key
-    path = key.scan(/.{2}/)[0..1].join('/')
-    {
-      img: "./storage/#{path}/#{key}",
-      params: layer.layer_params.presence || {},
-      menuindex: layer.menuindex,
-      layer_type: layer.layer_type,
-      title: layer.title
-    }
+  def form_img_layer(row_layer)
+    key   = row_layer.layer.blob.key
+    path  = key.scan(/.{2}/)[0..1].join('/')
+    layer = build_layer(row_layer)
+    layer.merge(img: "./storage/#{path}/#{key}")
   end
 
   def make_slogan(address)

@@ -51,6 +51,7 @@ class GameImageDownloaderJob < ApplicationJob
 
   def connect_to_ps(url, user)
     proxy_url      = nil # if need use with proxy change nil to fetch_proxy
+    try            = 0
     faraday_params = { proxy: proxy_url }
     begin
       connection = Faraday.new(faraday_params) do |faraday|
@@ -58,18 +59,19 @@ class GameImageDownloaderJob < ApplicationJob
         faraday.response :logger if Rails.env.development?
         faraday.adapter :net_http
         faraday.headers['User-Agent']      = UserAgentService.call
-        faraday.headers['Accept']          =
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+        faraday.headers['Accept']          = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,' \
+                                             'image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
         faraday.headers['Accept-Encoding'] = 'gzip, deflate, br, zstd'
         faraday.headers['Accept-Language'] = 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
       end
 
       connection.get(url)
     rescue Faraday::ConnectionFailed => e
+      try += 1
       Rails.logger.error "#{e.full_message}\n#{proxy_url}"
       TelegramService.call(user, "#{e.message}\n#{proxy_url}")
       faraday_params = { proxy: nil }
-      retry
+      retry if try < 3
     end
   end
 

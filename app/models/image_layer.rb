@@ -8,6 +8,8 @@ class ImageLayer < ApplicationRecord
 
   before_save :set_default_menuindex, :set_default_layer_params
 
+  scope :active, -> { where(active: true) }
+
   private
 
   def set_default_menuindex

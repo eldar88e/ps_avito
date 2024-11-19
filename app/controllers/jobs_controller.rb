@@ -23,23 +23,20 @@ class JobsController < ApplicationController
 
   def update_img
     store  = current_user.stores.active.find_by(id: params[:store_id])
+    clean  = params[:clean].present?
     models = []
     models << Game if params[:game]
     models << Product if params[:product] || current_user.products.active.exists?
 
-    clean  = params[:clean].present?
-    all    = params[:product].present?
-    notify = !params[:product]
-
     models.each do |model|
       AddWatermarkJob.perform_later(
         user: current_user,
-        notify:,
+        notify: !params[:product],
         model:,
         store:,
         clean:,
         address_id: params[:address_id],
-        all:,
+        all: params[:product].present?,
         settings: @settings
       )
     end
