@@ -21,11 +21,7 @@ class GameTitleService
   end
 
   def self.clean_name(raw_name)
-    raw_name.sub('(PS4)', '')
-            .sub('(PS5)', '')
-            .sub('PS4', '')
-            .sub('PS5', '')
-            .strip[0..39]
+    raw_name.gsub(/\(?(PS4|PS5)\)?/i, '').squeeze(' ').strip[0..39]
   end
 
   def self.ps5_platform(raw_name)
