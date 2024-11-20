@@ -27,7 +27,7 @@ class GameImageDownloaderJob < ApplicationJob
 
   def fetch_img(game, size, user)
     url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
-      "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
+          "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
     download_image(url, user)
   end
 
