@@ -40,7 +40,7 @@ module Avito
     def notify_list_game(user, game_ids)
       games = Game.where(id: game_ids).pluck(:name).map.with_index(1) { |name, index| "#{index}. `#{name}`" }
       msg   = "Игры к обновлению цен:\n#{games.join("\n")}"
-      notify(user, msg)
+      notify(user, msg) if games.size.positive?
     end
 
     def process_ad(store, avito, ad)

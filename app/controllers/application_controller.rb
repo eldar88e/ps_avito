@@ -31,11 +31,15 @@ class ApplicationController < ActionController::Base
   end
 
   def set_search_ads
-    @q_ads = @store.ads.order(created_at: :desc).ransack(params[:q])
+    @q_ads = @store.ads
+                   .includes(:image_attachment, :address, :store)
+                   .order(created_at: :desc)
+                   .ransack(params[:q])
   end
 
   def set_search
-    games = Game.order(:top).includes(ads: { image_attachment: :blob })
+    games = Game.order(:top).includes(:game_black_list, image_attachment: :blob,
+                                      ads: { address: [], store: [], image_attachment: :blob })
     @q    = params[:q] ? games.ransack(params[:q]) : games.active.ransack(params[:q])
   end
 
