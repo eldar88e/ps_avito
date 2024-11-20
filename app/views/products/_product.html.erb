@@ -7,7 +7,7 @@
             <%= render partial: '/games/image_block', locals: { game: product, model: product, title: :title } %>
           <% end %>
 
-          <% product.ads.active.each do |ad| %>
+          <% product.ads.active.includes(:store, :address, image_attachment: :blob).each do |ad| %>
             <%= render partial: '/games/image_block', locals: { game: product, model: ad, title: :title } %>
           <% end %>
         </div>

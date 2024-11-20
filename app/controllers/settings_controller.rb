@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @settings = current_user.settings.order(:created_at)
+    @settings = current_user.settings.includes(:font_attachment).order(:created_at)
     @setting  = current_user.settings.build
   end
 

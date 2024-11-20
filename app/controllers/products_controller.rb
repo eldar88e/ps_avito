@@ -3,9 +3,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
 
   def index
-    @products = current_user.products.order(:id)
-                            .includes(ads: { store: [], address: [], image_attachment: :blob },
-                                      image_attachment: :blob ).page(params[:page]).per(12)
+    @products = current_user.products.order(:id).includes(image_attachment: :blob ).page(params[:page]).per(12)
   end
 
   def show; end
