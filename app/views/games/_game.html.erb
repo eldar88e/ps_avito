@@ -3,7 +3,7 @@
     <div class="swiper-wrapper">
       <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } %>
 
-      <% game.ads.active.each do |ad| %>
+      <% game.ads.active.includes(:store, :address, image_attachment: :blob).each do |ad| %>
         <%= render partial: '/games/image_block', locals: { game: game, model: ad, title: :name } %>
       <% end %>
     </div>
