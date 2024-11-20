@@ -9,12 +9,7 @@ module Avito
       user     = find_user(args)
       game_ids = Game.where(price_updated: last_run.id)&.ids
       ads      = Ad.includes(:adable).active_ads.where(adable_type: 'Game', adable_id: game_ids)
-      ############
-      game_names = Game.where(id: game_ids).pluck(:name).map.with_index(1) { |name, index| "#{index}. `#{name}`" }
-      msg        = "Игры к обновлению цен:\n#{game_names.join("\n")}"
-      broadcast_notify(msg)
-      TelegramService.call(user, msg)
-      #############
+      notify_list_game(user, game_ids)
       ads.group_by(&:store_id).each do |key, group_ads|
         store = Store.find_by(id: key, active: true)
         next unless store
@@ -25,7 +20,6 @@ module Avito
         broadcast_notify(msg)
         TelegramService.call(user, msg) if count.positive?
       end
-
       nil
     rescue StandardError => e
       Rails.logger.error "Error #{self.class} || #{e.message}"
@@ -33,6 +27,13 @@ module Avito
     end
 
     private
+
+    def notify_list_game(user, game_ids)
+      game_names = Game.where(id: game_ids).pluck(:name).map.with_index(1) { |name, index| "#{index}. `#{name}`" }
+      msg        = "Игры к обновлению цен:\n#{game_names.join("\n")}"
+      broadcast_notify(msg)
+      TelegramService.call(user, msg)
+    end
 
     def process_ad(store, avito, ad)
       item_id = ad.avito_id || fetch_avito_id(avito, ad)

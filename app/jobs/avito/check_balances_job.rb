@@ -12,15 +12,20 @@ module Avito
         balance_raw = fetch_and_parse(avito, 'https://api.avito.ru/cpa/v3/balanceInfo', :post, {})
         next if balance_raw.nil?
 
-        balance = balance_raw['balance']
-        result  = balance / 100
-        if result < 100
-          msg = result < 45 ? 'Объявления сняты с публикации.' : 'Низкий'
-          TelegramService.call(user, "‼️ #{store.manager_name} — #{msg} баланс(#{result}₽, #{balance})!")
-        end
+        balance_notify(balance_raw, store, user)
       end
-
       nil
+    end
+
+    private
+
+    def balance_notify(balance_raw, store, user)
+      balance = balance_raw['balance']
+      result  = balance / 100
+      return unless result < 100
+
+      msg = result < 45 ? 'Объявления сняты с публикации.' : 'Низкий'
+      TelegramService.call(user, "‼️ #{store.manager_name} — #{msg} баланс(#{result}₽, #{balance})!")
     end
   end
 end

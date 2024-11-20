@@ -47,8 +47,6 @@ module Avito
             document.body.classList.remove('modal-open');
             document.body.style.overflow = '';
             document.querySelector('.modal-backdrop').remove();
-          } else {
-            console.warn("Modal element not found");
           }
         </script>
       JS

@@ -9,16 +9,11 @@ class JobsController < ApplicationController
     directory_path = Rails.root.join('app', 'assets', 'images', "img_#{store.id}")
     FileUtils.rm_rf(directory_path)
     FileUtils.mkdir_p(directory_path)
-
     store.addresses.each do |address|
-      w_service = WatermarkService.new(store:, address:, settings: @settings, game:)
-      image     = w_service.add_watermarks
-      next unless w_service.image_exist?
-
-      img_path = File.join(directory_path, "#{store.id}_#{address.id}.jpg")
-      save_image(image, img_path)
+      WatermarkService.new(store:, address:, settings: @settings, game:)
+      # TODO: Доделать метод для тестового рендеринга картинок
     end
-    redirect_to store_path(store), alert: 'Images updated!'
+    render turbo_stream: success_notice('Images updated!')
   end
 
   def update_img
@@ -72,16 +67,5 @@ class JobsController < ApplicationController
 
     raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
     @settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
-  end
-
-  def save_image(image, img_path)
-    temp_img = Tempfile.new(%w[image .jpg])
-    image.write(temp_img.path)
-    temp_img.flush
-
-    File.binwrite(img_path, temp_img.read)
-
-    temp_img.close
-    temp_img.unlink
   end
 end

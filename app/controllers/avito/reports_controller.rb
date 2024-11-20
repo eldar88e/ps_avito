@@ -35,18 +35,23 @@ module Avito
       return result if result
 
       result = fetch_and_parse(url)
-      will_pub_later = section == :fees ||
-                       !result['section_stats']['sections']&.find { |i| i['slug'] == 'will_publish_later' }
-      if params['no_cache'].nil? && result['status'] != 'processing' && will_pub_later
-        @cached_report.public_send(:"#{section}=", result)
-        @cached_report.save
-      end
+      save_cache(result, section)
       result
+    end
+
+    def save_cache(result, section)
+      return unless params['no_cache'].nil? && result['status'] != 'processing' && will_pub_later?(section, result)
+
+      @cached_report.public_send(:"#{section}=", result)
+      @cached_report.save
+    end
+
+    def will_pub_later?(section, result)
+      section == :fees || !result['section_stats']['sections']&.find { |i| i['slug'] == 'will_publish_later' }
     end
 
     def initialize_cache
       @cached_report = current_user.cache_reports.find_or_initialize_by(store: @store, report_id: params['id'])
-
       return unless params['no_cache']
 
       @cached_report.destroy if @cached_report.persisted?

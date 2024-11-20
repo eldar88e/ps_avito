@@ -18,19 +18,16 @@ module ApplicationHelper
   end
 
   def paginator(ends, starts = 0)
-    if ends > 5
-      max  = starts.zero? ? 4 : 5
-      page = params[:page].present? && params[:page].to_i.positive? ? params[:page].to_i : starts
-      page = ends if page > ends
-      if page < max
-        [starts, starts + 1, starts + 2, starts + 3, starts + 4, '...', ends]
-      elsif page >= ends - 3 && page <= ends
-        [starts, '...', ends - 4, ends - 3, ends - 2, ends - 1, ends]
-      else
-        [starts, '...', page - 1, page, page + 1, '...', ends]
-      end
+    return [*starts..ends] if ends < 5
+
+    max  = starts.zero? ? 4 : 5
+    page = make_page(starts, ends)
+    if page < max
+      [starts, starts + 1, starts + 2, starts + 3, starts + 4, '...', ends]
+    elsif page >= ends - 3 && page <= ends
+      [starts, '...', ends - 4, ends - 3, ends - 2, ends - 1, ends]
     else
-      [*starts..ends]
+      [starts, '...', page - 1, page, page + 1, '...', ends]
     end
   end
 
@@ -38,5 +35,12 @@ module ApplicationHelper
     return if str.nil?
 
     str.length > max_length ? "#{str[0, max_length]}..." : str
+  end
+
+  private
+
+  def make_page(starts, ends)
+    page = params[:page].present? && params[:page].to_i.positive? ? params[:page].to_i : starts
+    page > ends ? ends : page
   end
 end

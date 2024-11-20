@@ -14,10 +14,8 @@ module Avito
         process_store(store, avito, deleted)
         next unless deleted[0].positive?
 
-        user ||= store.user
         TelegramService.call(user, I18n.t('avito.job.check_deleted', count: deleted[0], name: store.manager_name))
       end
-
       nil
     end
 

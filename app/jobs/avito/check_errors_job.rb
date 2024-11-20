@@ -74,7 +74,6 @@ module Avito
       error_sections.each do |error|
         error_blocked ||= error['sections'].any? { |i| i['slug'] == 'error_blocked' }
         error_deleted ||= error['sections'].any? { |i| i['slug'] == 'error_deleted' }
-
         error['sections'].each { |section| send_error_sections(section, user, store.manager_name) }
       end
       Avito::CheckDeletedJob.send(job_method, user:, store:) if error_deleted

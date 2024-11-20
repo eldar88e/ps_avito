@@ -21,16 +21,9 @@ module Avito
                    schedule: [{ rate: params[:store][:rate].to_i, time_slots: times, weekdays: }] }
       keys_to_include = %i[upload_url report_email]
       a_params.merge! autoload_params.slice(*keys_to_include)
-
       Avito::AutoLoadJob.perform_later(store: @store, params: a_params)
-
-      render turbo_stream: [
-        turbo_stream.replace(@store, partial: '/avito/autoload/show'),
-        success_notice(t('controllers.avito.autoload.update', name: @store.manager_name))
-      ]
-
+      handle_turbo
       # result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, a_params)
-
       # if result&.status == 200
       # Rails.cache.delete("auto_load_#{@store.id}")
       #   set_auto_load
@@ -51,6 +44,13 @@ module Avito
     end
 
     private
+
+    def handle_turbo
+      render turbo_stream: [
+        turbo_stream.replace(@store, partial: '/avito/autoload/show'),
+        success_notice(t('controllers.avito.autoload.update', name: @store.manager_name))
+      ]
+    end
 
     def ensure_turbo_stream_request
       redirect_to store_avito_dashboard_path unless turbo_frame_request?

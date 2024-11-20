@@ -91,36 +91,7 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def make_title(game)
-    raw_name = game.name
-    platform = game.platform
-    prefix   = ' PS5 и PS4'
-
-    if platform == 'PS5, PS4'
-      if raw_name.downcase.include?('ps4')
-        if raw_name.downcase.include?('ps5')
-          raw_name
-        else
-          raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix
-        end
-      elsif raw_name.downcase.include?('ps5')
-        raw_name.sub('(PS5)', '').sub('PS5', '')[0..39] + prefix
-      else
-        raw_name.strip[0..39] + prefix
-      end
-    elsif platform.include?('PS5') # ps5
-      if raw_name.downcase.include?('ps5')
-        raw_name
-      else
-        "#{raw_name.strip[0..45]} PS5"
-      end
-    else # ps4
-      prefix_old = ' ps4 и ps5'
-      if raw_name.downcase.include?('ps4')
-        raw_name.sub('(PS4)', '').sub('PS4', '').strip[0..39] + prefix_old
-      else
-        raw_name.strip[0..39] + prefix_old
-      end
-    end
+    GameTitleService.call(game.name, game.platform)
   end
 
   def make_image(ad)
