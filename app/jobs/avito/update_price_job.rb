@@ -10,16 +10,7 @@ module Avito
       game_ids = Game.where(price_updated: last_run.id)&.ids
       ads      = Ad.includes(:adable).active_ads.where(adable_type: 'Game', adable_id: game_ids)
       notify_list_game(user, game_ids)
-      ads.group_by(&:store_id).each do |key, group_ads|
-        store = Store.find_by(id: key, active: true)
-        next unless store
-
-        avito = AvitoService.new(store:)
-        count = group_ads.reduce(0) { |acc, ad| process_ad(store, avito, ad) ? acc + 1 : acc }
-        msg   = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
-        broadcast_notify(msg)
-        TelegramService.call(user, msg) if count.positive?
-      end
+      ads.group_by(&:store_id).each { |key, group_ads| update_price(key, group_ads, user) }
       nil
     rescue StandardError => e
       Rails.logger.error "Error #{self.class} || #{e.message}"
@@ -28,11 +19,24 @@ module Avito
 
     private
 
+    def update_price(key, group_ads, user)
+      store = Store.find_by(id: key, active: true)
+      return unless store
+
+      avito = AvitoService.new(store:)
+      count = group_ads.reduce(0) { |acc, ad| process_ad(store, avito, ad) ? acc + 1 : acc }
+      notify_updated(user, count, store)
+    end
+
+    def notify_updated(user, count, store)
+      msg = "Обновились цены у #{count} игр на аккаунте #{store.manager_name}"
+      notify(user, msg) if count.positive?
+    end
+
     def notify_list_game(user, game_ids)
-      game_names = Game.where(id: game_ids).pluck(:name).map.with_index(1) { |name, index| "#{index}. `#{name}`" }
-      msg        = "Игры к обновлению цен:\n#{game_names.join("\n")}"
-      broadcast_notify(msg)
-      TelegramService.call(user, msg)
+      games = Game.where(id: game_ids).pluck(:name).map.with_index(1) { |name, index| "#{index}. `#{name}`" }
+      msg   = "Игры к обновлению цен:\n#{games.join("\n")}"
+      notify(user, msg)
     end
 
     def process_ad(store, avito, ad)

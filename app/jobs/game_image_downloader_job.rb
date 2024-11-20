@@ -5,27 +5,31 @@ class GameImageDownloaderJob < ApplicationJob
     user  = find_user args
     size  = args.dig(:settings, 'game_img_size')
     games = Game.order(:top).active
-    games.each do |game|
-      next if game.image.attached?
-
-      url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
-            "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
-      img = download_image(url, user)
-      next if img.nil?
-
-      name = "#{game.sony_id}_#{size}.jpg"
-      save_image(game, img, name)
-      sleep rand(0.7..2.9)
-    end
-    msg = '✅ All game image downloaded!'
-    broadcast_notify(msg)
-    TelegramService.call(user, msg)
+    games.each { |game| process_image(game, size, user) }
+    notify(user, '✅ All game image downloaded!')
   rescue StandardError => e
     Rails.logger.error(e.full_message)
     TelegramService.call(user, "Error #{self.class} \n#{e.full_message}")
   end
 
   private
+
+  def process_image(game, size, user)
+    return if game.image.attached?
+
+    img = fetch_img(game, size, user)
+    return if img.nil?
+
+    name = "#{game.sony_id}_#{size}.jpg"
+    save_image(game, img, name)
+    sleep rand(0.7..2.9)
+  end
+
+  def fetch_img(game, size, user)
+    url = 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/' \
+      "#{game.sony_id}/0/image?w=#{size}&h=#{size}"
+    download_image(url, user)
+  end
 
   def save_image(game, img, name)
     Tempfile.open(%w[image .jpg], binmode: true) do |temp_file|

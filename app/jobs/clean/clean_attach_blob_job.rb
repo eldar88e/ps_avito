@@ -24,8 +24,7 @@ module Clean
     def notify(args, count)
       msg  = "⚠️ Cleared #{count} rows in tables(attachments and blobs) with missing files."
       user = find_user(args)
-      broadcast_notify(msg)
-      TelegramService.call(user, msg) if count.positive?
+      super(user, msg)
     end
   end
 end

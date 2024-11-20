@@ -7,6 +7,11 @@ class ApplicationJob < ActiveJob::Base
 
   private
 
+  def notify(user, msg, key = 'success')
+    broadcast_notify(msg, key)
+    TelegramService.call(user, msg)
+  end
+
   def job_method
     Rails.env.development? ? :perform_now : :perform_later
   end
