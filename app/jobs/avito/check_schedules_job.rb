@@ -12,16 +12,22 @@ module Avito
         auto_load = fetch_and_parse(avito, 'https://api.avito.ru/autoload/v1/profile')
         next if auto_load.nil?
 
-        weekdays  = auto_load['schedule'][0]['weekdays']
-        msg       = "‼️#{store.manager_name} указанно более двух дней для автозагрузки."
-        TelegramService.call(current_user, msg) if weekdays.size > 1
-
-        time = auto_load['schedule'][0]['time_slots']
-        msg  = "‼️#{store.manager_name} указано более одного временного интервала для автозагрузки."
-        TelegramService.call(current_user, msg) if time.size > 1
+        check_schedules(store, auto_load)
       end
 
       nil
+    end
+
+    private
+
+    def check_schedules(store, auto_load, current_user)
+      weekdays  = auto_load['schedule'][0]['weekdays']
+      msg       = "‼️#{store.manager_name} указанно более двух дней для автозагрузки."
+      TelegramService.call(current_user, msg) if weekdays.size > 1
+
+      time = auto_load['schedule'][0]['time_slots']
+      msg  = "‼️#{store.manager_name} указано более одного временного интервала для автозагрузки."
+      TelegramService.call(current_user, msg) if time.size > 1
     end
 
     def initialize_avito(store, user)

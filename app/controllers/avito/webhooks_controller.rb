@@ -7,18 +7,27 @@ module Avito
       webhook = JSON.parse(data)
       return head :ok if user_is_author?(webhook)
 
-      broadcast_notify webhook['payload']['value']['content']['text']
-      render json: { status: 'ok' }, status: :ok # head :ok
+      process_webhook(webhook)
     rescue StandardError => e
-      render json: { error: e.message }, status: :not_found
-      broadcast_notify(e.message, 'danger')
-      TelegramService.call(User.first, e.message)
+      handle_error(e)
     end
 
     private
 
+    def process_webhook(webhook)
+      msg = webhook.dig('payload', 'value', 'content', 'text')
+      broadcast_notify(msg)
+      render json: { status: 'ok' }, status: :ok # head :ok
+    end
+
     def user_is_author?(webhook)
       webhook.dig('payload', 'value', 'user_id') == webhook.dig('payload', 'value', 'author_id')
+    end
+
+    def handle_error(error)
+      render json: { error: error.message }, status: :not_found
+      broadcast_notify(error.message, 'danger')
+      TelegramService.call(User.first, error.message)
     end
 
     def broadcast_notify(message, key = 'success')
