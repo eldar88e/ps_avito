@@ -38,6 +38,7 @@ gem 'sanitize'
 # gem 'lograge'
 
 group :development, :test do
+  gem 'bullet'
   gem 'pry'
 end
 
@@ -46,7 +47,6 @@ group :development do
   gem 'better_errors' # Shows better errors description on errors page
   gem 'binding_of_caller'
   gem 'brakeman'
-  gem 'bullet'
   gem 'chusaku', require: false # annotations for routes
   gem 'letter_opener'
   gem 'listen' # Monitoring changes in files and directories in real-time
