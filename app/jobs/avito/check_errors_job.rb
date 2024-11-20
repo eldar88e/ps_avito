@@ -72,12 +72,16 @@ module Avito
     def process_error_ads(store, user, error_sections)
       error_blocked = error_deleted = false
       error_sections.each do |error|
-        error_blocked ||= error['sections'].any? { |i| i['slug'] == 'error_blocked' }
-        error_deleted ||= error['sections'].any? { |i| i['slug'] == 'error_deleted' }
+        error_blocked ||= section_any?(error['sections'], 'error_blocked')
+        error_deleted ||= section_any?(error['sections'], 'error_deleted')
         error['sections'].each { |section| send_error_sections(section, user, store.manager_name) }
       end
       Avito::CheckDeletedJob.send(job_method, user:, store:) if error_deleted
       error_blocked
+    end
+
+    def section_any?(sections, slug)
+      sections.any? { |i| i['slug'] == slug }
     end
 
     def process_blocked_ads(store, avito, report_url)

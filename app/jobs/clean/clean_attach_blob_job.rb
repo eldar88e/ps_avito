@@ -16,9 +16,16 @@ module Clean
         img_path = "./storage/#{raw_path}/#{key}"
         attach.purge && count += 1 unless File.exist?(img_path)
       end
+      notify(args, count)
+    end
+
+    private
+
+    def notify(args, count)
       msg  = "⚠️ Cleared #{count} rows in tables(attachments and blobs) with missing files."
       user = find_user(args)
-      TelegramService.call(user, msg) if count.positive? && user
+      broadcast_notify(msg)
+      TelegramService.call(user, msg) if count.positive?
     end
   end
 end

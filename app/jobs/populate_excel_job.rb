@@ -43,8 +43,7 @@ class PopulateExcelJob < ApplicationJob
 
     store        = address.store
     current_time = Time.current.strftime('%d.%m.%y')
-    file_id      = "#{game.sony_id}_#{store.id}_#{address.id}"
-    ad           = ads.find { |i| i[:file_id] == file_id }
+    ad           = ads.find { |i| i[:file_id] == "#{game.sony_id}_#{store.id}_#{address.id}" }
     img_url      = make_image(ad)
     return if img_url.blank?
 

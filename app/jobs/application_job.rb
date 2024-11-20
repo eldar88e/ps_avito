@@ -21,6 +21,7 @@ class ApplicationJob < ActiveJob::Base
 
   def broadcast_notify(message, key = 'success')
     # Rails.logger.info "Broadcasting message: #{message}"
+    # TODO: Нужно вычислить какому пользователь шлет месадж
     Turbo::StreamsChannel.broadcast_append_to(
       :notify,
       target: :notices,

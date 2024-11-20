@@ -131,14 +131,22 @@ class WatermarkService
 
     key = @game.image.blob.key
     if @game.image.blob.service_name == 'amazon'
-      bucket_name = Rails.application.credentials.dig(:aws, :bucket)
-      "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+      amazon_link(key)
     elsif @game.image.blob.service_name == 'minio'
       @game.image.url(expires_in: 1.hour)
     else
-      raw_path = key.scan(/.{2}/)[0..1].join('/')
-      "./storage/#{raw_path}/#{key}"
+      local_link(key)
     end
+  end
+
+  def amazon_link(key)
+    bucket_name = Rails.application.credentials.dig(:aws, :bucket)
+    "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+  end
+
+  def local_link(key)
+    raw_path = key.scan(/.{2}/)[0..1].join('/')
+    "./storage/#{raw_path}/#{key}"
   end
 
   def make_layers_row

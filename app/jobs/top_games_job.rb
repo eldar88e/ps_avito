@@ -61,10 +61,7 @@ class TopGamesJob < ApplicationJob
 
   def fetch_games(quantity)
     db = Mysql2::Client.new(Rails.application.config.mysql2_adapter_config)
-    db.query(query_db(quantity)).map.each_with_index do |game, idx|
-      game[:top] = idx + 1
-      game
-    end
+    db.query(query_db(quantity)).map.with_index(1) { |game, idx| game.merge(top: idx) }
   ensure
     db&.close
   end

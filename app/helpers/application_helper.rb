@@ -41,6 +41,6 @@ module ApplicationHelper
 
   def make_page(starts, ends)
     page = params[:page].present? && params[:page].to_i.positive? ? params[:page].to_i : starts
-    page > ends ? ends : page
+    [page, ends].min
   end
 end

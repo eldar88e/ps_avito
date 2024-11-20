@@ -13,7 +13,7 @@ module Avito
     def show
       avito_url = "https://api.avito.ru/autoload/v2/reports/#{params['id']}"
       handle_turbo_request(avito_url) unless turbo_frame_request?
-      @items = fetch_and_parse "#{avito_url}/items?sections=#{params['sections']}&page=#{params['page'].to_i}"
+      @items = fetch_and_parse "#{avito_url}/items?sections=#{@sections}&page=#{params['page'].to_i}"
       return unless turbo_frame_request?
 
       render turbo_stream: turbo_stream.update(:reports, partial: '/avito/reports/item_page')
@@ -59,10 +59,14 @@ module Avito
     end
 
     def handle_sections_params
-      return session[:sections] = params['sections'] = nil if params['sections'].to_s == 'nil'
+      return @sections = session[:sections] = nil if params['sections'].to_s == 'nil'
 
-      session[:sections] = params['sections'] if params['sections'].present?
-      params['sections'] ||= session[:sections]
+      set_sections
+    end
+
+    def set_sections
+      @sections = params['sections'] || session[:sections]
+      session[:sections] = @sections
     end
 
     def set_breadcrumb
