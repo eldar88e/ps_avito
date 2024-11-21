@@ -12,7 +12,7 @@ module Avito
         auto_load = fetch_and_parse(avito, 'https://api.avito.ru/autoload/v1/profile')
         next if auto_load.nil?
 
-        check_schedules(store, auto_load)
+        check_schedules(store, auto_load, current_user)
       end
 
       nil
