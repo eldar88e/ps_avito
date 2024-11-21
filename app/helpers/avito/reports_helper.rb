@@ -10,7 +10,7 @@ module Avito
       'success_skipped' => 'bg-light text-dark',
       'stopped_by_expiration' => 'bg-secondary'
     }.freeze
-    WHITELIST  = %w[div span ul li br b i strong em p a].freeze
+    ELEMENTS   = %w[div span ul li br b i strong em p a].freeze
     ATTRIBUTES = %w[href title].freeze
 
     def badge_style(slug)
@@ -30,8 +30,8 @@ module Avito
       end
     end
 
-    def sanitize(html)
-      super(html, { elements: WHITELIST, attributes: { 'a' => ATTRIBUTES } })
+    def sanitize_reports(html)
+      sanitize(html, { elements: ELEMENTS, attributes: { 'a' => ATTRIBUTES } })
     end
   end
 end

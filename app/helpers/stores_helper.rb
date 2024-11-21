@@ -1,9 +1,9 @@
 module StoresHelper
-  WHITELIST = %w[div span ul li br b i strong em p].freeze
+  STORE_ELEMENTS = %w[div span ul li br b i strong em p].freeze
 
   private
 
   def sanitize(value)
-    super(value, { elements: WHITELIST })
+    super(value, { elements: STORE_ELEMENTS })
   end
 end
