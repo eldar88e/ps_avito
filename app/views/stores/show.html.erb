@@ -46,7 +46,7 @@
 
             <li class="list-group-item list-group-item-action overflow-hidden">
               <strong><%= key %>: </strong>
-              <%= key.match?(/description|desc_game|desc_product/) ? sanitize(value) : value %>
+              <%= key.match?(/description|desc_game|desc_product/) ? sanitize_description(value) : value %>
             </li>
           <% end %>
         </ul>

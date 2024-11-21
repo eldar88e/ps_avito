@@ -3,7 +3,7 @@ module StoresHelper
 
   private
 
-  def sanitize(value)
-    super(value, { elements: STORE_ELEMENTS })
+  def sanitize_description(value)
+    sanitize(value, { elements: STORE_ELEMENTS })
   end
 end
