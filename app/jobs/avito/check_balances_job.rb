@@ -25,7 +25,7 @@ module Avito
       return unless result < 100
 
       msg = result < 45 ? 'Объявления сняты с публикации.' : 'Низкий'
-      TelegramService.call(user, "‼️ #{store.manager_name} — #{msg} баланс(#{result}₽, #{balance})!")
+      TelegramService.call(user, "‼️ #{store.manager_name} — #{msg} баланс #{result}₽")
     end
   end
 end
