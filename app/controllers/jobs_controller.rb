@@ -3,9 +3,13 @@ class JobsController < ApplicationController
   before_action :set_settings, only: %i[update_img update_store_test_img]
 
   def update_store_test_img
-    store = current_user.stores.active.includes(:addresses).find(store_id)
-    ExampleImageService.call(store)
-    render turbo_stream: success_notice('Images updated!')
+    @store  = current_user.stores.active.find(store_id)
+    address = @store.addresses.find(params[:address_id])
+    ExampleImageService.call(address)
+    render turbo_stream: [
+      turbo_stream.update(:test_img, partial: '/stores/test_img'),
+      success_notice('Images updated!')
+    ]
   end
 
   def update_img

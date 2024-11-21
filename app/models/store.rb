@@ -17,6 +17,8 @@ class Store < ApplicationRecord
   has_many :ads, dependent: :destroy
   has_many :cache_reports, dependent: :destroy
 
+  has_one_attached :test_img, dependent: :purge
+
   belongs_to :user
 
   before_save :set_default_layer_params, :cleanup_description

@@ -8,8 +8,8 @@
     <% if item['messages'].present? %>
       <div class="description" data-controller="expand_text">
         <div class="message" data-expand_text-target="message">
-          <%= safe_html item['messages'][0]['title'] %> Актуально на <%= format_date item['messages'][0]['updated_at'] %>
-          <%= safe_html item['messages'][0]['description'] %>
+          <%= sanitize item['messages'][0]['title'] %> Актуально на <%= format_date item['messages'][0]['updated_at'] %>
+          <%= sanitize item['messages'][0]['description'] %>
         </div>
         <div class="hidden-button" data-action="click->expand_text#call" data-expand_text-target="button">
           <span>Скрыть подробности</span>

@@ -1,4 +1,4 @@
-# Job to clean attachments and blobs without files on storage
+# Job to clean attachments and blobs without files on storage or clean storage items without attachment or blob
 # TODO: возможно нужно сделать проверку на сущ. аттач в s3
 
 module Clean
@@ -16,7 +16,7 @@ module Clean
         img_path = "./storage/#{raw_path}/#{key}"
         attach.purge && count += 1 unless File.exist?(img_path)
       end
-      notify(args, count)
+      notify(args, count) if count.positive?
     end
 
     private

@@ -1,24 +1,20 @@
 module Avito
   module ReportsHelper
+    BADGE_STYLES = {
+      'error_rejected' => 'bg-warning text-dark',
+      'error_deleted' => 'bg-danger',
+      'removed_complete' => 'bg-danger',
+      'error_blocked' => 'bg-dark',
+      'success_added' => 'bg-success',
+      'success_activated_updated' => 'bg-info text-dark',
+      'success_skipped' => 'bg-light text-dark',
+      'stopped_by_expiration' => 'bg-secondary'
+    }.freeze
+    WHITELIST  = %w[div span ul li br b i strong em p a].freeze
+    ATTRIBUTES = %w[href title].freeze
+
     def badge_style(slug)
-      case slug
-      when 'error_rejected'
-        'bg-warning text-dark'
-      when /error_deleted|removed_complete/
-        'bg-danger'
-      when 'error_blocked'
-        'bg-dark'
-      when 'success_added'
-        'bg-success'
-      when 'success_activated_updated'
-        'bg-info text-dark'
-      when 'success_skipped'
-        'bg-light text-dark'
-      when 'stopped_by_expiration'
-        'bg-secondary'
-      else
-        'bg-primary'
-      end
+      BADGE_STYLES[slug] || 'bg-primary'
     end
 
     def badge_status(status)
@@ -34,12 +30,8 @@ module Avito
       end
     end
 
-    def safe_html(html)
-      whitelist = {
-        elements: %w[div span ul li br b i strong em p a],
-        attributes: { 'a' => %w[href title] }
-      }
-      Sanitize.fragment(html, whitelist).html_safe
+    def sanitize(html)
+      super(html, { elements: WHITELIST, attributes: { 'a' => ATTRIBUTES } })
     end
   end
 end
