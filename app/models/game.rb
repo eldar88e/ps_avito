@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   validates :sony_id, presence: true
 
   has_one_attached :image, dependent: :purge
+  has_one_attached :test_img, dependent: :purge
   has_many :ads, as: :adable, dependent: :destroy
   has_one :game_black_list, primary_key: 'sony_id'
 

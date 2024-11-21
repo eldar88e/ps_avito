@@ -2,6 +2,7 @@ module Avito
   class CheckErrorsJob < Avito::BaseApplicationJob
     queue_as :default
     BAN_PERIOD = 3.weeks
+    PER_PAGE   = 100
 
     def perform(**args)
       stores = fetch_stores(args)
@@ -47,7 +48,7 @@ module Avito
     end
 
     def fetch_and_add_ban_ad(report_url, avito, store, ads, count_ban, page = nil)
-      url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=100"
+      url     = "#{report_url}/items?sections=error_blocked&page=#{page}&per_page=#{PER_PAGE}"
       blocked = fetch_and_parse(avito, url)
       add_ban_ad(ads, store, blocked, count_ban) if blocked
       blocked
@@ -55,15 +56,17 @@ module Avito
 
     def add_ban_ad(ads, store, blocked, count_ban)
       blocked['items'].each do |item|
-        id             = item['ad_id'].to_i
-        ban_list_entry = ads.find { |ad| ad.id == id }
+        ban_list_entry = ads.find { |ad| ad.id == item['ad_id'].to_i }
+        handle_ban_list_entry(ban_list_entry, item['ad_id'].to_i, store, count_ban)
+      end
+    end
 
-        if ban_list_entry.nil?
-          TelegramService.call(store.user, "Not existing ad with id #{id}")
-        elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
-          ban_list_entry.update(banned: true, banned_until: Time.current + BAN_PERIOD) # report_id: report_id
-          count_ban[0] += 1
-        end
+    def handle_ban_list_entry(ban_list_entry, id, store, count_ban)
+      if ban_list_entry.nil?
+        TelegramService.call(store.user, "Not existing ad with id #{id}")
+      elsif ban_list_entry.banned_until.nil? || ban_list_entry.banned_until <= Time.current
+        ban_list_entry.update(banned: true, banned_until: Time.current + BAN_PERIOD) # report_id: report_id
+        count_ban[0] += 1
       end
     end
 

@@ -12,7 +12,6 @@ class StoresController < ApplicationController
   def show
     add_breadcrumb @store.manager_name, store_path(@store)
     @pagy, @ads   = pagy(@q_ads.result, items: 36)
-    @whitelist    = { elements: %w[div span ul li br b i strong em p] }
     @addresses    = @store.addresses.includes(:streets, image_attachment: :blob).order(:id)
     @image_layers = @store.image_layers.includes(layer_attachment: :blob).order(:menuindex, :id)
   end

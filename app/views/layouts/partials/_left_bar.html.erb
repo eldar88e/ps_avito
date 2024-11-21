@@ -10,8 +10,8 @@
 
     <ul class="left-bar-menu">
       <li>
-        <%= active_link_to store_avito_path(params[:store_id]),
-                           data: { turbo_prefetch: false }, active: /^\/stores\/#{params[:store_id]}\/avito(\/dashboard)?$/ do %>
+        <%= active_link_to store_avito_path(@store), data: { turbo_prefetch: false },
+                           active: /^\/stores\/#{@store.id}\/avito(\/dashboard)?$/ do %>
           <i class="bi bi-kanban"></i>
           <span class="title">Инфо</span>
         <% end %>

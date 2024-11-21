@@ -3,21 +3,13 @@ class JobsController < ApplicationController
   before_action :set_settings, only: %i[update_img update_store_test_img]
 
   def update_store_test_img
-    store = current_user.stores.active.includes(:addresses).find_by(id: params[:store_id])
-    game  = Game.order(:top).first
-
-    directory_path = Rails.root.join('app', 'assets', 'images', "img_#{store.id}")
-    FileUtils.rm_rf(directory_path)
-    FileUtils.mkdir_p(directory_path)
-    store.addresses.each do |address|
-      WatermarkService.new(store:, address:, settings: @settings, game:)
-      # TODO: Доделать метод для тестового рендеринга картинок
-    end
+    store = current_user.stores.active.includes(:addresses).find(store_id)
+    ExampleImageService.call(store)
     render turbo_stream: success_notice('Images updated!')
   end
 
   def update_img
-    store  = current_user.stores.active.find_by(id: params[:store_id])
+    store  = current_user.stores.active.find(store_id)
     clean  = params[:clean].present?
     models = []
     models << Game if params[:game]
@@ -41,23 +33,22 @@ class JobsController < ApplicationController
   end
 
   def update_feed
-    store = current_user.stores.find_by(active: true, id: params[:store_id])
-    return error_notice t('controllers.jobs.update_feed.error') unless store
-
+    store = current_user.stores.active.find(store_id)
     WatermarksSheetsJob.perform_later(store:, user: current_user)
     render turbo_stream: success_notice(t('controllers.jobs.update_feed.success', name: store.manager_name))
   end
 
   def update_ban_list
-    store = current_user.stores.active.find_by(id: params[:store_id])
-    if store && Avito::CheckErrorsJob.perform_later(store:)
-      render turbo_stream: success_notice(t('controllers.jobs.update_ban_list.success', name: store.manager_name))
-    else
-      error_notice(t('controllers.jobs.update_ban_list.error', name: store.manager_name))
-    end
+    store = current_user.stores.active.find(store_id)
+    Avito::CheckErrorsJob.perform_later(store:)
+    render turbo_stream: success_notice(t('controllers.jobs.update_ban_list.success', name: store.manager_name))
   end
 
   private
+
+  def store_id
+    params.require(:store_id).to_i
+  end
 
   def set_settings
     settings  = current_user.settings

@@ -9,14 +9,14 @@
                     data: { controller: 'btn_preloader', action: 'click->btn_preloader#call' }%>
 
       <%= button_to 'Обновить картинки', update_img_path(product: true, clean: true), class: 'btn btn-dark',
-                    data: { confirm: 'Вы уверены, что хотите удалить все текущие картинки со всех объявлений, кроме игр, и создать новые?',
+                    data: { confirm: 'Вы уверены, что хотите пересоздать все картинки для объявлений, кроме игр?',
                             controller: 'confirm', action: 'click->confirm#call' } %>
     </div>
 
     <a href="<%= new_product_path %>" style="max-height: 38px;" class="btn btn-success mt-3 mt-md-0">Add</a>
   </div>
   <ul class="list-group mt-3" data-controller="fancybox no_image">
-    <%= render @products %>
+    <%= render partial: 'products/product', collection: @products %>
   </ul>
   <%= paginate @products %>
 </div>
