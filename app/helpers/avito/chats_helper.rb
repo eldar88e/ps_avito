@@ -21,28 +21,38 @@ module Avito
       'Объявление временно недоступно'
     end
 
-    def formit_msg(content)
+    def formit_msg(message)
+      content = message['content']
+      type    = message['type']
       return if content.nil?
 
-      if content['text']
-        content['text']
-      elsif content['image']
+      if type == 'text'
+        result = content['text']
+        result += "\n#{message.dig('quote', 'content', 'text')}" if message['quote']
+        result
+      elsif type == 'image'
         img = content['image']['sizes']['640x480']
         str = <<-EOF
           <a data-fancybox="msg_img" data-src="#{content['image']['sizes']['1280x960']}" data-caption="1280x960" style="cursor:pointer;">
             <img src='#{img}' style='height: 200px;' />
           </a>
         EOF
-
         str.html_safe
-      elsif content['link']
-        content['link']['text']
+      elsif type == 'link'
+        result = content['link']['text']
+        if content['link']['preview']
+          result += "\n#{content.dig('link', 'preview',
+                                     'url')}\n#{content.dig('link', 'preview', 'title')}"
+        end
+        result
       elsif content['voice']
         content['voice']['voice_id']
       elsif content['location']
         content['location']['text']
+      elsif type == 'file'
+        'ФАЙЛ'
       else
-        "Неизвестный тип сообщения:#{content}"
+        "Неизвестный тип сообщения! #{type} #{message}"
       end
     end
   end
