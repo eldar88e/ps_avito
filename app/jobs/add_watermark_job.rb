@@ -2,12 +2,12 @@ class AddWatermarkJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    user      = find_user(args)
-    settings  = args[:settings]
-    model     = args[:model]
-    products  = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym)).active
-    stores    = make_stores(args, user)
-    id        = model == Game ? :sony_id : :id
+    user     = find_user(args)
+    settings = args[:settings]
+    model    = args[:model]
+    products = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym)).active
+    stores   = make_stores(args, user)
+    id       = model == Game ? :sony_id : :id
 
     stores.each do |store|
       count     = 0

@@ -3,9 +3,9 @@ class WatermarksSheetsJob < ApplicationJob
 
   def perform(**args)
     user     = find_user(args)
-    stores   = args[:store] || user.stores.includes(:addresses).where(active: true, addresses: { active: true })
+    stores   = [args[:store] || user.stores.includes(:addresses).active.where(addresses: { active: true })].flatten
     settings = fetch_settings(user)
-    [stores].flatten.each { |store| process_store(user, store, settings, args[:clean]) }
+    stores.each { |store| process_store(user, store, settings, args[:clean]) }
     nil
   end
 
@@ -14,20 +14,13 @@ class WatermarksSheetsJob < ApplicationJob
   def fetch_settings(user)
     set_row  = user.settings
     settings = set_row.pluck(:var, :value).to_h.transform_keys(&:to_sym)
-    find_main_font(settings, set_row)
+    blob     = set_row.find_by(var: 'main_font')&.font&.blob
+    settings[:main_font] = ActiveStorage::Blob.service.path_for(blob.key) if blob
     settings
   end
 
   def process_store(user, store, settings, clean)
     [Game, Product].each { |model| AddWatermarkJob.perform_now(user:, model:, store:, settings:, clean:) }
     PopulateExcelJob.perform_now(store:)
-  end
-
-  def find_main_font(settings, set_row)
-    blob = set_row.find_by(var: 'main_font')&.font&.blob
-    return unless blob
-
-    raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
-    settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
   end
 end

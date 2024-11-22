@@ -31,15 +31,8 @@ class ExampleImageService
   def settings
     set_row  = @store.user.settings
     settings = set_row.pluck(:var, :value).to_h.transform_keys(&:to_sym)
-    find_main_font(settings, set_row)
+    blob     = set_row.find_by(var: 'main_font')&.font&.blob
+    settings[:main_font] = ActiveStorage::Blob.service.path_for(blob.key) if blob
     settings
-  end
-
-  def find_main_font(settings, set_row)
-    blob = set_row.find_by(var: 'main_font')&.font&.blob
-    return unless blob
-
-    raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
-    settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
   end
 end

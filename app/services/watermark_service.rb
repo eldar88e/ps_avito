@@ -11,7 +11,7 @@ class WatermarkService
     @width        = (@settings[:avito_img_width] || 1920).to_i
     @height       = (@settings[:avito_img_height] || 1440).to_i
     @new_image    = initialize_first_layer
-    @main_img_url = find_main_ad_img
+    @main_img_url = fetch_image_url
     handle_layers(args[:address])
   end
 
@@ -23,8 +23,8 @@ class WatermarkService
 
   def add_watermarks
     @layers.each do |layer|
-      layer[:params] = make_layer(layer)
-      layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer)
+      layer[:params] = prepare_layer_params(layer[:params])
+      layer[:layer_type].text? ? add_text(layer) : add_img(layer)
     end
 
     @new_image
@@ -34,9 +34,9 @@ class WatermarkService
 
   def handle_layers(address)
     layers_row = make_layers_row
-    @platforms, @layers = layers_row.partition { |i| i[:layer_type] == 'platform' }
+    @platforms, @layers = layers_row.partition { |i| i[:layer_type].platform? }
     @layers << { img: @main_img_url, menuindex: @store.menuindex,
-                 params: @store.game_img_params.presence || {}, layer_type: 'img' }
+                 params: @store.game_img_params.presence || {}, layer_type: :img }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
     if @platforms.present?
@@ -46,12 +46,12 @@ class WatermarkService
     @layers << make_slogan(address)
   end
 
-  def make_layer(layer)
+  def prepare_layer_params(params)
     result =
-      if layer[:params].is_a?(Hash)
-        layer[:params]
-      elsif layer[:params].present?
-        eval(layer[:params]).transform_keys(&:to_s) # TODO: убрать eval
+      if params.is_a?(Hash)
+        params
+      elsif params.present?
+        eval(params).transform_keys(&:to_s) # TODO: убрать eval
       end
     rewrite_pos_size(result)
   end
@@ -126,47 +126,43 @@ class WatermarkService
     response.is_a?(Net::HTTPSuccess)
   end
 
-  def find_main_ad_img
+  def fetch_image_url
     return unless @game.image.attached?
 
-    key = @game.image.blob.key
     if @game.image.blob.service_name == 'amazon'
-      amazon_link(key)
+      amazon_link
     elsif @game.image.blob.service_name == 'minio'
       @game.image.url(expires_in: 1.hour)
     else
-      local_link(key)
+      local_link
     end
   end
 
-  def amazon_link(key)
+  def amazon_link
     bucket_name = Rails.application.credentials.dig(:aws, :bucket)
-    "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+    "https://#{bucket_name}.s3.amazonaws.com/#{@game.image.blob.key}"
   end
 
-  def local_link(key)
-    raw_path = key.scan(/.{2}/)[0..1].join('/')
-    "./storage/#{raw_path}/#{key}"
+  def local_link
+    ActiveStorage::Blob.service.path_for(@game.image.blob.key)
   end
 
   def make_layers_row
-    @store.image_layers.active.filter_map { |i| process_layer(i) }
-  end
+    @store.image_layers.active.filter_map do |layer|
+      next if excluded_layer?(layer)
 
-  def process_layer(layer)
-    return if available_layer?(layer)
-
-    if layer.layer.attached?
-      form_img_layer(layer)
-    elsif layer.layer_type == 'text' && layer.title.present?
-      build_layer(layer)
+      if layer.layer.attached?
+        form_img_layer(layer)
+      elsif layer.layer_type.text? && layer.title.present?
+        build_layer(layer)
+      end
     end
   end
 
-  def available_layer?(layer)
+  def excluded_layer?(layer)
     return layer.layer_type.match?(/flag|platform/) if @is_product
 
-    layer.layer_type == 'flag' && !@game.rus_screen && !@game.rus_voice
+    layer.layer_type.flag? && !@game.rus_screen && !@game.rus_voice
   end
 
   def build_layer(layer)
@@ -177,21 +173,19 @@ class WatermarkService
   end
 
   def form_img_layer(row_layer)
-    key   = row_layer.layer.blob.key
-    path  = key.scan(/.{2}/)[0..1].join('/')
+    path  = ActiveStorage::Blob.service.path_for row_layer.layer.blob.key
     layer = build_layer(row_layer)
-    layer.merge(img: "./storage/#{path}/#{key}")
+    layer.merge(img: path)
   end
 
   def make_slogan(address)
     slogan = { title: address.slogan, params: address.slogan_params || {} }
     if address.image.attached?
-      blob                = address.image.blob
-      raw_path            = blob.key.scan(/.{2}/)[0..1].join('/')
-      slogan[:img]        = "./storage/#{raw_path}/#{blob.key}"
-      slogan[:layer_type] = 'img' if blob[:content_type].include?('image')
+      blob         = address.image.blob
+      slogan[:img] = ActiveStorage::Blob.service.path_for blob.key
+      slogan[:layer_type].img! if blob[:content_type].include?('image')
     end
-    slogan[:layer_type] = 'text' unless slogan[:layer_type]
+    slogan[:layer_type].text! unless slogan[:layer_type]
     slogan
   end
 

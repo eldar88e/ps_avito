@@ -7,7 +7,7 @@ FactoryBot.define do
     goods_type { 'Игры для приставок' }
     ad_type { 'Товар приобретен на продажу' }
     manager_name { 'Store Name' }
-    description { "Команда #{manager_name} занимается продажей игр PlayStation" }
+    description { 'Команда [manager_name] занимается продажей игр PlayStation' }
     condition { 'Новое' }
     allow_email { 'Нет' }
     contact_phone { '89781222211' }
@@ -16,6 +16,9 @@ FactoryBot.define do
     active { true }
     contact_method { 'В сообщениях' }
     type { 'Другое' }
+    desc_game { '[name]<br>Русский голос: [rus_voice]<br>Русское меню и текст: [rus_text]<br>Приставка: [platform]' }
+    desc_product { '<div><strong>[name]<br></strong><br></div><div><strong>[desc_product]</strong></div>' }
+    percent { 0 }
     user { build(:user) }
   end
 end

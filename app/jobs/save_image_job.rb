@@ -33,11 +33,11 @@ class SaveImageJob < ApplicationJob
     save_image(args[:ad], name, image)
   end
 
-  def save_image(ad, name, image)
+  def save_image(item, name, image)
     Tempfile.open(%w[image .jpg]) do |temp_img|
       image.write(temp_img.path)
       temp_img.flush
-      ad.image.attach(io: File.open(temp_img.path), filename: name, content_type: 'image/jpeg')
+      item.image.attach(io: File.open(temp_img.path), filename: name, content_type: 'image/jpeg')
     end
   end
 end

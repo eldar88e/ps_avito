@@ -55,12 +55,9 @@ class JobsController < ApplicationController
   end
 
   def set_settings
-    settings  = current_user.settings
-    @settings = settings.pluck(:var, :value).to_h.transform_keys(&:to_sym)
-    return unless (main_font_setting = settings.find_by(var: 'main_font'))
-    return unless (blob = main_font_setting.font&.blob)
-
-    raw_path = blob.key.scan(/.{2}/)[0..1].join('/')
-    @settings[:main_font] = "./storage/#{raw_path}/#{blob.key}"
+    settings              = current_user.settings
+    @settings             = settings.pluck(:var, :value).to_h.transform_keys(&:to_sym)
+    key                   = settings.find_by(var: 'main_font')&.font&.blob&.key
+    @settings[:main_font] = ActiveStorage::Blob.service.path_for(key) if key
   end
 end

@@ -11,9 +11,7 @@ module Clean
       attachments.each do |attach|
         next if attach.blob.service_name != 'local'
 
-        key      = attach.blob.key
-        raw_path = key.scan(/.{2}/)[0..1].join('/')
-        img_path = "./storage/#{raw_path}/#{key}"
+        img_path = ActiveStorage::Blob.service.path_for(attach.blob.key)
         attach.purge && count += 1 unless File.exist?(img_path)
       end
       notify(args, count) if count.positive?
