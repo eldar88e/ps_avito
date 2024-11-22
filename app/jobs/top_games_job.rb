@@ -11,7 +11,7 @@ class TopGamesJob < ApplicationJob
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
     send_notify(args[:user], count[1], count[0], games.size)
-    count
+    count[1]
   rescue StandardError => e
     handle_error(args[:user], e)
   end

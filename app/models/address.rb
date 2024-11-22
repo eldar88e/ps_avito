@@ -1,5 +1,7 @@
 class Address < ApplicationRecord
-  has_one_attached :image, dependent: :purge, service: :local
+  validates :city, presence: true
+
+  has_one_attached :image, dependent: :purge, service: (Rails.env.test? ? :test : :local)
   belongs_to :store
   has_many :streets, dependent: :destroy
   has_many :ads, dependent: :destroy
@@ -7,8 +9,6 @@ class Address < ApplicationRecord
   before_validation :check_slogan_params_blank
 
   scope :active, -> { where(active: true) }
-
-  validates :city, presence: true
 
   def store_address
     random_street = streets.sample

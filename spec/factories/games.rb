@@ -10,11 +10,19 @@ FactoryBot.define do
     platform { 'PS5' }
     run_id { 1 }
     touched_run_id { 1 }
-    md5_hash { '73782ae58bfc0a4aa2419dfdcd090df5' }
+    md5_hash do
+      Digest::MD5.hexdigest(
+        "#{sony_id}#{name}#{rus_voice}#{rus_screen}#{price_tl}#{platform}"
+      )
+    end
 
     after(:build) do |game|
       file_path = Rails.root.join('spec/fixtures/files/game1.jpg')
-      game.image.attach(io: File.open(file_path), filename: 'sample_image.jpg', content_type: 'image/jpeg')
+      game.image.attach(
+        io: File.open(file_path),
+        filename: 'sample_image.jpg',
+        content_type: 'image/jpeg'
+      )
     end
   end
 end

@@ -18,13 +18,13 @@ class WatermarkService
   def image_exist?
     return false if @main_img_url.blank?
 
-    @game.image.blob&.service_name == 'local' ? File.exist?(@main_img_url) : check_img?(@main_img_url)
+    @game.image.blob&.service_name&.match?(/local|test/) ? File.exist?(@main_img_url) : check_img?(@main_img_url)
   end
 
   def add_watermarks
     @layers.each do |layer|
       layer[:params] = prepare_layer_params(layer[:params])
-      layer[:layer_type].text? ? add_text(layer) : add_img(layer)
+      layer[:layer_type] == 'text' ? add_text(layer) : add_img(layer)
     end
 
     @new_image
@@ -34,9 +34,9 @@ class WatermarkService
 
   def handle_layers(address)
     layers_row = make_layers_row
-    @platforms, @layers = layers_row.partition { |i| i[:layer_type].platform? }
+    @platforms, @layers = layers_row.partition { |i| i[:layer_type] == 'platform' }
     @layers << { img: @main_img_url, menuindex: @store.menuindex,
-                 params: @store.game_img_params.presence || {}, layer_type: :img }
+                 params: @store.game_img_params.presence || {}, layer_type: 'img' }
     @layers.sort_by! { |layer| layer[:menuindex] }
 
     if @platforms.present?
@@ -153,7 +153,7 @@ class WatermarkService
 
       if layer.layer.attached?
         form_img_layer(layer)
-      elsif layer.layer_type.text? && layer.title.present?
+      elsif layer.layer_type == 'text' && layer.title.present?
         build_layer(layer)
       end
     end
@@ -162,7 +162,7 @@ class WatermarkService
   def excluded_layer?(layer)
     return layer.layer_type.match?(/flag|platform/) if @is_product
 
-    layer.layer_type.flag? && !@game.rus_screen && !@game.rus_voice
+    layer.layer_type == 'flag' && !@game.rus_screen && !@game.rus_voice
   end
 
   def build_layer(layer)
@@ -181,11 +181,11 @@ class WatermarkService
   def make_slogan(address)
     slogan = { title: address.slogan, params: address.slogan_params || {} }
     if address.image.attached?
-      blob         = address.image.blob
-      slogan[:img] = ActiveStorage::Blob.service.path_for blob.key
-      slogan[:layer_type].img! if blob[:content_type].include?('image')
+      blob                = address.image.blob
+      slogan[:img]        = ActiveStorage::Blob.service.path_for blob.key
+      slogan[:layer_type] = 'img' if blob[:content_type].include?('image')
     end
-    slogan[:layer_type].text! unless slogan[:layer_type]
+    slogan[:layer_type] = 'text' unless slogan[:layer_type]
     slogan
   end
 

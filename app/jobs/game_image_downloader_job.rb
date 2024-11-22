@@ -35,7 +35,6 @@ class GameImageDownloaderJob < ApplicationJob
     Tempfile.open(%w[image .jpg], binmode: true) do |temp_file|
       temp_file.write(img)
       temp_file.flush
-
       game.image.attach(io: File.open(temp_file.path), filename: name, content_type: 'image/jpeg')
     end
   end

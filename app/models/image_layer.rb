@@ -1,5 +1,5 @@
 class ImageLayer < ApplicationRecord
-  has_one_attached :layer, dependent: :purge, service: :local
+  has_one_attached :layer, dependent: :purge, service: (Rails.env.test? ? :test : :local)
   belongs_to :store
 
   validate :check_img_title, on: %i[update create]

@@ -33,6 +33,12 @@ end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
+  config.after(:suite) do
+    storage_root = ActiveStorage::Blob.service.root
+    keep_file    = File.join(storage_root, '.keep')
+    Dir.glob(File.join(storage_root, '**', '*')) { |file| FileUtils.rm_rf(file) if file != keep_file }
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')

@@ -9,5 +9,17 @@ FactoryBot.define do
     total_games { 500 }
     description { 'Игры оформляются дистанционно, это не диски! Цифровая версия!' }
     store { build(:store) }
+
+    trait :piter do
+      city { 'Санкт-Петербург' }
+      slogan { 'не диск' }
+      description { 'Игры на PSN аккаунт!' }
+    end
+
+    trait :kazan do
+      city { 'Казань' }
+      slogan { 'Цифровой товар' }
+      description { 'Оффициальные игры!' }
+    end
   end
 end
