@@ -14,8 +14,8 @@ module ApplicationHelper
     Time.zone.parse(date).strftime('%H:%M %d.%m.%Yг.') if date.present?
   end
 
-  def active_item(model, status = :active)
-    model.send(status) ? '' : ' list-group-item-danger'
+  def active_item(model)
+    model.active ? '' : ' list-group-item-danger'
   end
 
   def paginator(ends, starts = 0)

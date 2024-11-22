@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action game-item<%= active_item(game, :game_black_list) %>">
+<li class="list-group-item list-group-item-action game-item<%= game.game_black_list ? ' list-group-item-danger' : '' %>">
   <div class="swiper games_swiper" data-controller="swiper">
     <div class="swiper-wrapper">
       <%= render partial: '/games/image_block', locals: { game: game, model: game, title: :name } %>
@@ -26,7 +26,7 @@
         <%= game.deleted == 0 ? 'Активна' : 'Удален'  %>
       </span>
       <% if game.game_black_list %>
-        <span class="badge text-bg-warning">Добавлен в блэк лист</span>
+        <span class="badge text-bg-dark">Добавлена в блэк лист</span>
       <% end %>
         <%= link_to "https://store.playstation.com/en-tr/product/#{game.sony_id}", target: '_blank', style: 'width: 21px; height: 21px; overflow: hidden; margin-top: -3px;' do %>
           <svg aria-hidden="true" focusable="false" class="shared-nav-ps-logo" width="24px" height="24px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">

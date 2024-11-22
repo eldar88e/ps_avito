@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   def show
     add_breadcrumb 'Игры', games_path
     add_breadcrumb @game.name
+    @ads = @game.ads.includes(image_attachment: :blob)
   end
 
   def destroy
