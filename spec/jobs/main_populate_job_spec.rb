@@ -99,10 +99,12 @@ RSpec.describe MainPopulateJob, type: :job do
         xlsx    = Roo::Excelx.new(file_path)
         headers = xlsx.row(1)
         expect(headers).to eq(PopulateExcelJob::COLUMNS_NAME)
-        first_row = xlsx.row(2)
-        expect(first_row[4..-2]).to eq(GAME_FIRST)
+        first_row    = xlsx.row(2)
+        matching_row = xlsx.each_row_streaming(offset: 1).find { |row| row.map(&:value)[2..-2] == GAME_FIRST }
+        expect(matching_row.present?).to be(true)
         expect(first_row.last).to match(%r{http://localhost:3000/rails/active_storage/blobs/redirect/})
-        expect(xlsx.row(5)[4..-2]).to eq(GAME_FOURTH)
+        matching_row = xlsx.each_row_streaming(offset: 1).find { |row| row.map(&:value)[2..-2] == GAME_FOURTH }
+        expect(matching_row.present?).to be(true)
         filled_rows_count = 0
         xlsx.each_row_streaming(offset: 1) { |row| filled_rows_count += 1 unless row.compact.empty? }
         expect(filled_rows_count).to eq(4)

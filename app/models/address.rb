@@ -18,6 +18,6 @@ class Address < ApplicationRecord
   private
 
   def check_slogan_params_blank
-    slogan_params.present? || self.slogan_params = nil
+    slogan_params.present? || (self.slogan_params = nil)
   end
 end
