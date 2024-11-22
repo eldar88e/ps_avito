@@ -3,7 +3,9 @@ class WatermarksSheetsJob < ApplicationJob
 
   def perform(**args)
     user     = find_user(args)
-    stores   = [args[:store] || user.stores.includes(:addresses).active.where(addresses: { active: true })].flatten
+    stores   = [
+      args[:store] || user.stores.includes(:addresses).active.where(addresses: { active: true })
+    ].flatten.compact
     settings = fetch_settings(user)
     stores.each { |store| process_store(user, store, settings, args[:clean]) }
     nil

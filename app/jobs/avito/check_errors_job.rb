@@ -1,11 +1,12 @@
 module Avito
   class CheckErrorsJob < Avito::BaseApplicationJob
     queue_as :default
-    BAN_PERIOD = 3.weeks
-    PER_PAGE   = 100
+    BAN_PERIOD  = 3.weeks
+    PER_PAGE    = 100
+    NORM_TITLES = ['Не удалось опубликовать', 'Успешно опубликовано', 'Удалено из файла'].freeze
 
     def perform(**args)
-      stores = fetch_stores(args)
+      stores = [args[:store] || find_user(args[:user_id])&.stores&.active].flatten.compact
       return if stores.blank?
 
       current_user = stores.first.user
@@ -20,17 +21,16 @@ module Avito
 
     private
 
-    def fetch_stores(args)
-      return [args[:store]] if args[:store]
-
-      current_user(args[:user_id])&.stores&.active
-    end
-
     def process_store(store, avito, current_user)
       report = fetch_last_report(avito)
       return unless report
 
-      error_sections = report['section_stats']['sections'].select { |i| i['slug'] == 'error' }
+      error_sections = []
+      report['section_stats']['sections'].each do |item|
+        error_sections << item['slug'] if item['slug'] == 'error'
+        TelegramService.call(store.user, item['title']) if NORM_TITLES.exclude?(item['title'])
+        # TODO: Убрать если больше небудет других sections по мимо NORM_TITLES
+      end
       return unless error_sections
 
       error_blocked = process_error_ads(store, current_user, error_sections)
