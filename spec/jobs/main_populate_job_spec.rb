@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe MainPopulateJob, type: :job do
+  GAME_FIRST = [
+    'Игры, приставки и программы', 'Игры для приставок', 'Товар приобретен на продажу', 'Другое', 'PlayStation 5',
+    'Без локализации', 'Москва, ул. Спартаковская, 24', 'Game 1 PS5',
+    'Game 1<br>Русский голос: Нет<br>Русское меню и текст: Нет<br>Приставка: PS5<br>Команда Store Rspec занимается продажей игр PlayStation',
+    'Новое', 10_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'].freeze
+  GAME_FOURTH = [
+    'Игры, приставки и программы', 'Игры для приставок', 'Товар приобретен на продажу', 'Другое', 'PlayStation 4',
+    'Русский интерфейс', 'Санкт-Петербург, Невский пр., 23', 'Game 2 ps4 и ps5',
+    'Game 2<br>Русский голос: Нет<br>Русское меню и текст: Есть<br>Приставка: PS4<br>Команда Store Rspec занимается продажей игр PlayStation',
+    'Новое', 8_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'].freeze
   let!(:game) { create(:game) }
   let!(:game_deleted) { create(:game, name: 'Deleted Game', deleted: 1, sony_id: 356) }
   let(:user) { create(:user) }
@@ -22,8 +32,10 @@ RSpec.describe MainPopulateJob, type: :job do
 
   let(:games) do
     [
-      { sony_id: '123', name: 'Game 1', rus_voice: false, rus_screen: false, price_tl: 2500, top: 1, price: 1, platform: 'PS5' },
-      { sony_id: '456', name: 'Game 2', rus_voice: false, rus_screen: true, price_tl: 2000, top: 1, price: 1, platform: 'PS4' }
+      { sony_id: '123', name: 'Game 1', rus_voice: false, rus_screen: false, price_tl: 2500, top: 1, price: 1,
+        platform: 'PS5' },
+      { sony_id: '456', name: 'Game 2', rus_voice: false, rus_screen: true, price_tl: 2000, top: 1, price: 1,
+        platform: 'PS4' }
     ]
   end
 
@@ -79,6 +91,21 @@ RSpec.describe MainPopulateJob, type: :job do
         expect(ad.image.attached?).to be(true)
         expect(ActiveStorage::Attachment.where(record_type: 'Ad').size).to eq(4)
         expect(File.exist?(ActiveStorage::Blob.service.path_for(ad.image.blob.key))).to be(true)
+      end
+
+      it 'check excel feed file' do
+        file_path = Rails.root.join('game_lists/top_1000_rspec_test_store.xlsx')
+        expect(File.exist?(file_path)).to be(true)
+        xlsx    = Roo::Excelx.new(file_path)
+        headers = xlsx.row(1)
+        expect(headers).to eq(PopulateExcelJob::COLUMNS_NAME)
+        first_row = xlsx.row(2)
+        expect(first_row[4..-2]).to eq(GAME_FIRST)
+        expect(first_row.last).to match(%r{http://localhost:3000/rails/active_storage/blobs/redirect/})
+        expect(xlsx.row(5)[4..-2]).to eq(GAME_FOURTH)
+        filled_rows_count = 0
+        xlsx.each_row_streaming(offset: 1) { |row| filled_rows_count += 1 unless row.compact.empty? }
+        expect(filled_rows_count).to eq(4)
       end
     end
   end
