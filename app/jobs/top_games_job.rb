@@ -1,16 +1,16 @@
 class TopGamesJob < ApplicationJob
   queue_as :default
-  KEYS = %i[sony_id name rus_voice rus_screen price_tl platform].freeze
+  KEYS        = %i[sony_id name rus_voice rus_screen price_tl platform].freeze
   PRICE_LIMIT = 3000
 
   def perform(**args)
     games  = fetch_games(args[:settings]['quantity_games'])
     run_id = Run.last_id
-    edited = [0]
-    count  = games.reduce(0) { |acc, game| process_game(game, run_id, edited) ? acc + 1 : acc }
+    count  = [0, 0]
+    games.each { |game| process_game(game, run_id, count) && count[1] += 1 }
     Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
     Run.finish
-    send_notify(args[:user], count, edited.size, games.size)
+    send_notify(args[:user], count[1], count[0], games.size)
     count
   rescue StandardError => e
     handle_error(args[:user], e)
@@ -26,9 +26,9 @@ class TopGamesJob < ApplicationJob
     0
   end
 
-  def send_notify(user, count, edited, size)
+  def send_notify(user, created, edited, size)
     msg = "✅ Обновлено ТОП #{size} игр."
-    msg += "\n#{I18n.t('jobs.top_games.add', count:)}" if count.positive?
+    msg += "\n#{I18n.t('jobs.top_games.add', count: created)}" if created.positive?
     msg += "\n#{I18n.t('jobs.top_games.price', count: edited)}" if edited.positive?
     broadcast_notify(msg)
     TelegramService.call(user, msg)
@@ -39,7 +39,7 @@ class TopGamesJob < ApplicationJob
     row[:md5_hash]       = md5_hash(filtered_row)
     row[:touched_run_id] = run_id
     row[:deleted]        = 0
-    result = update_game(row, edited)
+    result               = update_game(row, edited)
     return if result
 
     row[:run_id] = run_id
