@@ -37,6 +37,10 @@ RSpec.configure do |config|
     storage_root = ActiveStorage::Blob.service.root
     keep_file    = File.join(storage_root, '.keep')
     Dir.glob(File.join(storage_root, '**', '*')) { |file| FileUtils.rm_rf(file) if file != keep_file }
+
+    Dir.glob(File.join(storage_root, '**', '*')).each do |file|
+      # File.rename(file, "#{file}.jpg") if File.file?(file) && File.extname(file) != '.jpg' && file != keep_file
+    end
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

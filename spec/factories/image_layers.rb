@@ -5,7 +5,7 @@ FactoryBot.define do
     title { 'Wallpaper' }
     active { true }
     menuindex { 0 }
-    layer_params { '{ row: 300, pos_x: 900, pos_y: 120, column: 100 }' }
+    layer_params { '' }
     layer_type { :img }
     store { build(:store) }
 
