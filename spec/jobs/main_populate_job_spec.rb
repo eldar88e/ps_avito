@@ -11,6 +11,7 @@ RSpec.describe MainPopulateJob, type: :job do
     'Русский интерфейс', 'Санкт-Петербург, Невский пр., 23', 'Game 2 ps4 и ps5',
     'Game 2<br>Русский голос: Нет<br>Русское меню и текст: Есть<br>Приставка: PS4<br>Команда Store Rspec занимается продажей игр PlayStation',
     'Новое', 8_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'].freeze
+
   let!(:game) { create(:game) }
   let!(:game_deleted) { create(:game, name: 'Deleted Game', deleted: 1, sony_id: 356) }
   let(:user) { create(:user) }
@@ -44,8 +45,7 @@ RSpec.describe MainPopulateJob, type: :job do
       before do
         allow_any_instance_of(TopGamesJob).to receive(:fetch_games).and_return(games)
         allow_any_instance_of(GameImageDownloaderJob).to receive(:fetch_img) do
-          file_path = Rails.root.join('spec/fixtures/files/game2.jpg')
-          File.read(file_path)
+          Rails.root.join('spec/fixtures/files/game2.jpg').read
         end
         described_class.perform_now(user:)
       end
