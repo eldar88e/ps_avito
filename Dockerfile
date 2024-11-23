@@ -3,7 +3,6 @@ FROM ruby:3.2.2-alpine AS chat
 RUN apk --update add \
     build-base \
     tzdata \
-    yarn \
     libc6-compat \
     postgresql-dev \
     postgresql-client \
@@ -27,6 +26,7 @@ RUN bundle config set without 'development test'
 RUN bundle check || bundle install
 RUN bundle clean --force
 
+RUN apk --update add yarn
 COPY package.json yarn.lock /app/
 RUN yarn install --check-files
 
