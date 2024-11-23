@@ -25,9 +25,9 @@ module Avito
       report = fetch_last_report(avito)
       return unless report
 
-      error_sections = []
+      error_sections = nil
       report['section_stats']['sections'].each do |item|
-        error_sections << item['slug'] if item['slug'] == 'error'
+        error_sections = item if item['slug'] == 'error'
         TelegramService.call(store.user, item['title']) if NORM_TITLES.exclude?(item['title'])
         # TODO: Убрать если больше небудет других sections по мимо NORM_TITLES
       end

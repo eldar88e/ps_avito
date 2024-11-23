@@ -16,7 +16,9 @@ FactoryBot.define do
     active { true }
     contact_method { 'В сообщениях' }
     type { 'Другое' }
-    desc_game { '[name]<br>Русский голос: [rus_voice]<br>Русское меню и текст: [rus_text]<br>Приставка: [platform]<br>' }
+    desc_game do
+      '[name]<br>Русский голос: [rus_voice]<br>Русское меню и текст: [rus_text]<br>Приставка: [platform]<br>'
+    end
     desc_product { '<div><strong>[name]<br></strong><br></div><div><strong>[desc_product]</strong></div>' }
     percent { 0 }
     user { build(:user) }
