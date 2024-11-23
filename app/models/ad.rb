@@ -16,7 +16,7 @@ class Ad < ApplicationRecord
   scope :for_game,    -> { where(adable_type: 'Game') }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[file_id]
+    %w[id avito_id file_id deleted banned banned_until]
   end
 
   def self.ransackable_associations(_auth_object = nil)

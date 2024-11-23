@@ -8,7 +8,7 @@ class JobsController < ApplicationController
     ExampleImageService.call(address)
     render turbo_stream: [
       turbo_stream.update(:test_img, partial: '/stores/test_img'),
-      success_notice('Images updated!')
+      success_notice('Тестовая картинка успешна обновлена!')
     ]
   end
 

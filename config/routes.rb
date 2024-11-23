@@ -32,5 +32,6 @@ Rails.application.routes.draw do
     resources :streets, only: %i[index create update destroy]
     resources :maps, only: [:show]
     resources :addresses, only: %i[new create show update destroy]
+    resources :ads, only: %i[edit update]
   end
 end
