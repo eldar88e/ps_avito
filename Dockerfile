@@ -26,7 +26,7 @@ RUN bundle config set without 'development test'
 RUN bundle check || bundle install
 RUN bundle clean --force
 
-RUN apk --update add yarn
+RUN apk --update add yarn=1.22.22
 COPY package.json yarn.lock /app/
 RUN yarn install --check-files
 
