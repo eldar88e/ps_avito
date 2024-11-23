@@ -1,4 +1,4 @@
-FROM ruby:2.2.2-alpine AS chat
+FROM ruby:3.2.2-alpine AS chat
 
 RUN apk --update add \
     build-base \
