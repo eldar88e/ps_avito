@@ -48,6 +48,7 @@ module Avito
       url     = "https://api.avito.ru/core/v1/items/#{item_id}/update_price"
       price   = GamePriceService.call(ad.adable.price_tl, store)
       result  = fetch_and_parse(avito, url, :post, { price: })
+      sleep rand(0.3..0.5)
       result&.dig('result', 'success').present?
     end
 

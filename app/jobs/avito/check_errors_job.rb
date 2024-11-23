@@ -6,7 +6,7 @@ module Avito
     NORM_TITLES = ['Не удалось опубликовать', 'Успешно опубликовано', 'Удалено из файла'].freeze
 
     def perform(**args)
-      stores = [args[:store] || find_user(args[:user_id])&.stores&.active].flatten.compact
+      stores = [args[:store] || find_user(args)&.stores&.active].flatten.compact
       return if stores.blank?
 
       current_user = stores.first.user
@@ -25,12 +25,14 @@ module Avito
       report = fetch_last_report(avito)
       return unless report
 
-      error_sections = nil
+      error_sections = []
       report['section_stats']['sections'].each do |item|
-        error_sections = item if item['slug'] == 'error'
+        error_sections << item if item['slug'] == 'error'
         TelegramService.call(store.user, item['title']) if NORM_TITLES.exclude?(item['title'])
-        # TODO: Убрать если больше небудет других sections по мимо NORM_TITLES
+        # TODO: Убрать если больше не будет других sections по мимо NORM_TITLES
       end
+      TelegramService.call(store.user, error_sections.pluck('slug').join("\n")) if error_sections.size > 2
+      # TODO: Убрать если больше одного error_sections не будет
       return unless error_sections
 
       error_blocked = process_error_ads(store, current_user, error_sections)
