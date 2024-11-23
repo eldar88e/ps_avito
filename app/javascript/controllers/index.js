@@ -34,9 +34,6 @@ application.register('expand_text', ExpandTextController);
 import CollapseController from "./collapse_controller";
 application.register('collapse', CollapseController);
 
-import LayerController from "./layer_controller";
-application.register('layer', LayerController);
-
 import NoImageController from "./no_image_controller";
 application.register('no_image', NoImageController);
 
