@@ -4,7 +4,7 @@
 
 <div class="mb-3">
   <div class="list-messages" data-controller="fancybox auto-scroll-down" style="height: calc(100vh - 350px);">
-    <ul class="list-group">
+    <ul class="list-group" id="messages">
       <% @messages.each do |message| %>
         <%= render partial: 'message', locals: { message: message } %>
       <% end %>

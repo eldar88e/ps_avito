@@ -26,9 +26,10 @@ module Avito
       type    = message['type']
       return if content.nil?
 
-      if type == 'text'
+      if type.match?(/text|system/)
         result = content['text']
         result += "\n#{message.dig('quote', 'content', 'text')}" if message['quote']
+        result = "Неизвестный тип сообщения! #{type} #{message}" if type['system'] && content['text'].blank?
         result
       elsif type == 'image'
         img = content['image']['sizes']['640x480']

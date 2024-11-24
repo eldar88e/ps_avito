@@ -30,7 +30,7 @@ module AvitoConcerns
 
   def set_avito
     @avito = AvitoService.new(store: @store)
-    return unless @avito.token_status && @avito.token_status != 200
+    return if @avito.token_status.nil? || @avito.token_status == 200
 
     error_notice t('avito.error.set_avito')
   end

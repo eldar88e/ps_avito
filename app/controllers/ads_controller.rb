@@ -39,14 +39,14 @@ class AdsController < ApplicationController
 
   def close_modal
     turbo_stream.append 'mainModal', <<~JS
-        <script>
-          if (document.getElementById('mainModal')) {
-            document.getElementById('mainModal').classList.remove('show');
-            document.getElementById('mainModal').style.display = 'none';
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-            document.querySelector('.modal-backdrop').remove(); }
-        </script>
-      JS
+      <script>
+        if (document.getElementById('mainModal')) {
+          document.getElementById('mainModal').classList.remove('show');
+          document.getElementById('mainModal').style.display = 'none';
+          document.body.classList.remove('modal-open');
+          document.body.style.overflow = '';
+          document.querySelector('.modal-backdrop').remove(); }
+      </script>
+    JS
   end
 end

@@ -2,7 +2,7 @@ module Avito
   class ChatsController < ApplicationController
     include AvitoConcerns
     before_action :set_account, only: %i[index show create]
-    before_action :set_stores, :set_store_breadcrumbs, only: %i[index show]
+    before_action :set_stores, :set_store_breadcrumbs, only: %i[index show create]
     layout 'avito'
     LIMIT = 30
 
@@ -19,11 +19,11 @@ module Avito
 
     def show
       @chat_id = params[:id].presence
-      url_msg  = "https://api.avito.ru/messenger/v3/accounts/#{@account['id']}/chats/#{@chat_id}/messages/"
-      response = fetch_and_parse(url_msg)
+      response = fetch_and_parse(msg_url)
       return error_notice(response[:error]) if response[:error]
 
       @messages = response['messages']&.reverse || []
+      Rails.cache.write(@chat_id, @messages, expires_in: 1.hour)
       render turbo_stream: turbo_stream.replace(:chats, partial: 'avito/chats/messages')
 
       # TODO: post request for read chat
@@ -32,14 +32,33 @@ module Avito
     end
 
     def create
-      chat_id = params[:chat_id]
-      url     = "https://api.avito.ru/messenger/v1/accounts/#{@account['id']}/chats/#{chat_id}/messages"
-      msg     = params[:msg]
-      payload = { message: { text: msg }, type: 'text' }
+      @chat_id = params[:chat_id]
+      url      = msg_url(1)
+      payload  = { message: { text: params[:msg] }, type: 'text' }
       fetch_and_parse(url, :post, payload)
+      message = formit_msg
+      @messages = Rails.cache.read(@chat_id, @messages)
+      render turbo_stream: [
+        turbo_stream.append(:messages, partial: '/avito/chats/message', locals: { message: })
+        # TODO: Сделать scroll down и очищение input после отправки сообщения
+      ]
     end
 
     private
+
+    def msg_url(version = 3)
+      "https://api.avito.ru/messenger/v#{version}/accounts/#{@account['id']}/chats/#{@chat_id}/messages"
+    end
+
+    def formit_msg
+      {
+        'author_id' => @account['id'],
+        'created' => Time.current.to_i,
+        'content' => { 'text' => params[:msg] },
+        'isRead' => false,
+        'type' => 'text'
+      }
+    end
 
     def set_cache_end_page
       cache_key    = "chat_#{@store.id}_end_page"

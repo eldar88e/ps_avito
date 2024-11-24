@@ -47,7 +47,7 @@ class AvitoService
 
   def fetch_token
     cache_key = "store_#{@store.id}_avito_token"
-    Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+    Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
       last_token = @store.avito_tokens.latest_valid.first
       last_token&.access_token || refresh_token
     end
