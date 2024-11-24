@@ -57,7 +57,7 @@ class JobsController < ApplicationController
   def set_settings
     settings              = current_user.settings
     @settings             = settings.pluck(:var, :value).to_h.transform_keys(&:to_sym)
-    key                   = settings.find_by(var: 'main_font')&.font&.blob&.key
-    @settings[:main_font] = ActiveStorage::Blob.service.path_for(key) if key
+    blob                  = settings.find_by(var: 'main_font')&.font&.blob
+    @settings[:main_font] = blob.service.path_for(blob.key) if blob
   end
 end

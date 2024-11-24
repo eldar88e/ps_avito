@@ -12,6 +12,10 @@ class NotifyChannel < ActionCable::Channel::Base
     end
   end
 
+  def unsubscribed
+    reject
+  end
+
   def subscription_allowed?
     user = User.find_by(id: params[:user_id])
     user&.id == current_user.id

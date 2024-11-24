@@ -144,7 +144,7 @@ class WatermarkService
   end
 
   def local_link
-    ActiveStorage::Blob.service.path_for(@game.image.blob.key)
+    @game.image.blob.service.path_for(@game.image.blob.key)
   end
 
   def make_layers_row
@@ -173,7 +173,8 @@ class WatermarkService
   end
 
   def form_img_layer(row_layer)
-    path  = ActiveStorage::Blob.service.path_for row_layer.layer.blob.key
+    blob  = row_layer.layer.blob
+    path  = blob.service.path_for
     layer = build_layer(row_layer)
     layer.merge(img: path)
   end
@@ -182,7 +183,7 @@ class WatermarkService
     slogan = { title: address.slogan, params: address.slogan_params || {} }
     if address.image.attached?
       blob                = address.image.blob
-      slogan[:img]        = ActiveStorage::Blob.service.path_for blob.key
+      slogan[:img]        = blob.service.path_for(blob.key)
       slogan[:layer_type] = 'img' if blob[:content_type].include?('image')
     end
     slogan[:layer_type] = 'text' unless slogan[:layer_type]

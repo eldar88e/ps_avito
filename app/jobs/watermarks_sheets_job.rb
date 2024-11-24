@@ -14,10 +14,10 @@ class WatermarksSheetsJob < ApplicationJob
   private
 
   def fetch_settings(user)
-    set_row  = user.settings
-    settings = set_row.pluck(:var, :value).to_h.transform_keys(&:to_sym)
-    blob     = set_row.find_by(var: 'main_font')&.font&.blob
-    settings[:main_font] = ActiveStorage::Blob.service.path_for(blob.key) if blob
+    set_row              = user.settings
+    settings             = set_row.pluck(:var, :value).to_h.transform_keys(&:to_sym)
+    blob                 = set_row.find_by(var: 'main_font')&.font&.blob
+    settings[:main_font] = blob.service.path_for(blob.key) if blob
     settings
   end
 
