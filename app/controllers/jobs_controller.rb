@@ -13,7 +13,7 @@ class JobsController < ApplicationController
   end
 
   def update_img
-    store  = current_user.stores.active.find(store_id)
+    store  = params[:product] ? nil : current_user.stores.active.find(store_id)
     clean  = params[:clean].present?
     models = []
     models << Game if params[:game]

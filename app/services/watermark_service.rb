@@ -174,7 +174,7 @@ class WatermarkService
 
   def form_img_layer(row_layer)
     blob  = row_layer.layer.blob
-    path  = blob.service.path_for
+    path  = blob.service.path_for(blob.key)
     layer = build_layer(row_layer)
     layer.merge(img: path)
   end
