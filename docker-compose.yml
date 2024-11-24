@@ -34,7 +34,7 @@ services:
       s3:
         ipv4_address: 172.20.0.3
     extra_hosts:
-      - "s3.open-ps.ru:172.20.0.2"
+      - "${S3_DOMAIN}:${S3_IP}"
     restart: unless-stopped
 
   good_job:
