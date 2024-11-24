@@ -43,6 +43,7 @@ services:
     entrypoint: []
     command: bundle exec good_job start
     networks:
+      web-net:
       s3:
         ipv4_address: 172.20.0.4
 
