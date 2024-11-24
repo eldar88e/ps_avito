@@ -7,11 +7,13 @@ class AdsController < ApplicationController
   end
 
   def update
-    return unless @ad.update(ad_params)
+    ad = ad_params
+    ad[:deleted] = ad[:deleted] == '1' ? :deleted : :active
+    return unless @ad.update(ad)
 
     render turbo_stream: [
-      success_notice('Обявление было успешно обнавлено.'),
-      turbo_stream.replace(@ad, partial: '/ads/ads', locals: { ad: @ad }),
+      success_notice('Объявление было успешно обновлено.'),
+      turbo_stream.replace(@ad),
       turbo_stream.append('mainModal', '<script>closeModal();</script>'.html_safe)
     ]
   end
@@ -34,6 +36,6 @@ class AdsController < ApplicationController
   end
 
   def ad_params
-    params.require(:ad).permit(:avito_id, :full_address, :file_id, :banned_until, :banned)
+    params.require(:ad).permit(:avito_id, :full_address, :file_id, :banned_until, :banned, :deleted)
   end
 end
