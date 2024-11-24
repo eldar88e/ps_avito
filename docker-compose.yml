@@ -34,7 +34,7 @@ services:
       s3:
         ipv4_address: 172.20.0.3
     extra_hosts:
-      - "${S3_DOMAIN}:${S3_IP}"
+      - "${MINIO_HOST}:${MINIO_IP}"
     restart: unless-stopped
 
   good_job:
