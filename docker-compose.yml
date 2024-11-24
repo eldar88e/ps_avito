@@ -30,8 +30,11 @@ services:
       - ./storage:/app/storage
       - ./game_lists:/app/game_lists
     networks:
-      - web-net
-      - s3
+      web-net:
+      s3:
+        ipv4_address: 172.20.0.3
+    extra_hosts:
+      - "s3.open-ps.ru:172.20.0.2"
     restart: unless-stopped
 
   good_job:
@@ -39,6 +42,9 @@ services:
     container_name: good_job-ps
     entrypoint: []
     command: bundle exec good_job start
+    networks:
+      s3:
+        ipv4_address: 172.20.0.4
 
   redis:
     image: redis:latest

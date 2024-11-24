@@ -3,7 +3,7 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "bootstrap/dist/js/bootstrap"
 
-//import "./others/main"
+import "./others/main"
 
 import "trix"
 import "@rails/actiontext"

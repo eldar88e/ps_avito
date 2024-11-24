@@ -12,7 +12,7 @@ class AdsController < ApplicationController
     render turbo_stream: [
       success_notice('Обявление было успешно обнавлено.'),
       turbo_stream.replace(@ad, partial: '/ads/ads', locals: { ad: @ad }),
-      close_modal
+      turbo_stream.append('mainModal', '<script>closeModal();</script>'.html_safe)
     ]
   end
 
@@ -35,18 +35,5 @@ class AdsController < ApplicationController
 
   def ad_params
     params.require(:ad).permit(:avito_id, :full_address, :file_id, :banned_until, :banned)
-  end
-
-  def close_modal
-    turbo_stream.append 'mainModal', <<~JS
-      <script>
-        if (document.getElementById('mainModal')) {
-          document.getElementById('mainModal').classList.remove('show');
-          document.getElementById('mainModal').style.display = 'none';
-          document.body.classList.remove('modal-open');
-          document.body.style.overflow = '';
-          document.querySelector('.modal-backdrop').remove(); }
-      </script>
-    JS
   end
 end

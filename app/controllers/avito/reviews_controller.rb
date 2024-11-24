@@ -24,7 +24,10 @@ module Avito
       response = fetch_and_parse(url, :post, payload)
       return error_notice(response[:error]) if response[:error]
 
-      render turbo_stream: [success_notice('Ответ был успешно отправлен.'), close_modal]
+      render turbo_stream: [
+        success_notice('Ответ был успешно отправлен.'),
+        turbo_stream.append('mainModal', '<script>closeModal();</script>'.html_safe)
+      ]
     end
 
     def destroy
@@ -34,21 +37,6 @@ module Avito
       url = "https://api.avito.ru/ratings/v1/answers/#{answer_id}"
       fetch_and_parse(url, :delete)
       render turbo_stream: success_notice('Ответ был успешно удален.')
-    end
-
-    private
-
-    def close_modal
-      turbo_stream.append 'mainModal', <<~JS
-        <script>
-          if (document.getElementById('mainModal')) {
-            document.getElementById('mainModal').classList.remove('show');
-            document.getElementById('mainModal').style.display = 'none';
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-            document.querySelector('.modal-backdrop').remove(); }
-        </script>
-      JS
     end
   end
 end
