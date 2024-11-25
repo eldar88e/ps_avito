@@ -73,12 +73,15 @@ class WatermarkService
   end
 
   def add_img(layer)
-    params = layer[:params]
-    img    = Image.read(layer[:img]).first
-    if (params['column'] && !params['column'].zero?) || (params['row'] && !params['row'].zero?)
-      img.resize_to_fit!(params['row'], params['column'])
-    end
-    @new_image.composite!(img, params['pos_x'] || 0, params['pos_y'] || 0, OverCompositeOp)
+    img = Image.read(layer[:img]).first
+    resize_image!(img, layer[:params])
+    @new_image.composite!(img, layer[:params]['pos_x'] || 0, layer[:params]['pos_y'] || 0, OverCompositeOp)
+  end
+
+  def resize_image!(img, params)
+    return if !params['column'].to_i.positive? && !params['row'].to_i.positive?
+
+    img.resize_to_fit!(params['row'], params['column'])
   end
 
   def add_text(layer)

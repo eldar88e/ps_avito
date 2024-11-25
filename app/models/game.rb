@@ -7,7 +7,7 @@ class Game < ApplicationRecord
   has_one :game_black_list, primary_key: 'sony_id'
 
   scope :active, -> { where(deleted: 0) }
-  scope :deleted_not_updated_last_two_months, -> { where(deleted: 1).where('updated_at < ?', 2.months.ago) }
+  scope :deleted_not_updated_last_two_months, -> { where(deleted: 1).where(updated_at: ...2.months.ago) }
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[name sony_id]
