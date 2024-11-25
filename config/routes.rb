@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   authenticate :user do
     mount GoodJob::Engine => '/good_job'
     mount ExceptionTrack::Engine => '/exception-track'
+    mount RailsPerformance::Engine => '/performance'
   end
 
   root 'feeds#index'
