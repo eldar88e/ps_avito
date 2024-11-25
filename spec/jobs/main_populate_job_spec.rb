@@ -1,18 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe MainPopulateJob, type: :job do
-  GAME_FIRST = [
-    'Игры, приставки и программы', 'Игры для приставок', 'Товар приобретен на продажу', 'Другое', 'PlayStation 5',
-    'Без локализации', 'Москва, ул. Спартаковская, 24', 'Game 1 PS5',
-    'Game 1<br>Русский голос: Нет<br>Русское меню и текст: Нет<br>Приставка: PS5<br>Команда Store Rspec занимается продажей игр PlayStation',
-    'Новое', 10_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'
-  ].freeze
-  GAME_FOURTH = [
-    'Игры, приставки и программы', 'Игры для приставок', 'Товар приобретен на продажу', 'Другое', 'PlayStation 4',
-    'Русский интерфейс', 'Санкт-Петербург, Невский пр., 23', 'Game 2 ps4 и ps5',
-    'Game 2<br>Русский голос: Нет<br>Русское меню и текст: Есть<br>Приставка: PS4<br>Команда Store Rspec занимается продажей игр PlayStation',
-    'Новое', 8_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'
-  ].freeze
+  let(:game_first) do
+    [
+      'Игры, приставки и программы', 'Игры для приставок', 'Товар приобретен на продажу', 'Другое', 'PlayStation 5',
+      'Без локализации', 'Москва, ул. Спартаковская, 24', 'Game 1 PS5',
+      'Game 1<br>Русский голос: Нет<br>Русское меню и текст: Нет<br>Приставка: PS5<br>Команда Store Rspec ' \
+      'занимается продажей игр PlayStation',
+      'Новое', 10_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'
+    ]
+  end
+
+  let(:game_fourth) do
+    [
+      'Игры, приставки и программы', 'Игры для приставок', 'Товар приобретен на продажу', 'Другое', 'PlayStation 4',
+      'Русский интерфейс', 'Санкт-Петербург, Невский пр., 23', 'Game 2 ps4 и ps5',
+      'Game 2<br>Русский голос: Нет<br>Русское меню и текст: Есть<br>Приставка: PS4<br>Команда Store Rspec ' \
+      'занимается продажей игр PlayStation',
+      'Новое', 8_000, 'Нет', 'Store Rspec', '89781222211', 'В сообщениях'
+    ]
+  end
 
   let!(:game) { create(:game) }
   let!(:game_deleted) { create(:game, name: 'Deleted Game', deleted: 1, sony_id: 356) }
@@ -102,10 +109,10 @@ RSpec.describe MainPopulateJob, type: :job do
         headers = xlsx.row(1)
         expect(headers).to eq(PopulateExcelJob::COLUMNS_NAME)
         first_row    = xlsx.row(2)
-        matching_row = xlsx.each_row_streaming(offset: 1).find { |row| row.map(&:value)[2..-2] == GAME_FIRST }
+        matching_row = xlsx.each_row_streaming(offset: 1).find { |row| row.map(&:value)[2..-2] == game_first }
         expect(matching_row.present?).to be(true)
         expect(first_row.last).to match(%r{http://localhost:3000/rails/active_storage/blobs/redirect/})
-        matching_row = xlsx.each_row_streaming(offset: 1).find { |row| row.map(&:value)[2..-2] == GAME_FOURTH }
+        matching_row = xlsx.each_row_streaming(offset: 1).find { |row| row.map(&:value)[2..-2] == game_fourth }
         expect(matching_row.present?).to be(true)
         filled_rows_count = 0
         xlsx.each_row_streaming(offset: 1) { |row| filled_rows_count += 1 unless row.compact.empty? }

@@ -7,7 +7,7 @@ class Ad < ApplicationRecord
   belongs_to :adable, polymorphic: true
   has_one_attached :image, dependent: :purge
 
-  enum deleted: { active: 0, deleted: 1 }
+  enum :deleted, { active: 0, deleted: 1 }
 
   scope :active,      -> { where(deleted: 0) }
   scope :not_baned,   -> { where(banned: false).or(where('banned_until < ?', Time.current)) }

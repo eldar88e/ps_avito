@@ -14,13 +14,7 @@ module Avito
     end
 
     def update
-      weekdays = params[:store][:weekdays].compact_blank.map(&:to_i)
-      times    = params[:store][:time_slots].compact_blank.map(&:to_i)
-      enabled  = params[:store][:autoload_enabled] == '1'
-      a_params = { agreement: true, autoload_enabled: enabled,
-                   schedule: [{ rate: params[:store][:rate].to_i, time_slots: times, weekdays: }] }
-      keys_to_include = %i[upload_url report_email]
-      a_params.merge! autoload_params.slice(*keys_to_include)
+      a_params = make_params
       Avito::AutoLoadJob.perform_later(store: @store, params: a_params)
       handle_turbo
       # result = @avito.connect_to('https://api.avito.ru/autoload/v1/profile', :post, a_params)
@@ -44,6 +38,19 @@ module Avito
     end
 
     private
+
+    def make_params
+      enabled  = params[:store][:autoload_enabled] == '1'
+      keys     = %i[upload_url report_email]
+      a_params = { agreement: true, autoload_enabled: enabled,
+                   schedule: [{ rate: params[:store][:rate].to_i, time_slots: filtered_params(:time_slots),
+                                weekdays: filtered_params(:weekdays) }] }
+      a_params.merge!(autoload_params.slice(*keys))
+    end
+
+    def filtered_params(item)
+      params[:store][item].compact_blank.map(&:to_i)
+    end
 
     def handle_turbo
       render turbo_stream: [

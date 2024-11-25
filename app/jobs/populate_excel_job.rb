@@ -9,7 +9,7 @@ class PopulateExcelJob < ApplicationJob
     user      = args[:store].user
     settings  = user.settings.pluck(:var, :value).to_h
     workbook  = FastExcel.open
-    worksheet = workbook.add_worksheet
+    worksheet = workbook.add_worksheet('list')
     worksheet.append_row(COLUMNS_NAME)
     products = user.products.active.with_attached_image
     store.addresses.where(active: true).find_each do |address|

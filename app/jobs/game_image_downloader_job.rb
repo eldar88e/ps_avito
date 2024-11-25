@@ -1,5 +1,11 @@
 class GameImageDownloaderJob < ApplicationJob
   queue_as :default
+  HEADERS = {
+    'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,' \
+                'application/signed-exchange;v=b3;q=0.7',
+    'Accept-Encoding' => 'gzip, deflate, br, zstd',
+    'Accept-Language' => 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
+  }.freeze
 
   def perform(**args)
     user  = find_user args
@@ -53,7 +59,7 @@ class GameImageDownloaderJob < ApplicationJob
   end
 
   def connect_to_ps(url, user)
-    proxy_url      = nil # if need use with proxy change nil to fetch_proxy
+    proxy_url      = nil # for use with proxy change nil to fetch_proxy
     try            = 0
     faraday_params = { proxy: proxy_url }
     begin
@@ -62,10 +68,9 @@ class GameImageDownloaderJob < ApplicationJob
         faraday.response :logger if Rails.env.development?
         faraday.adapter :net_http
         faraday.headers['User-Agent']      = UserAgentService.call
-        faraday.headers['Accept']          = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,' \
-                                             'image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
-        faraday.headers['Accept-Encoding'] = 'gzip, deflate, br, zstd'
-        faraday.headers['Accept-Language'] = 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7'
+        faraday.headers['Accept']          = HEADERS['Accept']
+        faraday.headers['Accept-Encoding'] = HEADERS['Accept-Encoding']
+        faraday.headers['Accept-Language'] = HEADERS['Accept-Language']
       end
 
       connection.get(url)
