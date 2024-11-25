@@ -595,3 +595,14 @@ footer {
     display: inline-block;
   }
 }
+
+.calendar-btn {
+  position: absolute;
+  top: 2px;
+  right: 14px;
+  cursor: pointer;
+  font-size: 22px;
+  transition: all 0.5ms;
+
+  &:hover { color: #0d6efd; }
+}

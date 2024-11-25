@@ -30,8 +30,9 @@
     <div class="mb-3">
       <%= form.label :banned_until, class: 'form-label' %>
       <div data-controller="datepicker">
-        <%= form.text_field :banned_until, class: 'form-control', date: { datepicker_target: 'input' } %>
-        <span data-datepicker-target="toggle">
+        <%= form.text_field :banned_until, placeholder: 'Выберите дату', data: { datepicker_target: 'input' },
+                            class: 'form-control', value: (@ad.banned_until || Time.current).strftime('%Y-%m-%d') %>
+        <span class="calendar-btn" data-datepicker-target="toggle">
           <i class="bi bi-calendar-date"></i>
         </span>
       </div>
