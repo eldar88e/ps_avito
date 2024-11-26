@@ -10,7 +10,7 @@ class TransferFilesToMinioJob < ApplicationJob
     user  = find_user(args)
     msg   = "✅ Exported to MinIO #{count} attachments"
     TelegramService.call(user, msg)
-    Clean::CleanUnattachedBlobsJob.perform_later(user: user)
+    Clean::CleanUnattachedBlobsJob.perform_later(user: user) if count.positive?
   end
 
   private
