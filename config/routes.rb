@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     mount GoodJob::Engine => '/good_job'
     mount ExceptionTrack::Engine => '/exception-track'
     mount RailsPerformance::Engine => '/performance'
+    mount PgHero::Engine => '/pghero'
   end
 
   root 'feeds#index'

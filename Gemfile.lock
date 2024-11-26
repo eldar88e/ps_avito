@@ -272,6 +272,8 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    pghero (3.6.1)
+      activerecord (>= 6.1)
     pkg-config (1.5.6)
     pry (0.15.0)
       coderay (~> 1.1)
@@ -476,6 +478,7 @@ DEPENDENCIES
   mysql2
   pagy
   pg (~> 1.5)
+  pghero
   pry-rails
   puma (~> 6.4)
   rack-mini-profiler

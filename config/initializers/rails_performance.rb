@@ -35,7 +35,7 @@ if defined?(RailsPerformance)
 
     # You can ignore request paths by specifying the beginning of the path.
     # For example, all routes starting with '/admin' can be ignored:
-    config.ignored_paths = %w[/performance /good_job /exception-track]
+    config.ignored_paths = %w[/performance /good_job /exception-track /pghero]
 
     # store custom data for the request
     # config.custom_data_proc = proc do |env|
