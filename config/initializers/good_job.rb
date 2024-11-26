@@ -65,7 +65,7 @@ production = {
   export_attachments: {
   cron: '0 2 29 2 *',
   class: 'TransferFilesToMinioJob',
-  kwargs: { user_id: ENV.fetch('USER_ID', 1).to_i, klass: Ad, column: :image, limit: 2000 },
+  kwargs: { user_id: ENV.fetch('USER_ID', 1).to_i, klass: 'Ad', column: :image, limit: 2000 },
   set: { priority: 10 },
   description: 'Export attachments to MinIO.'
   }

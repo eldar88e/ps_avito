@@ -4,8 +4,9 @@ class TransferFilesToMinioJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    items = fetch_items(args[:klass], args[:column], args[:limit])
-    count = transfer(items, args[:klass])
+    klass = args[:klass].capitalize.constantize
+    items = fetch_items(klass, args[:column], args[:limit])
+    count = transfer(items, klass)
     user  = find_user(args)
     msg   = "Exported to MinIO #{count} attachments"
     TelegramService.call(user, msg)
