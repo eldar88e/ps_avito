@@ -44,7 +44,7 @@ class PopulateExcelJob < ApplicationJob
     store        = address.store
     current_time = Time.current.strftime('%d.%m.%y')
     ad           = ads.find { |i| i[:file_id] == "#{game.sony_id}_#{store.id}_#{address.id}" }
-    img_url      = make_image(ad)
+    img_url      = make_image(ad&.image)
     return if img_url.blank?
 
     price = GamePriceService.call(game.price_tl, store)
@@ -57,9 +57,10 @@ class PopulateExcelJob < ApplicationJob
   end
 
   def process_product(product, address, ads, worksheet)
-    store = address.store
-    ad    = ads.find { |i| i[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
-    return if ad.nil?
+    store   = address.store
+    ad      = ads.find { |i| i[:file_id] == "#{product.id}_#{store.id}_#{address.id}" }
+    img_url = make_image(ad&.image)
+    return if img_url.blank?
 
     current_time = Time.current.strftime('%d.%m.%y')
     worksheet.append_row(
@@ -68,7 +69,7 @@ class PopulateExcelJob < ApplicationJob
        product.platform, product.localization, ad.full_address || address.store_address, product.title,
        make_description(product, store, address), product.condition || store.condition, product.price,
        product.allow_email || store.allow_email, store.manager_name, store.contact_phone,
-       product.contact_method || store.contact_method, make_image(ad)]
+       product.contact_method || store.contact_method, img_url]
     )
   end
 
@@ -93,16 +94,14 @@ class PopulateExcelJob < ApplicationJob
     GameTitleService.call(game.name, game.platform)
   end
 
-  def make_image(ad)
-    image = ad&.image
+  def make_image(image)
     return if image.nil? || image.blob.nil?
 
     params = Rails.env.production? ? { host: 'server.open-ps.ru' } : { host: 'localhost', port: 3000 }
     return rails_blob_url(image, params) if image.blob.service_name != 'amazon'
 
     bucket = Rails.application.credentials.dig(:aws, :bucket)
-    key    = image.blob.key
-    "https://#{bucket}.s3.amazonaws.com/#{key}"
+    "https://#{bucket}.s3.amazonaws.com/#{image.blob.key}"
   end
 
   def make_description(model, store, address)
