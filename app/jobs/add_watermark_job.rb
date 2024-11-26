@@ -5,7 +5,7 @@ class AddWatermarkJob < ApplicationJob
     user     = find_user(args)
     settings = args[:settings]
     model    = args[:model]
-    products = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym)).active
+    products = (model == Game ? model.order(:top) : user.send("#{model}s".downcase.to_sym)).active.includes(ads: { image_attachment: :blob })
     stores   = make_stores(args, user)
     id       = model == Game ? :sony_id : :id
 
@@ -14,7 +14,7 @@ class AddWatermarkJob < ApplicationJob
       addresses = store.addresses.active
       addresses = addresses.where(id: args[:address_id].to_i) if args[:address_id]
       addresses.each do |address|
-        products = products.limit(address&.total_games).includes(:ads) if model == Game
+        products = products.limit(address.total_games) if model == Game
         products.each do |product|
           next if product.is_a?(Game) && product.game_black_list
 
@@ -32,6 +32,7 @@ class AddWatermarkJob < ApplicationJob
       broadcast_notify(msg)
       TelegramService.call(user, msg) if addresses && args[:notify]
     end
+    Clean::CleanUnattachedBlobsJob.perform_later(user: user) if args[:clean]
   rescue StandardError => e
     Rails.logger.error("#{self.class} - #{e.message}")
     TelegramService.call(user, "Error #{self.class} || #{e.message}")

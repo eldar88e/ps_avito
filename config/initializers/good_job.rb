@@ -61,6 +61,13 @@ production = {
     set: { priority: 10 },
     kwargs: { user_id: ENV.fetch('USER_ID', 1).to_i },
     description: 'Check errors in the last report'
+  },
+  export_attachments: {
+  cron: '0 2 29 2 *',
+  class: 'TransferFilesToMinioJob',
+  kwargs: { user_id: ENV.fetch('USER_ID', 1).to_i },
+  set: { priority: 10 },
+  description: 'Export attachments to MinIO.'
   }
 }
 
