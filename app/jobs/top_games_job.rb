@@ -8,7 +8,7 @@ class TopGamesJob < ApplicationJob
     run_id = Run.last_id
     count  = [0, 0]
     games.each { |game| process_game(game, run_id, count) && count[1] += 1 }
-    Game.where.not(touched_run_id: run_id).update_all(deleted: 1)
+    Game.where.not(touched_run_id: run_id).update_all(deleted: 1, updated_at: Time.current)
     Run.finish
     send_notify(args[:user], count[1], count[0], games.size)
     count[1]

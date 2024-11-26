@@ -19,7 +19,7 @@ class AdsController < ApplicationController
   end
 
   def update_all
-    @store.ads.update_all(banned: false, banned_until: nil)
+    @store.ads.update_all(banned: false, banned_until: nil, updated_at: Time.current)
     set_search_ads
     @pagy, @ads = pagy(@q_ads.result, items: 36)
     render turbo_stream: [

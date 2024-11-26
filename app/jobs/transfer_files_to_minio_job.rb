@@ -1,16 +1,14 @@
 class TransferFilesToMinioJob < ApplicationJob
   queue_as :default
 
-  def perform
-    transfer(Game, :name)
-    transfer(Product, :title)
-    transfer(Ad, :file_id)
+  def perform(**args)
+    transfer(args[:klass], :name)
   end
 
   private
 
-  def transfer(klass, column)
-    klass.find_each do |item| # get default 1000 items
+  def transfer(klass, column, limit = nil)
+    klass.limit(limit).find_each do |item| # get default 1000 items
       next if !item.image.attached? || item.image.blob.service_name != 'local'
 
       local_file = item.image.download

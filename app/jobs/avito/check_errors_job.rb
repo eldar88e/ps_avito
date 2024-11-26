@@ -1,7 +1,7 @@
 module Avito
   class CheckErrorsJob < Avito::BaseApplicationJob
     queue_as :default
-    BAN_PERIOD  = 3.weeks
+    BAN_PERIOD  = 4.weeks
     PER_PAGE    = 100
     NORM_TITLES = ['Не удалось опубликовать', 'Успешно опубликовано', 'Удалено из файла'].freeze
 
