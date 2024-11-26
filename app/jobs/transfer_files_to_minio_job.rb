@@ -1,11 +1,11 @@
-# Run Example TransferFilesToMinioJob.perform_now(user: User.first, klass: Ad, column: :image, title: :id, limit: 2000)
+# Run Example TransferFilesToMinioJob.perform_now(user: User.first, klass: Ad, column: :image, limit: 2000)
 
 class TransferFilesToMinioJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
     items = fetch_items(args[:klass], args[:column], args[:limit])
-    count = transfer(items, args[:klass], args[:title])
+    count = transfer(items, args[:klass])
     user  = find_user(args)
     msg   = "Exported to MinIO #{count} attachments"
     TelegramService.call(user, msg)
@@ -20,7 +20,7 @@ class TransferFilesToMinioJob < ApplicationJob
          .limit(limit)
   end
 
-  def transfer(items, klass, title)
+  def transfer(items, klass)
     count = 0
     items.find_each do |item| # get default 1000 items
       next unless item.image.attached?
@@ -29,7 +29,7 @@ class TransferFilesToMinioJob < ApplicationJob
       save_attachment(item, local_file)
       count += 1
     rescue StandardError => e
-      Rails.logger.error "Failed to transfer file for #{klass}: #{item.id} #{item.send(title)}: #{e.message}"
+      Rails.logger.error "Failed to transfer file for #{klass}: #{item.id}: #{e.message}"
     end
     count
   end
