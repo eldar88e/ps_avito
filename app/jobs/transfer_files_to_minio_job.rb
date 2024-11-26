@@ -8,7 +8,7 @@ class TransferFilesToMinioJob < ApplicationJob
     items = fetch_items(klass, args[:column], args[:limit])
     count = transfer(items, klass)
     user  = find_user(args)
-    msg   = "Exported to MinIO #{count} attachments"
+    msg   = "✅ Exported to MinIO #{count} attachments"
     TelegramService.call(user, msg)
     Clean::CleanUnattachedBlobsJob.perform_later(user: user)
   end
