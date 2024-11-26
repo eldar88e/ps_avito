@@ -2,22 +2,36 @@ class TransferFilesToMinioJob < ApplicationJob
   queue_as :default
 
   def perform(**args)
-    transfer(args[:klass], :name)
+    items = fetch_items(args[:klass], args[:column], args[:limit])
+    transfer(items, args[:klass], args[:title])
   end
 
   private
 
-  def transfer(klass, column, limit = nil)
-    klass.limit(limit).find_each do |item| # get default 1000 items
-      next if !item.image.attached? || item.image.blob.service_name != 'local'
+  def fetch_items(klass, column, limit = nil)
+    klass.includes("#{column}_attachment" => :blob)
+         .where(active_storage_blobs: { service_name: 'local' })
+         .limit(limit)
+  end
+
+  def transfer(items, klass, title)
+    items.find_each do |item| # get default 1000 items
+      next unless item.image.attached?
 
       local_file = item.image.download
-      item.image.attach(io: StringIO.new(local_file), filename: item.image.filename.to_s,
-                        content_type: item.image.content_type)
-      Rails.logger.info "File for #{klass} #{item.send(column)} successfully transferred to MinIO."
+      save_attachment(item, local_file)
+      Rails.logger.info "File for #{klass}: #{item.send(title)} successfully transferred to MinIO."
     rescue StandardError => e
-      Rails.logger.error "Failed to transfer file for #{klass} #{item.send(column)}: #{e.message}"
+      Rails.logger.error "Failed to transfer file for #{klass}: #{item.id} #{item.send(title)}: #{e.message}"
     end
     nil
+  end
+
+  def save_attachment(item, local_file)
+    item.image.attach(
+      io: StringIO.new(local_file),
+      filename: item.image.filename.to_s,
+      content_type: item.image.content_type
+    )
   end
 end
