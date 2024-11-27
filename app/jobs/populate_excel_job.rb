@@ -50,7 +50,7 @@ class PopulateExcelJob < ApplicationJob
     price = GamePriceService.call(game.price_tl, store)
     worksheet.append_row(
       [ad.id, ad.avito_id, current_time, store.ad_status, store.category, store.goods_type, store.ad_type,
-       store.type, make_platform(game), make_local(game), ad.full_address || address.store_address,
+       store.type, make_title_platform(game.platform), make_local(game), ad.full_address || address.store_address,
        make_title(game), make_description(game, store, address), store.condition, price, store.allow_email,
        store.manager_name, store.contact_phone, store.contact_method, img_url]
     )
@@ -73,21 +73,14 @@ class PopulateExcelJob < ApplicationJob
     )
   end
 
-  def make_platform(game)
-    platform = game.platform
-    return 'PlayStation 5' if platform.include?('PS5')
-
-    'PlayStation 4'
+  def make_title_platform(platform)
+      platform.include?('PS5') ? 'PlayStation 5' : 'PlayStation 4'
   end
 
   def make_local(game)
-    if game.rus_voice
-      'Русская озвучка, субтитры и интерфейс'
-    elsif game.rus_screen
-      'Русский интерфейс'
-    else
-      'Без локализации'
-    end
+    return 'Русская озвучка, субтитры и интерфейс' if game.rus_voice
+
+    game.rus_screen ? 'Русский интерфейс' : 'Без локализации'
   end
 
   def make_title(game)
