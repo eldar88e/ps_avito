@@ -1,7 +1,7 @@
 class Address < ApplicationRecord
   validates :city, presence: true
 
-  has_one_attached :image, dependent: :purge, service: (Rails.env.test? ? :test : :local)
+  has_one_attached :image, dependent: :purge # , service: (Rails.env.test? ? :test : :local)
   belongs_to :store
   has_many :streets, dependent: :destroy
   has_many :ads, dependent: :destroy
